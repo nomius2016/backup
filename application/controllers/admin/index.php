@@ -23,6 +23,7 @@ class Index extends CI_Controller {
 	 */
 	public function index()
 	{	
+		echo 1111;exit;
 		$this->load->view('welcome_message');
 	}
 }
