@@ -1,3 +1,7 @@
 git remote set-url origin git@github.com:nomius2016/backup.git
 
 目前改项目只需要简单的PHP 环境即可,各种资料在d_file 中(包括初始化菜单的SQL 语句)
+
+2016-10-25 完成
+(1) 系统设定-->后台菜单配置-->菜单列表
+(2) 后台菜单初始化
