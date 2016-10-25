@@ -123,6 +123,11 @@
  * ------------------------------------------------------
  */
 	$EXT =& load_class('Hooks', 'core');
+	
+	if (!class_exists('CIAutoLoad'))
+	{
+		require(BASEPATH.'core/CIAutoLoad.php');
+	}
 
 /*
  * ------------------------------------------------------
