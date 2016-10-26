@@ -1,3 +1,19 @@
+CREATE TABLE `admin_menu` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `level` tinyint(2) unsigned NOT NULL COMMENT '菜单层级 0:顶级 1:一级 2:二级 3:三级',
+  `parent_id` int(11) unsigned NOT NULL COMMENT '父菜单id',
+  `title` varchar(30) NOT NULL COMMENT '菜单名',
+  `is_reload` tinyint(1) NOT NULL DEFAULT '0' COMMENT '点击tab页是否自动reload 0:不自动reload 1:重新reload',
+  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否有效 1:有效 2:无效',
+  `display_sort` tinyint(2) unsigned NOT NULL COMMENT '菜单显示排序',
+  `controller` varchar(20) NOT NULL DEFAULT '' COMMENT '控制器名',
+  `action` varchar(30) NOT NULL DEFAULT '' COMMENT '行为名',
+  PRIMARY KEY (`id`),
+  KEY `is_top` (`level`,`display_sort`) USING BTREE,
+  KEY `idx_ac` (`controller`,`action`) USING BTREE,
+  KEY `id` (`id`,`controller`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
+
 TRUNCATE admin_menu;
 ##一级菜单
 INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(1,0,'会员管理',1,'','');  
