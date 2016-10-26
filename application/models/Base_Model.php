@@ -515,7 +515,7 @@ class Base_Model extends CI_Model {
 	 * @param number $pageSize        	
 	 * @return multitype:number Ambigous <number, unknown, number>
 	 */
-	public function processPageInfo($count = 0, $page = 1, $pageSize = 25) {
+	public function processPageInfo($count = 0, $page = 1, $pageSize = 25){
 		$total = $count;
 		$page = $this->initPageInfo ( $page, 1 );
 		$pageSize = $this->initPageInfo ( $pageSize, 25 );
@@ -581,5 +581,146 @@ class Base_Model extends CI_Model {
 		$pageInfo ['smartyPages'] = range ( $startPage, $endPage );
 		return $pageInfo;
 	}
+
+	/**
+	 * [teamHplus 生成后台模板需要的JS 内容 以及 搜索或者导出内容]
+	 * @return [type] [description]
+	 */
+	public function teamHplus($param){
+
+		//参数 
+		$data_url = isset($param['url']) ?  $param['url'] : $_SERVER['REQUEST_URI'];  //数据请求的URL
+		$op_url = isset($param['url']) ?  $param['op_url'] : $_SERVER['REQUEST_URI'].'?getdata=true';    //操作(增/删/改) 的URL
+		$field = $param['field']; //需要展示的列 相关的信息  包含 1 是否隐藏 2是否可以修改 3列展示的名称 4列的宽度
+		$is_add = isset($param['add']) ?  $param['add'] : false;  //是否增加
+		$is_edit = isset($param['edit']) ?  $param['edit'] : false; ; //是否修改
+		$is_del = isset($param['del']) ?  $param['del'] : false; ;  //是否删除 
+		$is_export = isset($param['export']) ?  $param['export'] : false; ;  //是否导出
+		$search =   isset($param['search']) ?  $param['search'] : array(); //搜索相关的参数
+		
+		//生成HTML 
+		if($search){
+			$se = '<div role="form" class="form-inline">';
+			$se.=      '<div class="form-group">';
+			foreach ($search as  $value) {
+				$se.='<input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
+			}
+			$se.=      '</div>';
+			$se.='<button class="btn btn-sm btn-primary" type="submit" onclick="gridReload()"><strong>查 询</strong></button>';
+			if($is_export){
+				$se.='<button class="btn btn-sm btn-primary" type="submit" onclick="export()"><strong>导 出 </strong></button>';
+			}
+			$se.= '</div>';
+		}
+
+		$colNames = array();
+		$colModel = array();
+		foreach ($field as  $value) {
+			$colNames[] = $value['1'];
+			$tmp = array();
+			$tmp['name'] = $value['0'];
+			$tmp['index'] = $value['0'];
+			$tmp['editable'] = isset($value['2']) ? $value['2'] : true;
+			$tmp['width'] = isset($value['3']) ? $value['3'] : 60;
+			$tmp['hidden'] = isset($value['4']) ? $value['4'] : false;
+			$colModel[] = $tmp;
+		}
+		$colNames = json_encode($colNames);
+		$colModel = json_encode($colModel);
+
+		//生成JS
+		$js  = "<script>"."\n";
+		$js .= "$.jgrid.defaults.styleUI = 'Bootstrap';";
+		$js .="$('#grid_table').jqGrid({
+                url:'{$data_url}',
+                datatype: 'json',
+                height: 565,
+                autowidth: true,
+                shrinkToFit: true,
+                // rowNum: 100,
+                rowList: [10, 20, 30],
+                colNames: {$colNames},
+                colModel: {$colModel},
+                pager: '#grid_page',
+                viewrecords: true,
+                // caption: '组列表',  列表名
+                // multiselect:true,  //多选
+                add: true,
+                edit: true,
+                addtext: '添加',
+                edittext: '修改',
+                hidegrid: false,
+                editurl:'{$op_url}'
+            });"."\n";
+
+		$js .= " $('#grid_table').jqGrid('navGrid', '#grid_page', 
+                {   //常规参数
+                edit: true,
+                add: true,
+                del: true,
+                search:true
+            }, {  //修改(添加/删除)的时候的参数
+                height: 150,
+                reloadAfterSubmit: true,
+                top:300,
+                left:600,
+                afterSubmit:function(resposedata){
+                    var data = JSON.parse(resposedata.responseText);
+                    if(!data.status){
+                        alert(data.msg);
+                    }
+                    return [true,''];   //必须要返回
+                },
+                closeAfterEdit:true
+            },{
+                top:300,
+                left:600,
+                closeAfterAdd:true,
+                afterSubmit:function(resposedata){
+                    var data = JSON.parse(resposedata.responseText);
+                    if(!data.status){
+                        alert(data.msg);
+                    }
+                    return [true,''];
+                }
+            },{
+                top:300,
+                left:700,
+                afterSubmit:function(resposedata){
+                    var data = JSON.parse(resposedata.responseText);
+                    if(!data.status){
+                        alert(data.msg);
+                    }
+                    return [true,''];
+                }
+            }
+            );
+
+            // Add responsive to jqGrid
+            $(window).bind('resize', function () {
+                var width = $('.jqGrid_wrapper').width();
+                $('#table_list_2').setGridWidth(width);
+            });
+        });
+
+
+
+        function gridReload(){
+            var group_name = $('#group_name').val();
+            var url = '/admin/system/menu?getdata=true';
+                url+= '&group_name='+group_name;
+            jQuery('#grid_table').jqGrid('setGridParam',{url:url,page:1}).trigger('reloadGrid');
+        }"."\n";
+
+		$js .= "</script>";
+
+
+		return array(
+				'se'=>$se,
+				'script'=>$js
+			);
+
+	}
+
 	
 }

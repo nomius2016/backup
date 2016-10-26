@@ -668,4 +668,37 @@ EOF;
 		return $html;
 
 	}
+
+	/**
+	 * [teamHtml 生成前台模板需要的 js 以及 搜索用的HTML]
+	 * @return [type] [description]
+	 */
+	public function teamHtml(){
+
+		$field = array(
+                //字段名/显示名称/能否修改/是否显示/宽度
+			array('id','ID'),
+			array('title','菜单名称'),
+			array('level','等级'),
+			array('parent_id','父级ID'),
+			array('display_sort','排序'),
+			array('controller','控制器'),
+			array('action','行为器')
+		);
+
+		$search = array(
+			array('title','text','请输入菜单名称'),
+			array('controller','text','请输入控制器名称'),
+		);
+		$data = array();
+		$data['add'] = true;
+		$data['edit'] = true;
+		$data['del'] = true;
+		$data['export'] = true;
+		$data['field'] = $field;
+		$data['search'] = $search;
+		return $this->teamHplus($data);
+
+	}
+
 }

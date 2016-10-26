@@ -122,11 +122,11 @@
                 editurl:'/admin/system/menu_op'
             });
            
-            $("#table_list_2").jqGrid('editGridRow');
+            // $("#table_list_2").jqGrid('editGridRow');
             // Add selection
-            $("#table_list_2").setSelection(4, true);
+            // $("#table_list_2").setSelection(4, true);
             // Setup buttons
-            $("#table_list_2").jqGrid('navGrid', '#pager_list_2', 
+            $('#table_list_2').jqGrid('navGrid', '#pager_list_2', 
                 {   //常规参数
                 edit: true,
                 add: true,
@@ -142,7 +142,7 @@
                     if(!data.status){
                         alert(data.msg);
                     }
-                    return [true,""];   //必须要返回
+                    return [true,''];   //必须要返回
                 },
                 closeAfterEdit:true
             },{
@@ -154,7 +154,7 @@
                     if(!data.status){
                         alert(data.msg);
                     }
-                    return [true,""];
+                    return [true,''];
                 }
             },{
                 top:300,
@@ -164,7 +164,7 @@
                     if(!data.status){
                         alert(data.msg);
                     }
-                    return [true,""];
+                    return [true,''];
                 }
             }
             );
@@ -182,7 +182,7 @@
             var group_name = $('#group_name').val();
             var url = '/admin/system/menu?getdata=true';
                 url+= '&group_name='+group_name;
-            jQuery("#table_list_2").jqGrid('setGridParam',{url:url,page:1}).trigger("reloadGrid");
+            jQuery('#table_list_2').jqGrid('setGridParam',{url:url,page:1}).trigger('reloadGrid');
         }
 
     </script>

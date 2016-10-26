@@ -17,11 +17,15 @@ class System extends Basecontroller {
 	 */
 	public function menu(){
 		
+		$this->load->model('admin_menu');
 		if(!isset($_GET['getdata'])){
-			$this->adminview('system_menu');
+			$ret = $this->admin_menu->teamHtml();
+			// print_r($ret);exit;
+			// $this->adminview('system_menu',$ret);
+			$this->adminview('hplus_normal',$ret);
 			return;
 		}
-		$this->load->model('admin_menu');
+		$this->admin_menu->teamHtml();
 		$ret = $this->admin_menu->selectAll();
 		echo json_encode($ret);
 		exit;
