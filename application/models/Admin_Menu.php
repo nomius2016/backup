@@ -677,7 +677,7 @@ EOF;
 
 		$field = array(
                 //字段名/显示名称/能否修改/是否显示/宽度
-			array('id','ID'),
+			array('id','ID',false),
 			array('title','菜单名称'),
 			array('level','等级'),
 			array('parent_id','父级ID'),
@@ -689,16 +689,44 @@ EOF;
 		$search = array(
 			array('title','text','请输入菜单名称'),
 			array('controller','text','请输入控制器名称'),
+			array('action','text','请输入行为器'),
 		);
 		$data = array();
-		$data['add'] = true;
-		$data['edit'] = true;
-		$data['del'] = true;
 		$data['export'] = true;
 		$data['field'] = $field;
 		$data['search'] = $search;
+		$data['add'] = true;
+		$data['del'] = true;
+		$data['edit'] = true;
 		return $this->teamHplus($data);
 
+	}
+
+	/**
+	 * [getList 根据条件获取数据]
+	 * @param  [type] $params [description]
+	 * @return [type]         [description]
+	 */
+	function getList($params){
+		$where = array();
+		if($params['title']) $where['title'] = $params['title'];
+		if($params['controller']) $where['controller'] = $params['controller'];
+		if($params['action']) $where['action'] = $params['action'];
+
+		$page = $params['page'] ? $params['page'] : 1;
+		$pageSize =  $params['rows'] ? $params['rows'] : 20;
+		$start = ($page - 1) * $pageSize; 
+		
+		$limit = isset($params['export']) ? array() : array($start,$pageSize);
+
+		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		$count = $this->count($where);
+
+		return array(
+				'rows'=>$list,
+				'total'=>ceil($count/$pageSize),
+				'page'=>$page
+			);
 	}
 
 }

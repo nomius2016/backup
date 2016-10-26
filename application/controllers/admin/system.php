@@ -20,13 +20,28 @@ class System extends Basecontroller {
 		$this->load->model('admin_menu');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->admin_menu->teamHtml();
-			// print_r($ret);exit;
-			// $this->adminview('system_menu',$ret);
 			$this->adminview('hplus_normal',$ret);
 			return;
 		}
-		$this->admin_menu->teamHtml();
-		$ret = $this->admin_menu->selectAll();
+		
+		$params = $this->input->get();
+		$ret = $this->admin_menu->getList($params);
+		if($params['export']){
+			if($ret['rows']){
+				$this->load->library ( "phpexcel/bomaexcel");
+				$this->bomaexcel->output($ret['rows'],array('ID','菜单名称','等级','父级ID','排序','控制器','行为器'),'admin_menu',
+														array('id','title','level','parent_id','display_sort','controller','action'));
+				exit;
+			}else{
+				echo '<script>';
+				echo "alert('数据为空');";
+				echo "window.history.go(-1)";
+				echo '</script>';
+				exit;
+			}		
+		}
+
+
 		echo json_encode($ret);
 		exit;
 
