@@ -24,7 +24,7 @@ INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,
 INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(1,0,'系统设定',6,'','');
 ##会员概况
 INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(2,1,'会员概况',1,'user','info');
-INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(2,1,'用户列表',2,'user','list');
+INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(2,1,'用户列表',2,'user','lists');
 INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(2,1,'联系方式导出',3,'user','contact_export');
 INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(2,1,'投注记录查询',4,'user','betlog');
 INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(2,1,'转账状态查询',5,'user','transfer_check');
@@ -80,3 +80,32 @@ INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,
 INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(3,32,'沙巴投注限额设置',1,'system','sb_limit');
 INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(3,32,'AG盘口设置',2,'system','ag_setting');
 INSERT INTO admin_menu (`level`,`parent_id`,`title`,`display_sort`,`controller`,`action`) VALUE(3,32,'平台转账访问设置',3,'system','platform_config');
+
+##创建users表
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `account_name` varchar(30) NOT NULL DEFAULT '' COMMENT '用户名',
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '姓名',
+  `sex` tinyint(4) NOT NULL DEFAULT '3' COMMENT '性别 1男 2女 3保密',
+  `password` char(32) DEFAULT '' COMMENT '登录密码',
+  `fund_password` char(32) DEFAULT '' COMMENT '资金密码',
+  `withdrawal_day_max` decimal(12,0) NOT NULL DEFAULT '500000' COMMENT '当天累计最大提款金额',
+  `withdrawal_min` decimal(12,0) NOT NULL DEFAULT '50' COMMENT '单次提款最低金额',
+  `withdrawal_max` decimal(12,0) NOT NULL DEFAULT '200000' COMMENT '单次最大提款金额',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1 未激活 2激活 3 冻结',
+  `phone` char(11) DEFAULT '' COMMENT '手机号码',
+  `email` varchar(100) DEFAULT '' COMMENT '邮箱地址',
+  `agent_tree` varchar(50) DEFAULT '' COMMENT '上级代理号',
+  `regiester_time` timestamp NULL DEFAULT '0000-00-00 00:00:00' COMMENT '注册时间',
+  `updatetime` timestamp NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  `balance` decimal(12,0) NOT NULL DEFAULT '0' COMMENT '中心钱包余额',
+  `frozon_balance` decimal(12,0) NOT NULL DEFAULT '0' COMMENT '冻结金额',
+  `ag_balance` decimal(12,0) NOT NULL DEFAULT '0' COMMENT 'AG余额',
+  `sb_balance` decimal(12,0) NOT NULL DEFAULT '0' COMMENT 'SB余额',
+  `pt_balance` decimal(12,0) NOT NULL DEFAULT '0' COMMENT 'PT余额',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_accountname` (`account_name`) USING BTREE,
+  UNIQUE KEY `users_agenttree` (`agent_tree`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `users` VALUES ('1', 'zhangsan', '张三', '3', '', '', '500000', '50', '200000', '1', '13111111111', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '0', '0', '0', '0');

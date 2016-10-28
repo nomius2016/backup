@@ -83,7 +83,9 @@
                         name: 'level',
                         index: 'level',
                         editable: true,
-                        width: 60
+                        width: 60,
+                        edittype:"select",
+                        editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}
                     },
                     {
                         name: 'parent_id',
@@ -133,7 +135,7 @@
                 del: true,
                 search:true
             }, {  //修改(添加/删除)的时候的参数
-                height: 150,
+                height: 400,
                 reloadAfterSubmit: true,
                 top:300,
                 left:600,

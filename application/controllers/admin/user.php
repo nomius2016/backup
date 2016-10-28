@@ -1,31 +1,27 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class System extends Basecontroller {
+class User extends Basecontroller {
 
 	public function __construct(){
 		parent::__construct();
 	}
 
-	public function index()
-	{	
-		$this->load->view('welcome_message');
-	}
-
 	/**
-	 * [menu 后台菜单配置]
+	 * [list 用户列表]
 	 * @return [type] [description]
 	 */
-	public function menu(){
-		
-		$this->load->model('admin_menu');
+	public function lists(){
+		$this->load->model('users');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->admin_menu->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->users->teamHtml();
 			$this->adminview('hplus_normal',$ret);
 			return;
 		}
-		
+
 		$params = $this->input->get();
-		$ret = $this->admin_menu->getList($params);
+		$ret = $this->users->getList($params);
+		
+		//导出的时候用
 		if($params['export']){
 			if($ret['rows']){
 				$this->load->library ( "phpexcel/bomaexcel");
@@ -44,35 +40,38 @@ class System extends Basecontroller {
 		echo json_encode($ret);
 		exit;
 
+
 	}
+
 
 	/**
 	 * [menu_op 后台菜单配置操作权限]
 	 * @return [type] [description]
 	 */
-	public function menu_op(){
+	public function lists_op(){
 
 		$op = $_POST['oper'];
-		$this->load->model('admin_menu');
+		$this->load->model('users');
 		switch ($op) {
 			case 'add':  //添加一个组别
-				$data = array('level'=>$_POST['level'],'parent_id'=>$_POST['parent_id'],'title'=>$_POST['title'],
-					          'display_sort'=>$_POST['display_sort'],'controller'=>$_POST['controller'],'action'=>$_POST['action']);
-				$status = $this->admin_menu->insert($data);
-				break;
+				// $data = array('account_name'=>$_POST['account_name'],'name'=>$_POST['name'],'sex'=>$_POST['sex'],
+				// 	          'status'=>$_POST['status'],'phone'=>$_POST['phone'],'regiester_time'=>date('Y-m-d H:i:s'));
+				// $status = $this->users->insert($data);
+				// break;
 			case 'edit': //修改组别
-				$status = $this->admin_menu->update(array('id'=>$_POST['id']),
-												array(
-													'title'=>$_POST['title'],
-													'level'=>$_POST['level'],
-													'display_sort'=>$_POST['display_sort'],
-													'controller'=>$_POST['controller'],
-													'action'=>$_POST['action'],
-												)
-											);
+				$status = $this->users->update(array('id'=>$_POST['id']),
+										array(
+											'account_name'=>$_POST['account_name'],
+											'name'=>$_POST['name'],
+											'sex'=>$_POST['sex'],
+											'status'=>$_POST['status'],
+											'phone'=>$_POST['phone']
+											)
+
+										);
 				break;
 			case 'del':  //删除一个组
-				$status = $this->admin_menu->delete(array('id'=>$_POST['id']));
+				$status = $this->users->delete(array('id'=>$_POST['id']));
 				# code...
 				break;
 		}

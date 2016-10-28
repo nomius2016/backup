@@ -690,18 +690,41 @@ class Base_Model extends CI_Model {
 
 		$colNames = array();
 		$colModel = array();
+		// 包装插件的时候  editoptions 后面的值不能前后不能带引号  所以后期JSON 序列化之后进行替换
+		$editoption = array();
 		foreach ($field as  $value) {
 			$colNames[] = $value['1'];
 			$tmp = array();
 			$tmp['name'] = $value['0'];
 			$tmp['index'] = $value['0'];
 			$tmp['editable'] = isset($value['2']) ? $value['2'] : true;
-			$tmp['width'] = isset($value['3']) ? $value['3'] : 60;
-			$tmp['hidden'] = isset($value['4']) ? $value['4'] : false;
+			$tmp['width'] = isset($value['4']) ? $value['4'] : 60;
+			$tmp['hidden'] = isset($value['3']) ? $value['3'] : false;
+			if(in_array($value['5'],array('checkbox','select'))){
+				$tmp['edittype'] = $value['5'];
+				$con = '';
+				foreach ($value['6'] as  $k => $v) {
+					if($con){
+						$con .= ';'.$k.':'.$v;
+					}else{
+						$con .= $k.':'.$v;
+					}
+				}
+				$con = "{value:'$con'}";
+				$md5_key = md5(json_encode($value));
+				$tmp['editoptions'] = $md5_key;
+				// 保存下来 方便序列化之后替换使用
+				$editoption[$md5_key] = $con;
+			}
 			$colModel[] = $tmp;
 		}
+		
 		$colNames = json_encode($colNames);
 		$colModel = json_encode($colModel);
+		foreach ($editoption as $key => $value) {
+			$colModel = str_replace('"'.$key.'"', $value, $colModel);
+		}
+		// print_r($colModel);exit;
 
 		//生成JS
 		$js  = "<script>"."\n";
