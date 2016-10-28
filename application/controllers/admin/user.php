@@ -20,6 +20,8 @@ class User extends Basecontroller {
 
 		$params = $this->input->get();
 		$ret = $this->users->getList($params);
+		
+		//导出的时候用
 		if($params['export']){
 			if($ret['rows']){
 				$this->load->library ( "phpexcel/bomaexcel");

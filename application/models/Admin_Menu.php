@@ -671,7 +671,7 @@ EOF;
 	public function teamHtml(){
 
 		$field = array(
-                //字段名/显示名称/能否修改/是否隐藏/宽度
+                //字段名/显示名称/能否修改/是否隐藏/宽度/字段类型/参数
 			array('id','ID',false),
 			array('title','菜单名称'),
 			array('level','等级',true,false,60,'select',array('1'=>'等级1','2'=>'等级2','3'=>'等级3')),

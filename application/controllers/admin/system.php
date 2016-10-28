@@ -19,7 +19,7 @@ class System extends Basecontroller {
 		
 		$this->load->model('admin_menu');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->admin_menu->teamHtml();
+			$ret = $this->admin_menu->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
 			return;
 		}
