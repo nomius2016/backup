@@ -1,11 +1,6 @@
 <?php
 /**
  * 管理员导航
- * @version 1.0
- * @license 
- * @copyright boma8.com
- * @link 
- * @author david
  */
 class Admin_Menu extends Base_Model {
 	public function __construct() {
@@ -676,11 +671,11 @@ EOF;
 	public function teamHtml(){
 
 		$field = array(
-                //字段名/显示名称/能否修改/是否显示/宽度
+                //字段名/显示名称/能否修改/是否隐藏/宽度
 			array('id','ID',false),
 			array('title','菜单名称'),
-			array('level','等级'),
-			array('parent_id','父级ID'),
+			array('level','等级',true,false,60,'select',array('1'=>'等级1','2'=>'等级2','3'=>'等级3')),
+			array('parent_id','父级ID',false),
 			array('display_sort','排序'),
 			array('controller','控制器'),
 			array('action','行为器')
