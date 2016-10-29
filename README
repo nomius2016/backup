@@ -7,7 +7,7 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 (1) 系统设定-->后台菜单配置-->菜单列表
 (2) 后台菜单初始化
 
-test............
+test...............再测试
 =======
 备注 :　目前项目中配置的数据库端口是3308 请换成自己本地的端口?
 
