@@ -25,6 +25,9 @@ class Users extends Base_Model{
 			array('sex','性别',true,false,60,'select',array('1'=>'男','2'=>'女','3'=>'保密')),
 			array('status','状态',true,false,60,'select',array('1'=>'激活','2'=>'冻结')),
 			array('phone','手机号码'),
+			array('withdrawal_day_max','单日最大提款'),
+			array('withdrawal_min','最低提款'),
+			array('withdrawal_max','最高存款'),
 			array('regiester_time','注册时间',false)
 		);
 
