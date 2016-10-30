@@ -109,3 +109,4 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_agenttree` (`agent_tree`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `users` VALUES ('1', 'zhangsan', '张三', '3', '', '', '500000', '50', '200000', '1', '13111111111', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '0', '0', '0', '0');
+

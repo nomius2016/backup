@@ -72,4 +72,35 @@ class Users extends Base_Model{
 			);
 	}
 
+		/**
+	 * [teamHtml 生成前台模板需要的 js 以及 搜索用的HTML]
+	 * @return [type] [description]
+	 */
+	public function teamContactHtml(){
+
+		$field = array(
+                //字段名/显示名称/能否修改/是否显示/宽度/类型/值
+			array('id','ID',false),
+			array('account_name','用户名'),
+			array('name','姓名'),
+			array('phone','手机号码'),
+			array('regiester_time','注册时间'),
+		);
+
+		$search = array(
+			array('account_name','text','请输入用户名'),
+			array('name','text','请输入姓名')
+		);
+		$data = array();
+		$data['export'] = true;
+		$data['field'] = $field;
+		$data['search'] = $search;
+		// $data['add'] = true;
+		// $data['del'] = true;
+		// $data['edit'] = true;
+		return $this->teamHplus($data);
+
+	}
+
+
 }
