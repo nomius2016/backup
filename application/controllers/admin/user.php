@@ -200,5 +200,27 @@ class User extends Basecontroller {
 
 	}
 
+	/**
+	 * [info 会员概况]
+	 * @return [type] [description]
+	 */
+	public function info(){
+		exit("给力开发中......");
+	}
+	/**
+	 * [transfer_check 转账状态查询]
+	 * @return [type] [description]
+	 */
+	public function transfer_check(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [changelog 帐变详情]
+	 * @return [type] [description]
+	 */
+	public function changelog(){
+		exit("给力开发中......");
+	}
 }
 

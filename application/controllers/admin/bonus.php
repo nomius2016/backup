@@ -61,5 +61,13 @@ class Bonus extends Basecontroller {
 
 	}
 	
+	/**
+	 * [batch 批量添加红利]
+	 * @return [type] [description]
+	 */
+	public function batch(){
+		exit("给力开发中......");
+	}
+
 }
 

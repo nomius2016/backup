@@ -675,7 +675,7 @@ EOF;
 			array('id','ID',false),
 			array('title','菜单名称'),
 			array('level','等级',true,false,60,'select',array('1'=>'等级1','2'=>'等级2','3'=>'等级3')),
-			array('parent_id','父级ID',false),
+			array('parent_id','父级ID'),
 			array('display_sort','排序'),
 			array('controller','控制器'),
 			array('action','行为器')

@@ -254,5 +254,94 @@ class System extends Basecontroller {
 
 	}
 
+
+	/**
+	 * [admin_pass 修改密码]
+	 * @return [type] [description]
+	 */
+	public function admin_pass(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [admin_auth 权限管理]
+	 * @return [type] [description]
+	 */
+	public function admin_auth(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [menu_auth 菜单操作权限管理]
+	 * @return [type] [description]
+	 */
+	public function menu_auth(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [email 邮箱类型管理]
+	 * @return [type] [description]
+	 */
+	public function email(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [pay_merchant 商户设置]
+	 * @return [type] [description]
+	 */
+	public function pay_merchant(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [pay_config 支付设置]
+	 * @return [type] [description]
+	 */
+	public function pay_config(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [basic_config 系统常规设置]
+	 * @return [type] [description]
+	 */
+	public function basic_config(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [sb_limit 沙巴投限额设置]
+	 * @return [type] [description]
+	 */
+	public function sb_limit(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [ag_setting AG 设置]
+	 * @return [type] [description]
+	 */
+	public function ag_setting(){
+		exit("给力开发中......");
+	}
+
+	/**
+	 * [platform_config 平台设置]
+	 * @return [type] [description]
+	 */
+	public function platform_config(){
+		exit("给力开发中......");
+	}	
+
+	/**
+	 * [admin_log 后台操作日志]
+	 * @return [type] [description]
+	 */
+	public function admin_log(){
+		exit("给力开发中......");
+	}	
+
 }
 
