@@ -74,6 +74,12 @@ if (defined('ENVIRONMENT'))
  */
 	$application_folder = 'application';
 
+	if(strpos($_SERVER['REQUEST_URI'], '/admin')===0){
+		define('BACKSTAGE', TRUE);
+	}else{
+		define('BACKSTAGE', FALSE);
+	}
+
 /*
  * --------------------------------------------------------------------
  * DEFAULT CONTROLLER

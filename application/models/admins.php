@@ -69,5 +69,50 @@ class Admins extends Base_Model{
 			);
 	}
 
+	/**
+	 * [getLoginAdminInfo 获取登录的管理员信息]
+	 * @return [type] [description]
+	 */
+	public function getLoginInfo(){
+
+		return $this->session->all_userdata();
+	}
+
+	/**
+	 * [loginAdmin 管理员登录]
+	 * @return [type] [description]
+	 */
+	public function loginAdmin($params){
+		
+		$username = trim($params['username']);
+		$password = md5(trim($params['password']));
+		$row = $this->selectByWhere(array('username'=>$username,'password'=>$password));
+		if(!$row){
+			return array('status'=>false,'msg'=>'用户名或密码不正确!');
+		}
+		
+		//开始写COOKIE
+		$row = $row['0'];
+		//获取组名
+		$this->load->model('admin_group');
+		$group = $this->admin_group->selectById($row['group_id']);
+		$row['group_name'] = $group['group_name'];
+		$this->session->set_userdata($row);
+		return array(
+				'status'=>true,
+				'msg'=>'登录成功!'
+			);
+
+	}
+
+	public function isLogin(){
+		
+		$info = $this->session->all_userdata();
+		if($info['username']){
+			return true;
+		}
+		return false;
+
+	}
 
 }

@@ -685,6 +685,7 @@ EOF;
 			array('title','text','请输入菜单名称'),
 			array('controller','text','请输入控制器名称'),
 			array('action','text','请输入行为器'),
+			array('level','select',array('全部','等级1','等级2','等级3')),
 		);
 		$data = array();
 		$data['export'] = true;
@@ -707,6 +708,7 @@ EOF;
 		if($params['title']) $where['title'] = $params['title'];
 		if($params['controller']) $where['controller'] = $params['controller'];
 		if($params['action']) $where['action'] = $params['action'];
+		if($params['level']) $where['level'] = $params['level'];
 
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;

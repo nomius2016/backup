@@ -103,4 +103,34 @@ class Users extends Base_Model{
 	}
 
 
+	/**
+	 * [getLoginUserinfo 获取登录的用户信息]
+	 * @return [type] [description]
+	 */
+	public function getLoginInfo(){
+		return $this->session->all_userdata();
+	}
+
+	/**
+	 * [loginUser 前台用户登录]
+	 * @return [type] [description]
+	 */
+	public function loginUser($params){
+		$account_name = trim($params['account_name']);
+		$password = md5(trim($params['password']));
+		$row = $this->selectByWhere(array('account_name'=>$account_name,'password'=>$password));
+		if(!$row){
+			return array('status'=>false,'msg'=>'用户名或密码不正确!');
+		}
+		
+		//开始写COOKIE
+		$row = $row['0'];
+		$this->session->set_userdata($row);
+		return array(
+				'status'=>true,
+				'msg'=>'登录成功!'
+			);
+	}
+
+
 }

@@ -666,7 +666,24 @@ class Base_Model extends CI_Model {
 			$se.=      '<div class="form-group">';
 			foreach ($search as  $value) {
 				$middle_js.= "url+= '&{$value['0']}='+\$('#{$value['0']}').val();"."\n";
-				$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
+				switch ($value['1']) {
+					case 'text':
+						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
+						break;
+					case 'select':
+						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+						$se.='<select id="'.$value['0'].'" aria-controls="editable" class="form-control input-sm">';
+								foreach ($value['2'] as $select_k => $select_v){
+									$se.='<option value="'.$select_k.'">'.$select_v.'</option>';
+								}
+						$se.='</select>';
+						break;
+					default:
+						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
+						break;
+				}
+				
+				
 			}
 			$se.=      '</div>';
 			$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><button class="btn btn-sm btn-primary" type="submit" onclick="gridReload()"><strong>查 询</strong></button>';
