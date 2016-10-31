@@ -268,7 +268,10 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function admin_auth(){
-		exit("给力开发中......");
+		$this->load->model('admin_menu');
+		$menu_html = $this->admin_menu->getAuthPageHtml();
+		$this->adminview('admin_auth',array('menu_html'=>$menu_html));
+		return;
 	}
 
 	/**

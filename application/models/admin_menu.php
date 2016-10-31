@@ -664,6 +664,65 @@ EOF;
 
 	}
 
+	public function getAuthPageHtml(){
+		$html = '';
+		$treeMenu = $this->getSystemTreeMenus();
+		foreach ($treeMenu as  $tree_first_level) { //第一层
+			
+			if(isset($tree_first_level['subMenus']) && $tree_first_level['subMenus']){  //有二级目录的情况
+				$html.= $this->genTr($tree_first_level,TRUE);
+				
+				foreach ($tree_first_level['subMenus'] as $tree_second_level){ //第二层
+					
+					if(isset($tree_second_level['subMenus']) && $tree_second_level['subMenus']){//第三层
+						$html.= $this->genTr($tree_second_level,TRUE);
+						foreach ($tree_second_level['subMenus'] as $tree_third_level) {
+							$html.= $this->genTr($tree_third_level);
+						}
+					}else{ //只有二级菜单没有三级菜单的情况
+						$html.= $this->genTr($tree_second_level);
+					}
+				}
+				
+			}else{ //只有一级菜单的情况
+				$html.= $this->genTr($tree_first_level);
+			}
+		}
+		return $html;
+	}
+
+	private function genTr($data,$noradio = false){
+		$name_id = $data['id'].'_autl_op';
+		switch ($data['level']) {
+			case 1:
+				$ext = '';
+				break;
+			case 2:
+				$ext = '------------';
+				break;
+			case 3:
+				$ext = '------------  ------------';
+				break;
+		}
+
+		if($noradio){
+			$html=' <tr>
+	                    <td>'.$ext.$data['title'].'</td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                </tr>';
+		}else{
+			$html=' <tr>
+	                    <td>'.$ext.$data['title'].'</td>
+	                    <td><input type="radio" checked="" value="1" name="'.$name_id.'"></td>
+	                    <td><input type="radio" checked="" value="2" name="'.$name_id.'"></td>
+	                    <td><input type="radio" checked="" value="3" name="'.$name_id.'"></td>
+	                </tr>';
+        }
+        return $html;
+	}
+
 	/**
 	 * [teamHtml 生成前台模板需要的 js 以及 搜索用的HTML]
 	 * @return [type] [description]
