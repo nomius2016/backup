@@ -1,16 +1,22 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
-| -------------------------------------------------------------------------
-| Hooks
-| -------------------------------------------------------------------------
-| This file lets you define "hooks" to extend CI without hacking the core
-| files.  Please see the user guide for info:
-|
-|	http://codeigniter.com/user_guide/general/hooks.html
-|
-*/
+<?php
 
+if (! defined ( 'BASEPATH' ))
+	exit ( 'No direct script access allowed' );
 
-
-/* End of file hooks.php */
-/* Location: ./application/config/hooks.php */
+if (ENVIRONMENT === 'development' || ENVIRONMENT === 'production') {
+	//写日志文件
+	$hook ['post_controller_constructor'][] = array(
+		'class' => 'LocalFileLog',
+		'function' => 'write',
+		'filename' => 'localfilelog.php',
+		'filepath' => 'hooks'
+	); 
+	
+	$hook ['post_controller_constructor'][] = array (
+		'class' => 'Aop',
+		'function' => 'filter',
+		'filename' => 'aop.php',
+		'filepath' => 'hooks',
+		'params' => array () 
+);
+}
