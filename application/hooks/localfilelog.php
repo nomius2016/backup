@@ -7,7 +7,7 @@
 class LocalFileLog{
 	
 	public function write($params){
-		$filePath ="/data/extdata/phplog\backup\\";
+		$filePath ="/data/extdata/phplog/backup/";
 		$fileName = 'phplog';
 		$objSession = & load_class('Session', 'libraries');
 		$sessions = $objSession->all_userdata ();
