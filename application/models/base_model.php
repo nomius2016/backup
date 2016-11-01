@@ -659,7 +659,34 @@ class Base_Model extends CI_Model {
 			$del_js = ',{}';
 		}
 
+		$ext_js = "   //日期范围限制
+        var start = {
+            elem: '#start',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            min: laydate.now(), //设定最小日期为当前日期
+            max: '2099-06-16 23:59:59', //最大日期
+            istime: true,
+            istoday: false,
+            choose: function (datas) {
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#end',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            min: laydate.now(),
+            max: '2099-06-16 23:59:59',
+            istime: true,
+            istoday: false,
+            choose: function (datas) {
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        laydate(start);
+        laydate(end);
 
+        ";
 		$is_add = isset($param['add']) ?  'true' : 'false';  //是否增加
 		$is_edit = isset($param['edit']) ?  'true' : 'false';  //是否修改
 		$is_del = isset($param['del']) ?  'true' : 'false';   //是否删除 
@@ -685,6 +712,12 @@ class Base_Model extends CI_Model {
 									$se.='<option value="'.$select_k.'">'.$select_v.'</option>';
 								}
 						$se.='</select>';
+						break;
+					case 'datetime':
+						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+						$se.='<input placeholder="开始日期" class="form-control layer-date" id="start">';
+						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+						$se.='<input placeholder="结束日期" class="form-control layer-date" id="end">';
 						break;
 					default:
 						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
@@ -795,6 +828,7 @@ class Base_Model extends CI_Model {
 
 		{$search_js}
 		{$export_js}
+		{$ext_js}
         "."\n";
 
 		$js .= "</script>";

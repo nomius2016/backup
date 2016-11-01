@@ -42,6 +42,7 @@
     <!-- jqGrid -->
     <script src="/static/hplus/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820"></script>
     <script src="/static/hplus/js/plugins/jqgrid/jquery.jqGrid.min.js?0820"></script>
+    <script src="/static/hplus/js/plugins/layer/laydate/laydate.js"></script>
     <?php  echo $script;?>
 
 

@@ -32,7 +32,8 @@ class user_bet_log extends Base_Model{
 		$search = array(
 			array('account','text','请输入游戏帐号'),
 			array('user_id','text','请输入用户ID'),
-			array('platform','text','游戏平台')
+			array('platform','text','游戏平台'),
+			array('bettime','datetime','投注时间'),
 		);
 		$data = array();
 		$data['export'] = true;
