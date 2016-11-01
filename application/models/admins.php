@@ -23,6 +23,7 @@ class Admins extends Base_Model{
 			array('username','用户名'),
 			array('name','姓名'),
 			array('group_id','组别ID'),
+			array('password','密码'),
 			array('email','邮箱'),
 			array('status','状态',false),
 			array('create_admin_id','创建者ID',false),

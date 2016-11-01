@@ -36,7 +36,6 @@ class Index extends Basecontroller {
 	public function main(){
 		$this->load->model('admins');
 		$userinfo = $this->admins->getLoginInfo();
-		// print_r($userinfo);exit;
 		$this->load->model('admin_menu');
 		$menu_data = $this->admin_menu->genHplusMenu();	
 		$this->adminview('index_main',array('menu_data'=>$menu_data,'userinfo'=>$userinfo));
@@ -45,6 +44,11 @@ class Index extends Basecontroller {
 	public function loginout(){
 		$this->session->sess_destroy();
 		header("Location: /admin/index/index");
+	}
+
+	public function page_403(){
+		$this->adminview('403');
+		return;
 	}
 
 }

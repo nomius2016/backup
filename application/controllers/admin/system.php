@@ -116,7 +116,7 @@ class System extends Basecontroller {
 		$this->load->model('admins');
 		switch ($op) {
 			case 'add':  //添加一个组别
-				$data = array('name'=>$_POST['name'],'username'=>$_POST['username'],'group_id'=>$_POST['group_id'],
+				$data = array('name'=>$_POST['name'],'username'=>$_POST['username'],'group_id'=>$_POST['group_id'],'password'=>md5($_POST['password']),
 					          'email'=>$_POST['email'],'create_admin_id'=>1,'create_time'=>date('Y-m-d H:i:s'));
 				$status = $this->admins->insert($data);
 				break;
@@ -268,10 +268,35 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function admin_auth(){
+		//获取多有的菜单
 		$this->load->model('admin_menu');
 		$menu_html = $this->admin_menu->getAuthPageHtml();
-		$this->adminview('admin_auth',array('menu_html'=>$menu_html));
+		//获取所有的组
+		$this->load->model('admin_group');
+		$groups = $this->admin_group->selectAll();
+		$cur_group_id = $this->input->get('group_id') ? $this->input->get('group_id') : 1;
+
+		$this->adminview('admin_auth',array('menu_html'=>$menu_html,'groups'=>$groups,'cur_group_id'=>$cur_group_id));
 		return;
+	}
+
+		/**
+	 * [admin_auth 权限管理]
+	 * @return [type] [description]
+	 */
+	public function admin_auth_formop(){
+		
+		$group_id = $this->input->post('group');
+		$post_data = $this->input->post();
+		unset($post_data['group']);
+		$data = array();
+		foreach ($post_data as $key => $value) {
+			$k = str_replace('_auth_op', '', $key);
+			$data[$k] = $value;
+		}
+		$this->load->model('admin_menu_auth');
+		$ret = $this->admin_menu_auth->updateGroupAuth($group_id,$data);
+		header("Location: /admin/system/admin_auth?group_id={$group_id}");
 	}
 
 	/**
@@ -279,7 +304,53 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function menu_auth(){
-		exit("给力开发中......");
+
+		$this->load->model('admin_menu_actions');
+		if(!isset($_GET['getdata'])){
+			$ret = $this->admin_menu_actions->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$this->adminview('hplus_normal',$ret);
+			return;
+		}
+		
+		$params = $this->input->get();
+		$ret = $this->admin_menu_actions->getList($params);
+		echo json_encode($ret);
+		exit;
+	}
+
+	/**
+	 * [menu_auth_op 菜单授权管理 操作权限]
+	 * @return [type] [description]
+	 */
+	public function menu_auth_op(){
+		$op = $_POST['oper'];
+		$this->load->model('admin_menu_actions');
+		switch ($op) {
+			case 'add':  //添加一个组别
+				$data = array('admin_menu_id'=>$_POST['admin_menu_id'],'controller'=>$_POST['controller'],'action'=>$_POST['action'],'desc'=>$_POST['desc']);
+				$status = $this->admin_menu_actions->insert($data);
+				break;
+			case 'edit': //修改组别
+				$status = $this->admin_menu_actions->update(array('id'=>$_POST['id']),
+												array(
+													'admin_menu_id'=>$_POST['admin_menu_id'],
+													'controller'=>$_POST['controller'],
+													'action'=>$_POST['action'],
+													'desc'=>$_POST['desc'],
+												)
+											);
+				break;
+			case 'del':  //删除一个组
+				$status = $this->admin_menu_actions->delete(array('id'=>$_POST['id']));
+				# code...
+				break;
+		}
+
+		if($status){
+			exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
+		}else{
+			exit(json_encode(array('status'=>false,'msg'=>'操作失败')));
+		}	
 	}
 
 	/**

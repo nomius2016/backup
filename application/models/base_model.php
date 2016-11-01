@@ -508,6 +508,14 @@ class Base_Model extends CI_Model {
 	}
 	
 	/**
+	 * [insert_batch 批量插入]
+	 * @return [type] [description]
+	 */
+	public function insert_batch($data){
+		return $this->db->insert_batch($this->_tableName, $data); 
+	}
+
+	/**
 	 * 根据结果进行分页处理
 	 *
 	 * @param number $count        	

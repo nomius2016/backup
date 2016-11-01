@@ -16,7 +16,6 @@ if (ENVIRONMENT === 'development' || ENVIRONMENT === 'production') {
 		'class' => 'Aop',
 		'function' => 'filter',
 		'filename' => 'aop.php',
-		'filepath' => 'hooks',
-		'params' => array () 
+		'filepath' => 'hooks'
 );
 }
