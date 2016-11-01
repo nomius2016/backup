@@ -683,7 +683,7 @@ class Base_Model extends CI_Model {
 						break;
 					case 'select':
 						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
-						$se.='<select id="'.$value['0'].'" aria-controls="editable" class="form-control input-sm">';
+						$se.='<select id="'.$value['0'].'" aria-controls="editable" class="form-control">';
 								foreach ($value['2'] as $select_k => $select_v){
 									$se.='<option value="'.$select_k.'">'.$select_v.'</option>';
 								}

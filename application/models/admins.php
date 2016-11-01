@@ -61,6 +61,11 @@ class Admins extends Base_Model{
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
 		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		//重置密码
+		foreach ($list as $key => &$value) {
+			$value['password'] = 'xxxxxxxxxxxx';
+		}
+
 		$count = $this->count($where);
 
 		return array(

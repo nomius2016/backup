@@ -112,24 +112,27 @@ class System extends Basecontroller {
 	 */
 	public function admin_list_op(){
 
+
 		$op = $_POST['oper'];
 		$this->load->model('admins');
 		switch ($op) {
 			case 'add':  //添加一个组别
+				$userinfo = $this->admins->getLoginInfo();
 				$data = array('name'=>$_POST['name'],'username'=>$_POST['username'],'group_id'=>$_POST['group_id'],'password'=>md5($_POST['password']),
-					          'email'=>$_POST['email'],'create_admin_id'=>1,'create_time'=>date('Y-m-d H:i:s'));
+					          'email'=>$_POST['email'],'create_admin_id'=>$userinfo['id'],'create_time'=>date('Y-m-d H:i:s'));
 				$status = $this->admins->insert($data);
 				break;
 			case 'edit': //修改组别
-				$status = $this->admins->update(array('id'=>$_POST['id']),
-												array(
-													'title'=>$_POST['title'],
-													'level'=>$_POST['level'],
-													'display_sort'=>$_POST['display_sort'],
-													'controller'=>$_POST['controller'],
-													'action'=>$_POST['action'],
-												)
-											);
+				$update_date = array(
+										'name'=>$_POST['name'],
+										'username'=>$_POST['username'],
+										'group_id'=>$_POST['group_id'],
+										'email'=>$_POST['email'],
+									);
+				if($_POST['password'] != 'xxxxxxxxxxxx') $update_date['password'] = md5($_POST['password']);
+				$status = $this->admins->update(array('id'=>$_POST['id']),$update_date);
+												
+											
 				break;
 			case 'del':  //删除一个组
 				$status = $this->admins->delete(array('id'=>$_POST['id']));
@@ -255,13 +258,6 @@ class System extends Basecontroller {
 	}
 
 
-	/**
-	 * [admin_pass 修改密码]
-	 * @return [type] [description]
-	 */
-	public function admin_pass(){
-		exit("给力开发中......");
-	}
 
 	/**
 	 * [admin_auth 权限管理]
