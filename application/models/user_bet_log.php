@@ -33,7 +33,7 @@ class user_bet_log extends Base_Model{
 			array('account','text','请输入游戏帐号'),
 			array('user_id','text','请输入用户ID'),
 			array('platform','text','游戏平台'),
-			array('bettime','datetime','投注时间'),
+			array('bettime','datetime','投注'),
 		);
 		$data = array();
 		$data['export'] = true;
@@ -56,6 +56,8 @@ class user_bet_log extends Base_Model{
 		if($params['account']) $where['account'] = $params['account'];
 		if($params['user_id']) $where['user_id'] = $params['user_id'];
 		if($params['platform']) $where['platform'] = $params['platform'];
+		if($params['bettime_start']) $where['bettime >='] = $params['bettime_start'];
+		if($params['bettime_end']) $where['bettime <='] = $params['bettime_end'];
 
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;

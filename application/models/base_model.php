@@ -660,31 +660,7 @@ class Base_Model extends CI_Model {
 		}
 
 		$ext_js = "   //日期范围限制
-        var start = {
-            elem: '#start',
-            format: 'YYYY-MM-DD hh:mm:ss',
-            min: laydate.now(), //设定最小日期为当前日期
-            max: '2099-06-16 23:59:59', //最大日期
-            istime: true,
-            istoday: false,
-            choose: function (datas) {
-                end.min = datas; //开始日选好后，重置结束日的最小日期
-                end.start = datas //将结束日的初始值设定为开始日
-            }
-        };
-        var end = {
-            elem: '#end',
-            format: 'YYYY-MM-DD hh:mm:ss',
-            min: laydate.now(),
-            max: '2099-06-16 23:59:59',
-            istime: true,
-            istoday: false,
-            choose: function (datas) {
-                start.max = datas; //结束日选好后，重置开始日的最大日期
-            }
-        };
-        laydate(start);
-        laydate(end);
+        
 
         ";
 		$is_add = isset($param['add']) ?  'true' : 'false';  //是否增加
@@ -700,7 +676,7 @@ class Base_Model extends CI_Model {
 			$se = '<div role="form" class="form-inline">';
 			$se.=      '<div class="form-group">';
 			foreach ($search as  $value) {
-				$middle_js.= "url+= '&{$value['0']}='+\$('#{$value['0']}').val();"."\n";
+				if(!in_array($value['1'], array('datetime'))) $middle_js.= "url+= '&{$value['0']}='+\$('#{$value['0']}').val();"."\n";
 				switch ($value['1']) {
 					case 'text':
 						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
@@ -714,10 +690,22 @@ class Base_Model extends CI_Model {
 						$se.='</select>';
 						break;
 					case 'datetime':
+						$start_id = $value['0'].'_start';
+						$end_id   = $value['0'].'_end';
 						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
-						$se.='<input placeholder="开始日期" class="form-control layer-date" id="start">';
+						$se.='<input placeholder="'.$value['2'].'开始时间" class="form-control layer-date" id="'.$start_id.'">';
 						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
-						$se.='<input placeholder="结束日期" class="form-control layer-date" id="end">';
+						$se.='<input placeholder="'.$value['2'].'结束时间" class="form-control layer-date" id="'.$end_id.'">';
+						
+						$middle_js.= "url+= '&{$start_id}='+\$('#{$start_id}').val();"."\n"; //拼装JS
+						$middle_js.= "url+= '&{$end_id}='+\$('#{$end_id}').val();"."\n"; //拼装JS
+						$ext_js = "
+							var start = {elem: '#{$start_id}',format: 'YYYY-MM-DD hh:mm:ss',min:'2010-01-01 00:00:00', max:laydate.now(), istime: true,istoday: false,choose: function (datas) {end.min = datas; end.start = datas ;}};
+laydate(start);            
+var end = {elem: '#{$end_id}',format: 'YYYY-MM-DD hh:mm:ss',min:'2010-01-01 00:00:00', max:laydate.now(),istime: true,istoday: false,choose: function (datas) {start.max = datas; }};
+laydate(end); 
+
+						";
 						break;
 					default:
 						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
