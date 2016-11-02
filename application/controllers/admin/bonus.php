@@ -66,7 +66,9 @@ class Bonus extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function batch(){
-		exit("给力开发中......");
+		$this->load->model('user_bonus');
+		$this->user_bonus->addUserBonus(1,100,'你好啊');
+		echo 'over';exit;
 	}
 
 }

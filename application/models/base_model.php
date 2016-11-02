@@ -516,6 +516,22 @@ class Base_Model extends CI_Model {
 	}
 
 	/**
+	 * [update_field_by_exp 通过表单时更改某字段的值]
+	 * @return [type] [description]
+	 */
+	public function update_field_by_exp($where,$fields){
+
+		$this->db->where($where);
+		foreach ($fields as $field => $op) {
+			// $this->db->set('balance','balance + 100',FALSE);
+			$this->db->set($field,$op,FALSE);
+		}
+		$this->db->update($this->_tableName);
+		
+		return $this->db->affected_rows();
+	}
+
+	/**
 	 * 根据结果进行分页处理
 	 *
 	 * @param number $count        	

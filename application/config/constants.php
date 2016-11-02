@@ -37,5 +37,18 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
+//资金流进出
+define('IN',1);   //中心钱包增加前  
+define('OUT',-1); //中心钱包扣钱
+
+//资金流类型常量定义  1 红利 2存款 3转入中心钱包  6 提款 7 转入平台
+define('BONUS',1);   //红利
+define('DEPOSIT',2); //存款
+define('PTC',3);     //平台到中心钱包
+//************中间的主要用来扩展************
+define('WITHDRAWAL',6); //提款
+define('PTC',7);        //转入平台
+
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

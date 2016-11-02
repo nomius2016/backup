@@ -65,5 +65,36 @@ class user_bonus extends Base_Model{
 			);
 	}
 
+	/**
+	 * [addUserBonus 给单个用户直接添加红利]
+	 * @param [type] $user_id [description]
+	 * @param [type] $amount  [description]
+	 */
+	public function addUserBonus($user_id,$amount,$remark){
+		$user_id = intval($user_id);
+		$amount = sprintf("%01.2f",$amount);
+		$now = date('Y-m-d H:i:s');
+		//获取当前管理ID
+		$this->load->model('admins');
+		$this->load->model('users');
+		$admininfo = $this->admins->getLoginInfo();
+		$bonus_data = array(
+				'user_id'=>$user_id,
+				'createtime'=>$now,
+				'first_deal_time'=>$now,
+				'second_deal_time'=>$now,
+				'first_deal_adminid'=>$admininfo['id'],
+				'second_deal_adminid'=>$admininfo['id'],
+				'remark'=>$remark,
+				'amount'=>$amount,
+				'first_remark'=>$remark,
+				'second_remark'=>$remark,
+				'status'=>4
+			);
+		$this->trans_begin();
+		$this->insert($bonus_data);
+		$user_status = $this->users->changeUserBalance($user_id,$amount,IN,BONUS);
+
+	}
 
 }

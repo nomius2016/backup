@@ -132,5 +132,42 @@ class Users extends Base_Model{
 			);
 	}
 
+	/**
+	 * [changeUserBalance 更新中心钱包金额 并且记录日志]
+	 * @param  [type] $user_id [用户ID]
+	 * @param  [type] $amount  [description]
+	 * @param  [type] $io      [进/出]
+	 * @param  [type] $type    [类型]
+	 * @return [type]          [description]
+	 */
+	public function changeUserBalance($user_id,$amount,$io,$type){
+		
+		$amount = sprintf("%01.2f", $amount);
+		//首先判断钱包金额是否足够
+		//获取用户当前金额
+		$userinfo = $this->selectById($user_id);
+		if($io === OUT){
+			if($userinfo['balance'] < $amount){
+				return array('status'=>false,'msg'=>'中心钱包金额不足!');
+			}
+		}
+
+		$op = ($io === IN) ? '+' : '-';
+		$this->trans_begin();
+		//修改中心钱包金额
+		$this->update_field_by_exp(array('id'=>$user_id),array('balance'=>"balance $op $amount"));
+		$userinfo_after = $this->selectById($user_id);
+		//插入资金变动表
+		$this->load->model('money_log');
+		$this->money_log->insert(array(
+				      'user_id'=>$user_id,'amount'=>$amount,'type'=>$type,'io'=>$io,
+				      'createtime'=>date('Y-m-d H:i:s'),
+				      'before_balance'=>$userinfo['balance'],
+				      'after_balance'=>$userinfo_after['balance']
+				      )
+					);
+		$this->trans_commit();
+	}
+
 
 }
