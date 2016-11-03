@@ -18,7 +18,6 @@ CREATE TABLE `stat_user_daily` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '统计表ID',
   `user_id` int(11) NOT NULL COMMENT '用户ID',
   `date` date DEFAULT NULL COMMENT '日期',
-  `username` varchar(32) CHARACTER SET utf8 NOT NULL COMMENT '用户名',
   `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上级ID',
   `parent_path` varchar(256) NOT NULL COMMENT '上级路径',
   `user_new_reg` int(10) unsigned DEFAULT '0' COMMENT '新注册用户数',
@@ -33,3 +32,23 @@ CREATE TABLE `stat_user_daily` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `date` (`date`,`user_id`,`parent_path`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='用户每日统计数据';
+
+
+CREATE TABLE `stat_summary_daily` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `date` date NOT NULL COMMENT '统计时间',
+  `dau` int(10) unsigned DEFAULT '0' COMMENT '到访用户数',
+  `user_new_reg` int(11) NOT NULL DEFAULT '0' COMMENT '注册人数',
+  `user_have_bet` int(11) NOT NULL DEFAULT '0' COMMENT '有投注人数',
+  `deposit` bigint(20) unsigned DEFAULT '0' COMMENT '充值总额',
+  `deposit_user` int(10) unsigned DEFAULT '0' COMMENT '充值人数',
+  `withdraw` bigint(20) unsigned DEFAULT '0' COMMENT '提现总额',
+  `withdraw_user` int(10) unsigned DEFAULT '0' COMMENT '提款人数',
+  `bet` bigint(20) unsigned DEFAULT '0' COMMENT '投注总额',
+  `fandian` bigint(20) unsigned DEFAULT '0' COMMENT '返点总额',
+  `bonus` bigint(20) unsigned DEFAULT '0' COMMENT '奖金总额,包括活动奖励',
+  `commission` bigint(11) DEFAULT '0' COMMENT '代理佣金',
+  `dataline` int(20) DEFAULT '0' COMMENT '分红红利',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `date` (`date`)
+) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=utf8 COMMENT='平台汇总表表';

@@ -138,6 +138,16 @@ class Users extends Base_Model{
 				'msg'=>'登录成功!'
 			);
 	}
+	
+	/**
+	 * @desc 取得用户名
+	 * @param int $id
+	 * @return String
+	 */
+	public function getAccountName($id) {
+	    $row = $this->selectByWhere(array('user_id' => $id));
+	    return $row['account_name'];
+	}
 
 	/**
 	 * [changeUserBalance 更新中心钱包金额 并且记录日志]

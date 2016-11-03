@@ -48,6 +48,24 @@ class marketdata extends Basecontroller {
 	}
 	
 	/**
+	 * [important_data 概要数据]
+	 * @return [type] [description]
+	 */
+	public function agent() {
+	    $this->load->model('agent');
+	    if(!isset($_GET['getdata'])){
+	        $ret = $this->agent->teamHtml();
+	        $this->adminview('hplus_normal',$ret);
+	        return;
+	    }
+	
+	    $params = $this->input->get();
+	    $ret = $this->agent->getList($params);
+	    echo json_encode($ret);
+	    exit;
+	}
+	
+	/**
 	 * [withdrawal 提款记录]
 	 * @return [type] [description]
 	 */

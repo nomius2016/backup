@@ -36,5 +36,18 @@ class BaseController extends CI_Controller {
 		}
 	}
 
+	/**
+	 * @desc 取得用户的账号名，在任何数据表中只记录user_id做用户名映射，方便任何地方使用
+	 * @param int $id
+	 * @return String
+	 */
+	public function getUserName($id) {
+	    if (!$this->_username[$id]) {
+	       // 这个方法有待改进，应该先从memcache或redis里查询 //
+	       $this->load->model('users');
+	       $this->_username[$id] = $this->users->getAccountName($id);
+	    }
+	    return $this->_username[$id];
+	}
 
 }
