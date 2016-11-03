@@ -723,6 +723,23 @@ laydate(end);
 
 						";
 						break;
+					case 'date':
+						$start_id = $value['0'].'_start';
+						$end_id   = $value['0'].'_end';
+						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+						$se.='<input placeholder="'.$value['2'].'开始时间" class="form-control layer-date" id="'.$start_id.'">';
+						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+						$se.='<input placeholder="'.$value['2'].'结束时间" class="form-control layer-date" id="'.$end_id.'">';
+						
+						$middle_js.= "url+= '&{$start_id}='+\$('#{$start_id}').val();"."\n"; //拼装JS
+						$middle_js.= "url+= '&{$end_id}='+\$('#{$end_id}').val();"."\n"; //拼装JS
+						$ext_js = "
+							  laydate({elem: '#{$start_id}', event: 'focus' });
+  							  laydate({elem: '#{$end_id}', event: 'focus' });
+            
+						";
+						break;
+
 					default:
 						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
 						break;
