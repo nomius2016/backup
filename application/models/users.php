@@ -18,17 +18,24 @@ class Users extends Base_Model{
 	public function teamHtml(){
 
 		$field = array(
-                //字段名/显示名称/能否修改/是否显示/宽度/类型/值
-			array('id','ID',false),
+            //字段名/显示名称/能否修改/是否显示/宽度/类型/值
+			array('id','U-ID',false,false,30),
 			array('account_name','用户名'),
-			array('name','姓名'),
-			array('sex','性别',true,false,60,'select',array('1'=>'男','2'=>'女','3'=>'保密')),
-			array('status','状态',true,false,60,'select',array('1'=>'激活','2'=>'冻结')),
-			array('phone','手机号码'),
-			array('withdrawal_day_max','单日最大提款'),
-			array('withdrawal_min','最低提款'),
-			array('withdrawal_max','最高存款'),
-			array('regiester_time','注册时间',false)
+		    array('regiester_time','注册时间',false),
+		    array('regiester_ip','注册IP',false),
+		    array('parent_name','上级',false),
+		    array('balance','余额',false),
+		    array('total_deposit','总存款',false),
+		    array('total_withdraw','总提款',false),
+		    array('total_bet','总投注',false),
+		    array('total_profit','平台盈利',false),
+		    array('withdrawal_day_max','单日最大提款'),
+		    array('withdrawal_min','最低提款'),
+		    array('withdrawal_max','最高存款'),
+			array('status','状态',true,false,30,'select',array('1'=>'激活','2'=>'冻结')),
+		    array('last_login_time','最后登录时间',false),
+		    array('last_login_ip','最后登录IP',false),
+		    array('op','操作',false),
 		);
 
 		$search = array(

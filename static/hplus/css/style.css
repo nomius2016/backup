@@ -3515,11 +3515,11 @@ video {
 }
 
 .wrapper {
-    padding: 0 20px;
+    padding: 0 5px;
 }
 
 .wrapper-content {
-    padding: 20px;
+    padding: 0px;
 }
 
 #page-wrapper {
@@ -4037,7 +4037,7 @@ code {
 .ibox-content {
     background-color: #ffffff;
     color: inherit;
-    padding: 15px 20px 20px 20px;
+    padding: 8px 10px 8px 10px;
     border-color: #e7eaec;
     -webkit-border-image: none;
     -o-border-image: none;
