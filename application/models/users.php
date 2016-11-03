@@ -163,6 +163,11 @@ class Users extends Base_Model{
 		//首先判断钱包金额是否足够
 		//获取用户当前金额
 		$userinfo = $this->selectById($user_id);
+		
+		if($userinfo['status'] != 2){
+			return array('status'=>false,'msg'=>'用户状态不对!');
+		}
+
 		if($io === OUT){
 			if($userinfo['balance'] < $amount){
 				return array('status'=>false,'msg'=>'中心钱包金额不足!');
@@ -184,6 +189,8 @@ class Users extends Base_Model{
 				      )
 					);
 		$this->trans_commit();
+
+		return array('status'=>true,'msg'=>'操作成功!');
 	}
 
 

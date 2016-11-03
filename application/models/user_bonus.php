@@ -74,9 +74,9 @@ class user_bonus extends Base_Model{
 		$user_id = intval($user_id);
 		$amount = sprintf("%01.2f",$amount);
 		$now = date('Y-m-d H:i:s');
-		//获取当前管理ID
 		$this->load->model('admins');
 		$this->load->model('users');
+		//获取当前管理ID
 		$admininfo = $this->admins->getLoginInfo();
 		$bonus_data = array(
 				'user_id'=>$user_id,
@@ -93,8 +93,14 @@ class user_bonus extends Base_Model{
 			);
 		$this->trans_begin();
 		$this->insert($bonus_data);
-		$user_status = $this->users->changeUserBalance($user_id,$amount,IN,BONUS);
+		$ret = $this->users->changeUserBalance($user_id,$amount,IN,BONUS);
+		if(!$ret['status']){
+			$this->trans_rollback();
+			return array('status'=>false,'msg'=>$ret['msg']);
+		}
+		$this->trans_commit();
 
+		return array('status'=>true,'msg'=>'操作成功!');
 	}
 
 }

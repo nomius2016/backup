@@ -290,7 +290,7 @@ class Base_Model extends CI_Model {
 	 * @author 2013-12-5 下午9:15:02
 	 */
 	public function selectByWhereAndIn($where = array(), $where_in_field = NULL, $where_in_array = array(), $filed = "*", $limit = NULL, $order = array()) {
-		$db = $this->db->from ( $this->_tableName )->where ( $where );
+		$db = $this->db->from ( $this->_tableName )->where ( $where )->select($filed);
 		$db->where_in ( $where_in_field, $where_in_array );
 		if (is_array ( $order ) && ! empty ( $order )) {
 			if (is_array ( $order [0] )) {

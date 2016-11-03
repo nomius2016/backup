@@ -66,9 +66,83 @@ class Bonus extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function batch(){
-		$this->load->model('user_bonus');
-		$this->user_bonus->addUserBonus(1,100,'你好啊');
-		echo 'over';exit;
+		// $this->load->model('user_bonus');
+		// $this->user_bonus->addUserBonus(1,100,'你好啊');
+		// echo 'over';exit;
+		$this->adminview('bonus_batch',$ret);
+	}
+
+	/**
+	 * [batch_upload 批量添加红利 操作权限]
+	 * @return [type] [description]
+	 */
+	public function batch_upload(){
+		
+		// print_r($_FILES);exit;
+		if($_FILES){
+			//此处添加 redis 重复提交校验机制
+			
+			//解析文件
+			$f = $_FILES['f'];
+
+			if(!(isset($f['tmp_name']) && $f['tmp_name'])){
+				exit('数据不合法!');
+			}
+
+			$data = file_get_contents($f['tmp_name']);
+			if(mb_detect_encoding($data, array('ASCII','GB2312','GBK','UTF-8')) == 'EUC-CN')
+			{
+				$data = iconv('gb2312', 'utf-8', $data); //对gb2312进行编码转换
+			}
+			$ar = explode("\n", $data);
+			$new_data = array();
+			foreach ($ar as $key => $value) {
+				$tmp_ar =  explode(',', $value);
+				$tmp = array();
+				$tmp['user_id'] = intval($tmp_ar['0']);
+				$tmp['amount'] = sprintf("%01.2f",$tmp_ar['1']);
+				$tmp['remark'] = trim($tmp_ar['2']);
+				if($tmp['user_id'] && $tmp['amount'] && $tmp['remark']){
+					$new_data[$tmp['user_id']] = $tmp;
+				}else{
+					$msg = $value.'有问题!';
+					$this->alert($msg);
+				}
+			}
+
+			//检查所有的用户是否存在以及状态是否合法
+			$user_ids = array_keys($new_data);
+			$this->load->model('users');
+			$ret = $this->users->selectByWhereAndIn(array('status'=>2),'id',$user_ids,'id');
+			if(count($ret) != count($ar)){
+				$msg = '上传的文件中有用户状态不对,或者用户不存在!';
+				$this->alert($msg);
+			}
+
+			//开始进行派发
+			$this->load->model('user_bonus');
+			$this->user_bonus->trans_begin();
+			foreach ($new_data as $key => $value) {
+				$ret = $this->user_bonus->addUserBonus($value['user_id'],$value['amount'],$value['remark']);
+				if(!$ret['status']){
+					$this->user_bonus->trans_rollback();
+					$this->alert('添加失败!');
+				}
+			}
+			$this->user_bonus->trans_commit();
+			$this->alert('添加成功!');
+		}
+
+
+	}
+
+	private function alert($msg){
+		echo '<meta http-equiv="Content-Type" content="text/html;charset=utf-8">';
+		echo '<script>';
+		echo "alert('$msg');";
+		echo "window.location = ('/admin/bonus/batch') ;";
+		echo '</script>';
+		exit;
 	}
 
 }
