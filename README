@@ -16,6 +16,27 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 (1) 完成添加红利的简单功能
 (2) 实现更改用户中心钱包并加入帐变记录表的功能
 (3) 新增表 money_log (20161103-1.sql)
+
+2016-11-04 
+(1) 添加redis扩展
+    常用方法   
+     1 设置值     		带生存时间的写入值 $this->hredis->setex('key', 3600, 'value');
+     2 获取值     		$this->hredis->get('key'); 
+     3 获取生存时间     $this->hredis->ttl('key';)
+     4 删除             $this->hredis->delete('key1', 'key2');   $this->hredis->delete(array('key3', 'key4', 'key5'));
+     5 判断key是否存在。存在 true 不在 false   $this->hredis->exists('key1')
+     6 自增 自减 // incr, incrBy
+			// key中的值进行自增1，如果填写了第二个参数，者自增第二个参数所填的值
+			// $this->hredis->incr('key1');
+			// $this->hredis->incrBy('key1', 10);
+
+			// decr, decrBy
+			// 做减法，使用方法同incr
+	7 字符串累加  $this->hredis->append('key', 'value2');
+	//还有很多函数 请参考  http://www.cnblogs.com/weafer/archive/2011/09/21/2184059.html
+
+
+
 注意:(1)  开发过程中异步请求的行为器 请用_op 结尾,这样方便控制权限  比如 menu_op ,auto_op 之类的,遇到这种链接的话 会返回json 字符串,其它形式的话会跳转到403 页面去
 	 (2)  开发过程中异步请求的行为器 请用_op 结尾,这样方便控制权限  比如 menu_op ,auto_op 之类的,遇到这种链接的话 会返回json 字符串,其它形式的话会跳转到403 页面去
 	 (3)  开发过程中异步请求的行为器 请用_op 结尾,这样方便控制权限  比如 menu_op ,auto_op 之类的,遇到这种链接的话 会返回json 字符串,其它形式的话会跳转到403 页面去

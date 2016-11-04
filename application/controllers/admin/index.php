@@ -7,7 +7,7 @@ class Index extends Basecontroller {
 	}
 
 	public function index(){
-		
+
 		$this->load->model('admins');
 		$info = $this->admins->getLoginInfo();
 		if($this->islogin){
