@@ -145,7 +145,7 @@ class Users extends Base_Model{
 	 * @return String
 	 */
 	public function getAccountName($id) {
-	    $row = $this->selectByWhere(array('user_id' => $id));
+	    $row = $this->selectById($id);
 	    return $row['account_name'];
 	}
 

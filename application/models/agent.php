@@ -18,22 +18,25 @@ class agent extends Base_Model{
 
 		$field = array(
             //字段名/显示名称/能否修改/是否显示/宽度/类型/值
-			array('stat_date','统计日期',false),
+			array('date','统计日期',false),
 			array('account_name','账号',false),
 			array('user_new_reg','新注册用户',false),
 		    array('user_have_bet','有投注用户',false),
 			array('deposit','存款',false),
 			array('withdraw','提款',false),
 			array('bet','投注',false),
+		    array('bonus','中奖',false),
+		    array('fandian','返点',false),
+		    array('activity_cost','活动费用',false),
 			array('fandian','返点',false),
-			array('bonus','活动费用',false),
 			array('commission','佣金',false),
 			array('profit','平台盈利',false),
 		    array('op','详细',false),
 		);
 
 		$search = array(
-			array('stat_date','text','统计日期')
+		    array('account_name','text','请输入用户名'),
+			array('date','date','')
 		);
 		$data = array();
 		$data['field'] = $field;
@@ -61,9 +64,23 @@ class agent extends Base_Model{
 		$start = ($page - 1) * $pageSize; 
 		
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
-
-		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		
 		$count = $this->count($where);
+		if ($count>0) {
+		    $aField = array(
+		        'user_id','date',
+		        'SUM(deposit) AS deposit',
+		        'SUM(withdraw) AS withdraw',
+		        'SUM(bet) AS bet',
+		        'SUM(bonus) AS bonus',
+		        'SUM(user_new_reg) AS user_new_reg',
+		        'SUM(user_have_bet) AS user_have_bet',
+		        'SUM(deposit) AS deposit',
+		        'SUM(fandian) AS fandian',
+		        'SUM(commission) AS commission',
+		    );
+		    $list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		}
 
 		return array(
 				'rows'  => $list,

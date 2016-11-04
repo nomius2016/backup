@@ -31,8 +31,7 @@ class Report extends Basecontroller {
 	 * [important_data 概要数据]
 	 * @return [type] [description]
 	 */
-	public function summary(){
-
+	public function summary() {
 		$this->load->model('stat_summary');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->stat_summary->teamHtml();
@@ -41,9 +40,16 @@ class Report extends Basecontroller {
 		}
 
 		$params = $this->input->get();
-		$params['type'] = 1;
 		$ret = $this->stat_summary->getList($params);
-		echo json_encode($ret);
+		foreach ((array)$ret['rows'] AS $k => $v) {
+		    $v['profit_bet']     = sprintf("￥%.2f",$v['bet']-$v['bonus']);
+		    $v['profit_cash']    = sprintf("￥%.2f",$v['deposit']-$v['withdraw']);
+		    $v['profit_real']    = sprintf("￥%.2f",$v['bet']-$v['bonus']-$v['fandian']-$v['activity_cost']-$v['commission']);
+		    $v['cash_bet_rate']  = '1 : '.sprintf("%.1f",$v['bet']/$v['deposit']);
+		    $list[$k] = $v;
+		}
+		
+		echo json_encode($list);
 		exit;
 	}
 	
@@ -60,8 +66,15 @@ class Report extends Basecontroller {
 	    }
 	
 	    $params = $this->input->get();
+	    //print_r($params);
 	    $ret = $this->agent->getList($params);
-	    echo json_encode($ret);
+	    $list = array();
+	    foreach ((array)$ret['rows'] AS $k => $v) {
+	        $v['account_name'] = $this->getUserName($v['user_id']);
+	        $v['profit']       = sprintf("%.2f",$v['bet']-$v['bonus']-$v['fandian']-$v['activity_cost']-$v['commission']);
+	        $list[$k] = $v;
+	    }
+	    echo json_encode($list);
 	    exit;
 	}
 	

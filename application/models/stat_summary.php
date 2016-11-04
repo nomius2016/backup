@@ -6,7 +6,7 @@
 class Stat_summary extends Base_Model{
 	
 	public function __construct() {
-		$this->setTableName("stat_summer_daily");
+		$this->setTableName("stat_summary_daily");
 		parent::__construct ();
 	}
 	
@@ -28,8 +28,9 @@ class Stat_summary extends Base_Model{
 			array('withdraw','提款',false),
 			array('withdraw_user','提款用户数',false),
 			array('bet','总投注',false),
+		    array('bonus','总中奖',false),
 			array('fandian','返点',false),
-		    array('bonus','活动费用',false),
+		    array('activity_cost','活动费用',false),
 		    array('commission','佣金',false),
 		    array('profit_bet','注面盈利',false),
 		    array('profit_cash','现金盈利',false),
@@ -37,9 +38,11 @@ class Stat_summary extends Base_Model{
 		    array('cash_bet_rate','充值流水比例',false),
 		);
 
+
 		$search = array(
-			array('stat_date','text','统计日期')
+		    array('date','date','统计'),
 		);
+		
 		$data = array();
 		$data['field'] = $field;
 		$data['search'] = $search;
@@ -57,16 +60,19 @@ class Stat_summary extends Base_Model{
 	 */
 	public function getList($params){
 		$where = array();
-		if($params['date']) $where['date'] = $params['date'];
+		if($params['date']) {
+		    $where['date'] = $params['date'];
+		}
 
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
 		$start = ($page - 1) * $pageSize; 
 		
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
-
-		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
 		$count = $this->count($where);
+		if ($count>0) {
+		    $list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		}
 
 		return array(
 				'rows'=>$list,
