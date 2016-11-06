@@ -23,7 +23,8 @@ class user_withdrawal extends Base_Model{
 			array('user_id','用户ID',false),
 			array('status','状态',false),
 			array('amount','金额',false),
-			array('createtime','创建时间',false)
+			array('createtime','创建时间',false),
+			array('op','操作',false),
 		);
 
 		$search = array(
@@ -57,6 +58,19 @@ class user_withdrawal extends Base_Model{
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
 		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		
+		if($params['status'] == 1){
+			foreach ($list as $key => &$value) {
+				$value['op'] = "<a  href='javascript:;' onclick='first_check({$value['id']})'> 初审 </a>";
+			}
+		}
+
+		if($params['status'] == 2){
+			foreach ($list as $key => &$value) {
+				$value['op'] = "<a  href='javascript:;' onclick='sec_check({$value['id']})'> 初审 </a>";
+			}
+		}
+
 		$count = $this->count($where);
 
 		return array(
@@ -65,6 +79,68 @@ class user_withdrawal extends Base_Model{
 				'page'=>$page
 			);
 	}
+
+	/*提款审核*/
+	/*状态 (1 申请中 2 一审成功 -2一审失败 3二审成功 -3二审失败)'*/
+	public function verify($step,$params){
+		//初审核
+		$remark = $params['remark'];
+		$status = $params['status'];
+		$id = $params['id'];
+		if($step == 1 && $status == 2)  $scene = 1; //一审成功  改变状态
+		if($step == 1 && $status ==-2)  $scene = 2; //一审失败  改变状态 解冻金额 增加中心钱包金额
+		if($step == 2 && $status == 3)  $scene = 3; //二审成功  改变状态 解冻金额
+		if($step == 3 && $status ==-3)  $scene = 4; //二审失败  改变状态 解冻金额 增加中心钱包金额
+		if(!$scene) return array('status'=>false,'msg'=>'参数不对!');
+		if(!$remark) return array('status'=>false,'msg'=>'请填写备注!');
+		$this->load->model('users');
+		$this->load->model('admins');
+		$order = $this->selectById($id);
+		$user_id = $order['user_id'];
+		$amount = $order['amount'];
+
+		$admin_id = $this->admins->getLoginAdminId();
+		$this->trans_begin();
+		switch ($scene) {
+			case 1:
+				$deposit_data = array(
+						'first_deal_adminid'=>$admin_id,
+						'first_remark'=>$remark,
+						'first_deal_time'=>date('Y-m-d H:i:s'),
+						'status'=>$status
+					);
+				$this->update(array('id'=>$id),$deposit_data);
+				break;
+			case 2:
+				$deposit_data = array(
+						'first_deal_adminid'=>$admin_id,
+						'first_remark'=>$remark,
+						'first_deal_time'=>date('Y-m-d H:i:s'),
+						'status'=>$status
+					);
+				$this->update(array('id'=>$id),$deposit_data);
+				$this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
+				# code...
+				break;
+			case 3:
+				$this->update(array('status'=>$status));
+				$this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_SUCCESS);
+				# code...
+				break;
+			case 4:
+				$this->update(array('status'=>$status));
+				$this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
+				# code...
+				break;
+			
+		}
+		$this->trans_commit();
+
+		return array('status'=>true,'msg'=>'操作成功');
+
+
+	}
+
 
 
 }

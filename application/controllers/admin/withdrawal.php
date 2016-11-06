@@ -16,7 +16,7 @@ class Withdrawal extends Basecontroller {
 		$this->load->model('user_withdrawal');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->user_withdrawal->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
-			$this->adminview('hplus_normal',$ret);
+			$this->adminview('withdrawal_first_list',$ret);
 			return;
 		}
 		
@@ -29,6 +29,16 @@ class Withdrawal extends Basecontroller {
 
 	}
 
+	/* 提款初审列表审核*/
+	public function first_list_op(){
+
+		$this->load->model('user_withdrawal');
+		$ret = $this->user_withdrawal->verify(1,$this->input->post());
+		exit(json_encode($ret));
+
+	}
+
+
 
 	/**
 	 * [复审列表]
@@ -38,7 +48,7 @@ class Withdrawal extends Basecontroller {
 		$this->load->model('user_withdrawal');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->user_withdrawal->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
-			$this->adminview('hplus_normal',$ret);
+			$this->adminview('withdrawal_sec_list',$ret);
 			return;
 		}
 		

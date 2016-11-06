@@ -84,6 +84,13 @@ class Admins extends Base_Model{
 		return $this->session->all_userdata();
 	}
 
+	public function getLoginAdminId(){
+		
+		$data = $this->getLoginInfo();
+		return $data['id'];
+
+	}
+
 	/**
 	 * [loginAdmin 管理员登录]
 	 * @return [type] [description]

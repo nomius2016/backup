@@ -46,8 +46,10 @@ define('BONUS',1);   //红利
 define('DEPOSIT',2); //存款
 define('PTC',3);     //平台到中心钱包
 //************中间的主要用来扩展************
-define('WITHDRAWAL',6); //提款
-define('PTC',7);        //转入平台
+define('WITHDRAWAL_APPLY',6);   //提款申请 (扣除中心钱包金额 增加冻结金额)
+define('WITHDRAWAL_REFUSE',7);  //提款拒绝 (增加中心钱包金额 解冻金额) 
+define('WITHDRAWAL_SUCCESS',8); //提款成功  解冻金额
+define('PTC',9);        //转入平台
 
 
 /* End of file constants.php */

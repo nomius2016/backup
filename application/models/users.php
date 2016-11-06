@@ -177,7 +177,24 @@ class Users extends Base_Model{
 		$op = ($io === IN) ? '+' : '-';
 		$this->trans_begin();
 		//修改中心钱包金额
-		$this->update_field_by_exp(array('id'=>$user_id),array('balance'=>"balance $op $amount"));
+		switch ($type) {
+			
+			case BONUS: //添加红利
+				$ret = $this->update_field_by_exp(array('id'=>$user_id),array('balance'=>"balance $op $amount"));
+				break;
+			case WITHDRAWAL_APPLY:  //提款申请
+				//frozon_balance
+				$ret = $this->update_field_by_exp(array('id'=>$user_id),array('balance'=>"balance - $amount",'frozon_balance'=>"frozon_balance + $amount"));
+				break;
+			case WITHDRAWAL_REFUSE:  //提款拒绝
+				$ret = $this->update_field_by_exp(array('id'=>$user_id),array('balance'=>"balance + $amount",'frozon_balance'=>"frozon_balance - $amount"));
+				break;
+			case WITHDRAWAL_SUCCESS: //提款通过
+				$ret = $this->update_field_by_exp(array('id'=>$user_id),array('frozon_balance'=>"frozon_balance - $amount"));
+				break;	
+			
+		}
+
 		$userinfo_after = $this->selectById($user_id);
 		//插入资金变动表
 		$this->load->model('money_log');
