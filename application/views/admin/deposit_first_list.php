@@ -56,7 +56,7 @@
 
             layer.open({
                   content: content,
-                  title:'提款初审',
+                  title:'存款初审',
                   area: ['500px', '300px'],
                   btn: ['审核通过', '审核失败'],
                   yes: function(index, layero){
@@ -69,7 +69,7 @@
                         //(1 申请中 2 一审成功 -2一审失败 3二审成功 -3二审失败)
                         $.ajax({
                             type:'POST',
-                            url:'/admin/withdrawal/first_list_op',
+                            url:'/admin/deposit/first_list_op',
                             data:{'id':id,'status':2,'remark':$('#remark').val()},
                             dataType:'json',
                             success:function(data){
@@ -89,12 +89,12 @@
                         //(1 申请中 2 一审成功 -2一审失败 3二审成功 -3二审失败)
                         $.ajax({
                             type:'POST',
-                            url:'/admin/withdrawal/first_list_op',
+                            url:'/admin/deposit/first_list_op',
                             data:{'id':id,'status':-2,'remark':$('#remark').val()},
                             dataType:'json',
                             success:function(data){
                                 alert(data.msg);
-                                gridReload();//刷新列表
+                                gridReload(); //刷新列表
                                 layer.close(index);
                             }
 
@@ -105,9 +105,9 @@
                     //右上角关闭回调
                   }
                 });
-
     }
 
+           
 
         
     </script>

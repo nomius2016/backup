@@ -15,7 +15,7 @@ class user_withdrawal extends Base_Model{
 	 * [teamHtml 生成前台模板需要的 js 以及 搜索用的HTML]
 	 * @return [type] [description]
 	 */
-	public function teamHtml(){
+	public function teamHtml($op = false){
 
 		$field = array(
                 //字段名/显示名称/能否修改/是否显示/宽度/类型/值
@@ -24,8 +24,9 @@ class user_withdrawal extends Base_Model{
 			array('status','状态',false),
 			array('amount','金额',false),
 			array('createtime','创建时间',false),
-			array('op','操作',false),
 		);
+
+		if($op) $field[] = array('op','操作',false);
 
 		$search = array(
 			array('user_id','text','请输入用户ID'),
@@ -67,7 +68,7 @@ class user_withdrawal extends Base_Model{
 
 		if($params['status'] == 2){
 			foreach ($list as $key => &$value) {
-				$value['op'] = "<a  href='javascript:;' onclick='sec_check({$value['id']})'> 初审 </a>";
+				$value['op'] = "<a  href='javascript:;' onclick='sec_check({$value['id']})'> 复审 </a>";
 			}
 		}
 
@@ -90,7 +91,7 @@ class user_withdrawal extends Base_Model{
 		if($step == 1 && $status == 2)  $scene = 1; //一审成功  改变状态
 		if($step == 1 && $status ==-2)  $scene = 2; //一审失败  改变状态 解冻金额 增加中心钱包金额
 		if($step == 2 && $status == 3)  $scene = 3; //二审成功  改变状态 解冻金额
-		if($step == 3 && $status ==-3)  $scene = 4; //二审失败  改变状态 解冻金额 增加中心钱包金额
+		if($step == 2 && $status ==-3)  $scene = 4; //二审失败  改变状态 解冻金额 增加中心钱包金额
 		if(!$scene) return array('status'=>false,'msg'=>'参数不对!');
 		if(!$remark) return array('status'=>false,'msg'=>'请填写备注!');
 		$this->load->model('users');
@@ -103,32 +104,44 @@ class user_withdrawal extends Base_Model{
 		$this->trans_begin();
 		switch ($scene) {
 			case 1:
-				$deposit_data = array(
+				$withdrawal_data = array(
 						'first_deal_adminid'=>$admin_id,
 						'first_remark'=>$remark,
 						'first_deal_time'=>date('Y-m-d H:i:s'),
 						'status'=>$status
 					);
-				$this->update(array('id'=>$id),$deposit_data);
+				$this->update(array('id'=>$id),$withdrawal_data);
 				break;
 			case 2:
-				$deposit_data = array(
+				$withdrawal_data = array(
 						'first_deal_adminid'=>$admin_id,
 						'first_remark'=>$remark,
 						'first_deal_time'=>date('Y-m-d H:i:s'),
 						'status'=>$status
 					);
-				$this->update(array('id'=>$id),$deposit_data);
+				$this->update(array('id'=>$id),$withdrawal_data);
 				$this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
 				# code...
 				break;
 			case 3:
-				$this->update(array('status'=>$status));
+				$withdrawal_data = array(
+						'second_deal_adminid'=>$admin_id,
+						'second_remark'=>$remark,
+						'second_deal_time'=>date('Y-m-d H:i:s'),
+						'status'=>$status
+					);
+				$this->update(array('id'=>$id),$withdrawal_data);
 				$this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_SUCCESS);
 				# code...
 				break;
 			case 4:
-				$this->update(array('status'=>$status));
+				$withdrawal_data = array(
+						'second_deal_adminid'=>$admin_id,
+						'second_remark'=>$remark,
+						'second_deal_time'=>date('Y-m-d H:i:s'),
+						'status'=>$status
+					);
+				$this->update(array('id'=>$id),$withdrawal_data);
 				$this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
 				# code...
 				break;

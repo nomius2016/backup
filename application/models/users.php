@@ -174,6 +174,7 @@ class Users extends Base_Model{
 			}
 		}
 
+		$wirte_log = TRUE;
 		$op = ($io === IN) ? '+' : '-';
 		$this->trans_begin();
 		//修改中心钱包金额
@@ -191,20 +192,25 @@ class Users extends Base_Model{
 				break;
 			case WITHDRAWAL_SUCCESS: //提款通过
 				$ret = $this->update_field_by_exp(array('id'=>$user_id),array('frozon_balance'=>"frozon_balance - $amount"));
+				$wirte_log = false;
 				break;	
-			
+			case DEPOSIT: //存款通过
+				$ret = $this->update_field_by_exp(array('id'=>$user_id),array('balance'=>"balance + $amount"));
+				break;	
 		}
 
-		$userinfo_after = $this->selectById($user_id);
-		//插入资金变动表
-		$this->load->model('money_log');
-		$this->money_log->insert(array(
-				      'user_id'=>$user_id,'amount'=>$amount,'type'=>$type,'io'=>$io,
-				      'createtime'=>date('Y-m-d H:i:s'),
-				      'before_balance'=>$userinfo['balance'],
-				      'after_balance'=>$userinfo_after['balance']
-				      )
-					);
+		if($wirte_log){
+			$userinfo_after = $this->selectById($user_id);
+			//插入资金变动表
+			$this->load->model('money_log');
+			$this->money_log->insert(array(
+					      'user_id'=>$user_id,'amount'=>$amount,'type'=>$type,'io'=>$io,
+					      'createtime'=>date('Y-m-d H:i:s'),
+					      'before_balance'=>$userinfo['balance'],
+					      'after_balance'=>$userinfo_after['balance']
+					      )
+						);
+		}
 		$this->trans_commit();
 
 		return array('status'=>true,'msg'=>'操作成功!');

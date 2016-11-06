@@ -48,7 +48,7 @@
     <?php  echo $script;?>
     <script type="text/javascript">
         
-    function first_check(id){
+    function sec_check(id){
         var content = '<div class="layui-form-item layui-form-text">';
             content+='<div class="layui-input-block">';
             content+='<textarea name="desc"  cols="60" rows="6" id="remark" placeholder="请输入备注" class="layui-textarea"></textarea>';
@@ -56,7 +56,7 @@
 
             layer.open({
                   content: content,
-                  title:'提款初审',
+                  title:'存款初审',
                   area: ['500px', '300px'],
                   btn: ['审核通过', '审核失败'],
                   yes: function(index, layero){
@@ -69,8 +69,8 @@
                         //(1 申请中 2 一审成功 -2一审失败 3二审成功 -3二审失败)
                         $.ajax({
                             type:'POST',
-                            url:'/admin/withdrawal/first_list_op',
-                            data:{'id':id,'status':2,'remark':$('#remark').val()},
+                            url:'/admin/deposit/sec_list_op',
+                            data:{'id':id,'status':3,'remark':$('#remark').val()},
                             dataType:'json',
                             success:function(data){
                                 alert(data.msg);
@@ -89,8 +89,8 @@
                         //(1 申请中 2 一审成功 -2一审失败 3二审成功 -3二审失败)
                         $.ajax({
                             type:'POST',
-                            url:'/admin/withdrawal/first_list_op',
-                            data:{'id':id,'status':-2,'remark':$('#remark').val()},
+                            url:'/admin/deposit/sec_list_op',
+                            data:{'id':id,'status':-3,'remark':$('#remark').val()},
                             dataType:'json',
                             success:function(data){
                                 alert(data.msg);
