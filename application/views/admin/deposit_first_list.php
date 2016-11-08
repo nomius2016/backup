@@ -45,6 +45,7 @@
     <script src="/static/hplus/js/plugins/jqgrid/jquery.jqGrid.min.js?0820"></script>
     <script src="/static/hplus/js/plugins/layer/layer.js"></script>
     <script src="/static/hplus/js/plugins/layer/laydate/laydate.js"></script>
+    <script src="/static/hplus/js/content.js"></script>
     <?php  echo $script;?>
     <script type="text/javascript">
         

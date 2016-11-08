@@ -74,7 +74,7 @@
     </div>
 
    
-
+<script src="/static/hplus/js/content.js"></script>
     
 </body>
 

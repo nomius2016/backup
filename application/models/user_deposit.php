@@ -62,7 +62,8 @@ class user_deposit extends Base_Model{
 		
 		if($params['status'] == 1){
 			foreach ($list as $key => &$value) {
-				$value['op'] = "<a  href='javascript:;' onclick='first_check({$value['id']})'> 初审 </a>";
+				$value['op']  = "<a  href='javascript:;' onclick='first_check({$value['id']})'> 初审 </a>";
+				$value['op'] .= "<a  href='/admin/user/lists'  class='cof' > 到用户列表 </a>";
 			}
 		}
 

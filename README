@@ -36,6 +36,9 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 	//还有很多函数 请参考  http://www.cnblogs.com/weafer/archive/2011/09/21/2184059.html
 
 
+2016-11-08
+新增子窗口 打开新窗口的功能  使用方法  <a  href='/admin/user/lists'  class='cof' newtitle='呵呵'> 到用户列表 </a>  只需要标签内 定义 class 为 cof 并且设置 newtitle属性即可
+           参见存款模块-->存款初审
 
 注意:(1)  开发过程中异步请求的行为器 请用_op 结尾,这样方便控制权限  比如 menu_op ,auto_op 之类的,遇到这种链接的话 会返回json 字符串,其它形式的话会跳转到403 页面去
 	 (2)  开发过程中异步请求的行为器 请用_op 结尾,这样方便控制权限  比如 menu_op ,auto_op 之类的,遇到这种链接的话 会返回json 字符串,其它形式的话会跳转到403 页面去
