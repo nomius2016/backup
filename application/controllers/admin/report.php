@@ -12,16 +12,16 @@ class Report extends Basecontroller {
 	 */
 	public function deposit(){
 		
-		$this->load->model('user_withdrawal');
+		$this->load->model('fund_deposit');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->user_withdrawal->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->fund_deposit->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
 		$params['status']  = 3;
-		$ret = $this->user_withdrawal->getList($params);
+		$ret = $this->fund_deposit->getList($params);
 
 		echo json_encode($ret);
 		exit;
@@ -82,17 +82,17 @@ class Report extends Basecontroller {
 	 * [withdrawal 提款记录]
 	 * @return [type] [description]
 	 */
-	public function withdrawal(){
-		$this->load->model('user_withdrawal');
+	public function withdraw(){
+		$this->load->model('fund_withdraw');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->user_withdrawal->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->fund_withdraw->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
 		$params['status']  = 2;
-		$ret = $this->user_withdrawal->getList($params);
+		$ret = $this->fund_withdraw->getList($params);
 
 		echo json_encode($ret);
 		exit;
@@ -117,24 +117,6 @@ class Report extends Basecontroller {
 		exit;
 	}
 
-	/**
-	 * [online 第三方充值]
-	 * @return [type] [description]
-	 */
-	public function online(){
-		$this->load->model('user_withdrawal');
-		if(!isset($_GET['getdata'])){
-			$ret = $this->user_withdrawal->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
-			$this->adminview('hplus_normal',$ret);
-			return;
-		}
-		
-		$params = $this->input->get();
-		$ret = $this->user_withdrawal->getList($params);
-
-		echo json_encode($ret);
-		exit;
-	}
 
 	/**
 	 * [transfer 转账记录]
