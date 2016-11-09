@@ -177,7 +177,7 @@ class Admin_Menu extends Base_Model {
 			$html.='<li>';
 			
 			if(isset($tree_first_level['subMenus']) && $tree_first_level['subMenus']){  //有二级目录的情况
-				$html.='<a href="#"><span class="nav-label">'.$tree_first_level['title'].'</span><span class="fa arrow"></span></a>';
+				$html.='<a href="#" class="'.$tree_first_level['icon'].'"> <span class="nav-label">'.$tree_first_level['title'].'</span><span class="fa arrow"></span></a>';
 				$html.='<ul class="nav nav-second-level">';
 
 				foreach ($tree_first_level['subMenus'] as $tree_second_level){ //第二层

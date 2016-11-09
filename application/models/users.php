@@ -21,14 +21,14 @@ class Users extends Base_Model{
             //字段名/显示名称/能否修改/是否显示/宽度/类型/值
 			array('id','U-ID',false,false,30),
 			array('account_name','用户名'),
-		    array('regiester_time','注册时间',false),
-		    array('regiester_ip','注册IP',false),
+		    array('register_time','注册时间',false),
+		    array('register_ip','注册IP',false),
 		    array('parent_name','上级',false),
 		    array('balance','余额',false),
 		    array('total_deposit','总存款',false),
 		    array('total_withdraw','总提款',false),
 		    array('total_bet','总投注',false),
-		    array('total_profit','平台盈利',false),
+		    array('profit','平台盈利',false),
 		    array('withdrawal_day_max','单日最大提款'),
 		    array('withdrawal_min','最低提款'),
 		    array('withdrawal_max','最高存款'),
@@ -147,6 +147,16 @@ class Users extends Base_Model{
 	public function getAccountName($id) {
 	    $row = $this->selectById($id);
 	    return $row['account_name'];
+	}
+	
+	/**
+	 * @desc 取得用户名
+	 * @param int $id
+	 * @return String
+	 */
+	public function getUserInfo($id) {
+	    $row = $this->selectById($id);
+	    return $row;
 	}
 
 	/**

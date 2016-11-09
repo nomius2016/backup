@@ -76,7 +76,7 @@ $('body').on('click', '.cof', function(){
     var url = $(this).attr('href');
     var title = $(this).attr('newtitle');
     if(!title){
-        title = $(this).html();
+        title = $(this).text();
     }
     parent.cof(url, title);
     return false;

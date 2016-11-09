@@ -49,6 +49,9 @@ a:focus {
     outline: none;
 }
 
+nav.navbar {
+	min-height:30px;
+}
 .nav > li > a {
     color: #a7b1c2;
     font-weight: 600;
@@ -107,8 +110,8 @@ body.body-small .navbar-top-links li:last-child {
 }
 
 .navbar-top-links li a {
-    padding: 20px 10px;
-    min-height: 50px;
+    padding: 10px 10px;
+    min-height: 30px;
 }
 
 .dropdown-menu {
@@ -268,7 +271,7 @@ body.body-small .navbar-top-links li:last-child {
     padding: 1px 5px;
     position: absolute;
     right: 6px;
-    top: 12px;
+    top: 2px;
 }
 
 .arrow {
@@ -3216,7 +3219,7 @@ a.forum-item-title:hover {
     border-top: 1px solid #e7eaec;
     overflow: hidden;
     position: fixed;
-    top: 60px;
+    top: 40px;
     width: 260px !important;
     z-index: 1009;
     bottom: 0;
@@ -3628,7 +3631,7 @@ body.body-small .footer.fixed {
 
 .content-tabs {
     position: relative;
-    height: 42px;
+    height: 41px;
     background: #fafafa;
     line-height: 40px;
 }

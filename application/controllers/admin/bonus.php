@@ -13,15 +13,15 @@ class Bonus extends Basecontroller {
 	 */
 	public function lists(){
 		
-		$this->load->model('user_bonus');
+		$this->load->model('fund_bonus_log');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->user_bonus->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->fund_bonus_log->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
-		$ret = $this->user_bonus->getList($params);
+		$ret = $this->fund_bonus_log->getList($params);
 
 		echo json_encode($ret);
 		exit;
@@ -35,15 +35,15 @@ class Bonus extends Basecontroller {
 	public function lists_op(){
 
 		$op = $_POST['oper'];
-		$this->load->model('user_bonus');
+		$this->load->model('fund_bonus_log');
 		switch ($op) {
 			case 'add':  //添加一个组别
 				$data = array('user_id'=>$_POST['user_id'],'status'=>$_POST['status'],'amount'=>$_POST['amount'],
 					          'createtime'=>date('Y-m-d H:i:s'));
-				$status = $this->user_bonus->insert($data);
+				$status = $this->fund_bonus_log->insert($data);
 				break;
 			case 'edit': //修改组别
-				$status = $this->user_bonus->update(array('id'=>$_POST['id']),
+				$status = $this->fund_bonus_log->update(array('id'=>$_POST['id']),
 												array(
 													'user_id'=>$_POST['user_id'],
 													'amount'=>$_POST['amount'],
@@ -66,8 +66,8 @@ class Bonus extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function batch(){
-		// $this->load->model('user_bonus');
-		// $this->user_bonus->addUserBonus(1,100,'你好啊');
+		// $this->load->model('fund_bonus_log');
+		// $this->fund_bonus_log->addUserBonus(1,100,'你好啊');
 		// echo 'over';exit;
 		$this->adminview('bonus_batch',$ret);
 	}
@@ -120,16 +120,16 @@ class Bonus extends Basecontroller {
 			}
 
 			//开始进行派发
-			$this->load->model('user_bonus');
-			$this->user_bonus->trans_begin();
+			$this->load->model('fund_bonus_log');
+			$this->fund_bonus_log->trans_begin();
 			foreach ($new_data as $key => $value) {
-				$ret = $this->user_bonus->addUserBonus($value['user_id'],$value['amount'],$value['remark']);
+				$ret = $this->fund_bonus_log->addUserBonus($value['user_id'],$value['amount'],$value['remark']);
 				if(!$ret['status']){
-					$this->user_bonus->trans_rollback();
+					$this->fund_bonus_log->trans_rollback();
 					$this->alert('添加失败!');
 				}
 			}
-			$this->user_bonus->trans_commit();
+			$this->fund_bonus_log->trans_commit();
 			$this->alert('添加成功!');
 		}
 

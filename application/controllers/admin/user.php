@@ -20,7 +20,13 @@ class User extends Basecontroller {
 
 		$params = $this->input->get();
 		$ret = $this->users->getList($params);
-		
+		$_list = $ret['rows'];
+		foreach ((array)$_list AS $k => $v) {
+		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['id']}\"  class=\"cof\">{$v['account_name']}</a>";
+		    $v['parent_name'] = $v['parent_id']>0 ? $this->users->getAccountName($v['parent_id']) : '无';
+		    $v['profit'] = $v['total_deposit']-$v['total_withdraw'];
+		    $ret['rows'][$k] = $v;
+		}
 		//导出的时候用
 		if($params['export']){
 			if($ret['rows']){
@@ -205,8 +211,28 @@ class User extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function info(){
-		exit("给力开发中......");
+	    $this->load->model('users');
+	    $aUser = $this->users->getUserInfo(intval($this->input->get('user_id')));
+	    $aAssign = array();
+	    $aUser['online'] = '离线';
+	    if ($aUser['parent_path']=='') {
+	        $aUser['parent_path'] = '/';
+	    } else if (is_int(parent_path)) {
+	        $aUser['parent_path'] = $this->users->getAccountName($aUser['parent_path']);
+	    } else if (strstr($aUser['parent_path'], ',')) {
+	        $_tmp = array();
+	        $_us = explode(',', $aUser['parent_path']);
+	        foreach ($_us AS $u) {
+	            $_tmp[] = $this->users->getAccountName($u);
+	        }
+	        $aUser['parent_path'] = implode(',', $_tmp);
+	    }
+	    $aUser['parent_id'] = $aUser['parent_id']>0 ? $this->users->getAccountName($aUser['parent_id']) : '无';
+	    $aAssign['user'] = $aUser;
+	    $this->adminview('user_info',$aAssign);
+		//exit("给力开发中......");
 	}
+	
 	/**
 	 * [transfer_check 转账状态查询]
 	 * @return [type] [description]

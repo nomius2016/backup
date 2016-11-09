@@ -32,11 +32,11 @@
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold"><?php echo $userinfo['name'];?></strong></span>
-                                <span class="text-muted text-xs block"><?php echo $userinfo['group_name'];?><b class="caret"></b></span>
+                                <span class="text-muted text-xs block"><?php echo $userinfo['group_name'];?><b class="fa fa-angle-down"></b></span>
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="/admin/index/loginout">安全退出</a></li>
+                                <li><a href="/admin/index/loginout" class="fa fa-power-off"> 安全退出</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">H+
@@ -53,79 +53,14 @@
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <ul class="nav navbar-top-links navbar-right">
                         <li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="/static/hplus/#">
-                                <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
+                            <a class="count-info cof" href="/admin/deposit/first_list" newtitle="存款初审">
+                                <i class="fa fa-cny">存款待审</i> <span class="label label-warning" id="notify_new_deposit">0</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-messages">
-                                <li class="m-t-xs">
-                                    <div class="dropdown-messages-box">
-                                        <a href="/static/hplus/profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="/static/hplus/img/a7.jpg">
-                                        </a>
-                                        <div class="media-body">
-                                            <small class="pull-right">46小时前</small>
-                                            <strong>小四</strong> 这个在日本投降书上签字的军官，建国后一定是个不小的干部吧？
-                                            <br>
-                                            <small class="text-muted">3天前 2014.11.8</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="dropdown-messages-box">
-                                        <a href="/static/hplus/profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="/static/hplus/img/a4.jpg">
-                                        </a>
-                                        <div class="media-body ">
-                                            <small class="pull-right text-navy">25小时前</small>
-                                            <strong>国民岳父</strong> 如何看待“男子不满自己爱犬被称为狗，刺伤路人”？——这人比犬还凶
-                                            <br>
-                                            <small class="text-muted">昨天</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="text-center link-block">
-                                        <a class="J_menuItem" href="/static/hplus/mailbox.html">
-                                            <i class="fa fa-envelope"></i> <strong> 查看所有消息</strong>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
                         </li>
                         <li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="/static/hplus/#">
-                                <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+                            <a class="count-info cof" href="/admin/withdrawal/first_list" newtitle="提款初审">
+                                <i class="fa fa-euro">出款待审</i> <span class="label label-primary" id="notify_new_withdraw">0</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-alerts">
-                                <li>
-                                    <a href="/static/hplus/mailbox.html">
-                                        <div>
-                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息
-                                            <span class="pull-right text-muted small">4分钟前</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="/static/hplus/profile.html">
-                                        <div>
-                                            <i class="fa fa-qq fa-fw"></i> 3条新回复
-                                            <span class="pull-right text-muted small">12分钟钱</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="text-center link-block">
-                                        <a class="J_menuItem" href="/static/hplus/notifications.html">
-                                            <strong>查看所有 </strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
                         </li>
                         <li class="dropdown hidden-xs">
                             <a class="right-sidebar-toggle" aria-expanded="false">
@@ -146,7 +81,7 @@
                 <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
                 </button>
                 <div class="btn-group roll-nav roll-right">
-                    <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="fa fa-angle-down"></span>
 
                     </button>
                     <ul role="menu" class="dropdown-menu dropdown-menu-right">
@@ -159,7 +94,7 @@
                         </li>
                     </ul>
                 </div>
-                <a href="/static/hplus/login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+                <a href="/admin/index/loginout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-power-off"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/admin/user/lists" frameborder="0" data-id="index_v1.html" seamless></iframe>
@@ -591,10 +526,18 @@
     <!-- 自定义js -->
     <script src="/static/hplus/js/hplus.js?v=4.1.0"></script>
     <script type="text/javascript" src="/static/hplus/js/contabs.js"></script>
-
+    <script src="/static/hplus/js/content.js"></script>
     <!-- 第三方插件 -->
     <script src="/static/hplus/js/plugins/pace/pace.min.js"></script>
 
+<script type="text/javascript">
+setTimeout(function(){
+	$.getJSON('/admin/data/notify',{},function(rs) {
+		$("#notify_new_deposit").html(rs.deposit_new);
+		$("#notify_new_withdraw").html(rs.withdraw_new);
+	});
+},2000); 
+</script>
 </body>
 
 </html>

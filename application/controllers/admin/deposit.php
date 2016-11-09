@@ -13,17 +13,24 @@ class Deposit extends Basecontroller {
 	 */
 	public function first_list(){
 		
-		$this->load->model('user_deposit');
+		$this->load->model('fund_deposit');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->user_deposit->teamHtml(true); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->fund_deposit->teamHtml(true); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('deposit_first_list',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
 		$params['status']  = 1;
-		$ret = $this->user_deposit->getList($params);
-
+		$ret = $this->fund_deposit->getList($params);
+		$_list = $ret['rows'];
+		foreach ((array)$_list AS $k => $v) {
+		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
+		    $v['first_deal'] = "-";
+		    $v['second_deal'] = "-";
+		    $v['status'] = $this->statusText($v['status']);
+		    $ret['rows'][$k] = $v;
+		}
 		echo json_encode($ret);
 		exit;
 
@@ -33,8 +40,8 @@ class Deposit extends Basecontroller {
 	/* 存初审列表审核*/
 	public function first_list_op(){
 
-		$this->load->model('user_deposit');
-		$ret = $this->user_deposit->verify(1,$this->input->post());
+		$this->load->model('fund_deposit');
+		$ret = $this->fund_deposit->verify(1,$this->input->post());
 		exit(json_encode($ret));
 
 	}
@@ -45,17 +52,32 @@ class Deposit extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function sec_list(){
-		$this->load->model('user_deposit');
+		$this->load->model('fund_deposit');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->user_deposit->teamHtml(true); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->fund_deposit->teamHtml(true); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('deposit_sec_list',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
 		$params['status']  = 2;
-		$ret = $this->user_deposit->getList($params);
-
+		$ret = $this->fund_deposit->getList($params);
+		$_list = $ret['rows'];
+		foreach ((array)$_list AS $k => $v) {
+		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
+		    if ($v['first_deal_adminid']>0) {
+		        $v['first_deal'] = $this->getUserName($v['first_deal_adminid']).'@'.$v['first_deal_time'];
+		    } else {
+		      $v['first_deal'] = "-";
+		    }
+		    if ($v['second_deal_adminid']>0) {
+		        $v['second_deal'] = $this->getUserName($v['second_deal_adminid']).'@'.$v['second_deal_time'];
+		    } else {
+		        $v['second_deal'] = "-";
+		    }
+		    $v['status'] = $this->statusText($v['status']);
+		    $ret['rows'][$k] = $v;
+		}
 		echo json_encode($ret);
 		exit;
 
@@ -65,8 +87,8 @@ class Deposit extends Basecontroller {
 	/* 存复审列表审核*/
 	public function sec_list_op(){
 
-		$this->load->model('user_deposit');
-		$ret = $this->user_deposit->verify(2,$this->input->post());
+		$this->load->model('fund_deposit');
+		$ret = $this->fund_deposit->verify(2,$this->input->post());
 		exit(json_encode($ret));
 
 	}
@@ -77,17 +99,32 @@ class Deposit extends Basecontroller {
 	 */
 	public function suc_list(){
 		
-		$this->load->model('user_deposit');
+		$this->load->model('fund_deposit');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->user_deposit->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->fund_deposit->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
 		$params['status']  = 3;
-		$ret = $this->user_deposit->getList($params);
-
+		$ret = $this->fund_deposit->getList($params);
+		$_list = $ret['rows'];
+		foreach ((array)$_list AS $k => $v) {
+		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
+		    if ($v['first_deal_adminid']>0) {
+		        $v['first_deal'] = $this->getUserName($v['first_deal_adminid']).'@'.$v['first_deal_time'];
+		    } else {
+		        $v['first_deal'] = "-";
+		    }
+		    if ($v['second_deal_adminid']>0) {
+		        $v['second_deal'] = $this->getUserName($v['second_deal_adminid']).'@'.$v['second_deal_time'];
+		    } else {
+		        $v['second_deal'] = "-";
+		    }
+		    $v['status'] = $this->statusText($v['status']);
+		    $ret['rows'][$k] = $v;
+		}
 		echo json_encode($ret);
 		exit;
 
@@ -99,37 +136,51 @@ class Deposit extends Basecontroller {
 	 */
 	public function rej_list(){
 		
-		$this->load->model('user_deposit');
+		$this->load->model('fund_deposit');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->user_deposit->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->fund_deposit->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
 		$params['rej']  = true;
-		$ret = $this->user_deposit->getList($params);
-
-		echo json_encode($ret);
-		exit;
-
-	}
-
-
-	public function online_list(){
-		$this->load->model('user_withdrawal');
-		if(!isset($_GET['getdata'])){
-			$ret = $this->user_withdrawal->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
-			$this->adminview('hplus_normal',$ret);
-			return;
+		$ret = $this->fund_deposit->getList($params);
+		$_list = $ret['rows'];
+		foreach ((array)$_list AS $k => $v) {
+		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
+		    if ($v['first_deal_adminid']>0) {
+		        $v['first_deal'] = $this->getUserName($v['first_deal_adminid']).'@'.$v['first_deal_time'];
+		    } else {
+		        $v['first_deal'] = "-";
+		    }
+		    if ($v['second_deal_adminid']>0) {
+		        $v['second_deal'] = $this->getUserName($v['second_deal_adminid']).'@'.$v['second_deal_time'];
+		    } else {
+		        $v['second_deal'] = "-";
+		    }
+		    $v['status'] = $this->statusText($v['status']);
+		    $ret['rows'][$k] = $v;
 		}
-		
-		$params = $this->input->get();
-		$ret = $this->user_withdrawal->getList($params);
-
 		echo json_encode($ret);
 		exit;
+
 	}
+
 	
+	private function statusText($i) {
+	    if ($i==1) {//$i = '待初审';状态 (1 申请中 2 一审成功 -2一审失败 3二审成功 -3二审失败)
+	        $i = '待初审';
+	    } else if ($i==2) {
+	        $i = '一审通过 ';
+	    } else if ($i==-2) {
+	        $i = '一审拒绝 ';
+	    } else if ($i==3) {
+	        $i = '二审通过 ';
+	    } else if ($i==-2) {
+	        $i = '二审拒绝';
+	    }
+	    return $i;
+	}
 }
 
