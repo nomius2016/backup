@@ -779,7 +779,7 @@ laydate(end);
 			$tmp['editable'] = isset($value['2']) ? $value['2'] : true;
 			$tmp['width'] = isset($value['4']) ? $value['4'] : 60;
 			$tmp['hidden'] = isset($value['3']) ? $value['3'] : false;
-			if(in_array($value['5'],array('checkbox','select'))){
+			if(in_array($value['5'],array('select_multiple','select','textarea'))){
 				$tmp['edittype'] = $value['5'];
 				$con = '';
 				foreach ($value['6'] as  $k => $v) {
@@ -789,7 +789,22 @@ laydate(end);
 						$con .= $k.':'.$v;
 					}
 				}
-				$con = "{value:'$con'}";
+				if($value['5'] == 'select_multiple'){
+					$tmp['edittype'] = 'select';
+					$select_size = count($value['6']); 
+					if($select_size>10) $select_size = 10;
+					$con = "{value:'$con',multiple:'multiple',size:$select_size}";
+				}elseif($value['5'] == 'select'){
+					$con = "{value:'$con'}";
+				}elseif($value['5'] == 'textarea'){
+					if($value['6']){
+						$row = $value['6']['0'];
+						$col = $value['6']['1'];
+						$con = "{rows:'{$row}',cols:'{$col}'}";
+					}else{
+						$con = "{rows:'2',cols:'15'}";
+					}
+				}
 				$md5_key = md5(json_encode($value));
 				$tmp['editoptions'] = $md5_key;
 				// 保存下来 方便序列化之后替换使用
