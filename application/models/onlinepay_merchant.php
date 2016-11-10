@@ -5,9 +5,21 @@
  */
 class onlinepay_merchant extends Base_Model{
 	
+
+	public  $_mechants;
+
 	public function __construct() {
 		$this->setTableName("onlinepay_merchant");
 		parent::__construct ();
+
+		$this->load->model('onlinepay');
+		$ret = $this->onlinepay->selectAll();
+		//获取商户类型
+		$merchants = array();
+		foreach ($ret as  $value) {
+			$merchants[$value['id']] = $value['nickname'];
+		}
+		$this->_merchants = $merchants;
 	}
 	
 
@@ -17,23 +29,17 @@ class onlinepay_merchant extends Base_Model{
 	 */
 	public function teamHtml(){
 
-		//获取商户类型
-		$this->load->model('onlinepay');
-		$ret = $this->onlinepay->selectAll();
-		$merchants = array();
-		foreach ($ret as  $value) {
-			$merchants[$value['id']] = $value['nickname'];
-		}
+
 		$field = array(
                 //字段名/显示名称/能否修改/是否显示/宽度/类型/值
 			array('title','标题'),
-			array('merchat_id','商户类型',TRUE,FALSE,60,'select',$merchants),
+			array('merchat_id','商户类型',TRUE,FALSE,60,'select',$this->_merchants),
 			array('secret_key','密钥'),
 			array('company_id','商户ID'),
 		);
 
 		$search = array(
-			array('merchat_id','select',$merchants),
+			array('merchat_id','select',$this->_merchants),
 		);
 		$data = array();
 		// $data['export'] = true;
@@ -42,6 +48,7 @@ class onlinepay_merchant extends Base_Model{
 		$data['add'] = true;
 		$data['del'] = true;
 		$data['edit'] = true;
+		$this->teamHplus($data);
 		return $this->teamHplus($data);
 
 	}
@@ -62,6 +69,9 @@ class onlinepay_merchant extends Base_Model{
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
 		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		foreach ($list as $key => &$value) {
+			$value['merchat_id'] = $this->_merchants[$value['merchat_id']];
+		}
 		$count = $this->count($where);
 
 		return array(
