@@ -112,42 +112,6 @@ class User extends Basecontroller {
 		exit;
 	}
 
-	/**
-	 * [betlog 投注记录查询]
-	 * @return [type] [description]
-	 */
-	public function betlog(){
-
-		$this->load->model('user_bet_log');
-		if(!isset($_GET['getdata'])){
-			$ret = $this->user_bet_log->teamHtml();
-			$this->adminview('hplus_normal',$ret);
-			return;
-		}
-
-		$params = $this->input->get();
-		$ret = $this->user_bet_log->getList($params);
-		
-		//导出的时候用
-		if($params['export']){
-			if($ret['rows']){
-				$this->load->library ( "phpexcel/bomaexcel");
-				$this->bomaexcel->output($ret['rows'],array('ID','用户ID','游戏帐号','游戏平台','投注金额','净输赢','投注时间'),'用户投注记录',
-														array('id','user_id','account','platform','amount','winloss','bettime'));
-				exit;
-			}else{
-				echo '<script>';
-				echo "alert('数据为空');";
-				echo "window.history.go(-1)";
-				echo '</script>';
-				exit;
-			}		
-		}
-
-		echo json_encode($ret);
-		exit;
-
-	}
 
 	public function transfer_list(){
 
@@ -197,10 +161,14 @@ class User extends Basecontroller {
 		}
 
 		$params = $this->input->get();
-		$params['type'] = 0;
 		$ret = $this->user_messages->getList($params);
-		
-
+		$_list = $ret['rows'];
+		foreach ((array)$_list AS $k => $v) {
+		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
+		    $v['message_type'] = $v['type']==0 ? '后台发送' : '系统发送';
+		    $v['is_readed'] = $v['is_read']==0 ? 'N' : 'Y';
+		    $ret['rows'][$k] = $v;
+		}
 		echo json_encode($ret);
 		exit;
 

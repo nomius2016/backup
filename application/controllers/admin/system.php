@@ -100,7 +100,6 @@ class System extends Basecontroller {
 		
 		$params = $this->input->get();
 		$ret = $this->admins->getList($params);
-
 		echo json_encode($ret);
 		exit;
 
@@ -161,6 +160,11 @@ class System extends Basecontroller {
 		
 		$params = $this->input->get();
 		$ret = $this->admin_group->getList($params);
+		$_list = $ret['rows'];
+		foreach ((array)$_list AS $k => $v) {
+		    $v['op'] = "<a href=\"/admin/system/admin_auth?group_id={$v['id']}\"  class=\"cof\">权限分配</a>";
+		    $ret['rows'][$k] = $v;
+		}
 		echo json_encode($ret);
 		exit;
 	}

@@ -21,7 +21,8 @@ class admin_group extends Base_Model{
                 //字段名/显示名称/能否修改/是否显示/宽度/类型/值
 			array('id','ID',false),
 			array('group_name','组名'),
-			array('display_sort','排序')
+			array('display_sort','排序'),
+		    array('op','操作')
 		);
 
 		$search = array(

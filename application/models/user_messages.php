@@ -19,11 +19,13 @@ class user_messages extends Base_Model{
 
 		$field = array(
                 //字段名/显示名称/能否修改/是否显示/宽度/类型/值
-			array('id','ID',false),
-			array('user_id','用户ID',false),
+			array('id','ID',false,false,20),
+			array('account_name','发送给',false,false,20),
+		    array('message_type','消息类型',false,false,20),
 			array('title','标题',false),
-			array('send_time','发送时间',false),
-			array('admin_name','管理员名',false)
+			array('send_time','发送时间',false,false,20),
+		    array('is_readed','已读',false,false,5),
+			array('admin_name','发送人',false,false,20),
 		);
 
 		$search = array(
@@ -48,9 +50,15 @@ class user_messages extends Base_Model{
 	 */
 	public function getList($params){
 		$where = array();
-		if($params['user_id']) $where['user_id'] = $params['user_id'];
-		if($params['title']) $where['title'] = $params['title'];
-		if(isset($params['type'])) $where['type'] = $params['type'];
+		if ($params['user_id']) {
+		    $where['user_id'] = $params['user_id'];
+		}
+		if ($params['title']) {
+		    $where['title'] = $params['title'];
+		}
+		if (isset($params['type'])) {
+		    $where['type'] = $params['type'];
+		}
 
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
