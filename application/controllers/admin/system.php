@@ -370,8 +370,27 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function pay_config(){
-		exit("给力开发中......");
+		$this->load->model('onlinepay');
+		if(!isset($_GET['getdata'])){
+			$ret = $this->onlinepay->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$this->adminview('system_pay_config',$ret);
+			return;
+		}
+		
+		$params = $this->input->get();
+		$ret = $this->onlinepay->getList($params);
+		echo json_encode($ret);
+		exit;
 	}
+
+	/**
+	 * [pay_config_op 支付设置操作权限]
+	 * @return [type] [description]
+	 */
+	public function pay_config_op(){
+		print_r($_POST);exit;
+	}
+
 
 	/**
 	 * [basic_config 系统常规设置]
