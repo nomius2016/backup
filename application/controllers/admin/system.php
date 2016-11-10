@@ -362,7 +362,59 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function pay_merchant(){
-		exit("给力开发中......");
+		$this->load->model('onlinepay_merchant');
+		if(!isset($_GET['getdata'])){
+			$ret = $this->onlinepay_merchant->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$this->adminview('system_pay_config',$ret);
+			return;
+		}
+		
+		$params = $this->input->get();
+		$ret = $this->onlinepay_merchant->getList($params);
+		echo json_encode($ret);
+		exit;
+	}
+
+	/**
+	 * [pay_merchant_op 商户设置 操作权限]
+	 * @return [type] [description]
+	 */
+	public function pay_merchant_op(){
+		$this->load->model('onlinepay_merchant');
+		$post = $this->input->post();
+		$op = $post['oper'];
+		switch ($op) {
+			case 'add':  //添加一个组别
+				$data = array(
+						'title'=>$post['title'],
+						'merchat_id'=>$post['merchat_id'],
+						'secret_key'=>$post['secret_key'],
+						'company_id'=>$post['company_id'],
+						);
+				// print_r($data);
+				$status = $this->onlinepay_merchant->insert($data);
+				break;
+			case 'edit': //修改组别
+				$status = $this->onlinepay_merchant->update(array('id'=>$_POST['id']),
+												array(
+													'title'=>$post['title'],
+													'merchat_id'=>$post['merchat_id'],
+													'secret_key'=>$post['secret_key'],
+													'company_id'=>$post['company_id'],
+												)
+											);
+				break;
+			case 'del':  //删除一个组
+				$status = $this->onlinepay_merchant->delete(array('id'=>$_POST['id']));
+				# code...
+				break;
+		}
+
+		if($status){
+			exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
+		}else{
+			exit(json_encode(array('status'=>false,'msg'=>'操作失败')));
+		}	
 	}
 
 	/**
@@ -388,7 +440,54 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function pay_config_op(){
-		print_r($_POST);exit;
+		
+		$this->load->model('onlinepay');
+		$post = $this->input->post();
+		$op = $post['oper'];
+		switch ($op) {
+			case 'add':  //添加一个组别
+				$data = array(
+						'merchant'=>$post['merchant'],
+						'nickname'=>$post['nickname'],
+						'white_list'=>$post['white_list'],
+						'api_url'=>$post['api_url'],
+						'notice_url'=>$post['notice_url'],
+						'success_url'=>$post['success_url'],
+						'bank_list'=>$post['bank_list'],
+						'mobile'=>$post['mobile'],
+						'type'=>$post['type'],
+						'middle_jump_url'=>$post['middle_jump_url'],
+						);
+				// print_r($data);
+				$status = $this->onlinepay->insert($data);
+				break;
+			case 'edit': //修改组别
+				$status = $this->onlinepay->update(array('id'=>$_POST['id']),
+												array(
+													'merchant'=>$post['merchant'],
+													'nickname'=>$post['nickname'],
+													'white_list'=>$post['white_list'],
+													'api_url'=>$post['api_url'],
+													'notice_url'=>$post['notice_url'],
+													'success_url'=>$post['success_url'],
+													'bank_list'=>$post['bank_list'],
+													'mobile'=>$post['mobile'],
+													'type'=>$post['type'],
+													'middle_jump_url'=>$post['middle_jump_url'],
+												)
+											);
+				break;
+			case 'del':  //删除一个组
+				$status = $this->onlinepay->delete(array('id'=>$_POST['id']));
+				# code...
+				break;
+		}
+
+		if($status){
+			exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
+		}else{
+			exit(json_encode(array('status'=>false,'msg'=>'操作失败')));
+		}	
 	}
 
 
