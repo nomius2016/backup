@@ -92,6 +92,7 @@ class System extends Basecontroller {
 	public function admin_list(){
 
 		$this->load->model('admins');
+		$this->load->model('admin_group');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->admins->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
@@ -100,6 +101,13 @@ class System extends Basecontroller {
 		
 		$params = $this->input->get();
 		$ret = $this->admins->getList($params);
+		$_list = $ret['rows'];
+		foreach ((array)$_list AS $k => $v) {
+		    $v['group_name']    = $this->admin_group->getGroupName($v['group_id']);
+		    $v['op_admin_name'] = $this->getAdminName($v['create_admin_id']);
+		    $v['status_text']        = $v['status']==1 ? '正常' : '冻结';
+		    $ret['rows'][$k]    = $v;
+		}
 		echo json_encode($ret);
 		exit;
 

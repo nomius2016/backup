@@ -20,9 +20,12 @@ class fund_bonus_log extends Base_Model{
 		$field = array(
                 //字段名/显示名称/能否修改/是否显示/宽度/类型/值
 			array('id','ID',false),
-			array('user_id','用户ID'),
+			array('account_name','用户',false),
+		    array('amount','金额',false),
+		    array('first_deal','初审',false,false,100),
+		    array('second_deal','复审',false,false,100),
 			array('status','状态',true,false,60,'select',array('1'=>'申请中','2'=>'一审成功','3'=>'一审失败','4'=>'二审成功','5'=>'二审失败')),
-			array('amount','金额'),
+
 			array('createtime','创建时间',false)
 		);
 
@@ -103,4 +106,18 @@ class fund_bonus_log extends Base_Model{
 		return array('status'=>true,'msg'=>'操作成功!');
 	}
 
+	public function statusText($i) {
+	    if ($i==1) {//$i = '待初审';状态 (1 申请中 2 一审成功 -2一审失败 3二审成功 -3二审失败)
+	        $i = '待初审';
+	    } else if ($i==2) {
+	        $i = '一审通过 ';
+	    } else if ($i==3) {
+	        $i = '一审拒绝 ';
+	    } else if ($i==4) {
+	        $i = '二审通过 ';
+	    } else if ($i==5) {
+	        $i = '二审拒绝';
+	    }
+	    return $i;
+	}
 }

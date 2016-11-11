@@ -24,7 +24,18 @@ class User extends Basecontroller {
 		foreach ((array)$_list AS $k => $v) {
 		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['id']}\"  class=\"cof\">{$v['account_name']}</a>";
 		    $v['parent_name'] = $v['parent_id']>0 ? $this->users->getAccountName($v['parent_id']) : '无';
-		    $v['profit'] = $v['total_deposit']-$v['total_withdraw'];
+		    $v['profit'] = sprintf("%.2f",($v['total_deposit']-$v['total_withdraw'])/1000);
+		    $v['total_deposit'] = sprintf("%.2f",$v['total_deposit']/1000);
+		    $v['total_withdraw'] = sprintf("%.2f",$v['total_withdraw']/1000);
+		    $v['total_bet'] = sprintf("%.2f",$v['total_bet']/1000);
+		    $v['balance'] = sprintf("%.2f",$v['balance']/1000);
+		    $v['frozon_balance'] = sprintf("%.2f",$v['frozon_balance']/1000);
+		    $v['ag_balance'] = sprintf("%.2f",$v['ag_balance']/1000);
+		    $v['sb_balance'] = sprintf("%.2f",$v['sb_balance']/1000);
+		    $v['pt_balance'] = sprintf("%.2f",$v['withdrawal_day_max']/1000);
+		    $v['withdrawal_day_max'] = sprintf("%.2f",$v['withdrawal_day_max']/1000);
+		    $v['withdrawal_min'] = sprintf("%.2f",$v['withdrawal_min']/1000);
+		    $v['withdrawal_max'] = sprintf("%.2f",$v['withdrawal_max']/1000);
 		    $ret['rows'][$k] = $v;
 		}
 		//导出的时候用
@@ -196,7 +207,20 @@ class User extends Basecontroller {
 	        $aUser['parent_path'] = implode(',', $_tmp);
 	    }
 	    $aUser['parent_id'] = $aUser['parent_id']>0 ? $this->users->getAccountName($aUser['parent_id']) : '无';
+	    $aUser['profit'] = sprintf("%.2f",($aUser['total_deposit']-$aUser['total_withdraw'])/1000);
+	    $aUser['total_deposit'] = sprintf("%.2f",$aUser['total_deposit']/1000);
+	    $aUser['total_withdraw'] = sprintf("%.2f",$aUser['total_withdraw']/1000);
+	    $aUser['total_bet'] = sprintf("%.2f",$aUser['total_bet']/1000);
+	    $aUser['balance'] = sprintf("%.2f",$aUser['balance']/1000);
+	    $aUser['frozon_balance'] = sprintf("%.2f",$aUser['frozon_balance']/1000);
+	    $aUser['ag_balance'] = sprintf("%.2f",$aUser['ag_balance']/1000);
+	    $aUser['sb_balance'] = sprintf("%.2f",$aUser['sb_balance']/1000);
+	    $aUser['pt_balance'] = sprintf("%.2f",$aUser['withdrawal_day_max']/1000);
+	    $aUser['withdrawal_day_max'] = sprintf("%.2f",$aUser['withdrawal_day_max']/1000);
+	    $aUser['withdrawal_min'] = sprintf("%.2f",$aUser['withdrawal_min']/1000);
+	    $aUser['withdrawal_max'] = sprintf("%.2f",$aUser['withdrawal_max']/1000);
 	    $aAssign['user'] = $aUser;
+	    
 	    $this->adminview('user_info',$aAssign);
 		//exit("给力开发中......");
 	}

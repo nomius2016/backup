@@ -18,15 +18,14 @@ class Admins extends Base_Model{
 	public function teamHtml(){
 
 		$field = array(
-                //字段名/显示名称/能否修改/是否显示/宽度/类型/值
+            //字段名/显示名称/能否修改/是否隐藏/宽度/类型/值
 			array('id','ID',false),
-			array('username','用户名'),
+			array('username','用户名',true),
 			array('name','姓名'),
-			array('group_id','组别ID'),
-			array('password','密码'),
-			array('email','邮箱'),
-			array('status','状态',false),
-			array('create_admin_id','创建者ID',false),
+			array('group_name','所属组'),
+			array('status_text','状态',true,false),
+		    array('status','状态',true,true),
+			array('op_admin_name','创建者',false),
 			array('create_time','创建时间',false)
 		);
 
@@ -118,6 +117,16 @@ class Admins extends Base_Model{
 
 	}
 
+	/**
+	 * @desc 取得用户名
+	 * @param int $id
+	 * @return String
+	 */
+	public function getAdminName($id) {
+	    $row = $this->selectById($id);
+	    return $row['username'];
+	}
+	
 	public function isLogin(){
 		
 		$info = $this->session->all_userdata();

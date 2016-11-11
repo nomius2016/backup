@@ -4,6 +4,7 @@
  * admin_group
  */
 class admin_group extends Base_Model{
+    private $_groupname = array();
 	
 	public function __construct() {
 		$this->setTableName("admin_group");
@@ -64,5 +65,12 @@ class admin_group extends Base_Model{
 			);
 	}
 
-
+    
+	public function getGroupName($id) {
+	    if (!$this->_groupname[$id]) {
+	        $row = $this->selectById($id);
+	        $this->_groupname[$id] = $row['group_name'];
+	    }
+	    return $this->_groupname[$id];
+	}
 }

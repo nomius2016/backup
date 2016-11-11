@@ -31,7 +31,7 @@ class Users extends Base_Model{
 		    array('profit','平台盈利',false),
 		    array('withdrawal_day_max','单日最大提款'),
 		    array('withdrawal_min','最低提款'),
-		    array('withdrawal_max','最高存款'),
+		    array('withdrawal_max','单笔最大提款'),
 			array('status','状态',true,false,30,'select',array('1'=>'激活','2'=>'冻结')),
 		    array('last_login_time','最后登录时间',false),
 		    array('last_login_ip','最后登录IP',false),

@@ -22,7 +22,23 @@ class Bonus extends Basecontroller {
 		
 		$params = $this->input->get();
 		$ret = $this->fund_bonus_log->getList($params);
-
+		$_list = $ret['rows'];
+		foreach ((array)$_list AS $k => $v) {
+		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
+		    if ($v['first_deal_adminid']>0) {
+		        $v['first_deal'] = $this->getUserName($v['first_deal_adminid']).'@'.$v['first_deal_time'];
+		    } else {
+		        $v['first_deal'] = "-";
+		    }
+		    if ($v['second_deal_adminid']>0) {
+		        $v['second_deal'] = $this->getUserName($v['second_deal_adminid']).'@'.$v['second_deal_time'];
+		    } else {
+		        $v['second_deal'] = "-";
+		    }
+		    $v['amount'] = sprintf("%.2f",$v['amount']/1000);
+		    $v['status'] = $this->fund_bonus_log->statusText($v['status']);
+		    $ret['rows'][$k] = $v;
+		}
 		echo json_encode($ret);
 		exit;
 

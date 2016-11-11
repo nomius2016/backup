@@ -64,6 +64,9 @@ class Log extends Basecontroller {
 		    $v['fund_transfer_type'] = $aType[$v['transfer_type_id']];
 		    $v['dateline'] = date('Y-m-d H:i:s',$v['dateline']);
 		    $v['status'] = $v['status']==1 ? '完成' : '未完成';
+		    $v['before_balance'] = sprintf("%.2f",$v['before_balance']/1000);
+		    $v['amount'] = sprintf("%.2f",$v['amount']/1000);
+		    $v['after_balance'] = sprintf("%.2f",$v['after_balance']/1000);
 		    $ret['rows'][$k] = $v;
 		}
 		

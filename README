@@ -60,7 +60,13 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 (5)完成了后台首页顶部菜单提醒，有新存款和新提款会显示
 (6)稍微调整一些CSS
 
-改动提交大，意见删除原来的database完整导入
+改动提比较大，建议删除原来的database完整导入
+
+2016-11-11 Cola
+(1)调整所有涉及得钱的地方用bigint表示，实际金额除以1000
+(2)继续完善功能调整菜单
+
+改动提比较大，建议删除原来的database完整导入
 
 --------------
 
