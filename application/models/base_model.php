@@ -827,7 +827,7 @@ laydate(end);
 		$js .="$('#grid_table').jqGrid({
                 url:'{$data_url}',
                 datatype: 'json',
-                height: 565,
+                height: 420,
                 autowidth: true,
                 shrinkToFit: true,
                 // rowNum: 100,
