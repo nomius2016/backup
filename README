@@ -71,6 +71,7 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 2016-11-13 Cola
 (1)对会员概况进行功能完善
 (2)对users表进行拆分，为了考虑以后性能问题，对users一些不经常变化的字段放到扩展表中，例如 平台余额可以水平扩展，
+(3)初步完成转账事务功能
 
 改动提比较大，建议删除原来的database完整导入d_file/20161113-cola.sql
 
