@@ -4,6 +4,7 @@ class User extends Basecontroller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('users');
 	}
 
 	/**
@@ -11,7 +12,6 @@ class User extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function lists(){
-		$this->load->model('users');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->users->teamHtml();
 			$this->adminview('hplus_normal',$ret);
@@ -22,7 +22,9 @@ class User extends Basecontroller {
 		$ret = $this->users->getList($params);
 		$_list = $ret['rows'];
 		foreach ((array)$_list AS $k => $v) {
-		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['id']}\"  class=\"cof\">{$v['account_name']}</a>";
+		    $restrict = $this->users->restrict($v['user_id']);
+		    $v = array_merge($v,$restrict);
+		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">{$v['account_name']}</a>";
 		    $v['parent_name'] = $v['parent_id']>0 ? $this->users->getAccountName($v['parent_id']) : '无';
 		    $v['profit'] = sprintf("%.2f",($v['total_deposit']-$v['total_withdraw'])/1000);
 		    $v['total_deposit'] = sprintf("%.2f",$v['total_deposit']/1000);
@@ -36,6 +38,7 @@ class User extends Basecontroller {
 		    $v['withdrawal_day_max'] = sprintf("%.2f",$v['withdrawal_day_max']/1000);
 		    $v['withdrawal_min'] = sprintf("%.2f",$v['withdrawal_min']/1000);
 		    $v['withdrawal_max'] = sprintf("%.2f",$v['withdrawal_max']/1000);
+		    $v['status_text'] = $v['status']==1 ? '正常' : '冻结';
 		    $ret['rows'][$k] = $v;
 		}
 		//导出的时候用
@@ -65,21 +68,15 @@ class User extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function lists_op(){
-
-		$op = $_POST['oper'];
-		$this->load->model('users');
-		switch ($op) {
+        $op = $this->input->post();
+		switch ($op['oper']) {
 			case 'edit': //修改组别
-				$status = $this->users->update(array('id'=>$_POST['id']),
-										array(
-											'account_name'=>$_POST['account_name'],
-											'name'=>$_POST['name'],
-											'sex'=>$_POST['sex'],
-											'status'=>$_POST['status'],
-											'phone'=>$_POST['phone']
-											)
+			    $aField = array();
+			    if (isset($op['status'])) {
+			        $aField['status'] = $op['status'];
+			    }
 
-										);
+				$status = $this->users->update(array('user_id' => $op['user_id']),$aField);
 				break;
 		}
 
@@ -90,10 +87,28 @@ class User extends Basecontroller {
 		}
 
 	}
+	
+	public function set_restrict() {
+	    $aParam = $this->input->post();
+	    $aField = array();
+	    if ($aParam['field']=='extra') {
+	        $aExtra = $this->users->restrict($aParam['user_id']);
+	        if ($aParam['group']=='transfer') {
+	            $aExtra['extra']['transfer'][$aParam['gaming_id']][$aParam['op']] = $aParam['val']; 
+	        } else {
+	            $aExtra['extra'][$aParam['op']] = $aParam['val'];
+	        }
+	        $aField['extra'] = json_encode($aExtra['extra']);
+	    } else {
+	        if (strstr($aParam['field'], 'withdraw')) {
+	            $aParam['val'] *= 1000;
+	        }
+	        $aField[$aParam['field']] = $aParam['val'];
+	    }
+	    echo $this->users->set_restrict($aParam['user_id'], $aField);
+	}
 
 	public function contact_export(){
-
-		$this->load->model('users');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->users->teamContactHtml();
 			$this->adminview('hplus_normal',$ret);
@@ -190,8 +205,16 @@ class User extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function info(){
-	    $this->load->model('users');
-	    $aUser = $this->users->getUserInfo(intval($this->input->get('user_id')));
+	    $iUserid = intval($this->input->get('user_id'));
+	    
+	    $profile  = $this->users->profile($iUserid);
+	    $restrict = $this->users->restrict($iUserid);
+	    $aUser = $this->users->getUserInfo($iUserid);
+	    $aUser['bal'] = $this->users->balance($iUserid);
+	    
+	    $this->load->model('transation');
+	    
+	    $aUser = array_merge($aUser,$profile,$restrict);
 	    $aAssign = array();
 	    $aUser['online'] = '离线';
 	    if ($aUser['parent_path']=='') {
@@ -213,16 +236,30 @@ class User extends Basecontroller {
 	    $aUser['total_bet'] = sprintf("%.2f",$aUser['total_bet']/1000);
 	    $aUser['balance'] = sprintf("%.2f",$aUser['balance']/1000);
 	    $aUser['frozon_balance'] = sprintf("%.2f",$aUser['frozon_balance']/1000);
-	    $aUser['ag_balance'] = sprintf("%.2f",$aUser['ag_balance']/1000);
-	    $aUser['sb_balance'] = sprintf("%.2f",$aUser['sb_balance']/1000);
-	    $aUser['pt_balance'] = sprintf("%.2f",$aUser['withdrawal_day_max']/1000);
+	    $aUser['balance-100'] = sprintf("%.2f",$aUser['bal'][100]/1000);
+	    $aUser['balance-101'] = sprintf("%.2f",$aUser['bal'][101]/1000);
+	    $aUser['balance-102'] = sprintf("%.2f",$aUser['bal'][102]/1000);
 	    $aUser['withdrawal_day_max'] = sprintf("%.2f",$aUser['withdrawal_day_max']/1000);
 	    $aUser['withdrawal_min'] = sprintf("%.2f",$aUser['withdrawal_min']/1000);
 	    $aUser['withdrawal_max'] = sprintf("%.2f",$aUser['withdrawal_max']/1000);
 	    $aAssign['user'] = $aUser;
-	    
+	    /*
+    	try {
+	      $this->db->trans_begin();
+	      // 先进常规的业务逻辑,业务逻辑完成以后到改变用户余额哪一步开始代用事务 
+	      //$depositid = $this->fund_deposit->insert($array);
+	      if ($depositid<1) {
+	          //throw new Exception('插入失败，报异常，必须抛出异常！！！！！！！！！！！！');
+	      } 
+	      //////////////////////////////
+	      $a = 300*1000;
+	      $this->transation->make(3,2,$a,0,1,'提现失败返还');
+	     //////////////////////////////
+	      $this->db->trans_commit();
+	  } catch (Exception $e) {
+	     $this->db->trans_rollback ();
+	  }*/
 	    $this->adminview('user_info',$aAssign);
-		//exit("给力开发中......");
 	}
 	
 	/**

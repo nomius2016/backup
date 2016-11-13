@@ -19,8 +19,8 @@ class Users extends Base_Model{
 
 		$field = array(
             //字段名/显示名称/能否修改/是否显示/宽度/类型/值
-			array('id','U-ID',false,false,30),
-			array('account_name','用户名'),
+			array('user_id','U-ID',false,false,30),
+			array('account_name','用户名',false),
 		    array('register_time','注册时间',false),
 		    array('register_ip','注册IP',false),
 		    array('parent_name','上级',false),
@@ -32,23 +32,22 @@ class Users extends Base_Model{
 		    array('withdrawal_day_max','单日最大提款'),
 		    array('withdrawal_min','最低提款'),
 		    array('withdrawal_max','单笔最大提款'),
-			array('status','状态',true,false,30,'select',array('1'=>'激活','2'=>'冻结')),
+			array('status_text','状态',true,false,28),
 		    array('last_login_time','最后登录时间',false),
-		    array('last_login_ip','最后登录IP',false),
-		    array('op','操作',false),
+		    array('last_login_ip','最后登录IP',false)
 		);
 
 		$search = array(
 			array('account_name','text','请输入用户名'),
-			array('name','text','请输入姓名')
+		    array('status','select',array('1'=>'正常','2'=>'冻结')),
 		);
 		$data = array();
-		$data['export'] = true;
-		$data['field'] = $field;
+		$data['export'] = false;
+		$data['field']  = $field;
 		$data['search'] = $search;
 		// $data['add'] = true;
 		// $data['del'] = true;
-		$data['edit'] = true;
+		//$data['edit'] = false;
 		return $this->teamHplus($data);
 
 	}
@@ -61,7 +60,6 @@ class Users extends Base_Model{
 	public function getList($params){
 		$where = array();
 		if($params['account_name']) $where['account_name'] = $params['account_name'];
-		if($params['name']) $where['name'] = $params['name'];
 
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
@@ -69,7 +67,7 @@ class Users extends Base_Model{
 		
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
-		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		$list = $this->selectByWhere($where,'*',$limit,array('user_id','DESC'));
 		$count = $this->count($where);
 
 		return array(
@@ -87,7 +85,7 @@ class Users extends Base_Model{
 
 		$field = array(
                 //字段名/显示名称/能否修改/是否显示/宽度/类型/值
-			array('id','ID',false),
+			array('user_id','ID',false),
 			array('account_name','用户名'),
 			array('name','姓名'),
 			array('phone','手机号码'),
@@ -109,7 +107,49 @@ class Users extends Base_Model{
 
 	}
 
+	/**
+	 * @desc 用户资料信息
+	 * @param int $userid
+	 * @return array
+	 */
+	public function profile(int $userid) {
+	    return $this->db->from('user_profile')->where('user_id', $userid)->get()->row_array();
+	}
 
+	/**
+	 * @desc 用户转账提款等限制
+	 * @param int $userid
+	 * @return array
+	 */
+	public function restrict(int $userid,$field='') {
+	    $aRestrict = $this->db->from('user_restrict')->where('user_id', $userid)->get()->row_array();
+	    if (!$aRestrict['extra']) {
+	        $aRestrict['extra'] = '[]';
+	    }
+	    $aRestrict['extra'] = json_decode($aRestrict['extra'],true);
+	    return $field ? $aRestrict[$field] : $aRestrict;
+	}
+	
+	public function set_restrict(int $userid, array $field) {
+	    $this->db->update ('user_restrict', $field, array('user_id' => $userid) );
+	    return $affected_rows;
+	}
+	
+	/**
+	 * @desc 用户其他平台余额
+	 * @param int $userid
+	 * @param int $gamingid 其他游戏平台ID
+	 * @return array or int
+	 */
+	public function balance(int $userid, $gamingid=0) {
+	    $_balance = $this->db->get('user_balance')->result_array();
+	    $aBalance = array();
+	    foreach ((array)$_balance AS $b) {
+	        $aBalance[$b['gaming_id']] = $b['balance'];
+	    }
+	    return $gamingid>=100 ? $aBalance[$gamingid] : $aBalance;
+	}
+	
 	/**
 	 * [getLoginUserinfo 获取登录的用户信息]
 	 * @return [type] [description]
@@ -144,8 +184,8 @@ class Users extends Base_Model{
 	 * @param int $id
 	 * @return String
 	 */
-	public function getAccountName($id) {
-	    $row = $this->selectById($id);
+	public function getAccountName(int $userid) {
+	    $row = $this->selectByCons(array('user_id' => $userid));
 	    return $row['account_name'];
 	}
 	
@@ -154,8 +194,8 @@ class Users extends Base_Model{
 	 * @param int $id
 	 * @return String
 	 */
-	public function getUserInfo($id) {
-	    $row = $this->selectById($id);
+	public function getUserInfo(int $userid) {
+	    $row = $this->selectByCons(array('user_id' => $userid));
 	    return $row;
 	}
 

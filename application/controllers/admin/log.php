@@ -59,14 +59,15 @@ class Log extends Basecontroller {
 		$ret = $this->fund->getList($params);
 		$_list = $ret['rows'];
 		foreach ((array)$_list AS $k => $v) {
-		    $v['user_name'] = $this->getUserName($v['user_id']);
-		    $v['op_user_name'] = $this->getUserName($v['user_id']);
+		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
+		    $v['op_user_name']       = $v['user_id']>0 ? $this->getAdminName($v['user_id']) : '自己';
 		    $v['fund_transfer_type'] = $aType[$v['transfer_type_id']];
-		    $v['dateline'] = date('Y-m-d H:i:s',$v['dateline']);
-		    $v['status'] = $v['status']==1 ? '完成' : '未完成';
-		    $v['before_balance'] = sprintf("%.2f",$v['before_balance']/1000);
-		    $v['amount'] = sprintf("%.2f",$v['amount']/1000);
-		    $v['after_balance'] = sprintf("%.2f",$v['after_balance']/1000);
+		    $v['dateline']           = date('Y-m-d H:i:s',$v['dateline']);
+		    $v['status']             = $v['status']==1 ? '完成' : '未完成';
+		    $v['before_balance']     = sprintf("%.2f",$v['before_balance']/1000);
+		    $v['amount']             = sprintf("%.2f",$v['amount']/1000);
+		    $v['amount']             = $v['amount']>0 ? '<span style="color:red">+'.$v['amount'].'</span>' : '<span style="color:green">'.$v['amount'].'</span>';
+		    $v['after_balance']      = sprintf("%.2f",$v['after_balance']/1000);
 		    $ret['rows'][$k] = $v;
 		}
 		

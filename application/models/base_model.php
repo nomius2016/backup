@@ -163,7 +163,7 @@ class Base_Model extends CI_Model {
 	 * @author 2013-12-5 下午9:11:14
 	 */
 	public function selectById($id) {
-		return $this->db->from ( $this->_tableName )->where ( 'id', $id )->get ()->row_array ();
+		return $this->db->from($this->_tableName)->where('id', $id)->get()->row_array();
 	}
 	
 	/**
