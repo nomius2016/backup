@@ -56,5 +56,9 @@ define("EMAIL_FROM","hplus@admin.com");
 define("EMAIL_SHOW","HPLUS CENTER");
 
 
+
+define('SB','SB');        //SB 平台定义
+
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

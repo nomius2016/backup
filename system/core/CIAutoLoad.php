@@ -7,7 +7,8 @@ abstract class CIAutoLoad {
 	private static $load_classes = array ();
 	static final function loadClass($className = NULL) {
 		$strict_loads = array (
-				"base_model"		
+				"base_model",
+				"base_platform",
 		);
 		if (in_array ( strtolower ( $className ), $strict_loads )) {
 			return self::import ( APPPATH . 'models/' . strtolower ( $className ) . '.php' );
