@@ -51,6 +51,10 @@ define('WITHDRAWAL_REFUSE',7);  //提款拒绝 (增加中心钱包金额 解冻�
 define('WITHDRAWAL_SUCCESS',8); //提款成功  解冻金额
 define('PTC',9);        //转入平台
 
+//邮件发送地址  和 昵称
+define("EMAIL_FROM","hplus@admin.com");
+define("EMAIL_SHOW","HPLUS CENTER");
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -366,7 +366,63 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function email(){
-		exit("给力开发中......");
+		$this->load->model('email_type');
+		if(!isset($_GET['getdata'])){
+			$ret = $this->email_type->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$this->adminview('hplus_normal',$ret);
+			return;
+		}
+		
+		$params = $this->input->get();
+		$ret = $this->email_type->getList($params);
+		echo json_encode($ret);
+		exit;
+	}
+
+	/**
+	 * [pay_merchant_op 邮箱类型管理 操作权限]
+	 * @return [type] [description]
+	 */
+	public function email_op(){
+		
+		$this->load->model('email_type');
+		$post = $this->input->post();
+		$op = $post['oper'];
+		switch ($op) {
+			case 'add':  //添加一个组别
+				$data = array(
+						'title'=>trim($post['title']),
+						'host'=>trim($post['host']),
+						'port'=>trim($post['port']),
+						'protocol'=>trim($post['protocol']),
+						'crypto'=>trim($post['crypto']),
+						'url'=>trim($post['url']),
+						);
+				$status = $this->email_type->insert($data);
+				break;
+			case 'edit': //修改组别
+				$status = $this->email_type->update(array('id'=>$_POST['id']),
+												array(
+														'title'=>trim($post['title']),
+														'host'=>trim($post['host']),
+														'port'=>trim($post['port']),
+														'protocol'=>trim($post['protocol']),
+														'crypto'=>trim($post['crypto']),
+														'url'=>trim($post['url']),
+													)
+											);
+				break;
+			case 'del':  //删除一个组
+				$status = $this->email_type->delete(array('id'=>$_POST['id']));
+				# code...
+				break;
+		}
+
+		if($status){
+			exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
+		}else{
+			exit(json_encode(array('status'=>false,'msg'=>'操作失败')));
+		}	
 	}
 
 	/**
@@ -560,32 +616,24 @@ class System extends Basecontroller {
 
 	/*银行卡设定操作权限*/
 	public function bank_cards_op(){
-		
-		// card_user_name` varchar(30) NOT NULL DEFAULT '' COMMENT '卡主姓名',
-  // `bank_code` varchar(10) NOT NULL DEFAULT '' COMMENT 'ICBC ABC CMB CCB COMM BOC CEB CMBC CITIC SZPAB SPDB CIB',
-  // `bank_name` varchar(40) NOT NULL DEFAULT '' COMMENT '银行名称',
-  // `account_no` varchar(30) NOT NULL DEFAULT '' COMMENT '银行卡号',
-  // `display_name` varchar(40) NOT NULL DEFAULT '' COMMENT '显示名称',
-  // `branch_name` varchar(50) DEFAULT NULL COMMENT '银行分支名称',
-  // `remark` varchar(50) DEFAULT NULL COMMENT '备注',
-
-
-
-
+	
 		$this->load->model('bank_cards');
+		$this->load->model('admins');
 		$post = $this->input->post();
 		$bank_list = $this->bank_cards->bank_list();
 		$op = $post['oper'];
 		switch ($op) {
 			case 'add':  //添加一个组别
 				$data = array(
-						'card_user_name'=>trim($post['card_user_name']),
-						'account_no'    =>trim($post['account_no']),
-						'display_name'  =>trim($post['display_name']),
-						'branch_name'   =>trim($post['branch_name']),
-						'remark'	    =>trim($post['remark']),
-						'bank_code'     =>$post['bank_code'],
-						'bank_name'     =>$bank_list[$post['bank_code']],
+						'card_user_name'  =>trim($post['card_user_name']),
+						'account_no'      =>trim($post['account_no']),
+						'display_name'    =>trim($post['display_name']),
+						'branch_name'     =>trim($post['branch_name']),
+						'remark'	      =>trim($post['remark']),
+						'bank_code'       =>$post['bank_code'],
+						'bank_name'       =>$bank_list[$post['bank_code']],
+						'create_time'     =>date('Y-m-d H:i:s'),
+						'create_admin_id' =>$this->admins->getLoginAdminId(),
 						);
 				// print_r($data);
 				$status = $this->bank_cards->insert($data);

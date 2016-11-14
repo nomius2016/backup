@@ -1,23 +1,16 @@
 <?php
 
 /**
- * email_list
+ * email_type
  */
-class email_list extends Base_Model{
+class email_type extends Base_Model{
 	
-	private $_email_type = array();
-	private $_status;
+	private $_crypto;
+
 	public function __construct() {
-		$this->setTableName("email_list");
+		$this->setTableName("email_type");
 		parent::__construct ();
-		$this->load->model('email_type');
-		$type = $this->email_type->selectAll();
-
-		foreach ($type as $key => $value) {
-			$this->_email_type[$value['id']] = $value['title'];
-		}
-		$this->_status = array('1'=>'未启用','2'=>'启用');
-
+		$this->_crypto = array('ssl'=>'SSL','tls'=>'TLS');
 	}
 	
 
@@ -28,20 +21,20 @@ class email_list extends Base_Model{
 	public function teamHtml(){
 
 		$field = array(
-                //字段名/显示名称/能否修改/是否显示/宽度/类型/值
-			array('id','ID',false),
-			array('username','邮箱地址'),
-			array('password','密码'),
-			array('type','邮箱类型',TRUE,FALSE,60,'select',$this->_email_type),
-			array('status','状态',TRUE,FALSE,60,'select',$this->_status),
-			array('admin_id','创建者ID',false),
-			array('createtime','创建时间',false)
+            //字段名/显示名称/能否修改/是否显示/宽度/类型/值
+			array('title','邮箱名称'),
+			array('host','发送HOST'),
+			array('port','端口号'),
+			array('protocol','发送方式'),
+			array('crypto','协议',TRUE,FALSE,60,'select',$this->_crypto),
+			array('url','登陆链接'),
 		);
 
 		$search = array(
-			array('username','text','请输入用户名')
+			array('title','text','邮箱名称'),
 		);
 		$data = array();
+		// $data['export'] = true;
 		$data['field'] = $field;
 		$data['search'] = $search;
 		$data['add'] = true;
@@ -58,7 +51,7 @@ class email_list extends Base_Model{
 	 */
 	public function getList($params){
 		$where = array();
-		if($params['username']) $where['username'] = $params['username'];
+		if($params['title']) $where['title'] = $params['title'];
 
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
@@ -67,13 +60,18 @@ class email_list extends Base_Model{
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
 		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
-		$count = $this->count($where);
+		
 
+		$count = $this->count($where);
 		return array(
 				'rows'=>$list,
 				'total'=>ceil($count/$pageSize),
 				'page'=>$page
 			);
+	}
+
+	public function bank_list(){
+		return $this->_bank_list;
 	}
 
 

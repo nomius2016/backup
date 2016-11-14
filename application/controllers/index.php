@@ -19,5 +19,11 @@ class Index extends CI_Controller {
 		$ret = $this->users->loginUser($params);
 	}
 
+	public function test(){
+		//$this->load->library('email');
+		$this->email->sendemail('测试','测试发送邮件','nomius@126.com');
+		//$this->hemail->send();
+	}
+
 }
 

@@ -20,3 +20,17 @@ update admin_menu_actions set admin_menu_id = 43 where id = 1;
 insert into admin_menu_actions (`admin_menu_id`,`controller`,`action`,`desc`) value('43','system','admin_auth','授权管理页面');
 insert into admin_menu_auth (`controller`,`action`,`group_id`) value('system','admin_auth',1);
 insert into admin_menu_auth (`controller`,`action`,`group_id`) value('system','admin_auth_formop',1);
+
+
+CREATE TABLE `email_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL COMMENT '邮箱名称',
+  `host` varchar(50) NOT NULL COMMENT 'host',
+  `port` int(10) NOT NULL DEFAULT '465' COMMENT '端口号',
+  `protocol` varchar(10) NOT NULL DEFAULT 'smtp' COMMENT '发送方式',
+  `crypto` varchar(10) NOT NULL DEFAULT 'ssl' COMMENT '协议',
+  `url` varchar(100) NOT NULL COMMENT '登陆的URL',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='邮箱类型管理表';
+
+insert into admin_menu_actions (`admin_menu_id`,`controller`,`action`,`desc`) value('46','system','email_op','邮箱管理操作全系');
