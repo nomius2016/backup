@@ -39,7 +39,7 @@ class Users extends Base_Model{
 
 		$search = array(
 			array('account_name','text','请输入用户名'),
-		    array('status','select',array('1'=>'正常','2'=>'冻结')),
+		    array('status','select',array(0 => '账号状态', 1 => '正常',2 => '冻结')),
 		);
 		$data = array();
 		$data['export'] = false;
@@ -59,8 +59,12 @@ class Users extends Base_Model{
 	 */
 	public function getList($params){
 		$where = array();
-		if($params['account_name']) $where['account_name'] = $params['account_name'];
-
+		if ($params['account_name']) {
+		    $where['account_name'] = $params['account_name'];
+		}
+		if ($params['status']>0) {
+		    $where['status'] = $params['status'];
+		}
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
 		$start = ($page - 1) * $pageSize; 
@@ -142,7 +146,7 @@ class Users extends Base_Model{
 	 * @return array or int
 	 */
 	public function balance(int $userid, $gamingid=0) {
-	    $_balance = $this->db->get('user_balance')->result_array();
+	    $_balance = $this->db->where('user_id',$userid)->get('user_balance')->result_array();
 	    $aBalance = array();
 	    foreach ((array)$_balance AS $b) {
 	        $aBalance[$b['gaming_id']] = $b['balance'];

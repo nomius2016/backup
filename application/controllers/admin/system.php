@@ -430,15 +430,15 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function pay_merchant(){
-		$this->load->model('onlinepay_merchant');
+		$this->load->model('payment_method');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->onlinepay_merchant->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->payment_method->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('system_pay_config',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
-		$ret = $this->onlinepay_merchant->getList($params);
+		$ret = $this->payment_method->getList($params);
 		echo json_encode($ret);
 		exit;
 	}
@@ -448,32 +448,32 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function pay_merchant_op(){
-		$this->load->model('onlinepay_merchant');
+		$this->load->model('payment_method');
 		$post = $this->input->post();
 		$op = $post['oper'];
 		switch ($op) {
 			case 'add':  //添加一个组别
 				$data = array(
 						'title'=>$post['title'],
-						'merchat_id'=>$post['merchat_id'],
+						'payment_group_id'=>$post['payment_group_id'],
 						'secret_key'=>$post['secret_key'],
 						'company_id'=>$post['company_id'],
 						);
 				// print_r($data);
-				$status = $this->onlinepay_merchant->insert($data);
+				$status = $this->payment_method->insert($data);
 				break;
 			case 'edit': //修改组别
-				$status = $this->onlinepay_merchant->update(array('id'=>$_POST['id']),
+				$status = $this->payment_method->update(array('payment_method_id'=>$_POST['id']),
 												array(
 													'title'=>$post['title'],
-													'merchat_id'=>$post['merchat_id'],
+													'payment_group_id'=>$post['payment_group_id'],
 													'secret_key'=>$post['secret_key'],
 													'company_id'=>$post['company_id'],
 												)
 											);
 				break;
 			case 'del':  //删除一个组
-				$status = $this->onlinepay_merchant->delete(array('id'=>$_POST['id']));
+				$status = $this->payment_method->delete(array('payment_method_id'=>$_POST['id']));
 				# code...
 				break;
 		}
@@ -490,15 +490,15 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function pay_config(){
-		$this->load->model('onlinepay');
+		$this->load->model('payment_group');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->onlinepay->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->payment_group->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('system_pay_config',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
-		$ret = $this->onlinepay->getList($params);
+		$ret = $this->payment_group->getList($params);
 		echo json_encode($ret);
 		exit;
 	}
@@ -509,7 +509,7 @@ class System extends Basecontroller {
 	 */
 	public function pay_config_op(){
 		
-		$this->load->model('onlinepay');
+		$this->load->model('payment_group');
 		$post = $this->input->post();
 		$op = $post['oper'];
 		switch ($op) {
@@ -527,10 +527,10 @@ class System extends Basecontroller {
 						'middle_jump_url'=>$post['middle_jump_url'],
 						);
 				// print_r($data);
-				$status = $this->onlinepay->insert($data);
+				$status = $this->payment_group->insert($data);
 				break;
 			case 'edit': //修改组别
-				$status = $this->onlinepay->update(array('id'=>$_POST['id']),
+				$status = $this->payment_group->update(array('payment_group_id'=>$_POST['id']),
 												array(
 													'merchant'=>$post['merchant'],
 													'nickname'=>$post['nickname'],
@@ -546,7 +546,7 @@ class System extends Basecontroller {
 											);
 				break;
 			case 'del':  //删除一个组
-				$status = $this->onlinepay->delete(array('id'=>$_POST['id']));
+				$status = $this->payment_group->delete(array('payment_group_id'=>$_POST['id']));
 				# code...
 				break;
 		}
@@ -597,71 +597,6 @@ class System extends Basecontroller {
 	 */
 	public function admin_log(){
 		exit("给力开发中......");
-	}	
-
-	/* 银行卡设定*/
-	public function bank_cards(){
-		$this->load->model('bank_cards');
-		if(!isset($_GET['getdata'])){
-			$ret = $this->bank_cards->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
-			$this->adminview('hplus_normal',$ret);
-			return;
-		}
-		
-		$params = $this->input->get();
-		$ret = $this->bank_cards->getList($params);
-		echo json_encode($ret);
-		exit;
-	}
-
-	/*银行卡设定操作权限*/
-	public function bank_cards_op(){
-	
-		$this->load->model('bank_cards');
-		$this->load->model('admins');
-		$post = $this->input->post();
-		$bank_list = $this->bank_cards->bank_list();
-		$op = $post['oper'];
-		switch ($op) {
-			case 'add':  //添加一个组别
-				$data = array(
-						'card_user_name'  =>trim($post['card_user_name']),
-						'account_no'      =>trim($post['account_no']),
-						'display_name'    =>trim($post['display_name']),
-						'branch_name'     =>trim($post['branch_name']),
-						'remark'	      =>trim($post['remark']),
-						'bank_code'       =>$post['bank_code'],
-						'bank_name'       =>$bank_list[$post['bank_code']],
-						'create_time'     =>date('Y-m-d H:i:s'),
-						'create_admin_id' =>$this->admins->getLoginAdminId(),
-						);
-				// print_r($data);
-				$status = $this->bank_cards->insert($data);
-				break;
-			case 'edit': //修改组别
-				$status = $this->bank_cards->update(array('id'=>$_POST['id']),
-												array(
-													'card_user_name'=>trim($post['card_user_name']),
-													'account_no'    =>trim($post['account_no']),
-													'display_name'  =>trim($post['display_name']),
-													'branch_name'   =>trim($post['branch_name']),
-													'remark'	    =>trim($post['remark']),
-													'bank_code'     =>$post['bank_code'],
-													'bank_name'     =>$bank_list[$post['bank_code']],
-												)
-											);
-				break;
-			case 'del':  //删除一个组
-				$status = $this->bank_cards->delete(array('id'=>$_POST['id']));
-				# code...
-				break;
-		}
-
-		if($status){
-			exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
-		}else{
-			exit(json_encode(array('status'=>false,'msg'=>'操作失败')));
-		}	
 	}
 
 }

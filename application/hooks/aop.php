@@ -28,43 +28,38 @@ class Aop {
 	 *
 	 */
 	public function filter() {
-		
 		$controller_path = explode('/', $_SERVER['REQUEST_URI']);
 		if(!BACKSTAGE){
 			return;
 		}
-
 		//看看哪些控制器都可以访问
 		$no_deny = array(
-				'index' => array('index','main','page_403'),
+				'index' => array('index','login','main','page_403'),
 		        'data'  => array('notify','page_403'),
 			);
-		if(isset($no_deny[$this->controller]) && in_array($this->action,$no_deny[$this->controller])){
+		if (isset($no_deny[$this->controller]) && in_array($this->action,$no_deny[$this->controller])){
 			return ;
 		}
-
-		$user = $this->CI->session->all_userdata ();
+		$user = $this->CI->session->all_userdata();
 		$group_id = intval ( $user ['group_id'] );
-		if(!$group_id){
+		if($group_id<1){
 			header("Location: /admin/index/index");
+		} else {
+    		// print_r(array('controller'=>$this->controller,'action'=>$this->action,'group_id'=>$group_id));exit;
+    		$ret = $this->CI->admin_menu_auth->selectByWhere(array('controller'=>$this->controller,'action'=>$this->action,'group_id'=>$group_id));
+    		if($ret){
+    			return ;
+    		}else{
+    			//判断是否是异步请求
+    			$rev = strrev($this->action);
+    			//_op  po_
+    			if(strpos($rev, 'po_')===0){
+    				echo json_encode ( array ("status" => false,"message" => "对不起，您没有权限，请联系管理员！","msg" => "对不起，您没有权限，请联系管理员！","error" => 'deny',"from" => "aop" ) );
+    				exit;
+    			}else{
+    				header("Location: /admin/index/page_403"); //跳转到403 页面去
+    			}
+    		}
 		}
-		// print_r(array('controller'=>$this->controller,'action'=>$this->action,'group_id'=>$group_id));exit;
-		$ret = $this->CI->admin_menu_auth->selectByWhere(array('controller'=>$this->controller,'action'=>$this->action,'group_id'=>$group_id));
-		if($ret){
-			return ;
-		}else{
-			//判断是否是异步请求
-			$rev = strrev($this->action);
-			//_op  po_
-			if(strpos($rev, 'po_')===0){
-				echo json_encode ( array ("status" => false,"message" => "对不起，您没有权限，请联系管理员！","msg" => "对不起，您没有权限，请联系管理员！","error" => 'deny',"from" => "aop" ) );
-				exit;
-			}else{
-				header("Location: /admin/index/page_403"); //跳转到403 页面去
-			}
-		}
-		
 	}
-	
-	
 }

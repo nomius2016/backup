@@ -530,12 +530,14 @@
     <script src="/static/hplus/js/plugins/pace/pace.min.js"></script>
 
 <script type="text/javascript">
-setTimeout(function(){
+function get_notify() {
 	$.getJSON('/admin/data/notify',{},function(rs) {
 		$("#notify_new_deposit").html(rs.deposit_new);
 		$("#notify_new_withdraw").html(rs.withdraw_new);
+		setTimeout('get_notify()',2000); 
 	});
-},2000); 
+}
+get_notify();
 </script>
 </body>
 

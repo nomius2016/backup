@@ -3,7 +3,7 @@
 /**
  * onlinepay
  */
-class onlinepay extends Base_Model{
+class payment_group extends Base_Model{
 	
 	private $__mobile_type;
 	private $_type;
@@ -11,7 +11,7 @@ class onlinepay extends Base_Model{
 	private $_bank_list;
 
 	public function __construct() {
-		$this->setTableName("onlinepay");
+		$this->setTableName("payment_group");
 		parent::__construct ();
 
 		$this->_mobile_type = array('1'=>'WEB和手机','2'=>'支持手机','3'=>'支持WEB');
@@ -97,8 +97,9 @@ class onlinepay extends Base_Model{
 		
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
-		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		$list = $this->selectByWhere($where,'*',$limit,array('payment_group_id','asc'));
 		foreach ($list as $key => &$value) {
+		    $value['id'] = $value['payment_group_id'];
 			$value['mobile'] = $this->_mobile_type[$value['mobile']];
 			$value['type'] = $this->_type[$value['type']];
 			$value['status'] = $this->_status[$value['status']];

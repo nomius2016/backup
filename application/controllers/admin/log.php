@@ -66,7 +66,7 @@ class Log extends Basecontroller {
 		    $v['status']             = $v['status']==1 ? '完成' : '未完成';
 		    $v['before_balance']     = sprintf("%.2f",$v['before_balance']/1000);
 		    $v['amount']             = sprintf("%.2f",$v['amount']/1000);
-		    $v['amount']             = $v['amount']>0 ? '<span style="color:red">+'.$v['amount'].'</span>' : '<span style="color:green">'.$v['amount'].'</span>';
+		    $v['amount']             = $v['amount']<0 ? '<span style="color:red">'.$v['amount'].'</span>' : $v['amount'];
 		    $v['after_balance']      = sprintf("%.2f",$v['after_balance']/1000);
 		    $ret['rows'][$k] = $v;
 		}
@@ -166,5 +166,54 @@ class Log extends Basecontroller {
 	public function changelog(){
 		exit("给力开发中......");
 	}
+	
+	public function transation_test() {
+	    $this->load->model('transation');
+	    $p = $this->input->post();
+	    if ($p['act']=='do') {
+	        $aRS = array();
+	        $aRS['err_no'] = 0;
+	        $aRS['err_msg'] = '';
+	        try {
+	            $p['amount'] *= 1000;
+	            $this->db->trans_begin();
+	            // 先进常规的业务逻辑,业务逻辑完成以后到改变用户余额哪一步开始代用事务
+	            //$depositid = $this->fund_deposit->insert($array);
+	            if ($p['transfer_type_id']==1) {
+	                $aField = array();
+	                $aField['user_id'] = $p['user_id'];
+	                $aField['amount'] = $p['amount'];
+	                $aField['remark'] = $p['remark'];
+	                $aField['createtime'] = date('Y-m-d H:i:s');
+	                $this->db->set($aField)->insert('fund_deposit');
+	                if ($this->db->insert_id()<1) {
+	                    throw new Exception('failed to insert deposit ',10002);
+	                }
+	            }
+	            
+    	        if ($p['transfer_type_id']==2) {
+    	            $aField = array();
+    	            $aField['user_id'] = $p['user_id'];
+    	            $aField['amount'] = $p['amount'];
+    	            $aField['remark'] = $p['remark'];
+    	            $aField['createtime'] = date('Y-m-d H:i:s');
+    	            $this->db->set($aField)->insert('fund_withdraw');
+    	            if ($this->db->insert_id()<1) {
+    	                throw new Exception('failed to insert withdraw ',10002);
+    	            }
+    	        }
+	            
+	            $this->transation->make($p['user_id'],$p['transfer_type_id'],$p['amount'],0,1,$p['remark']);
+	            //////////////////////////////
+	            $this->db->trans_commit();
+	        } catch (Exception $e) {
+	            $this->db->trans_rollback();
+	            $aRS['err_no'] = $e->getCode();
+	            $aRS['err_msg'] = $e->getMessage();
+    	    }
+    	    echo json_encode($aRS);
+	    } else {
+	        $this->adminview('transation_test');
+	    }
+	}
 }
-

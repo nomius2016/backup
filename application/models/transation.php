@@ -1,9 +1,9 @@
 <?php
 class Transation extends CI_Model {
     // 这里列出所有的事务类型，防止提价无效数据 //
-    protected $allTransationType = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22);
+    protected $allTransationType = array();
     // 做减法的类型 //
-    protected $decTransationType = array(2,3,6,13,15,16,17);
+    protected $decTransationType = array();
 	
 	public function __construct() {
 		parent::__construct ();
@@ -38,27 +38,42 @@ class Transation extends CI_Model {
 	public function make(int $userid, int $typeid, int $amount, $relationid=0, $opuserid=0, $remark='') {
 	    // 先保证事务类型是有效的  //
 	    if (!$this->isValid($typeid)) {
-	        throw new Exception('invalid transation type');
+	        throw new Exception('invalid transation type',10001);
 	    } else if (abs($amount)<1) {
-	        throw new Exception('invalid amount value');
+	        throw new Exception('invalid amount value',10002);
 	    } else {
 	        // 检查有没有传错userid //
 	        $this->load->model('users');
 	        $aUser = $this->users->getUserInfo($userid);
-	        if ($aUser['id']>0) {
+	        if ($aUser['user_id']>0) {
 	            $aCond  = array();
 	            $aField = array();
 	            $status = 1;
-	            $aCond['id'] = $userid;
-	            if ($this->isDec($typeid)) {
-	                // 如果是做减法，必须保证被减少的值大于等于造作值  //
-	                $aCond['balance >='] = $amount;
-	                $this->db->set('balance',"balance-{$amount}",false)->where($aCond)->update('users');
-	                $newbalance = $aUser['balance']-$amount;
-	            } else {
+	            $aCond['user_id'] = $userid;
+	            if ($this->income($typeid)) {
+	                if ($amount<0) {
+	                    // 在加钱操作中如果加负的钱，其实上是进行减钱,需要判断钱包的钱大于等于操作数额 //
+	                    $aCond['balance >='] = $amount*-1;
+	                }
 	                // 加法运算不需要判定balance值 //
 	                $this->db->set('balance',"balance+{$amount}",false)->where($aCond)->update('users');
 	                $newbalance = $aUser['balance']+$amount;
+	            } else {
+	                if ($amount>0) {
+    	                // 如果是做减法，必须保证被减少的值大于等于造作值  //
+    	                if ($typeid==2 || $typeid==10) {
+    	                    $this->db->set('balance_locked',"balance_locked+{$amount}",false);
+    	                }
+    	                $aCond['balance >='] = $amount;
+	                } else {
+	                    // $typeid==2和10都是对钱包进行减钱，对锁定金额进行加钱的操作，当锁定金额中加负数的时候，实际上是在对其进行减钱，需要判断锁定余额的钱大于等于操作数额 //
+	                    if ($typeid==2 || $typeid==10) {
+	                        $this->db->set('balance_locked',"balance_locked+{$amount}",false);
+	                        $aCond['balance_locked >='] = $amount*-1;
+	                    }
+	                }
+	                $this->db->set('balance',"balance-{$amount}",false)->where($aCond)->update('users');
+	                $newbalance = $aUser['balance']-$amount;
 	            }
 	            // 如果更新成功，开始记录账变日志 //
 	            if ($this->db->affected_rows()>0) {
@@ -67,6 +82,7 @@ class Transation extends CI_Model {
 	                $aField['parent_id']        = $aUser['parent_id'];
 	                $aField['parent_path']      = $aUser['parent_path'];
 	                $aField['transfer_type_id'] = $typeid;
+	                $aField['income']           = $this->income($typeid);
 	                $aField['before_balance']   = $aUser['balance'];
 	                $aField['amount']           = $amount;
 	                $aField['after_balance']    = $newbalance;
@@ -77,10 +93,10 @@ class Transation extends CI_Model {
 	                $aField['dateline']         = time();
 	                $this->db->set($aField)->insert('fund_transfer_log');
 	            } else {
-	                throw new Exception('failed to update user balance');
+	                throw new Exception('failed to update user balance',10003);
 	            }
 	        } else {
-	            throw new Exception('have not userid='.$userid);
+	            throw new Exception('have not userid='.$userid,10004);
 	        }
 	    }
 	    return true;
@@ -92,8 +108,8 @@ class Transation extends CI_Model {
 	 * @return boolean
 	 */
 	private function isValid(int $typeid) {
-	    return true;
-	    //return in_array($typeid, $this->allTransationType);
+	    $this->getAllTransferType();
+	    return array_key_exists($typeid, $this->allTransationType);
 	}
 	
 	/**
@@ -101,8 +117,20 @@ class Transation extends CI_Model {
 	 * @param int $typeid
 	 * @return boolean
 	 */
-	private function isDec(int $typeid) {
-	    return false;
-	    //return in_array($typeid, $this->decTransationType);
+	private function income(int $typeid) {
+	    $this->getAllTransferType();
+	    return $this->allTransationType[$typeid]['income'];
+	}
+	
+	/**
+	 * @desc 得到被定义的事务类型，
+	 */
+	private function getAllTransferType() {
+	    if (!$this->allTransationType) {
+	        $_type = $this->db->get('fund_transfer_type')->result_array();
+	        foreach ((array)$_type AS $t) {
+	            $this->allTransationType[$t['type_id']] = $t;
+	        }
+	    }
 	}
 }

@@ -75,6 +75,16 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 
 改动提比较大，建议删除原来的database完整导入d_file/20161113-cola.sql
 
+2016-11-13 Cola
+(1)核心功能，对用户资金操作分类功能完成，对每个操作都进行了定义，会触发相应的报表和log，可以在在后交易查询 》 交易测试 里进行测试，
+(2)添加了触发器，整个平台报表和数据已经可以跑通
+(3)将支付方式进行了统一，关联到充值流程，因此将onlinepay 改名为 payment_group, onlinepay_merchant 改名为 payment_method
+(4)初步添加了user_card 表，用于将来关联到提款表
+(5)修复了登录状态下session失效的bug
+(6)在后台联调过程中还修复了很多bug
+
+改动提比较大，建议删除原来的database完整导入d_file/201611116-cola.sql
+
 --------------
 
 

@@ -168,23 +168,23 @@
 									}
 						            ?>></td>
 						            
-						            <td><input type="checkbox" group="transfer" gaming_id="100" op="in" <?php
+						            <td><input type="checkbox" group="transfer" gaming_id="101" op="in" <?php
 									if ($user['extra']['transfer'][101]['in']) {
 										echo 'checked';
 									}
 						            ?>></td>
-						            <td><input type="checkbox" group="transfer" gaming_id="100" op="out" <?php
+						            <td><input type="checkbox" group="transfer" gaming_id="101" op="out" <?php
 									if ($user['extra']['transfer'][101]['out']) {
 										echo 'checked';
 									}
 						            ?>></td>
 						            
-						            <td><input type="checkbox" group="transfer" gaming_id="100" op="in" <?php
+						            <td><input type="checkbox" group="transfer" gaming_id="102" op="in" <?php
 									if ($user['extra']['transfer'][102]['in']) {
 										echo 'checked';
 									}
 						            ?>></td>
-						            <td><input type="checkbox" group="transfer" gaming_id="100" op="out" <?php
+						            <td><input type="checkbox" group="transfer" gaming_id="102" op="out" <?php
 									if ($user['extra']['transfer'][102]['out']) {
 										echo 'checked';
 									}

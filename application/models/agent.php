@@ -18,7 +18,7 @@ class agent extends Base_Model{
 
 		$field = array(
             //字段名/显示名称/能否修改/是否显示/宽度/类型/值
-			array('date','统计日期',false),
+			array('date','统计日期',false,false,90),
 			array('account_name','账号',false),
 			array('user_new_reg','新注册用户',false),
 		    array('user_have_bet','有投注用户',false),
@@ -31,7 +31,7 @@ class agent extends Base_Model{
 			array('fandian','返点',false),
 			array('commission','佣金',false),
 			array('profit','平台盈利',false),
-		    array('op','详细',false),
+		    array('op','详细',false,false,30),
 		);
 
 		$search = array(
@@ -55,8 +55,16 @@ class agent extends Base_Model{
 	 */
 	public function getList($params){
 		$where = array();
-		if ($params['date']) {
-		    $where['date'] = $params['date'];
+		if ($params['date_start'] || $params['date_end']) {
+		    if ($params['date_start']) {
+		        $where['date >='] = $params['date_start'];
+		    }
+		    if ($params['date_end']) {
+		        $where['date <='] = $params['date_end'];
+		    }
+		    
+		} else {
+		    $where['date'] = date('Y-m-d');
 		}
 
 		$page = $params['page'] ? $params['page'] : 1;

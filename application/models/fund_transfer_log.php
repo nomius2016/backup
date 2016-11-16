@@ -17,13 +17,12 @@ class Fund_transfer_log extends Base_Model {
 	 * @return [type] [description]
 	 */
 	public function teamHtml(){
-
 		$field = array(
                 //字段名/显示名称/能否修改/是否显示/宽度/类型/值
 			array('id','流水ID',false,false,30),
 			array('account_name','用户名',false),
-			array('fund_transfer_type','类型',false),
 		    array('before_balance','账变前余额',false),
+		    array('fund_transfer_type','操作类型',false),
 			array('amount','金额变动',false),
 		    array('after_balance','账变后余额',false),
 		    array('remark','备注',false),

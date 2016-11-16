@@ -42,7 +42,7 @@ class Report extends Basecontroller {
 		$params = $this->input->get();
 		$ret = $this->stat_summary->getList($params);
 		foreach ((array)$ret['rows'] AS $k => $v) {
-		    $v['cash_bet_rate']  = '1 : '.sprintf("%.1f",$v['bet']/$v['deposit']);
+		    $v['cash_bet_rate']  = $v['deposit']>0 ? '1 : '.sprintf("%.1f",$v['bet']/($v['deposit'])) : '无';
 		    $v['fandian']        = sprintf("%.2f",$v['fandian']/1000);
 		    $v['profit_bet']     = sprintf("%.2f",($v['bet']-$v['bonus'])/1000);
 		    $v['profit_cash']    = sprintf("%.2f",($v['deposit']-$v['withdraw'])/1000);
@@ -77,9 +77,23 @@ class Report extends Basecontroller {
 	    //print_r($params);
 	    $ret = $this->agent->getList($params);
 	    $list = array();
+	    if ($params['date_start'] && $params['date_end']) {
+	        if ($params['date_start']==$params['date_end']) {
+	            $date = $params['date_start'];
+	        } else {
+	            $date = $params['date_start'].'~'.$params['date_end'];
+	        }
+        } else if ($params['date_end']) {
+            $date = '~'.$params['date_end'];
+        } else if ($params['date_start']) {
+            $date = $params['date_start'].'~';
+        } else {
+            $date = date('Y-m-d');
+        }
 	    foreach ((array)$ret['rows'] AS $k => $v) {
+	        $v['date']           = $date;
 	        $v['account_name']   = $this->getUserName($v['user_id']);
-	        $v['cash_bet_rate']  = '1 : '.sprintf("%.1f",$v['bet']/($v['deposit']));
+	        $v['cash_bet_rate']  = $v['deposit']>0 ? '1 : '.sprintf("%.1f",$v['bet']/($v['deposit'])) : '无';
 	        $v['profit_cash']    = sprintf("%.2f",($v['deposit']-$v['withdraw'])/1000);
 	        $v['profit']         = sprintf("%.2f",($v['bet']-$v['bonus']-$v['fandian']-$v['activity_cost']-$v['commission'])/1000);
 	        $v['profit_bet']     = sprintf("%.2f",($v['bet']-$v['bonus'])/1000);
