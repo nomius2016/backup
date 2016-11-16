@@ -32,10 +32,10 @@ class fund_withdraw extends Base_Model{
 		    array('second_deal','复审',false,false,100),
 		    array('status','状态',false,false,30),
 		    array('reark','备注',false),
-		    array('createtime','时间',false,false,45),
+		    array('createtime','时间',false,false,53),
 		);
 
-		if($op) $field[] = array('op','操作',false);
+		if($op) $field[] = array('op','操作',false,false,30);
 
 		$search = array(
 			array('user_id','text','请输入用户ID'),

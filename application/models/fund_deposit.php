@@ -21,13 +21,13 @@ class fund_deposit extends Base_Model{
             //字段名/显示名称/能否修改/是否显示/宽度/类型/值
 			array('id','ID',false,false,40),
 			array('account_name','账号',false,false,50),
-		    array('pay_method','存款方式',false,false,40),
+		    array('pay_method','存款方式',false,false),
 		    array('amount','金额',false,false,40),
 		    array('first_deal','初审',false,false,100),
 		    array('second_deal','复审',false,false,100),
 			array('status','状态',false,false,30),
 		    array('reark','备注',false),
-			array('createtime','时间',false,false,45),
+			array('createtime','时间',false,false,53),
 		);
 
 		if($op) $field[] = array('op','操作',false,false,30);
@@ -66,7 +66,6 @@ class fund_deposit extends Base_Model{
 		if($params['status'] == 1){
 			foreach ($list as $key => &$value) {
 				$value['op']  = "<a  href='javascript:;' onclick='first_check({$value['id']})'> 初审 </a>";
-				$value['op'] .= "<a  href='/admin/user/lists'  class='cof' > 到用户列表 </a>";
 			}
 		}
 

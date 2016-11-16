@@ -4,6 +4,8 @@ class Deposit extends Basecontroller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('fund_deposit');
+		$this->load->model('payment_method');
 	}
 
 
@@ -12,8 +14,6 @@ class Deposit extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function first_list(){
-		
-		$this->load->model('fund_deposit');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->fund_deposit->teamHtml(true); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('deposit_first_list',$ret);
@@ -25,6 +25,7 @@ class Deposit extends Basecontroller {
 		$ret = $this->fund_deposit->getList($params);
 		$_list = $ret['rows'];
 		foreach ((array)$_list AS $k => $v) {
+		    $v['pay_method'] = $this->payment_method->getPaymentMethodName($v['payment_method_id']);
 		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
 		    $v['first_deal'] = "-";
 		    $v['second_deal'] = "-";
@@ -40,8 +41,6 @@ class Deposit extends Basecontroller {
 
 	/* 存初审列表审核*/
 	public function first_list_op(){
-
-		$this->load->model('fund_deposit');
 		$ret = $this->fund_deposit->verify(1,$this->input->post());
 		exit(json_encode($ret));
 
@@ -53,7 +52,6 @@ class Deposit extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function sec_list(){
-		$this->load->model('fund_deposit');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->fund_deposit->teamHtml(true); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('deposit_sec_list',$ret);
@@ -65,6 +63,7 @@ class Deposit extends Basecontroller {
 		$ret = $this->fund_deposit->getList($params);
 		$_list = $ret['rows'];
 		foreach ((array)$_list AS $k => $v) {
+		    $v['pay_method'] = $this->payment_method->getPaymentMethodName($v['payment_method_id']);
 		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
 		    if ($v['first_deal_adminid']>0) {
 		        $v['first_deal'] = $this->getAdminName($v['first_deal_adminid']).'@'.$v['first_deal_time'];
@@ -88,8 +87,6 @@ class Deposit extends Basecontroller {
 
 	/* 存复审列表审核*/
 	public function sec_list_op(){
-
-		$this->load->model('fund_deposit');
 		$ret = $this->fund_deposit->verify(2,$this->input->post());
 		exit(json_encode($ret));
 
@@ -100,8 +97,6 @@ class Deposit extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function suc_list(){
-		
-		$this->load->model('fund_deposit');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->fund_deposit->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
@@ -113,6 +108,7 @@ class Deposit extends Basecontroller {
 		$ret = $this->fund_deposit->getList($params);
 		$_list = $ret['rows'];
 		foreach ((array)$_list AS $k => $v) {
+		    $v['pay_method'] = $this->payment_method->getPaymentMethodName($v['payment_method_id']);
 		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
 		    if ($v['first_deal_adminid']>0) {
 		        $v['first_deal'] = $this->getAdminName($v['first_deal_adminid']).'@'.$v['first_deal_time'];
@@ -138,8 +134,6 @@ class Deposit extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function rej_list(){
-		
-		$this->load->model('fund_deposit');
 		if(!isset($_GET['getdata'])){
 			$ret = $this->fund_deposit->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
@@ -151,6 +145,7 @@ class Deposit extends Basecontroller {
 		$ret = $this->fund_deposit->getList($params);
 		$_list = $ret['rows'];
 		foreach ((array)$_list AS $k => $v) {
+		    $v['pay_method'] = $this->payment_method->getPaymentMethodName($v['payment_method_id']);
 		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">".$this->getUserName($v['user_id'])."</a>";
 		    if ($v['first_deal_adminid']>0) {
 		        $v['first_deal'] = $this->getAdminName($v['first_deal_adminid']).'@'.$v['first_deal_time'];

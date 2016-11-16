@@ -28,8 +28,6 @@ class payment_method extends Base_Model{
 	 * @return [type] [description]
 	 */
 	public function teamHtml(){
-
-
 		$field = array(
                 //字段名/显示名称/能否修改/是否显示/宽度/类型/值
 			array('title','标题'),
@@ -50,7 +48,6 @@ class payment_method extends Base_Model{
 		$data['edit'] = true;
 		$this->teamHplus($data);
 		return $this->teamHplus($data);
-
 	}
 
 	/**
@@ -82,5 +79,8 @@ class payment_method extends Base_Model{
 			);
 	}
 
-
+    public function getPaymentMethodName(int $id) {
+        $aMethod = $this->selectByCons(array('payment_method_id' => $id));
+        return $this->_merchants[$aMethod['payment_group_id']].':'.$aMethod['title'];
+    }
 }
