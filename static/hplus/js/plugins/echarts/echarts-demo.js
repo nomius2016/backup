@@ -1,6 +1,6 @@
 $(function () {
     var lineChart = echarts.init(document.getElementById("echarts-line-chart"));
-    var lineoption = option = {
+    var lineoption  = {
     tooltip : {
         trigger: 'axis'
     },
@@ -14,6 +14,12 @@ $(function () {
             saveAsImage : {show: true}
         }
     },
+    color: [
+        '#2ec7c9','#b6a2de','#5ab1ef','#ffb980','#d87a80',
+        '#8d98b3','#e5cf0d','#97b552','#95706d','#dc69aa',
+        '#07a2a4','#9a7fd1','#588dd5','#f5994e','#c05050',
+        '#59678c','#c9ab00','#7eb00a','#6f5553','#c14089'
+    ],
     calculable : true,
     legend: {
         data:['蒸发量','降水量','平均温度']
@@ -45,7 +51,7 @@ $(function () {
         {
             name:'蒸发量',
             type:'bar',
-            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
         },
         {
             name:'降水量',
