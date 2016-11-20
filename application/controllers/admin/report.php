@@ -150,7 +150,10 @@ class Report extends Basecontroller {
 		exit;
 	}
 
-
+    public function dashboard() {
+        $this->adminview('dashboard',$ret);
+    }
+	
 	/**
 	 * [transfer 转账记录]
 	 * @return [type] [description]

@@ -35,7 +35,7 @@ class Aop {
 		//看看哪些控制器都可以访问
 		$no_deny = array(
 				'index' => array('index','login','main','page_403'),
-		        'data'  => array('notify','page_403'),
+		        'data'  => array('notify','dashboard','page_403'),
 			);
 		if (isset($no_deny[$this->controller]) && in_array($this->action,$no_deny[$this->controller])){
 			return ;

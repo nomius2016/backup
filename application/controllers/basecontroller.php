@@ -64,4 +64,8 @@ class BaseController extends CI_Controller {
 	    }
 	    return $this->_adminname[$id];
 	}
+	
+	public function f(int $n) {
+	    return sprintf('%.2f',$n/1000);
+	}
 }

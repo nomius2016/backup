@@ -4,6 +4,8 @@ CREATE TRIGGER afeter_insert_fund_transfer
 AFTER INSERT ON fund_transfer_log
 FOR EACH ROW
 BEGIN
+    set @ts = (SELECT UNIX_TIMESTAMP(CURDATE()));
+  
     CASE 
 	 /********** 充值  **************/
 	 WHEN NEW.transfer_type_id=1 AND NEW.amount<>0 THEN
@@ -11,9 +13,9 @@ BEGIN
 		IF ((SELECT ROW_COUNT())<1) THEN
 			INSERT INTO stat_user_daily (date,user_id,parent_id,parent_path,deposit) VALUES (FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d'),NEW.user_id,NEW.parent_id,NEW.parent_path,NEW.amount);
 		END IF;
-		UPDATE stat_summary_daily SET deposit=deposit+NEW.amount WHERE date=FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d');
+		UPDATE stat_summary_daily SET deposit=deposit+NEW.amount,deposit_user=(SELECT COUNT(DISTINCT(user_id)) FROM fund_transfer_log WHERE dateline>=@ts AND dateline<@ts+86400 AND transfer_type_id=1) WHERE date=FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d');
 		IF ((SELECT ROW_COUNT())<1) THEN
-			INSERT INTO stat_summary_daily (date,deposit) VALUES (FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d'),NEW.amount);
+			INSERT INTO stat_summary_daily (date,deposit,deposit_user) VALUES (FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d'),NEW.amount,1);
 		END IF;
 
 	 /********** 提款 **************/	
@@ -22,9 +24,9 @@ BEGIN
 		IF ((SELECT ROW_COUNT())<1) THEN
 			INSERT INTO stat_user_daily (date,user_id,parent_id,parent_path,withdraw) VALUES (FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d'),NEW.user_id,NEW.parent_id,NEW.parent_path,NEW.amount);
 		END IF;
-		UPDATE stat_summary_daily SET withdraw=withdraw+NEW.amount WHERE date=FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d');
+		UPDATE stat_summary_daily SET withdraw=withdraw+NEW.amount,withdraw_user=(SELECT COUNT(DISTINCT(user_id)) FROM fund_transfer_log WHERE dateline>=@ts AND dateline<@ts+86400 AND transfer_type_id=2) WHERE date=FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d');
 		IF ((SELECT ROW_COUNT())<1) THEN
-			INSERT INTO stat_summary_daily (date,withdraw) VALUES (FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d'),NEW.amount);
+			INSERT INTO stat_summary_daily (date,withdraw,withdraw_user) VALUES (FROM_UNIXTIME(NEW.dateline,'%Y-%m-%d'),NEW.amount,1);
 		END IF;
 
 	 /********** 投注 **************/	

@@ -71,7 +71,7 @@ class Stat_summary extends Base_Model{
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 		$count = $this->count($where);
 		if ($count>0) {
-		    $list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		    $list = $this->selectByWhere($where,'*',$limit,array('id',$params['orderby']? $params['orderby']: 'desc'));
 		}
 
 		return array(
@@ -81,5 +81,27 @@ class Stat_summary extends Base_Model{
 			);
 	}
 
+	public function summary(string $date) {
+	    $aSummary = $this->stat_summary->selectByCons(array('date' => $date));
+	    if ($aSummary['id']<1) {
+	        $aSummary = array(
+	            'date' => $date,
+	            'dau' => 0,
+	            'user_new_reg'  => 0,
+	            'user_have_bet' => 0,
+	            'deposit'       => 0,
+	            'deposit_user'  => 0,
+	            'withdraw'      => 0,
+	            'withdraw_user' => 0,
+	            'bet'           => 0,
+	            'bonus'         => 0,
+	            'fandian'       => 0,
+	            'activity_cost' => 0,
+	            'commission'    => 0,
+	        );
+	        $this->stat_summary->insert($aSummary);
+	    }
+	    return $aSummary;
+	}
 
 }
