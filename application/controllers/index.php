@@ -25,5 +25,9 @@ class Index extends CI_Controller {
 		//$this->hemail->send();
 	}
 
+	public function echarts(){
+		$this->load->view('echarts');
+	}
+
 }
 
