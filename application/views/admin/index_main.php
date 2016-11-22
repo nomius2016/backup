@@ -36,6 +36,7 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            	<li><a href="/admin/system/password" class="fa fa-lock cof"> 修改密码</a></li>
                                 <li><a href="/admin/index/loginout" class="fa fa-power-off"> 安全退出</a></li>
                             </ul>
                         </div>
@@ -75,7 +76,8 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content">
-                        <a href="/static/hplus/javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                        <a href="javascript:;" class="J_menuTab active" data-id="/admin/report/dashboard">首页<i class="fa fa-times-circle"></i></a>
+<!--                         <a href="javascript:;" class="J_menuTab active" data-id="/admin/user/message">站内信记录 <i class="fa fa-times-circle"></i></a> -->
                     </div>
                 </nav>
                 <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>

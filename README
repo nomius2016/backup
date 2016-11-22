@@ -85,6 +85,18 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 
 改动提比较大，建议删除原来的database完整导入d_file/201611116-cola.sql
 
+
+2016-11-22 TOM
+(1)初步完成了登陆后首页仪表盘功能
+(2)添加mysql evnt 用于作为mysql定时任务更新投注人数（暂时不支持统计第三方平台的投注)
+(3)添加了后台操作日志功能，在basecontroller 里扩展了 basecontroller:log 方法，在任何一个controller可以 $this->log('操作内容')这样调用
+   例子 $this->log('给 user id=1用户添加了100活动金'),后台很多管理操作，需要一个个埋log;
+(4)完善了触发器统计
+
+需要 运行 d_file/trigger.sql 和  d_file/20161122-tom.sql
+   
+
+
 --------------
 
 

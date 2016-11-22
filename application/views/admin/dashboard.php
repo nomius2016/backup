@@ -72,7 +72,7 @@
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
                                     <span class="label label-primary pull-right"><d id="bet_users"></d>人</span>
-                                    <h5 class="fa fa-btc">交易<d id="profit"></d></h5>
+                                    <h5 class="fa fa-btc">投注交易<d id="profit"></d></h5>
                                 </div>
                                 <div class="ibox-content">
 
@@ -98,7 +98,7 @@
                                 <div class="ibox-title">
                                     <h5>月收入</h5>
                                     <div class="ibox-tools">
-                                        <span class="label label-primary">2015.02 更新</span>
+                                        <span class="label label-primary">更新</span>
                                     </div>
                                 </div>
                                 <div class="ibox-content no-padding">
@@ -111,107 +111,101 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-content">
                                     <div>
-                                        <span class="pull-right text-right">
+                                        <span class="pull-right text-right"><!-- 
                                         <small>在过去的一个月销售的平均值：<strong>山东</strong></small>
                                             <br/>
-                                            所有销售： 162,862
+                                            所有销售： 162,862 -->
                                         </span>
                                         <h3 class="font-bold no-margins">近30天利润走势</h3>
                                         <small>除去返点、活动费用、返点以后的利润（还未除去分红）</small>
                                     </div>
 
                                     <div class="m-t-sm">
-
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div>
-                                                    <canvas id="lineChart" height="114"></canvas>
-                                                </div>
+                                                <div class="echarts" id="echarts-line-chart"></div>
                                             </div>
-                                           
-          
                                         </div>
-
                                     </div>
 
                                     <div class="m-t-md">
                                         <small class="pull-right">
-                                        <i class="fa fa-clock-o"> </i>
-                                        2015.02.30更新
+                                        <i class="fa fa-clock-o"> 2015.02.30更新</i>
+                                        
                                     </small>
                                         <small>
-                                        <strong>说明：</strong> 本期销售额比上期增长了23%。
+                                        <strong>说明：</strong> 净利润没有去除第三方游戏平台的租用成本
                                     </small>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <h5>用户行为统计</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <small class="stats-label">访问页面 / 浏览量</small>
-                                            <h4>236 321.80</h4>
-                                        </div>
+<!--                         <div class="col-lg-4"> -->
+<!--                             <div class="ibox float-e-margins"> -->
+<!--                                 <div class="ibox-title"> -->
+<!--                                     <h5>用户行为统计</h5> -->
+<!--                                 </div> -->
+<!--                                 <div class="ibox-content"> -->
+<!--                                     <div class="row"> -->
+<!--                                         <div class="col-xs-4"> -->
+<!--                                             <small class="stats-label">访问页面 / 浏览量</small> -->
+<!--                                             <h4>236 321.80</h4> -->
+<!--                                         </div> -->
 
-                                        <div class="col-xs-4">
-                                            <small class="stats-label">% 新访客</small>
-                                            <h4>46.11%</h4>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <small class="stats-label">最后一周</small>
-                                            <h4>432.021</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <small class="stats-label">访问页面 / 浏览量</small>
-                                            <h4>643 321.10</h4>
-                                        </div>
+<!--                                         <div class="col-xs-4"> -->
+<!--                                             <small class="stats-label">% 新访客</small> -->
+<!--                                             <h4>46.11%</h4> -->
+<!--                                         </div> -->
+<!--                                         <div class="col-xs-4"> -->
+<!--                                             <small class="stats-label">最后一周</small> -->
+<!--                                             <h4>432.021</h4> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                                 <div class="ibox-content"> -->
+<!--                                     <div class="row"> -->
+<!--                                         <div class="col-xs-4"> -->
+<!--                                             <small class="stats-label">访问页面 / 浏览量</small> -->
+<!--                                             <h4>643 321.10</h4> -->
+<!--                                         </div> -->
 
-                                        <div class="col-xs-4">
-                                            <small class="stats-label">% 新访客</small>
-                                            <h4>92.43%</h4>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <small class="stats-label">最后一周</small>
-                                            <h4>564.554</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="ibox-content">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <small class="stats-label">访问页面 / 浏览量</small>
-                                            <h4>436 547.20</h4>
-                                        </div>
+<!--                                         <div class="col-xs-4"> -->
+<!--                                             <small class="stats-label">% 新访客</small> -->
+<!--                                             <h4>92.43%</h4> -->
+<!--                                         </div> -->
+<!--                                         <div class="col-xs-4"> -->
+<!--                                             <small class="stats-label">最后一周</small> -->
+<!--                                             <h4>564.554</h4> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                                 <div class="ibox-content"> -->
+<!--                                     <div class="row"> -->
+<!--                                         <div class="col-xs-4"> -->
+<!--                                             <small class="stats-label">访问页面 / 浏览量</small> -->
+<!--                                             <h4>436 547.20</h4> -->
+<!--                                         </div> -->
 
-                                        <div class="col-xs-4">
-                                            <small class="stats-label">% 新访客</small>
-                                            <h4>150.23%</h4>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <small class="stats-label">最后一周</small>
-                                            <h4>124.990</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--                                         <div class="col-xs-4"> -->
+<!--                                             <small class="stats-label">% 新访客</small> -->
+<!--                                             <h4>150.23%</h4> -->
+<!--                                         </div> -->
+<!--                                         <div class="col-xs-4"> -->
+<!--                                             <small class="stats-label">最后一周</small> -->
+<!--                                             <h4>124.990</h4> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </div> -->
 
                     </div>
-
+<!--
                     <div class="row">
 
                         <div class="col-lg-12">
@@ -312,7 +306,7 @@
                         </div>
 
                     </div>
-
+-->
                 </div>
 
             </div>
@@ -332,17 +326,14 @@
     <script src="/static/hplus/js/content.js"></script>
     <!-- 第三方插件 -->
     <script src="/static/hplus/js/plugins/pace/pace.min.js"></script>
-
+<!--
     <script src="http://www.zi-han.net/theme/hplus/js/plugins/flot/jquery.flot.js"></script>
-    <script src="http://www.zi-han.net/theme/hplus/js/plugins/chartJs/Chart.min.js"></script>http://echarts.baidu.com/echarts2/doc/example/www/js/echarts.js
- <!-- 
- <script src="http://echarts.baidu.com/echarts2/doc/example/www/js/echarts.js"></script>
- <script src="http://echarts.baidu.com/echarts2/doc/asset/js/echartsHome.js"></script>
- <script src="http://echarts.baidu.com/echarts2/doc/asset/js/bootstrap.min.js"></script>
- <script src="http://echarts.baidu.com/echarts2/doc/asset/js/echartsExample.js"></script>
-  -->
-  	<script type="text/javascript">
-  	
+    <script src="http://www.zi-han.net/theme/hplus/js/plugins/chartJs/Chart.min.js"></script>
+-->
+
+<script src="/static/hplus/js/plugins/echarts/echarts-all.js"></script>
+
+<script type="text/javascript">
   	function data_parse() {
   	  	$.getJSON('/admin/data/dashboard',{},function(o) {
   	  	  	//console.log(o.deposit.y['amount']);
@@ -362,12 +353,115 @@
   	  	  	$('#bonus').text(o.bonus.t);
   	  	  	$('#y_bonus').text(o.bonus.y);
 
+  	  	  	var lineChart = echarts.init(document.getElementById("echarts-line-chart"));
+  	  	    var lineoption = option = {
+  	  	    tooltip : {
+  	  	        trigger: 'axis'
+  	  	    },
+  	  	  	color: ['#ccffff','#5ab1ef','#1c84c6'],
+  	  	    calculable : true,
+  	  	    legend: {
+  	  	        data:['毛利润','净利润','现金利润']
+  	  	    },
+  	  	    xAxis : [
+  	  	        {
+  	  	            type : 'category',
+  	  	            data : o.profit_line.labels,
+  	  	  	        xisLabel: {
+      	                show: true,
+        	              interval: 1,
+      	                textStyle: {
+      	                    color: '#990000'
+      	                }
+      	            },
+        	          axisLine : {    // 轴线
+                          show: true,
+                          lineStyle: {
+                              color: '#ccc',
+                              width: 1
+                          }
+                      },
+  	  	        }
+  	  	    ],
+  	  	    yAxis : [
+  	  	        {
+  	  	  	        color:'f5994e',
+  	  	            type : 'value',
+  	  	            name : '利润',   
+      	  	  	    axisLabel: {
+      	  	  	  	    formatter: '{value}万',
+      	                show: true,
+      	            },
+        	        axisLine : {    // 轴线
+                        show: true,
+                        lineStyle: {
+                            color: '#666',
+                            width: 1
+                        }
+                    },
+  	  	        },
+  	  	        {
+  	  	        	show:false
+  	  	        }
+  	  	    ],
+  	  	    series : [
+  	  	        {
+  	  	            name:'毛利润',
+  	  	            type:'bar',
+  	  	            data:o.profit_line.profit_gross,
+  	  	  	        markPoint : {
+  	    	  	        data : [ {
+  	    	  	        	type : 'max',
+  	    	  	        	name : '最高'
+  	    	  	        }, 
+  	    	  	        {
+  	    	  	        	type : 'min',
+  	    	  	        	name : '最低'
+  	    	  	        } ]
+  	    	  	    },
+  	  	        },
+  	  	        {
+  	  	            name:'净利润',
+  	  	            type:'bar',
+  	  	            data:o.profit_line.profit_net,
+  	  	  	        markPoint : {
+  	    	  	        data : [ {
+  	    	  	        	type : 'max',
+  	    	  	        	name : '最高'
+  	    	  	        }, 
+  	    	  	        {
+  	    	  	        	type : 'min',
+  	    	  	        	name : '最低'
+  	    	  	        } ]
+  	    	  	    },
+  	  	        },
+  	  	        {
+  	  	            name:'现金利润',
+  	  	            type:'line',
+  	  	            //yAxisIndex: 1, //不在自己的纵坐标索引
+  	  	            data:o.profit_line.profit_cash,
+  	  	  	        markPoint : {
+	    	  	        data : [ {
+	    	  	        	type : 'max',
+	    	  	        	name : '最高'
+	    	  	        }, 
+	    	  	        {
+	    	  	        	type : 'min',
+	    	  	        	name : '最低'
+	    	  	        } ]
+	    	  	    },
+  	  	        }
+  	  	    ]};           
+  	  	    lineChart.setOption(lineoption);
+  	  	    $(window).resize(lineChart.resize);
+  	  	    
+/*
   	  	  	var d1=[[1262304000000,6],[1264982400000,3057],[1267401600000,20434],[1270080000000,31982],[1272672000000,26602],[1275350400000,27826],[1277942400000,24302],[1280620800000,24237],[1283299200000,21004],[1285891200000,12144],[1288569600000,10577],[1291161600000,10295]];
   	  	 	 var d2=[[1262304000000,5],[1264982400000,200],[1267401600000,1605],[1270080000000,6129],[1272672000000,11643],[1275350400000,19055],[1277942400000,30062],[1280620800000,39197],[1283299200000,37000],[1285891200000,27000],[1288569600000,21000],[1291161600000,17000]];
   	  	 	 var data1=[{label:"数据1",data:d1,color:"#17a084"},{label:"数据2",data:d2,color:"#127e68"}];$.plot($("#flot-chart1"),data1,{xaxis:{tickDecimals:0},series:{lines:{show:true,fill:true,fillColor:{colors:[{opacity:1},{opacity:1}]},},points:{width:0.1,show:false},},grid:{show:false,borderWidth:0},legend:{show:false,}});
 
   	  	 	 var lineData={
-  	  	 		 	 labels:o.profit_line.labels,
+  	  	 		 	 labels:
   	  	 		 	 datasets:[
   	 		 	     {
                         label:"毛利润",
@@ -377,7 +471,7 @@
                         pointStrokeColor:"#fff",
                         pointHighlightFill:"#fff",
                         pointHighlightStroke:"rgba(220,220,220,1)",
-                        data:o.profit_line.profit_gross
+                        data:
   	  	 		 	 },
     	  	  	  	 {
   	  	 	 		 	 label:"净利润",
@@ -387,7 +481,7 @@
   	  	 	 		 	 pointStrokeColor:"#fff",
   	  	 	 		 	 pointHighlightFill:"#fff",
   	  	 	 		 	 pointHighlightStroke:"rgba(26,179,148,1)",
-  	  	 	 		 	 data:o.profit_line.profit_net
+  	  	 	 		 	 data:
   	  	 		 	 },
   	  	  	 		 {
   	  	 	 		 	 label:"现金利润",
@@ -397,7 +491,7 @@
   	  	 	 		 	 pointStrokeColor:"#fff",
   	  	 	 		 	 pointHighlightFill:"#fff",
   	  	 	 		 	 pointHighlightStroke:"rgba(26,179,148,1)",
-  	  	 	 		 	 data:o.profit_line.profit_cash
+  	  	 	 		 	 data:
   	  	 		 	 }]
   	  	 	 };
   	  	 	 var lineOptions={
@@ -418,13 +512,12 @@
   	  	 	 };
   	  	 	 var ctx=document.getElementById("lineChart").getContext("2d");
   	  	 	 var myNewChart=new Chart(ctx).Line(lineData,lineOptions)
+	  	 	 */
   	  	});
+    	setTimeout('data_parse()',10000); 
   	}
   	data_parse();
-
-  	 
- 	 
-  	</script>
+</script>
 </body>
 
 </html>

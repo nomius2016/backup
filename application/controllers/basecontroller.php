@@ -65,6 +65,28 @@ class BaseController extends CI_Controller {
 	    return $this->_adminname[$id];
 	}
 	
+	/**
+	 * @desc 后台专用管理员操作日志
+	 * @param String $desc 文字面上的做日子内容
+	 */
+	public function log(String $desc) {
+	    $this->load->model('admin_log');
+	    $this->admin_log->insert(array(
+	        'admin_id'    => $this->admins->getLoginAdminId(),
+	        'request'     => json_encode(array(
+	            'URI'  => $_SERVER['REQUEST_URI'],
+	            'POST' => str_replace(array("\n","\t","\r" ), '', var_export($this->input->post(), true))
+	        )),
+	        'description' => $desc,
+	        'dateline'    => time()
+	    ));
+	}
+	
+	/**
+	 * @desc 将存储的金额转化为元模式
+	 * @param int $n 原始数据
+	 * @return string
+	 */
 	public function f(int $n) {
 	    return sprintf('%.2f',$n/1000);
 	}

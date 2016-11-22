@@ -136,7 +136,6 @@ class System extends Basecontroller {
 										'group_id'=>$_POST['group_id'],
 										'email'=>$_POST['email'],
 									);
-				if($_POST['password'] != 'xxxxxxxxxxxx') $update_date['password'] = md5($_POST['password']);
 				$status = $this->admins->update(array('id'=>$_POST['id']),$update_date);
 												
 											
@@ -557,6 +556,46 @@ class System extends Basecontroller {
 			exit(json_encode(array('status'=>false,'msg'=>'操作失败')));
 		}	
 	}
+	
+	public function password() {
+	    $this->load->model('admins');
+	    $p = $this->input->post();
+	    if ($p['act']=='do') {
+	        $aRS = array();
+	        $aRS['err_no']  = 0;
+	        $aRS['err_msg'] = '';
+	        try {
+	            $aAdmin = $this->admins->selectByCons(array('id' => $p['admin_id']));
+	            if ($aAdmin['id']>0) {
+	                if ($p['cur_pass']=="" || $aAdmin['password']!=md5($p['cur_pass'])) {
+	                    throw new Exception('当前密码不正确',1002);
+	                } else if ($p['new_pass']=="") {
+	                    throw new Exception('新密码不能为空',1004);
+	                } else if ($p['new_pass']!=$p['con_pass']) {
+	                    throw new Exception('新密码前后不一致',1005);
+	                } else {
+	                    $status = $this->admins->update(array('id'=>$p['admin_id']),array('password' => md5($p['new_pass'])));
+	                    if ($status<1) {
+	                        throw new Exception('更改密码失败',1006);
+	                    }
+	                }
+	            } else {
+	                throw new Exception('用户不存在',1001);
+	            }
+	        } catch (Exception $e) {
+	            $aRS['err_no']  = $e->getCode();
+	            $aRS['err_msg'] = $e->getMessage();
+	        }
+	        echo json_encode($aRS);
+	    } else {
+	        $admin_id = intval($this->input->get('admin_id'));
+	        if ($admin_id<1) {
+	            $admin_id = $this->admins->getLoginAdminId();
+	        }
+	        $aAdmin = $this->admins->selectByCons(array('id' => $admin_id));
+	        $this->load->view('admin/password',array('admin' => $aAdmin));
+	    }
+	}
 
 
 	/**
@@ -595,8 +634,25 @@ class System extends Basecontroller {
 	 * [admin_log 后台操作日志]
 	 * @return [type] [description]
 	 */
-	public function admin_log(){
-		exit("给力开发中......");
+	public function cplog(){
+	    //$this->log('查看后台操作日志');
+	    $this->load->model('admin_log');
+	    $this->load->model('admins');
+	    if(!isset($_GET['getdata'])){
+	        $ret = $this->admin_log->teamHtml();
+	        $this->adminview('hplus_normal',$ret);
+	        return;
+	    }
+	    
+	    $params = $this->input->get();
+	    $ret = $this->admin_log->getList($params);
+	    foreach ((array)$ret['rows'] AS $k => &$v) {
+	        $ret['rows'][$k]['admin_name'] = $this->admins->getAdminName($v['admin_id']);
+	        $ret['rows'][$k]['dateline']   = date('Y-m-d H:i:s',$v['dateline']);
+	    }
+	    
+	    echo json_encode($ret);
+	    exit;
 	}
 
 }

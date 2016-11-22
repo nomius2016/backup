@@ -71,7 +71,7 @@ class Stat_summary extends Base_Model{
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 		$count = $this->count($where);
 		if ($count>0) {
-		    $list = $this->selectByWhere($where,'*',$limit,array('id',$params['orderby']? $params['orderby']: 'desc'));
+		    $list = $this->selectByWhere($where,'*',$limit,array('date',$params['orderby']? $params['orderby']: 'desc'));
 		}
 
 		return array(

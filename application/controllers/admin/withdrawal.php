@@ -4,6 +4,7 @@ class Withdrawal extends Basecontroller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('fund_withdraw');
 	}
 
 
@@ -11,9 +12,7 @@ class Withdrawal extends Basecontroller {
 	 * [初审列表]
 	 * @return [type] [description]
 	 */
-	public function first_list(){
-		
-		$this->load->model('fund_withdraw');
+	public function first_list() {
 		if(!isset($_GET['getdata'])){
 			$ret = $this->fund_withdraw->teamHtml(true); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('withdrawal_first_list',$ret);
@@ -47,9 +46,13 @@ class Withdrawal extends Basecontroller {
 
 	/* 提款初审列表审核*/
 	public function first_list_op(){
-
-		$this->load->model('fund_withdraw');
-		$ret = $this->fund_withdraw->verify(1,$this->input->post());
+	    $post = $this->input->post();
+		$ret = $this->fund_withdraw->verify(1,$post);
+		if ($post['status']>0) {
+		    $this->log("通过withdraw id={$post['id']}提款初审");
+		} else {
+		    $this->log("拒绝withdraw id={$post['id']}提款初审");
+		}
 		exit(json_encode($ret));
 
 	}
@@ -61,7 +64,7 @@ class Withdrawal extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function sec_list(){
-		$this->load->model('fund_withdraw');
+		
 		if(!isset($_GET['getdata'])){
 			$ret = $this->fund_withdraw->teamHtml(true); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('withdrawal_sec_list',$ret);
@@ -95,9 +98,13 @@ class Withdrawal extends Basecontroller {
 
 	/* 提款复审列表审核*/
 	public function sec_list_op(){
-
-		$this->load->model('fund_withdraw');
-		$ret = $this->fund_withdraw->verify(2,$this->input->post());
+	    $post = $this->input->post();
+	    $ret = $this->fund_withdraw->verify(2,$post);
+	    if ($post['status']>0) {
+	        $this->log("通过withdraw id={$post['id']}提款复审");
+	    } else {
+	        $this->log("拒绝withdraw id={$post['id']}提款复审");
+	    }
 		exit(json_encode($ret));
         
 	}
@@ -108,7 +115,7 @@ class Withdrawal extends Basecontroller {
 	 */
 	public function suc_list(){
 		
-		$this->load->model('fund_withdraw');
+		
 		if(!isset($_GET['getdata'])){
 			$ret = $this->fund_withdraw->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
@@ -146,7 +153,7 @@ class Withdrawal extends Basecontroller {
 	 */
 	public function rej_list(){
 		
-		$this->load->model('fund_withdraw');
+		
 		if(!isset($_GET['getdata'])){
 			$ret = $this->fund_withdraw->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);

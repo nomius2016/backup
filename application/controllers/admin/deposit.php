@@ -40,8 +40,14 @@ class Deposit extends Basecontroller {
 
 
 	/* 存初审列表审核*/
-	public function first_list_op(){
-		$ret = $this->fund_deposit->verify(1,$this->input->post());
+	public function first_list_op() {
+	    $post = $this->input->post();
+		$ret = $this->fund_deposit->verify(1,$post);
+		if ($post['status']>0) {
+		  $this->log("通过deposit id={$post['id']}存款初审");
+		} else {
+		    $this->log("拒绝deposit id={$post['id']}存款初审");
+		}
 		exit(json_encode($ret));
 
 	}
@@ -87,7 +93,13 @@ class Deposit extends Basecontroller {
 
 	/* 存复审列表审核*/
 	public function sec_list_op(){
-		$ret = $this->fund_deposit->verify(2,$this->input->post());
+	    $post = $this->input->post();
+		$ret = $this->fund_deposit->verify(2,$post);
+	    if ($post['status']>0) {
+		    $this->log("通过deposit id={$post['id']}存款复审");
+		} else {
+		    $this->log("拒绝deposit id={$post['id']}存款复审");
+		}
 		exit(json_encode($ret));
 
 	}

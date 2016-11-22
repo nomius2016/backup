@@ -80,9 +80,10 @@ class User extends Basecontroller {
 				break;
 		}
 
-		if($status){
+		if ($status>0){
+		    $this->log("改变user id={$op['user_id']},账号状态status={$op['status']}");
 			exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
-		}else{
+		} else {
 			exit(json_encode(array('status'=>false,'msg'=>'操作失败')));
 		}
 
@@ -105,6 +106,7 @@ class User extends Basecontroller {
 	        }
 	        $aField[$aParam['field']] = $aParam['val'];
 	    }
+	    $this->log("改变user id={$aParam['user_id']}账号限制,{$aParam['field']}={$aParam['val']}");
 	    echo $this->users->set_restrict($aParam['user_id'], $aField);
 	}
 
@@ -136,40 +138,6 @@ class User extends Basecontroller {
 
 		echo json_encode($ret);
 		exit;
-	}
-
-
-	public function transfer_list(){
-
-		$this->load->model('user_transfer');
-		if(!isset($_GET['getdata'])){
-			$ret = $this->user_transfer->teamHtml();
-			$this->adminview('hplus_normal',$ret);
-			return;
-		}
-
-		$params = $this->input->get();
-		$ret = $this->user_transfer->getList($params);
-		
-		//导出的时候用
-		if($params['export']){
-			if($ret['rows']){
-				$this->load->library ( "phpexcel/bomaexcel");
-				$this->bomaexcel->output($ret['rows'],array('用户ID','转账平台','转账金额','转账时间'),'用户转账记录',
-														array('user_id','platform','amount','create_time'));
-				exit;
-			}else{
-				echo '<script>';
-				echo "alert('数据为空');";
-				echo "window.history.go(-1)";
-				echo '</script>';
-				exit;
-			}		
-		}
-
-		echo json_encode($ret);
-		exit;
-		
 	}
 
 
