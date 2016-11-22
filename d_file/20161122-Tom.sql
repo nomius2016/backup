@@ -12,8 +12,8 @@ INSERT INTO `admin_log` VALUES (1,1,'{\"URI\":\"\\/admin\\/system\\/cplog\",\"PO
 UNLOCK TABLES;
 
 UPDATE admin_menu SET action='cplog' WHERE id=33;
-REPLACE INTO admin_menu_actions (id,admin_menu_id,controller,action,desc) VALUES (20,34,'report','dashboard','仪表盘');
-REPLACE INTO admin_menu_actions (id,admin_menu_id,controller,action,desc) VALUES (21,48,'system','password','修改密码');
+REPLACE INTO admin_menu_actions (id,admin_menu_id,controller,`action`,`desc`) VALUES (20,34,'report','dashboard','仪表盘');
+REPLACE INTO admin_menu_actions (id,admin_menu_id,controller,`action`,`desc`) VALUES (21,48,'system','password','修改密码');
 REPLACE INTO admin_menu_auth (id,controller,action,group_id) VALUES (1871,'report','dashboard',1);
 INSERT INTO admin_menu_auth (controller,action,group_id) VALUES ('system','password',1);
 
