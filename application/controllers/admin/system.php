@@ -646,7 +646,7 @@ class System extends Basecontroller {
 	    
 	    $params = $this->input->get();
 	    $ret = $this->admin_log->getList($params);
-	    foreach ((array)$ret['rows'] AS $k => &$v) {
+	    foreach ($ret['rows'] as $k => &$v) {
 	        $ret['rows'][$k]['admin_name'] = $this->admins->getAdminName($v['admin_id']);
 	        $ret['rows'][$k]['dateline']   = date('Y-m-d H:i:s',$v['dateline']);
 	    }
