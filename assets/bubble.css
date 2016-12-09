@@ -1,0 +1,462 @@
+@charset "utf-8";
+.btn, .button {
+  text-align: center
+}
+
+.fish2, .fish5, .fish8 {
+  right: -200px
+}
+
+.button, body, html {
+  font-family: "Microsoft YaHei", 微软雅黑
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%
+}
+
+img {
+  border: none
+}
+
+.gamemod {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: url(./images/fishingGame/bg.jpg) center center no-repeat;
+  overflow: hidden;
+  background-size: cover
+}
+
+.mainbtn {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  margin-left: -258px;
+  margin-top: -203px;
+  width: 516px;
+  height: 406px
+}
+
+.btn, .btn_fish_1 {
+  position: relative
+}
+
+.logo {
+  background: url(./images/fishingGame/gameTitle.png) no-repeat;
+  animation: showlogo 1s, logoMove 5s linear 1s infinite;
+  width: 516px;
+  height: 186px
+}
+
+.btn {
+  z-index: 2;
+  margin-top: 40px;
+  opacity: 0;
+  -webkit-animation: showa 1s linear;
+  -moz-animation: showa 1s linear;
+  animation: showa 1s linear;
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  animation-fill-mode: both
+}
+
+@keyframes showlogo {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0, 0);
+    -moz-transform: scale(0, 0);
+    transform: scale(0, 0)
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    transform: scale(1, 1)
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0
+  }
+  50% {
+    opacity: .5
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@keyframes showa {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@keyframes logoMove {
+  0%, 100%, 50% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0)
+  }
+  25% {
+    -webkit-transform: translateY(13px);
+    -moz-transform: translateY(13px);
+    transform: translateY(13px)
+  }
+  75% {
+    -webkit-transform: translateY(-13px);
+    -moz-transform: translateY(-13px);
+    transform: translateY(-13px)
+  }
+}
+
+.fish2 img, .fish5 img {
+  -o-transform: scaleX(-1)
+}
+
+@keyframes showMove {
+  0%, 100%, 50% {
+    top: 88px
+  }
+  25% {
+    top: 95px
+  }
+  75% {
+    top: 75px
+  }
+}
+
+.btn_fish_1 {
+  display: inline-block
+}
+
+.btn_fish_1 a, .btn_fish_2 a {
+  margin: 0 auto;
+  background: url(./images/fishingGame/playnow.png) no-repeat;
+  width: 220px;
+  height: 80px;
+  display: block;
+  text-indent: -999em;
+  border-radius: 50px;
+  cursor: pointer
+}
+
+.btn_fish_1 a:hover {
+  background: url(./images/fishingGame/playnow_hover.png) no-repeat
+}
+
+.fish_notice {
+  background-color: rgba(27, 36, 51, .7);
+  border: 7px solid rgba(125, 191, 223, .7);
+  color: #88e9ed;
+  position: absolute;
+  width: 400px;
+  padding: 20px 40px;
+  bottom: 0;
+  left: 50%;
+  margin-left: 110px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  line-height: 22px;
+  opacity: 0;
+  font-size: 15px;
+  box-shadow: 0 -1px 0 rgba(100%, 100%, 100%, 1), 0 1px 2px rgba(0, 0, 0, 1);
+  visibility: hidden;
+  transition: all .2s
+}
+
+.fish1, .fish2 {
+  display: block;
+  width: 116px;
+  height: 100px
+}
+
+.fish1, .fish3, .fish4 {
+  left: -200px;
+  z-index: 1
+}
+
+.btn_fish_1:hover .fish_notice {
+  visibility: visible;
+  opacity: 1
+}
+
+.btn_fish_2 a {
+  margin-top: 20px;
+  background: url(./images/fishingGame/playrule.png) no-repeat
+}
+
+.btn_fish_2 a:hover {
+  background: url(./images/fishingGame/playrule_hover.png) no-repeat
+}
+
+.fish1 {
+  position: absol te;
+  animation: move 15s infinite, showMove 3s infinite
+}
+
+.fish2, .fisharea {
+  position: absolute
+}
+
+.fish2 {
+  animation: move1 18s infinite, showMove 3s infinite;
+  opacity: .8;
+  top: 0
+}
+
+.fish2 img {
+  width: 50%;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH
+}
+
+.fisharea {
+  bottom: 10px;
+  width: 100%;
+  height: 230px;
+  z-index: 1
+}
+
+.fish3, .fish4, .fish5 {
+  display: block;
+  position: absolute;
+  width: 116px;
+  height: 100px
+}
+
+.fish3 {
+  animation: move 20s infinite, showMove 2s infinite;
+  margin-top: 50px
+}
+
+.fish4 {
+  animation: move 18s infinite, showMove 5s infinite;
+  margin-top: 20px
+}
+
+.fish5 {
+  animation: move1 16s infinite, showMove 5s infinite;
+  opacity: .9;
+  margin-top: 10px
+}
+
+.fish5 img {
+  width: 80%;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH
+}
+
+.fish6, .fish7, .fish8 {
+  display: block;
+  width: 116px;
+  height: 100px;
+  position: absolute
+}
+
+.fish6 {
+  animation: move 20s infinite, showMove 3s infinite;
+  left: -800px;
+  margin-top: 70px
+}
+
+.fish7 {
+  animation: move 17s infinite, showMove 8s infinite;
+  left: -50px;
+  margin-top: 20px
+}
+
+.fish8 {
+  animation: move1 20s infinite, showMove 3s infinite;
+  margin-top: 80px
+}
+
+.fish8 img {
+  width: 50%;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH
+}
+
+@keyframes move {
+  0 {
+    left: -200px
+  }
+  100% {
+    left: 100%
+  }
+}
+
+@keyframes move1 {
+  0 {
+    right: -200px
+  }
+  100% {
+    right: 100%
+  }
+}
+
+.helpoverlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 9999;
+  display: none
+}
+
+.button, .helpoverlay.active, .window {
+  display: block
+}
+
+.window {
+  width: 784px;
+  height: 384px;
+  background: url(./images/fishingGame/window.png) center center;
+  background-size: 100% 100%;
+  position: absolute;
+  left: 50%;
+  margin-left: -392px;
+  margin-top: -192px;
+  top: 50%
+}
+
+.tab-title {
+  font-size: 20px;
+  color: #fff;
+  font-weight: bolder;
+  text-indent: -999px;
+  position: absolute;
+  left: 10px;
+  top: -60px;
+  background: url(./images/fishingGame/logo_small.png) no-repeat;
+  width: 231px;
+  height: 96px
+}
+
+.helpoverlay_close {
+  width: 74px;
+  height: 74px;
+  background: url(./images/fishingGame/x.png) center center;
+  background-size: 100% 100%;
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  top: -50px;
+  right: -74px
+}
+
+.window-content {
+  width: 624px;
+  height: 386px;
+  cursor: pointer;
+  position: relative
+}
+
+.buttons {
+  position: absolute;
+  right: 22px;
+  bottom: 0;
+  width: 125px
+}
+
+.buttons ul {
+  padding: 0
+}
+
+.button {
+  width: 125px;
+  height: 62px;
+  background: url(./images/fishingGame/tabs_bg.png) center center no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+  margin-bottom: 10px;
+  line-height: 58px;
+  font-size: 17px;
+  color: #fff
+}
+
+.button.active, .button:hover {
+  width: 125px;
+  height: 62px;
+  background: url(./images/fishingGame/tabs_bg_sel.png) no-repeat;
+  color: #000
+}
+
+.content-pic {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  cursor: pointer;
+  transition: all .4s ease-in-out
+}
+
+.one {
+  width: 431px;
+  height: 229px;
+  margin-top: -114px;
+  margin-left: -215px;
+  background: url(./images/fishingGame/part1_cont.png) center center;
+  background-size: 100% 100%
+}
+
+.two {
+  width: 563px;
+  height: 327px;
+  margin-top: -163px;
+  margin-left: -281px;
+  background: url(./images/fishingGame/part2_cont.jpg) center center;
+  background-size: 100% 100%
+}
+
+.three {
+  width: 514px;
+  height: 177px;
+  margin-top: -88px;
+  margin-left: -257px;
+  background: url(./images/fishingGame/part3_cont.png) center center;
+  background-size: 100% 100%
+}
+
+.four {
+  width: 507px;
+  height: 287px;
+  margin-top: -143px;
+  margin-left: -253px;
+  background: url(./images/fishingGame/part4_cont.png) center center;
+  background-size: 100% 100%
+}
+
+.five {
+  width: 512px;
+  height: 292px;
+  margin-top: -146px;
+  margin-left: -256px;
+  background: url(./images/fishingGame/part5_cont.png) center center;
+  background-size: 100% 100%
+}
+
+.content-pic.active {
+  display: block;
+  transition: all .4s ease-in-out
+}
