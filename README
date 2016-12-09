@@ -100,3 +100,15 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 --------------
 
 
+********************************************************************************WIN7下面环境搭建*********************************************************
+1 安装xampp
+
+2 修改数据库配置文件 application/config/database.php 
+
+3 安装本地redis扩展
+     (1) 由于用到redis  (http://pan.baidu.com/share/link?shareid=3508109770&uk=4078016342) 从这里下载redis-server WINDOWS 版本
+     (2) 下载 64 位版本 redis 扩展 (http://pan.baidu.com/s/1nvk7F3F) 并且在php.ini 启用redis扩展 
+4 导入数据库 使用d_file/backup-20161106.sql 这个进行初始化
+
+
+
