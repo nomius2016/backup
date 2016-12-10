@@ -1,0 +1,103 @@
+#err_header {
+    padding: 20px 0;
+    width: 100%;
+    min-width: 1000px;
+    height: 60px;
+    position: relative;
+    background-color: #232526
+}
+
+.err_hd-logo {
+    width: 333px;
+    height: 54px;
+    background-image: url(images/err-vwin-logo.png)
+}
+
+#err_nav {
+    width: 100%;
+    min-width: 1000px;
+    height: 70px;
+    line-height: 70px;
+    background-color: #98171a
+}
+
+.err_nav-items li {
+    width: 14.28%;
+    text-align: center;
+    font-size: 16px;
+    float: left;
+    position: relative
+}
+
+.err_nav-items span.line {
+    height: 22px;
+    margin-top: 24px;
+    border-right-color: #6d080a;
+    border-left-color: #b8383e;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-right-style: solid;
+    border-left-style: solid;
+    float: left;
+    display: block
+}
+
+.err_nav-items span.newText {
+    border-radius: 20px;
+    left: 50%;
+    top: 4px;
+    width: 46px;
+    height: 18px;
+    color: #f7e6b0;
+    line-height: 18px;
+    font-family: futura_mdcn_btmedium;
+    font-size: 12px;
+    margin-left: -23px;
+    float: left;
+    position: absolute;
+    background-color: #6e0005
+}
+
+.err_nav-items a {
+    display: block
+}
+
+.err_con1 {
+    padding-top: 80px
+}
+
+.err_con1_line1, .err_con1_line2 {
+    width: 20px;
+    height: 80px;
+    background-color: #000;
+    top: 0;
+    left: 15%
+}
+
+.err_con1_line2 {
+    left: inherit;
+    right: 15%
+}
+
+.err_con1_outer {
+    background-color: #cd4e48;
+    border: 10px solid #a92d2d
+}
+
+.err_con1_inner {
+    text-align: center;
+    padding: 100px 170px
+}
+
+.err_footer {
+    width: 1920px;
+    left: 50%;
+    margin-left: -960px;
+    position: relative
+}
+
+.border-bottom {
+    width: 102%;
+    left: 50%;
+    margin-left: -51%
+}

@@ -9,7 +9,7 @@ class Index extends CI_Controller {
 	
 	public function index(){
 			
-		$this->load->view('welcome_message');
+		$this->load->view('v1/index.html');
 	}
 
 	public function login(){
@@ -27,6 +27,14 @@ class Index extends CI_Controller {
 
 	public function echarts(){
 		$this->load->view('echarts');
+	}
+
+	public function template(){
+    	$fullname =  basename($_SERVER['REQUEST_URI']);
+    	$ar = explode('?v',$fullname);
+    	$filename = 'v1/'.$ar['0'];
+    	// $fullname =  'v1/'.basename($_SERVER['REQUEST_URI']);
+    	$this->load->view($filename);
 	}
 
 }
