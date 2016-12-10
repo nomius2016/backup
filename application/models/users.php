@@ -167,11 +167,11 @@ class Users extends Base_Model{
 	 * @return [type] [description]
 	 */
 	public function loginUser($params){
-		$account_name = trim($params['account_name']);
-		$password = md5(trim($params['password']));
+		$account_name = trim($params['username']);
+		$password = trim($params['password']);
 		$row = $this->selectByWhere(array('account_name'=>$account_name,'password'=>$password));
 		if(!$row){
-			return array('status'=>false,'msg'=>'用户名或密码不正确!');
+			return array('status'=>false,'msg'=>'用户名或密码不正确!','code'=>'0.2');
 		}
 		
 		//开始写COOKIE
@@ -179,6 +179,7 @@ class Users extends Base_Model{
 		$this->session->set_userdata($row);
 		return array(
 				'status'=>true,
+				'code'=>'1.0',
 				'msg'=>'登录成功!'
 			);
 	}
@@ -270,5 +271,14 @@ class Users extends Base_Model{
 		return array('status'=>true,'msg'=>'操作成功!');
 	}
 
+	public function isLogin(){
+		
+		$info = $this->session->all_userdata();
+		if($info['account_name']){
+			return true;
+		}
+		return false;
+
+	}
 
 }
