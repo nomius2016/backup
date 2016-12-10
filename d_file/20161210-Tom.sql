@@ -16,7 +16,7 @@ MODIFY COLUMN `dataline`  int(20) UNSIGNED NULL DEFAULT 0 COMMENT '时间' AFTER
 
 
 REPLACE INTO admin_menu_actions (id,admin_menu_id,controller,`action`,`desc`) VALUES (22,8,'user','set_balance','修改用户账户余额');
-REPLACE INTO admin_menu_actions (id,admin_menu_id,controller,`action`,`desc`) VALUES (23,31,'system','system_opo','改变系统设置值');
+REPLACE INTO admin_menu_actions (id,admin_menu_id,controller,`action`,`desc`) VALUES (23,31,'system','system_op','改变系统设置值');
 UPDATE admin_menu SET `action`='setting' WHERE id=31;
 
 TRUNCATE TABLE stat_summary_daily;
