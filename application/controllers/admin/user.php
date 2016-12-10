@@ -109,7 +109,84 @@ class User extends Basecontroller {
 	    $this->log("改变user id={$aParam['user_id']}账号限制,{$aParam['field']}={$aParam['val']}");
 	    echo $this->users->set_restrict($aParam['user_id'], $aField);
 	}
-
+	
+	/**
+	 * @desc 改变用户的金额操作，可以是添加锁定或减少锁定，
+	 * @access ajax method
+	 * @return JsonSerializable
+	 */
+	public function set_balance() {
+	    $this->load->model('transation');
+	    $aRS = array();
+	    $aRS['err_no'] = 0;
+	    $aRS['err_msg'] = '';
+	    try {
+	        $this->db->trans_begin();
+	        
+	        $iAdminID = $this->admins->getLoginAdminId();
+	        
+	        $p = $this->input->post();
+	        $this->log("对 user id={$p['user_id']}锁定金额操作，锁定amount={$p['amount']},{$p['remark']}");
+	        if ($p['transfer_type_id']==1) {
+	            $aField = array();
+	            $aField['user_id'] = $p['user_id'];
+	            $aField['amount'] = $p['amount'];
+	            $aField['remark'] = $p['remark'];
+	            $aField['status'] = 2;
+	            $aField['createtime'] = date('Y-m-d H:i:s');
+	            $this->db->set($aField)->insert('fund_deposit');
+	            if ($this->db->insert_id()<1) {
+	                throw new Exception('failed to insert deposit ',10002);
+	            }
+	            $this->log("对 user id={$p['user_id']}进行充值手工操作，锁定amount={$p['amount']},{$p['remark']}");
+	        } else if ($p['transfer_type_id']==2) {
+	            $aField = array();
+	            $aField['user_id'] = $p['user_id'];
+	            $aField['amount'] = $p['amount'];
+	            $aField['remark'] = $p['remark'];
+	            $aField['status'] = 2;
+	            $aField['createtime'] = date('Y-m-d H:i:s');
+	            $this->db->set($aField)->insert('fund_withdraw');
+	            if ($this->db->insert_id()<1) {
+	                throw new Exception('failed to insert withdraw ',10002);
+	            }
+	            $this->log("对 user id={$p['user_id']}进行提现手工操作，锁定amount={$p['amount']},{$p['remark']}");
+	        } else if ($p['transfer_type_id']==3) {
+	                
+            } else if ($p['transfer_type_id']==4) {
+            } else if ($p['transfer_type_id']==5) {
+                $this->log("对 user id={$p['user_id']}进行手工派奖操作，派发金额amount={$p['amount']},{$p['remark']}");
+            } else if ($p['transfer_type_id']==6) {
+                $this->log("对 user id={$p['user_id']}进行返点手工操作，增加返点amount={$p['amount']},{$p['remark']}");
+            } else if ($p['transfer_type_id']==7) {
+                $this->log("对 user id={$p['user_id']}进行派发分红手工操作，派发金额amount={$p['amount']},{$p['remark']}");
+            } else if ($p['transfer_type_id']==8) {
+                $this->log("对 user id={$p['user_id']}进行添加佣金手工操作，添加金额amount={$p['amount']},{$p['remark']}");
+            } else if ($p['transfer_type_id']==9) {
+                $this->log("对 user id={$p['user_id']}进行活动奖金/励手工操作，派发金额amount={$p['amount']},{$p['remark']}");
+            } else if ($p['transfer_type_id']==10) {    
+                if ($p['balance_lock_type_id']==2) {
+                    $p['amount'] *= -1;
+                }
+                $this->log("对 user id={$p['user_id']}锁定金额操作，锁定amount={$p['amount']},{$p['remark']}");
+            } else if ($p['transfer_type_id']==11) {
+            } else if ($p['transfer_type_id']==12) {
+                $this->log("对 user id={$p['user_id']}进行扣款手工操作，操作金额amount={$p['amount']},{$p['remark']}");
+            }
+	    
+	        $aStatus = $this->transation->make($p['user_id'],$p['transfer_type_id'],$p['amount']*1000,0,$iAdminID,$p['remark']);
+	        $aRS['balance'] = $this->f($aStatus['balance']);
+	        $aRS['balance_locked'] = $this->f($aStatus['balance_locked']);
+	        //////////////////////////////
+	        $this->db->trans_commit();
+	    } catch (Exception $e) {
+	        $this->db->trans_rollback();
+	        $aRS['err_no'] = $e->getCode();
+	        $aRS['err_msg'] = $e->getMessage();
+	    }
+	    echo json_encode($aRS);
+	}
+	
 	public function contact_export(){
 		if(!isset($_GET['getdata'])){
 			$ret = $this->users->teamContactHtml();
@@ -203,7 +280,7 @@ class User extends Basecontroller {
 	    $aUser['total_withdraw'] = sprintf("%.2f",$aUser['total_withdraw']/1000);
 	    $aUser['total_bet'] = sprintf("%.2f",$aUser['total_bet']/1000);
 	    $aUser['balance'] = sprintf("%.2f",$aUser['balance']/1000);
-	    $aUser['frozon_balance'] = sprintf("%.2f",$aUser['frozon_balance']/1000);
+	    $aUser['balance_locked'] = sprintf("%.2f",$aUser['balance_locked']/1000);
 	    $aUser['balance-100'] = sprintf("%.2f",$aUser['bal'][100]/1000);
 	    $aUser['balance-101'] = sprintf("%.2f",$aUser['bal'][101]/1000);
 	    $aUser['balance-102'] = sprintf("%.2f",$aUser['bal'][102]/1000);

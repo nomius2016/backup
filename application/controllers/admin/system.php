@@ -602,8 +602,47 @@ class System extends Basecontroller {
 	 * [basic_config 系统常规设置]
 	 * @return [type] [description]
 	 */
-	public function basic_config(){
-		exit("给力开发中......");
+	public function setting(){
+		$this->load->model('system_setting');
+		if(!isset($_GET['getdata'])){
+			$ret = $this->system_setting->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$this->adminview('system_pay_config',$ret);
+			return;
+		}
+		
+		$params = $this->input->get();
+		$ret = $this->system_setting->getList($params);
+		echo json_encode($ret);
+		exit;
+	}
+	
+	public function setting_op() {
+	    $this->load->model('system_setting');
+	    $post = $this->input->post();
+	    $op = $post['oper'];
+	    switch ($op) {
+	        case 'add':  //添加一个组别
+	            $data = array(
+    	            'variable' => $post['variable'],
+    	            'content'    => $post['content'],
+    	            'label'    => $post['label']
+	            );
+	            $status = $this->system_setting->insert($data);
+	            break;
+	        case 'edit': 
+	            $status = $this->system_setting->update(array('id' => $post['id']),
+    	            array(
+        	            'variable' => $post['variable'],
+        	            'content'    => $post['content'],
+        	            'label'    => $post['label']
+    	            )
+	            );
+	            break;
+	        case 'del':  //删除一个组
+	            $status = $this->system_setting->delete(array('id' => $post['id']));
+	            break;
+	    }
+	    exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
 	}
 
 	/**

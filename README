@@ -92,10 +92,15 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 (3)添加了后台操作日志功能，在basecontroller 里扩展了 basecontroller:log 方法，在任何一个controller可以 $this->log('操作内容')这样调用
    例子 $this->log('给 user id=1用户添加了100活动金'),后台很多管理操作，需要一个个埋log;
 (4)完善了触发器统计
+(5)添加了后台改密码功能
 
 需要 运行 d_file/trigger.sql 和  d_file/20161122-tom.sql
    
-
+2016-12-10
+(1)完成了用户概况的所有操作
+(2)添加了系统全局变量配置
+(3)修复了一些bug
+需要 运行  d_file/20161210-Tom.sql
 
 --------------
 

@@ -49,10 +49,13 @@ class Admin_log extends Base_Model {
 		if ($params['admin_id']) {
 		    $where['admin_id'] = $params['admin_id'];
 		}
-		if ($params['transfer_type_id']>0) {
-		    $where['transfer_type_id'] = $params['transfer_type_id'];
+	    if ($params['date_start']) {
+		    $where['dateline >='] = strtotime($params['date_start']);
 		}
-
+		if ($params['date_end']) {
+		    $where['dateline <='] = strtotime($params['date_end']);
+		}
+            
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 30;
 		$start = ($page - 1) * $pageSize; 

@@ -63,6 +63,7 @@ class Transation extends CI_Model {
     	                // 如果是做减法，必须保证被减少的值大于等于造作值  //
     	                if ($typeid==2 || $typeid==10) {
     	                    $this->db->set('balance_locked',"balance_locked+{$amount}",false);
+    	                    $aUser['balance_locked'] = $aUser['balance_locked']+$amount;
     	                }
     	                $aCond['balance >='] = $amount;
 	                } else {
@@ -70,6 +71,7 @@ class Transation extends CI_Model {
 	                    if ($typeid==2 || $typeid==10) {
 	                        $this->db->set('balance_locked',"balance_locked+{$amount}",false);
 	                        $aCond['balance_locked >='] = $amount*-1;
+	                        $aUser['balance_locked'] = $aUser['balance_locked']+$amount;
 	                    }
 	                }
 	                $this->db->set('balance',"balance-{$amount}",false)->where($aCond)->update('users');
@@ -99,7 +101,10 @@ class Transation extends CI_Model {
 	            throw new Exception('have not userid='.$userid,10004);
 	        }
 	    }
-	    return true;
+	    return array(
+	        'balance' => $newbalance,
+	        'balance_locked' => $aUser['balance_locked']
+	    );
 	}
 	
 	/**

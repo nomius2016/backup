@@ -410,14 +410,10 @@
   	  	            type:'bar',
   	  	            data:o.profit_line.profit_gross,
   	  	  	        markPoint : {
-  	    	  	        data : [ {
-  	    	  	        	type : 'max',
-  	    	  	        	name : '最高'
-  	    	  	        }, 
-  	    	  	        {
-  	    	  	        	type : 'min',
-  	    	  	        	name : '最低'
-  	    	  	        } ]
+  	    	  	        data : [ 
+  	    	    	  	    {type : 'max',name : '最高'}, 
+  	    	  	            {type : 'min',name : '最低'}
+  	    	  	        ]
   	    	  	    },
   	  	        },
   	  	        {
@@ -425,14 +421,10 @@
   	  	            type:'bar',
   	  	            data:o.profit_line.profit_net,
   	  	  	        markPoint : {
-  	    	  	        data : [ {
-  	    	  	        	type : 'max',
-  	    	  	        	name : '最高'
-  	    	  	        }, 
-  	    	  	        {
-  	    	  	        	type : 'min',
-  	    	  	        	name : '最低'
-  	    	  	        } ]
+  	    	  	        data : [ 
+  	    	    	  	    {type : 'max',name : '最高'}, 
+  	    	  	            {type : 'min',name : '最低'}
+  	    	  	        ]
   	    	  	    },
   	  	        },
   	  	        {
@@ -441,14 +433,10 @@
   	  	            //yAxisIndex: 1, //不在自己的纵坐标索引
   	  	            data:o.profit_line.profit_cash,
   	  	  	        markPoint : {
-	    	  	        data : [ {
-	    	  	        	type : 'max',
-	    	  	        	name : '最高'
-	    	  	        }, 
-	    	  	        {
-	    	  	        	type : 'min',
-	    	  	        	name : '最低'
-	    	  	        } ]
+	    	  	        data : [ 
+	    	    	  	    {type : 'max',name : '最高'}, 
+	    	  	            {type : 'min',name : '最低'}
+	    	  	        ]
 	    	  	    },
   	  	        }
   	  	    ]};           

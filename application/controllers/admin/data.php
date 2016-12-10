@@ -47,17 +47,17 @@ class Data extends Basecontroller {
 	            't' => $this->f($aSummary['bonus']),
 	        ),
 	        'profit_line' => array(
-	            'labels'       => $aProfit['labels'],
-	            'profit_gross' => $aProfit['profit_gross'],
-	            'profit_net'   => $aProfit['profit_net'],
-	            'profit_cash'  => $aProfit['profit_cash'],
+	            'labels'       => array_reverse($aProfit['labels']),
+	            'profit_gross' => array_reverse($aProfit['profit_gross']),
+	            'profit_net'   => array_reverse($aProfit['profit_net']),
+	            'profit_cash'  => array_reverse($aProfit['profit_cash']),
 	        )
 	    ));
 	}
 	
 	private function profit() {
 	    $aRS = array();
-	    $stat = $this->stat_summary->getList(array('rows' => 30,'orderby' => 'asc'));
+	    $stat = $this->stat_summary->getList(array('rows' => 30,'orderby' => 'desc'));
 	    foreach ((array)$stat['rows'] AS $v) {
 	        $aRS['labels'][]       = substr($v['date'], -2);
 	        $aRS['profit_gross'][] = $this->f(($v['bet']-$v['bonus'])/10000);

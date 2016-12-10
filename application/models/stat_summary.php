@@ -60,10 +60,12 @@ class Stat_summary extends Base_Model{
 	 */
 	public function getList($params){
 		$where = array();
-		if($params['date']) {
-		    $where['date'] = $params['date'];
+		if ($params['date_start']) {
+		    $where['date >='] = $params['date_start'];
 		}
-
+		if ($params['date_end']) {
+		    $where['date <='] = $params['date_end'];
+		}
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
 		$start = ($page - 1) * $pageSize; 
@@ -71,7 +73,8 @@ class Stat_summary extends Base_Model{
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 		$count = $this->count($where);
 		if ($count>0) {
-		    $list = $this->selectByWhere($where,'*',$limit,array('date',$params['orderby']? $params['orderby']: 'desc'));
+		    $list = $this->selectByWhere($where,'*',$limit,array('date',$params['orderby'] ? $params['orderby']: 'desc'));
+		    //echo $this->db->last_query();
 		}
 
 		return array(
