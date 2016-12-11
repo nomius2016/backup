@@ -29,6 +29,19 @@ class Data extends Basecontroller {
 	    $aSummary = $this->stat_summary->summary($date);
 	    $aProfit  = $this->profit();
 
+	    //转成浮点型
+		foreach($aProfit['profit_cash'] as $key => &$value) {
+			  $value = floatval($value);
+		}	    
+
+		foreach($aProfit['profit_gross'] as $key => &$value) {
+			  $value = floatval($value);
+		}	
+
+		foreach($aProfit['profit_net'] as $key => &$value) {
+			  $value = floatval($value);
+		}	
+
 	    echo json_encode(array(
 	        'deposit' => array(
 	            'y' => array('amount' => $this->f($_aSummary['deposit']),'users' => $_aSummary['deposit_user']),
