@@ -1,0 +1,193 @@
+<div class="vw-content" ng-controller="membervipCtrl">
+    <div class="vw-part vw-jlb-level">
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-hd">
+                    <h3>{{'member_vip@title' | translate}}</h3>
+                </div>
+                <div class="vw-p-bd">
+                    <div class="vw-level">
+                        <div class="tactr cl">
+                            <div class="level_now cols3">
+                                <h5 class="mgbt10">{{'member_vip@now_level' | translate}}</h5>
+                                <div class="level_info">
+                                    <div class="level_img">
+                                        <img ng-src="{{vip_values.VIPImage}}" />
+                                    </div>
+                                    <div class="level_xx">
+                                        <h4 ng-bind="vip_values.VIPName"></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="level_per lastCols4">
+                                <div class="level_per_wrap">
+                                    <div class="mc-vip-ex">
+                                        <div class="fltlft h100 red3_bg" style="width: {{(vip_values.TotalPoints / (vip_values.TurnoverAmount_N / 100)) * 100}}%" ng-bind="vip_values.TotalPoints"></div>
+                                    </div>
+                                    <div class="per_num">
+                                        <div class="now_num">0</div>
+                                        <div class="need_num">{{'member_vip@next_level_exp' | translate}}</div>
+                                        <div class="total_num" ng-bind="(vip_values.TurnoverAmount_N / 100)"></div>
+                                    </div>
+                                    <a ui-sref="vip">{{'member_vip@more_vip_info' | translate}}</a>
+                                </div>
+                            </div>
+                            <div class="level_next cols3">
+                                <h5 class="mgbt10">{{'member_vip@next_level' | translate}}</h5>
+                                <div class="level_info">
+                                    <div class="level_img">
+                                        <img ng-src="{{vip_values.VIPImage_N}}" />
+                                    </div>
+                                    <div class="level_xx">
+                                        <h4 ng-bind="vip_values.VIPName_N"></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="vw-part vw-jlb">
+        <div class="vw-p-bd">
+            <div class="vw-level-cnt cl">
+                <div class="cols6">
+                    <div class="mc-vip-info lc-now">
+                        <div class="lc-top">
+                            <h4>{{'member_vip@levelup_bonus' | translate}}</h4>
+                            <span class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.LevelUpBonus"></font></span>
+                        </div>
+                        <div class="lc-cnt">
+                            <h4>{{'member_vip@special_bonus' | translate}}</h4>
+                            <div class="lc-list">
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon1 lc-flicon"></div>
+                                        <div class="lc-txt">{{'member_vip@levelup_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.LevelUpBonus"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon2 lc-flicon"></div>
+                                        <div class="lc-txt">{{'member_vip@birthday_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.BirthdayBonus"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon3 lc-flicon"></div>
+                                        <div class="lc-txt">{{'member_vip@withdraw_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.DP_MaxLimit"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon4 lc-flicon"></div>
+                                        <div class="lc-txt">{{'member_vip@sport_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.SportsBonus"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon5 lc-flicon"></div>
+                                        <div class="lc-txt">{{'member_vip@casino_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.CasinoBonus"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon6 lc-flicon"></div>
+                                        <div class="lc-txt">{{'member_vip@vip_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.VIPHelpBonusLimit"></font></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cols6">
+                    <div class="mc-vip-info lc-next">
+                        <div class="lc-top">
+                            <h4>{{'member_vip@next_level_bonus' | translate}}</h4>
+                            <span class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.LevelUpBonus_N"></font></span>
+                        </div>
+                        <div class="lc-cnt">
+                            <h4>{{'member_vip@special_bonus' | translate}}</h4>
+                            <div class="lc-list">
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon1 lc-fricon"></div>
+                                        <div class="lc-txt">{{'member_vip@levelup_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.LevelUpBonus_N"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon2 lc-fricon"></div>
+                                        <div class="lc-txt">{{'member_vip@birthday_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.BirthdayBonus_N"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon3 lc-fricon"></div>
+                                        <div class="lc-txt">{{'member_vip@withdraw_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.DP_MaxLimit_N"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon4 lc-fricon"></div>
+                                        <div class="lc-txt">{{'member_vip@sport_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.SportsBonus_N"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon5 lc-fricon"></div>
+                                        <div class="lc-txt">{{'member_vip@casino_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.CasinoBonus_N"></font></div>
+                                    </div>
+                                </div>
+                                <div class="lc-cl cl">
+                                    <div class="lc-lft fltlft">
+                                        <div class="lc-icon6 lc-fricon"></div>
+                                        <div class="lc-txt">{{'member_vip@vip_bonus' | translate}}</div>
+                                    </div>
+                                    <div class="lc-rft fltrt">
+                                        <div class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.VIPHelpBonusLimit_N"></font></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

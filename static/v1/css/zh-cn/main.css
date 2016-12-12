@@ -1,0 +1,70 @@
+body {
+    font-family: "Microsoft YaHei","Myriad Pro Cond"
+}
+
+.game-jackpots {
+    background-image: url(../images/game-img-jackpots.png);
+    height: 337px;
+    position: relative
+}
+
+.winners-board {
+    background-image: url(../images/game-img-winners.png);
+    height: 68px;
+    position: relative;
+    z-index: 1
+}
+
+.ranking-board {
+    background-image: url(../images/game-img-ranking.png);
+    height: 76px
+}
+
+.csn_kv1 {
+    background-image: url(../images/milan_bg.jpg)
+}
+
+.csn_kv2 {
+    background-image: url(../images/birgin_bg.jpg)
+}
+
+.csn_kv3 {
+    background-image: url(../images/emerald_bg.jpg)
+}
+
+.csn_kv4 {
+    background-image: url(../images/pt_bg.jpg)
+}
+
+.csn_kv5 {
+    background-image: url(../images/m88_bg.jpg)
+}
+
+.csn_kv6 {
+    background-image: url(../images/opus_bg.jpg)
+}
+
+.csn_kv7 {
+    background-image: url(../images/gd_bg.jpg)
+}
+
+.csn_kv8 {
+    background-image: url(../images/bbin_bg.jpg)
+}
+
+.rio-news a:after {
+    content: "立即投注";
+    display: inline-block;
+    font-size: 12px;
+    background-color: #E90818;
+    padding: 3px 7px 4px 5px;
+    margin-left: 8px;
+    border-radius: 3px;
+    -webkit-transition: all .1s;
+    -moz-transition: all .1s;
+    -o-transition: all .1s;
+    transition: all .1s;
+    color: #FFF;
+    height: 17px;
+    opacity: 0
+}

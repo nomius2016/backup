@@ -1,0 +1,165 @@
+<!--主視覺區塊-->
+<div ng-controller="casino" id="main-banner" style="height:850px; background-color:#000000;">
+  <ul class="casino-hero">
+    <!--铂金馆-->
+    <li class="csn_kv2 fade" ng-class="{show: currentKv === '2'}" ng-style="getCasinoHeroStyles(2)">
+      <div class="csn_birgin">
+        <h5 ng-class="userLang==='th-th'? 'mgbt10' : 'mgbt20'" ng-bind-html="sceTranslate.descEA"></h5>
+        <div class="clear"></div>
+        <a ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()" class="btn5 mgrt10 mgbt10"><span>{{isLoggedIn() ? ("casino@play" | translate) : ("casino@register" | translate)}}</span></a>
+        <a ng-click="onDownloadBtn()" class="btn5 download mgbt10"><span class="grey6">{{"casino@download" | translate}}</span></a>
+      </div>
+    </li>
+    <!--翡翠厅-->
+    <li class="csn_kv3 fade" ng-class="{show: currentKv === '3'}" ng-style="getCasinoHeroStyles(3)">
+      <div class="csn_emerald_title"></div>
+      <div class="csn_emerald">
+        <a ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()" class="btn5 mgbt10"><span>{{isLoggedIn() ? ("casino@play" | translate) : ("casino@register" | translate)}}</span></a>
+        <div class="clear"></div>
+        <a onclick="window.open('/html/ag_app')" class="btn5 mgbt10"><span class="icon_dl1"></span><span class="grey6">{{"casino@app"| translate}}</span></a>
+        <a ng-click="onDownloadBtn()" class="btn5 download mgbt10"><span class="icon_dl1"></span><span class="grey6">{{"casino@pc"| translate}}</span></a>
+      </div>
+    </li>
+    <!--星耀厅-->
+    <li class="csn_kv5 fade" ng-class="{show: currentKv === '5'}" ng-style="getCasinoHeroStyles(5)">
+      <div class="csn_m88">
+        <h5 class="mgbt20" ng-bind-html="sceTranslate.descW88"></h5>
+        <div class="clear"></div>
+        <a ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()" class="btn5 mgbt10"><span>{{isLoggedIn() ? ("casino@play" | translate) : ("casino@register" | translate)}}</span></a>
+        <div class="clear"></div>
+      </div>
+    </li>
+    <!--海盗城-->
+    <li class="csn_kv6 fade" ng-class="{show: currentKv === '6'}" ng-style="getCasinoHeroStyles(6)">
+      <div class="csn_opus">
+        <h5 class="mgbt20" ng-bind-html="sceTranslate.descOPUS"></h5>
+        <div class="clear"></div>
+        <a ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()" class="btn5 mgbt10"><span>{{isLoggedIn() ? ("casino@play" | translate) : ("casino@register" | translate)}}</span></a>
+        <div class="opus_in" ng-mouseenter="pauseAutoPlay()" ng-mouseleave="resumeAutoPlay()">
+          <div class="opus_in_A_warp A_bg" ng-click="isLoggedIn() ? onPlayPromotionGameBtn() : onRegisterBtn()">
+            <div class="opus_in_A_inner">
+              <img class="img_e2" src="assets/images/casino/opus_Entrance_A_e2.png">
+              <img class="img_e1" src="assets/images/casino/opus_Entrance_A_e1.png">
+            </div>
+            <a class="opus_in_link">{{"casino@opus_game1"| translate}}</a>
+          </div>
+
+          <div class="mgrt10 mglft10 opus_in_B_warp B_bg" ng-click="isLoggedIn() ? onPlayPromotionGameBtn() : onRegisterBtn()">
+            <div class="opus_in_B_inner">
+              <img class="img_e1" src="assets/images/casino/opus_Entrance_B_e1.png">
+              <img class="img_e2" src="assets/images/casino/opus_Entrance_B_e2.png">
+              <img class="img_e3" src="assets/images/casino/opus_Entrance_B_e3.png">
+            </div>
+            <a class="opus_in_link">{{"casino@opus_game2"| translate}}</a>
+          </div>
+          <div class="opus_in_C_warp C_bg" ng-click="isLoggedIn() ? onPlayPromotionGameBtn() : onRegisterBtn()">
+            <div class="opus_in_C_inner">
+              <img class="img_e1" src="assets/images/casino/opus_Entrance_C_e1.png">
+            </div>
+            <a class="opus_in_link">{{"casino@opus_game3"| translate}}</a>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </li>
+    <!--波音馆-->
+    <li class="csn_kv8 fade" ng-class="{show: currentKv === '8'}" ng-style="getCasinoHeroStyles(8)">
+      <div class="csn_bbin">
+        <h5 class="mgbt20" ng-bind-html="sceTranslate.descBBIN"></h5>
+        <div class="clear"></div>
+        <a ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()" class="btn5 mgbt10"><span>{{isLoggedIn() ? ("casino@play" | translate) : ("casino@register" | translate)}}</span></a>
+        <div class="clear"></div>
+      </div>
+    </li>
+    <!--夺宝岛-->
+    <li class="csn_kv7 fade" ng-class="{show: currentKv === '7'}" ng-style="getCasinoHeroStyles(7)">
+      <div class="csn_gd">
+        <h5 class="mgbt20" ng-bind-html="sceTranslate.descGD"></h5>
+        <div class="clear"></div>
+        <a ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()" class="btn5 mgbt10"><span>{{isLoggedIn() ? ("casino@play" | translate) : ("casino@register" | translate)}}</span></a>
+        <div class="gd_in" ng-mouseenter="pauseAutoPlay()" ng-mouseleave="resumeAutoPlay()">
+          <div class="gd_in_A_warp A_bg" ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()">
+            <div class="gd_in_A_inner">
+              <img class="img_e1" src="assets/images/casino/GD_Entrance_A_e1.png">
+            </div>
+            <a class="gd_in_link">{{"casino@gd_game1"| translate}}</a>
+          </div>
+
+          <div class="mgrt10 mglft10 gd_in_B_warp B_bg" ng-click="isLoggedIn() ? onPlayGameBtn('GD_Fish') : onRegisterBtn()">
+            <div class="casino_hot"></div>
+            <div class="gd_in_B_inner">
+              <img class="img_e1" src="assets/images/casino/GD_Entrance_B_e1.png">
+            </div>
+            <a class="gd_in_link">{{"casino@gd_game2"| translate}}</a>
+          </div>
+          <div class="gd_in_C_warp C_bg" ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()">
+            <div class="gd_in_C_inner">
+              <img class="img_e1" src="assets/images/casino/GD_Entrance_C_e1.png">
+            </div>
+            <a class="gd_in_link">{{"casino@gd_game3"| translate}}</a>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </li>
+    <!--百乐门-->
+    <li class="csn_kv4 fade" ng-class="{show: currentKv === '4'}" ng-style="getCasinoHeroStyles(4)">
+      <div class="csn_pt">
+        <h5 class="mgbt20" ng-bind-html="sceTranslate.descPT"></h5>
+        <div class="clear"></div>
+        <a ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()" class="btn5 mgbt10"><span>{{isLoggedIn() ? ("casino@play" | translate) : ("casino@register" | translate)}}</span></a>
+        <div class="clear"></div>
+        <a ng-show="PlaytechActive" ng-click="onDownloadBtn()" class="btn5 download mgbt10">
+          <span class="grey6">{{"casino@download" | translate}}</span>
+        </a>
+      </div>
+    </li>
+    <!--米兰馆 -->
+    <li class="csn_kv1 fade" ng-class="{show: currentKv === '1'}" ng-style="getCasinoHeroStyles(1)">
+      <div class="csn_milan">
+        <div class="bg mgbt10"></div>
+        <h5 class="mgbt20" ng-bind-html="sceTranslate.descEV"></h5>
+        <div class="clear"></div>
+        <a ng-click="isLoggedIn() ? onPlayGameBtn() : onRegisterBtn()" class="btn5 mgbt10"><span>{{isLoggedIn() ? ("casino@play" | translate) : ("casino@register" | translate)}}</span></a>
+      </div>
+    </li>
+  </ul>
+  <!--真人娱乐场各馆选单 casino menu-->
+  <ul class="csn_mn">
+    <li ng-repeat="item in menuItems" ng-class="{active: currentKv === item.kv, last: $last}" ng-style="customizeCasinoMenu()" ng-click="onMenuClick(item.kv)" ng-init="$last ? menuRetouch() : angular.noop()">
+      <h5>{{item.name | translate}}</h5>
+    </li>
+  </ul>
+</div>
+<div style="background-color:#fff; height:18px;"> <img src="assets/images/index-hero-img-1.png" style="vertical-align: top;" /> </div>
+<!--內容-->
+<div id="content">
+  <div class="mw">
+    <div class="clear mgbt10"></div>
+    <div class="con1-7">
+      <img src="assets/images/casino/casino-img-01.jpg" style="vertical-align: top;" />
+      <div class="con1-text">
+        <h4>{{'casino@banner_title1' | translate}}</h4>
+        <p>{{'casino@banner_description1' | translate}}</p>
+      </div>
+      <div class="con1-shadow"><img src="assets/images/casino/casino-img-shadow.png" /></div>
+    </div>
+    <div class="con1-7">
+      <img src="assets/images/casino/casino-img-02.jpg" style="vertical-align: top;" />
+      <div class="con1-text">
+        <h4>{{'casino@banner_title2' | translate}}</h4>
+        <p>{{'casino@banner_description2' | translate}}</p>
+      </div>
+      <div class="con1-shadow"><img src="assets/images/casino/casino-img-shadow.png" /></div>
+    </div>
+    <div class="con1-7" style="margin-right:0;">
+      <img src="assets/images/casino/casino-img-03.jpg" style="vertical-align: top;" />
+      <div class="con1-text">
+        <h4>{{'casino@banner_title3' | translate}}</h4>
+        <p>{{'casino@banner_description3' | translate}}</p>
+      </div>
+      <div class="con1-shadow"><img src="assets/images/casino/casino-img-shadow.png" /></div>
+    </div>
+    <div class="clear mgbt10"></div>
+  </div>
+</div>

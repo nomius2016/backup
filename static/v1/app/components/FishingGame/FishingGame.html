@@ -1,0 +1,53 @@
+<!--主視覺區塊-->
+<div ng-controller="FishingGame" id="main-banner" style="height:850px; background-color:#000000;">
+  <!--捕鱼游戏-->
+  <div class="gamemod">
+    <div class="mainbtn">
+      <div class="logo"></div>
+      <div class="btn">
+        <div class="btn_fish_1">
+          <a ng-click="isLoggedIn() ? onPlayGameBtn() : needLoginBtn()">立即遊戲</a>
+          <!-- 捕魚提示 -->
+          <div class="fish_notice">
+            温馨提示：捕鱼前请先转账至“翡翠厅”</br>方可正常游戏。
+          </div>
+          <!-- 捕魚提示結束 -->
+        </div>
+        <div class="btn_fish_2"><a ng-click="FishingGameInfo();">遊戲詳情</a></div>
+      </div>
+    </div>
+    <div class="fisharea">
+      <span class="fish1"><img src="assets/images/fishingGame/fish1.png" alt=""></span>
+      <span class="fish2"><img src="assets/images/fishingGame/fish1.png" alt=""></span>
+      <span class="fish3"><img src="assets/images/fishingGame/fish3.png" alt=""></span>
+      <span class="fish4"><img src="assets/images/fishingGame/fish4.png" alt=""></span>
+      <span class="fish5"><img src="assets/images/fishingGame/fish4.png" alt=""></span>
+      <span class="fish6"><img src="assets/images/fishingGame/fish6.png" alt=""></span>
+      <span class="fish7"><img src="assets/images/fishingGame/fish7.png" alt=""></span>
+      <span class="fish8"><img src="assets/images/fishingGame/fish7.png" alt=""></span>
+    </div>
+    <div class="helpoverlay">
+      <div class="window">
+        <div class="tab-title">捕鱼帮助</div>
+        <div class="helpoverlay_close" ng-click="FishingGameInfoClose();"></div>
+        <div class="buttons">
+          <ul>
+            <li class="button active" id="one">游戏提示</li>
+            <li class="button" id="two">界面说明</li>
+            <li class="button" id="three">操作说明</li>
+            <li class="button" id="four">鱼的赔率</li>
+            <li class="button" id="five">炮的说明</li>
+          </ul>
+        </div>
+        <div class="window-content">
+          <div class="content-pic one active"></div>
+          <div class="content-pic two "></div>
+          <div class="content-pic three"></div>
+          <div class="content-pic four"></div>
+          <div class="content-pic five"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 捕鱼游戏结束 -->
+</div>

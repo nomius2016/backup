@@ -1,0 +1,192 @@
+<div ng-controller='games' id="content" class="game-content">
+    <div></div>
+    <div class="game-hero"> </div>
+    <div class="mw">
+        <div class="game-block-top">
+            <div ng-if="true" class="game-hero-text"></div>
+
+            <div ng-class="{'game-gamesos-download': !PlaytechActive , 'game-btn-download': PlaytechActive}"
+                 ng-if="true">
+                <a class="game-btn-pt" ng-show="PlaytechActive" ng-click="onDownloadGame('Playtech')"></a>
+                <a class="game-btn-gsos" ng-show="userLang !== 'th-th'" ng-click="onDownloadGame('GamesOS')"></a>
+            </div>
+
+            <div ng-if="false" class="game-btn-enter" ><a ng-click="onBetsoftBetButton()" class="btn-1">{{"games@now_betting" | translate}}</a> </div>
+        </div>
+    </div>
+    <div class="mw">
+        <div class="game-block">
+            <!--推薦遊戲區塊-->
+            <div class="game-title-01">
+                <h4 class="fmb">TOP GAMES RECOMMEND</h4>
+                <h3>{{"games@recommend" | translate}}</h3>
+            </div>
+            <div class="clear mgbt10"></div>
+            <!--左部遊戲選單內容-->
+            <ul class="game-list game-recom">
+                <li ng-repeat="game in recommendGameList" ng-class="{'last': $last}">
+                    <div class="game-img-goods">
+                        <div class="game-tag icon-hot"></div>
+                        <a ng-click="onPlayBtnClicked('0', game.GameCode, game.GameCategoryID, game.PlatformCode)"><img ng-src={{game.ImgUrl}} /></a>
+                    </div>
+                    <img src="assets/images/game-images/game-img-shadow.png" />
+                    <h5>{{game.GameName}}</h5>
+                </li>
+                <div class="clear"></div>
+            </ul>
+            <div class="clear"></div>
+            <!--小遊戲-選單-->
+            <ul class="game-list-menu">
+                <li ng-repeat="category in gameCategories" ng-class="{active: selectedCategory.GameCategoryID===category.GameCategoryID}" ng-click="onGameCategoryClicked(category)" ng-mouseenter="onMenuMouseEnter($event, category)" ng-mouseleave="onMenuMouseLeave($event, category)">
+                    <span ng-if="!$first" class="game-line" style=""></span> <span ng-class="getGameCategoryIcon($index)"></span>
+                    <h4 ng-bind="category.GamesCategoryName">Jackpot</h4>
+                    <p ng-bind="category.GameCategoryCount">999</p>
+                </li>
+            </ul>
+            <div class="clear"></div>
+            <!--小遊戲展示區塊-->
+            <div class="game-list-container">
+                <div class="game-list-pager">
+                    <!--搜尋功能-->
+                    <!--
+                    <div class="game-search fltlft">
+                        <input type="text" placeholder="快速搜尋" ng-model="searchString" ng-change="searchGames()" class="promo-text">
+                        <input type="text" value="" />
+                        <ul>
+                            <li><a href="#">遊戲名稱一</a></li>
+                            <li><a href="#">遊戲名稱二</a></li>
+                            <li><a href="#">遊戲名稱三</a></li>
+                            <li><a href="#">遊戲名稱四</a></li>
+                            <li><a href="#">遊戲名稱五</a></li>
+                            <li><a href="#">遊戲名稱六</a></li>
+                        </ul>
+                    </div>
+                    -->
+                    <!--換頁功能-->
+                    <div class="pages fltrt">
+                        <div ng-if="selectedCategory.GameCategoryID!==7" class="game-platform" style="border:1px solid #dcdcdc;" ng-click="onPlatformMenuClicked()">
+                            <span>{{selectedPlatform.PlatformName}}</span><span class="icon-platform"></span>
+                            <ul>
+                                <li ng-repeat="platform in platforms" ng-click="onPlatformSelected(platform)">{{platform.PlatformName}}</li>
+                            </ul>
+                            <!--其它語系game-platform需設min-width:152px-->
+                        </div>
+                        <a ng-if="selectedPage!=0 && totalPage>1" ng-click="onPrevPage()"><span class="icon-arrow-02"></span></a>
+                        <a ng-if="selectedPage!=totalPage-1 && totalPage>1" ng-click="onNextPage()"><span class="icon-arrow-03"></span></a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <!--遊戲列表-->
+                <ul class="game-list" id="gameList">
+                    <li ng-repeat="game in gameList" ng-class="{'cols4': (gamesPerRow===3), 'last': !(($index+1)%gamesPerRow)}" ng-init="$last ? addPlayButtonEffects() : angular.noop()">
+                        <div class="game-img-goods">
+                            <div class="game-tag" ng-class="{'icon-hot': game.Focus !== null && game.Amount === null, 'icon-new': game.tagType === 'new', 'icon-jackpot': game.Amount !== null}"></div>
+                            <div ng-if="game.Amount !== null" class="game-goods-jackpot">{{game.Symbol}}{{game.Amount|number:2}}</div>
+                            <img ng-src={{game.ImgUrl}} />
+                            <div class="game-img-black" style="filter: alpha(opacity=0); opacity: 0;"><img src="assets/images/game-images/game-img-black.png" /> </div>
+                            <div class="game-btn-play">
+                                <a ng-click="onPlayBtnClicked((!isLoggedIn && game.Experience === true)?'1':'0', game.GameCode, game.GameCategoryID, game.PlatformCode)">
+                                    <div ng-class="(!isLoggedIn && game.Experience === true) ? 'icon-try' : 'icon-play'">
+                                        <p>{{(!isLoggedIn && game.Experience === true) ? ('games@free_play' | translate) : ('games@play_game' | translate)}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <img src="assets/images/game-images/game-img-shadow.png" />
+                            <div ng-if="!isLoggedIn && game.Experience === false" class="game-btn-try" style="filter: alpha(opacity=0); opacity: 0;">{{"games@not_support_free" | translate}}</div>
+                            <h5>{{game.GameName}}</h5>
+                        </div>
+                    </li>
+                    <div class="clear"></div>
+                    <!--換頁功能-->
+                    <div class="pages fltlft">
+                        <a ng-repeat="num in [] | range:totalPage" ng-class="{active: selectedPage===$index}" ng-click="onPageClicked($index)">{{$index+1}}</a>
+                    </div>
+                    <div class="pages fltrt">
+                        <a ng-if="selectedPage!=0 && totalPage>1" ng-click="onPrevPage()"><span class="icon-arrow-02"></span></a>
+                        <a ng-if="selectedPage!=totalPage-1 && totalPage>1" ng-click="onNextPage()"><span class="icon-arrow-03"></span></a>
+                    </div>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <!--右邊獎池與排行榜遊戲-->
+            <div class="game-block-right">
+                <!--獎池-->
+                <div class="game-jackpots">
+                    <div class="slot-bar"></div>
+                    <ul class="fbb jackpots-money">
+                        <li ng-repeat="jackpot in jackpotList" style="display: none">{{jackpot.Symbol}}<span>{{jackpot.amount|number:2}}</span></li>
+                    </ul>
+                    <ul class="jackpots-goods">
+                        <li ng-repeat="jackpot in jackpotList" ng-init="$last ? jackpotsAnimation() : angular.noop()">
+                            <div class="cols5">
+                                <img ng-src="{{jackpot.ImgUrl}}" />
+                            </div>
+                            <div class="cols7 last">
+                                <h4>{{jackpot.GameName}}</h4>
+                                <a ng-click="onPlayBtnClicked('0', jackpot.GameCode, jackpot.GameCategoryID, jackpot.PlatformCode)">
+                                    <span>{{'games@play_game' | translate}}</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--幸運星-->
+                <div class="game-winners">
+                    <div class="winners-board"></div>
+                    <ul class="winners-list">
+                        <li ng-repeat="rank in winnerList" ng-init="$last ? winnersAnimation() : angular.noop()">
+                            <div class="cols6">
+                                <p>{{rank.account}}</p>
+                                <p>{{rank.name}}</p>
+                            </div>
+                            <div class="cols6 last">
+                                <p>{{'games@award_amount' | translate}}</p>
+                                <p class="fmb" style="">{{rank.coins}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--排行榜-->
+                <div class="game-ranking">
+                    <div class="ranking-board"></div>
+                    <ul class="game-list" id="rankingList">
+                        <li ng-repeat="game in topTenList" ng-init="$last ? addTopFiveButtonEffects() : angular.noop()">
+                            <div class="goods-intro">
+                                <h4>{{game.GameSubname}}</h4>
+                                <h5>{{game.GameDescription}}</h5>
+                            </div>
+                            <div class="game-img-goods">
+                                <div class="icon-ranking" ng-class="'icon-ranking-0' + game.RowNumber"></div>
+                                <img ng-src={{game.ImgUrl}} />
+                                <div class="game-img-black" style="filter: alpha(opacity=0); opacity: 0;">
+                                    <img src="assets/images/game-images/game-img-black.png" />
+                                </div>
+                                <div class="game-btn-play">
+                                    <a ng-click="onPlayBtnClicked('0', game.GameCode, game.GameCategoryID, game.PlatformCode)">
+                                        <div class="icon-play">
+                                            <p>{{'games@play_game' | translate}}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <img src="assets/images/game-images/game-img-shadow.png" />
+                                <div ng-if="!isLoggedIn" class="game-btn-try" style="filter: alpha(opacity=0); opacity: 0;">{{"games@not_support_free" | translate}}</div>
+                                <h5>{{game.GameName}}</h5>
+                            </div>
+                        </li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+                <!--下載版-->
+                <div class="game-download">
+                    <div ng-class="{'game-gamesos-download-1': !PlaytechActive , 'game-btn-download-1': PlaytechActive}"
+                         ng-show="PlaytechActive || userLang !== 'th-th'">
+                        <a class="game-btn-pt-1" ng-show="PlaytechActive" ng-click="onDownloadGame('Playtech')"></a>
+                        <a class="game-btn-gsos-1" ng-show="userLang !== 'th-th'" ng-click="onDownloadGame('GamesOS')"></a>
+                    </div>
+                </div>
+            </div>
+            <!--右邊結束-->
+        </div>
+    </div>
+    <div class="games-mask" style="display:none;"></div>
+</div>

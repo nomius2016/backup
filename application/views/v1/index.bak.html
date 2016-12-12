@@ -1,0 +1,107 @@
+<!doctype html>
+<html id="ng-app" ng-app="ciApp" ng-controller="appCtrl">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title translate="{{ metadata.title }}">ciApp</title>
+    <meta description="{{ metadata.description }}" ng-if="metadata.description" />
+    <meta keywords="{{ metadata.keywords }}" ng-if="metadata.keywords" />
+
+    <link rel="stylesheet" href="/static/v1/css/reset.css">
+    <link rel="stylesheet" href="/static/v1/css/main.css">
+    <link rel="stylesheet" href="/static/v1/css/bar.css">
+    <link rel="stylesheet" href="/static/v1/css/account.css">
+    <link rel="stylesheet" href="/static/v1/css/security.css">
+    <link rel="stylesheet" href="/static/v1/css/bubble.css">
+    <link rel="stylesheet" href="/static/v1/css/vip.css">
+
+    <link rel="stylesheet" href="/static/v1/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/static/v1/css/jquery-ui.structure.min.css" />
+    <link rel="stylesheet" href="/static/v1/css/jquery-ui.theme.min.css" />
+
+    <script src="/static/v1/js/angular.js"></script>
+    <script src="/static/v1/js/angular-animate.min.js"></script>
+    <script src="/static/v1/js/angular-cookie.min.js"></script>
+    <script src="/static/v1/js/angular-ui-router.min.js"></script>
+    <script src="/static/v1/js/angular-translate.min.js"></script>
+    <script src="/static/v1/js/angular-translate-loader-url.min.js"></script>
+    <script src="/static/v1/js/angular-css.min.js"></script>
+    <script src="/static/v1/js/angular-md5.min.js"></script>
+    <script src="/static/v1/js/jquery.min.js"></script>
+    <script src="/static/v1/js/jquery.hoverIntent.min.js"></script>
+    <script src="/static/v1/js/jquery.easing.min.js"></script>
+    <script src="/static/v1/js/angular-clipboard.js"></script>
+    <script src="/static/v1/js/jquery.counterup.js"></script>
+    <script src="/static/v1/js/jquery.knob.js"></script>
+    <script src="/static/v1/js/formatDate.js"></script>
+    <script src="/static/v1/js/qrcode.js"></script>
+    <script src="/static/v1/js/qrcode_UTF8.js"></script>
+    <script src="/static/v1/js/angular-qrcode.js"></script>
+    <script src="/static/v1/js/moment.min.js"></script>
+    <script src="/static/v1/js/jquery-ui.min.js"></script>
+    <script src="/static/v1/js/ua-parser.min.js"></script>
+
+    <script src="/static/v1/js/jquery-BubbleEngine.js"></script>
+  </head>
+  <body>
+    <div ng-if="showHeader">
+        <div header></div>
+    </div>
+
+    <div style="min-height:700px">
+        <div ui-view autoscroll="true"></div>
+    </div>
+
+    <div class="horizonLine" ng-if="showFooter"></div>
+
+    <div ng-if="showFooter">
+        <div footer lang="userLang"></div>
+    </div>
+
+    <div ng-if="showSidebar">
+        <div sidebar></div>
+    </div>
+
+    <div class="popup-bgArea" style="top: 0px; z-index: 99;" ng-style="maskHeightStyle" ng-if="showMask" ng-click="clickMask()"></div>
+    <div id="boss-mask" style="display:none;"><img class="main-loading-icon" src="/static/v1/images/loading_demo1.gif"></div>
+
+    <div class="main-loading-mask" ng-show="showLoading" style="display: none">
+        <img class="main-loading-icon" src="/static/v1/images/loading_demo1.gif">
+    </div>
+
+    <div popup-dialog show='showAlert'>
+        <div popup-alert title="alertTitle" content="alertContent"></div>
+    </div>
+
+    <div modal-dialog show="showModalDialog">
+    </div>
+
+
+    <script src="/static/v1/app/servies/storage.js"></script>
+    <script src="/static/v1/app/servies/requester.js"></script>
+    <script src="/static/v1/app/servies/container.js"></script>
+    <script src="/static/v1/app/servies/zeusService.js"></script>
+    <script src="/static/v1/app/servies/api/AccountService.js"></script>
+    <script src="/static/v1/app/servies/api/BonusService.js"></script>
+    <script src="/static/v1/app/servies/api/CashFlowService.js"></script>
+    <script src="/static/v1/app/servies/api/GameService.js"></script>
+    <script src="/static/v1/app/servies/api/MessageService.js"></script>
+    <script src="/static/v1/app/servies/api/PlatformService.js"></script>
+    <script src="/static/v1/app/servies/api/SecurityService.js"></script>
+    <script src="/static/v1/app/servies/api/TemplateService.js"></script>
+    <script src="/static/v1/app/servies/api/UtilityService.js"></script>
+    <script src="/static/v1/app/app.js"></script>
+    <script src="/static/v1/app/appConfig.js"></script>
+    <script src="/static/v1/app/appServices.js"></script>
+
+    <script src="/static/v1/app/components/header/headerDirective.js"></script>
+    <script src="/static/v1/app/components/header/loginDirective.js"></script>
+    <script src="/static/v1/app/components/header/registerDirective.js"></script>
+    <script src="/static/v1/app/components/home/homeCtrl.js"></script>
+    <script src="/static/v1/app/components/home/homeContentCtrl.js"></script>
+  </body>
+</html>

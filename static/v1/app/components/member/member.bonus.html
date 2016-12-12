@@ -1,0 +1,102 @@
+<div class="vw-content invite-panel" ng-controller="memberBonusCtrl">
+    <!--header-->
+    <div class="vw-part vw-cx-hl">
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-hd">
+                    <h3>{{"member_bonus@claim_bonus" | translate}}</h3>
+                </div>
+                <div class="vw-p-bd">
+                    <div class="vw-cxhl">
+                        <div class="tactr cl">
+                            <div class="search_item fltlft">
+                                <div class="thema-a">
+                                    <select class="ui-select" ng-change="updateBonusList()" ng-model="form.bonusCategory" ng-options="item.Name for item in data.bonusCategories" required></select>
+                                </div>
+                            </div>
+                            <div class="level_next fltrt">
+                                <div class="level_info">
+                                        <img ng-src="{{data.vipImageSrc}}" />
+                                    <div class="level_xx">
+                                        <h4>{{data.vipName}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="vw-part vw-hl">
+        <div class="cl">
+            <!--tab-->
+            <div class="col-12">
+                <div class="vw-hl-tab">
+                    <ul class="mya_declassul">
+                        <li class="tab_nav" ui-sref-active="active"><a ui-sref="member.bonus({method: 'applied'})">{{"member_bonus@tab_applied" | translate}}</a></li>
+                        <li class="tab_nav" ui-sref-active="active"><a ui-sref="member.bonus({method: 'applicable'})">{{"member_bonus@tab_applicable" | translate}}</a></li>
+                        <li class="tab_nav" ui-sref-active="active"><a ui-sref="member.bonus({method: 'history'})">{{"member_bonus@tab_history" | translate}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12">
+                <!--
+                    icon_time1 : 发放时间
+                    icon_time2 : 计算时间
+                    icon_time3 : 过期时间
+                    icon_time4 : 转账时间
+                    icon_time5 : 存款时间
+                    icon_time6 : 认证时间
+                -->
+                <div class="vw-hl-cnt">
+                    <!--已申請紅利-->
+                    <div class="vw-hlview" ng-if="method === 'applied'">
+                        <div bonus-repeat ng-repeat="record in data.filteredBonusList" method="method" item="record" verified="(record.RealTurnoverAmount>=record.TurnoverAmount && record.verifiedAllPass) ? true : false" click-callback="(record.RealTurnoverAmount>=record.TurnoverAmount && record.verifiedAllPass) ? claimBonus(record) : playGame(record)"></div>
+                    </div>
+                    <!--可申請紅利-->
+                    <div class="vw-hlview" ng-if="method === 'applicable'">
+                        <div bonus-repeat ng-repeat="record in data.filteredBonusList" method="method" item="record" verified="(record.verifiedAllPass) ? true : false" click-callback="(record.verifiedAllPass) ? applyBonus(record) : playGame(record)"></div>
+                    </div>
+                    <!--領取歷史-->
+                    <div class="vw-hlls-table" ng-if="method === 'history'">
+                        <div class="vw-table vw-p-table">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" ng-if="data.filteredBonusList.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th>{{"member_bonus@history_name" | translate}}</th>
+                                        <th>{{"member_bonus@amount" | translate}}</th>
+                                        <th>{{"member_bonus@create_time" | translate}}</th>
+                                        <th>{{"member_bonus@valid_time" | translate}}</th>
+                                        <th>{{"member_bonus@history_status" | translate}}</th>
+                                        <th>{{"member_bonus@details" | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in data.filteredBonusList | orderBy:'':true">
+                                        <td ng-bind="item.Name"></td>
+                                        <td ng-bind="item.BonusAmount | number: 2"></td>
+                                        <td ng-bind="item.CreateTime | date: 'yyyy/MM/dd'"></td>
+                                        <td ng-bind="item.ValidTime | date: 'yyyy/MM/dd'"></td>
+                                        <td>
+                                            <span ng-class="(item.ClaimedTime !== null) ? 'received':'unreceived'">
+                                                {{(item.ClaimedTime !== null) ? ("member_bonus@history_claimed" | translate) : ("member_bonus@history_expired" | translate)}}
+                                            </span>
+                                        </td>
+                                        <td><a ng-click="showPopup(item)">{{"member_bonus@history_check" | translate}}</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div popup-dialog show='historyShown'>
+        <div bonus-history-popup select-item="selectItem" click-callback="playGame(selectItem)"></div>
+    </div>
+    <div popup-dialog show='resultShown'>
+        <div popup-alert title="resultTitle" content="resultContent"></div>
+    </div>
+</div>

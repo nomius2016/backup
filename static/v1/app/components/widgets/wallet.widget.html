@@ -1,0 +1,80 @@
+<div>
+  <div class="vw-part vw-fund">
+    <!--資金header-->
+    <div class="cl">
+      <div class="col-6">
+        <div class="vw-p-bd vw-tab c-red br">
+          <div class="vw-tab-hd">
+            {{'wallet_widget@total_funds' | translate}}
+          </div>
+          <div class="vw-tab-bd">
+            <span class="vw-money">
+                            <i ng-bind="symbol"></i>
+                            <font ng-bind="total|number:2"></font>
+                        </span>
+            <a class="btn-1" ui-sref="member.bank({ method: 'deposit'})">
+                            {{'wallet_widget@deposit' | translate}}
+                        </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="vw-p-bd vw-tab">
+          <div class="vw-tab-hd">
+            {{'wallet_widget@funds_withdraw_limit' | translate}}
+          </div>
+          <div class="vw-tab-bd">
+            <span class="vw-money">
+                            <i ng-bind="symbol"></i>
+                            <font ng-bind="withdrawLimit|number:2"></font>
+                        </span>
+            <a class="btn-2" ui-sref="member.bank({method: 'withdraw'})">
+                            {{'wallet_widget@withdraw' | translate}}
+                        </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="vw-part vw-cell">
+    <div class="cl">
+      <div class="col-12">
+        <div class="vw-table vw-icon-fixed vw-p-table" id="vw-table">
+          <table border="0" cellspacing="0" cellpadding="0" class="vw-table" style="width:100%">
+            <tbody>
+              <tr class="main">
+                <td style="width:100%;" colspan="3">
+                  <table style="width:100%;">
+                    <tr>
+                      <td wallet-repeat code="mainAccount.code" key="mainAccount.key" amount="mainAccount.amount" symbol="symbol" vwallet="mainAccount.vwallet" style="padding-left:0px;"></td>
+                      <td style="width:50%;">
+                        <label style="vertical-align: middle;">
+                                                    {{'wallet_widget@withdraw_lock' | translate}}
+                                                </label>
+                        <span class="vw-money" style="vertical-align:middle;">
+                                                    <i ng-bind="symbol"></i>
+                                                    <font ng-bind="withdrawLock|number:2"></font>
+                                                </span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <!--<tr ng-repeat="row in platforms" ng-class="{main:$first}">-->
+              <tr ng-repeat="row in platforms">
+                <td ng-repeat="item in row" wallet-repeat code="item.code" key="item.key" amount="item.amount" symbol="symbol" vwallet="item.vwallet"></td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <p class="notice">
+                    {{'wallet_widget@v_wallet_description' | translate}}
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

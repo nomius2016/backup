@@ -1,0 +1,49 @@
+<div class="vw-quick vw-quick1">
+    <div class="plc8 prc8">
+        <div class="quick-tit">
+            <h6>
+                {{'transfer_widget@transfer' | translate}}
+            </h6>
+        </div>
+        <div class="quick-line"></div>
+        <div class="quick-cnt">
+            <div class="zz-cnt">
+                <ul>
+                    <li>
+                        <div class="thema-a">
+                            <select class="ui-select" ng-model="from" ng-options="item.code as item.name for item in platforms" required>
+                                <option value="" disabled>
+                                    {{'transfer_widget@please_select_the_source_account' | translate}}
+                                </option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="thema-a">
+                            <select class="ui-select" ng-model="to" ng-options="item.code as item.name for item in platforms" required>
+                                <option value="" disabled>
+                                    {{'transfer_widget@please_select_the_target_account' | translate}}
+                                </option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="thema-a">
+                            <div class="vw-ui-input">
+                                <input type="text" class="mn-ipt" min="1" step="1" ng-model="amount" numbers-only placeholder="{{'transfer_widget@please_enter_the_transfer_amount' | translate}}">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="zz-btn">
+                <a ng-class=" {'btn-1': !inprocess, 'btn-3': inprocess, 'btn-disable': !from || !to || !amount || from == to }" btn-process callback="transfer()">
+                    <span class="icon-loading-1" ng-if="inProcess"></span>
+                    <span ng-if="!inProcess" style="line-height:21px;">
+                        {{'transfer_widget@submit' | translate}}
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

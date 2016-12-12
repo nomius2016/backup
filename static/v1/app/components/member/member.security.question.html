@@ -1,0 +1,131 @@
+<div class="">
+    <div class="cl" ng-controller="memberInfoCtrl">
+        <div class="col-12">
+            <div class="vw-p-hd">
+                <h3>{{'member_security@question' | translate}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="pwdPanel" class="cl">
+    <div class="vw-part" ng-if="(!security_status.question && question.flow == 'question')">
+        <div class="col-12">
+            <div class="vw-p-bd vw-tip">
+                <p>{{'member_security_question@notice' | translate}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="cl">
+        <!-- question start -->
+        <div class="col-12">
+            <div class="vw-p-bd vw-form mt35" ng-if="!security_status.question">
+                <form action="">
+                    <ul class="thema-a">
+                        <li class="vw-fItem">
+                            <label class="grey5" for="">{{'member_security@question' | translate}}：</label>
+                            <div class="vw-ui-input cl">
+                                <div class="cols12 mgrt0">
+                                    <select class="ui-select" ng-model="question_list" ng-options="item as item.SecurityQuestionName for item in question.questionList" required ng-disabled="question.disabled">
+                                        <option value="" disabled>{{'member_security_question@choise_question' | translate}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="vw-fItem">
+                            <label class="grey5" for="">{{'member_security_question@ans' | translate}}：</label>
+                            <div class="vw-ui-input">
+                                <input type="text" placeholder="{{'member_security_question@ans_placeholder' | translate}}" ng-model="question.ans" />
+                            </div>
+                        </li>
+                        <li class="vw-fItem">
+                            <a class="btn-1" callback="CreateSecurityQuestion(question_list, question)" btn-process ng-class="{'btn-disable': !question_list || !question.ans }">
+                                {{'member_security_question@sumbit' | translate}}
+                            </a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <!-- question end -->
+
+        <!-- mobile start -->
+        <div class="mya_result vw-form mt20" ng-if="(security_status.question && question.flow == 'mobile')">
+            <form id="checkPhone" class="pt30">
+                <ul class="thema-a">
+                    <li class="vw-fItem">
+                        <label class="grey5" for="">{{'member_security_mobile@mobile' | translate}}：</label>
+                        <div class="vw-ui-input cl">
+                            <div class="cols6 mgrt0">
+                                <input ng-if="mobile.readonly" ng-model="mobile.areacode" readonly="readonly" />
+                            </div>
+                            <div class="vw-ui-input cols5 mglft20">
+                                <input type="text" name="phone" placeholder="{{'member_security_mobile@mobile_placeholder' | translate}}"
+                                       ng-model="mobile.value" ng-change="mobile.checkValid()" ng-readonly="mobile.readonly">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="vw-fItem" style="height:auto;">
+                        <label class="grey5" for="">{{'member_security_mobile@code' | translate}}：</label>
+                        <div class="vw-ui-input cl">
+                            <div class="vw-ui-input cols7 mgrt0">
+                                <input type="text" name="code" placeholder="{{'member_security_mobile@code_placeholder' | translate}}" ng-model="mobile.code">
+                                <p class="mgtp8">{{'member_security_mobile@code_notice' | translate}}</p>
+                            </div>
+                            <div style="cursor: pointer" class="min call-box label_box gray fs14 col-3" id="bt_SendCode" ng-click="SendSMSVerifyCode(mobile);">{{'member_security_mobile@get_code' | translate}}</div>
+                        </div>
+                    </li>
+
+                    <li class="vw-fItem">
+                        <a class="btn-1" ng-class="{'btn-disable': !mobile.value || !mobile.code }" btn-process callback="CreateSecurityMobile(mobile)">{{'member_security_mobile@submit' | translate}}</a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <!-- mobile end -->
+
+        <!-- email start -->
+        <div class="mya_result vw-form mt20" ng-if="(security_status.question && question.flow == 'email')">
+            <form action="btn-1 check-email" id="checkEmail" class="pt30">
+                <ul class="thema-a">
+                    <li class="vw-fItem">
+                        <label class=" grey5" for="">{{ 'member_security_email@email' | translate }}：</label>
+                        <div class="vw-ui-input cl">
+                            <input type="text" name="email" placeholder="{{ 'member_security_email@email_placeholder' | translate }}"
+                                   ng-model="email.value" ng-change="email.checkValid()" ng-readonly="email.readonly">
+                        </div>
+                    </li>
+                    <li class="vw-fItem" style="height:auto;">
+                        <label class="grey5" for="">{{ 'member_security_email@code' | translate }}：</label>
+                        <div class="vw-ui-input cl">
+                            <div class="vw-ui-input cols8 mgrt0" style="width:62.67%;">
+                                <input type="text" name="code" placeholder="{{ 'member_security_email@code_placeholder' | translate }}" ng-model="email.code">
+                                <p class="mgtp8">{{ 'member_security_email@code_notice' | translate }}</p>
+                            </div>
+                            <div style="cursor: pointer" class="min call-box label_box gray fs14 col-3" id="bt_SendCode" ng-click="SendEmailVerifyCode(email)">{{ 'member_security_email@get_code' | translate }}</div>
+                        </div>
+                    </li>
+
+                    <li class="vw-fItem">
+                        <a class="btn-1" ng-class="{'btn-disable': !email.value || !email.code }" btn-process callback="CreateSecurityEmail(email)">{{ 'member_security_email@submit' | translate }}</a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <!-- email end -->
+
+        <div class="mya_result cl" ng-if="(security_status.question && question.flow == 'question')">
+            <div class="mya_wrap yellowBg">
+                <div class="result_tit"><i class="icon_yes"></i>{{'member_security_question@notice_title_2' | translate}}</div>
+                <div class="result_cnt"><p>{{'member_security_question@notice_message_2' | translate}}</p></div>
+            </div>
+            <div class="mya_help">
+                <h5><b>{{'member_security_question@notice_title_3' | translate}}</b></h5>
+                <p style="line-height:30px;">{{'member_security_question@notice_message_3_1' | translate}}<a ui-sref="about({menuItem:'contact'})">{{'member_security_question@notice_page_3_1' | translate}}</a>，{{'member_security_question@notice_message_3_2' | translate}}<a ng-click="openLiveChat()">{{'member_security_question@notice_page_3_2' | translate}}</a>{{'member_security_question@notice_message_3_3' | translate}}</p>
+                <a class="btn-1 white" ng-show="security_status.mobile" ng-click="QuestionUI_Change('mobile');">{{'member_security_question@submit_mobile' | translate}}</a>
+                <a class="btn-1 white" ng-show="security_status.email" ng-click="QuestionUI_Change('email');">{{'member_security_question@submit_email' | translate}}</a>
+                <a class="btn-1 white" ng-click="ModifySecurityQuestion()">{{'member_security_question@submit_question' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="vw-rtn-back"><a ui-sref="member.security({method: 'index'})">BACK</a></div>
+</div>

@@ -1,0 +1,39 @@
+<div class="vw-content" ng-controller="memberBankCtrl">
+    <div class="vw-part vw-part_profile_header vw-fund">
+        <!--上方主標-->
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-hd">
+                    <h3>
+                        {{'member_bank@fund' | translate}}
+                    </h3>
+                    <!--<a class="vw-refresh" ng-click="refresh()"></a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div wallet-widget></div>
+    <!--存提款頁面-->
+    <div id="vw-ck" class="vw-part vw-ck">
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-ck-tab">
+                    <ul class="mya_declassul">
+                        <li class="mya_depost tab_nav" ng-class="{'active':method === 'deposit'}" ng-click="clickDeposit()">
+                            <a>
+                                {{'member_bank@deposit' | translate}}
+                            </a>
+                        </li>
+                        <li class="mya_dedraw tab_nav" ng-class="{'active':method === 'withdraw'}" ng-click="clickWithdraw()">
+                            <a>
+                                {{'member_bank@withdraw' | translate}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div ui-view="deposit" ng-if="method === 'deposit'"></div>
+            <div ui-view="withdraw" ng-if="method === 'withdraw'" class="col-12"></div>
+        </div>
+    </div>
+</div>

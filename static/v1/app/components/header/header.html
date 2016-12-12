@@ -1,0 +1,128 @@
+<div id="header">
+    <div class="header">
+        <div class="mw">
+            <div class="hd-info fltlft">
+                <div class="info-default">
+                    <div class="time" my-current-time="format"></div>
+                    <span class="line"></span>
+                    <div><a ui-sref="about({menuItem:'contact'})" ng-bind="'Contact_Us'|translate">Contact_Us</a></div>
+                    <span class="line"></span>
+                    <div><a ui-sref="about({menuItem:'vwin'})" ng-bind="'License'|translate">License</a></div>
+                    <span class="line" ng-if="lang === 'zh-cn' || lang === 'vi-vn'|| lang === 'th-th'"></span>
+                    <div ng-if="lang === 'zh-cn'">
+                        <a href="http://www.v66088.com" target="_blank" ng-bind="'header@circult_center'|translate">Circuit Center</a>
+                    </div>
+                    <div ng-if="lang === 'vi-vn'">
+                        <a href="http://vn.v66088.com" target="_blank" ng-bind="'header@circult_center'|translate">Circuit Center</a>
+                    </div>
+                    <div ng-if="lang === 'th-th'">
+                        <a href="http://th.v66088.com" target="_blank" ng-bind="'header@circult_center'|translate">Circuit Center</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hd-info fltrt">
+                <div class="info-default info-default-2">
+                    <span ng-show="!login">
+                        <div id="popup-style-1" class="rltv">
+                            <span class="icon_login"></span>
+                            <a class="loginPage" ng-click="openLoginDlg()" ng-bind="'Login'|translate">Login</a> / <a class="registerPage" ng-click="openRegisterDlg()" ng-bind="'Register_Now'|translate">Register_Now</a>
+                        </div>
+                    </span>
+                    <span ng-show="login">
+                        <div>
+                            <a id="Nickname" ui-sref="member.info" ng-bind="userName|translate">Guest</a>
+                        </div>
+                        <span class="line"></span>
+                        <div>
+                            <a id="AccountRec" ui-sref="member.bank"><span ng-bind="'Account'|translate">Account</span>:<span ng-bind="amount|number:2">0.00</span></a>
+                        </div>
+                        <span class="line"></span>
+                        <div>
+                            <a id="UserInfo" ui-sref="member.profile" ng-bind="'Member_Center'|translate">Member_Center</a>
+                        </div>
+                        <span class="line"></span>
+                        <div>
+                            <a id="btnLogout" ng-click="logout()" ng-bind="'Logout'|translate">Logout</a>
+                        </div>
+                    </span>
+                    <span class="line"></span>
+                    <div class="lc"><span class=" icon_lc3"></span><a ng-click="openLiveChat()" ng-bind="'Live_Chat'|translate">Live_Chat</a></div>
+                </div>
+                <!--彈跳視窗-->
+                <div class="popup-style-1" style="display:none;">
+                    <div class="layer-arrow-top"></div>
+                    <div class="layer-style-1">
+                        <a class="btn-close" ng-click="closeDialog()"></a>
+                        <!--登入頁-->
+                        <div login></div>
+                        <!--注册页-->
+                        <div register></div>
+                    </div>
+                    <div class="popup-header-bgArea"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div id="nav">
+        <div class="line"></div>
+        <div class="mw">
+            <a ui-sref="home" class="hd-logo fltlft rltv" ng-class="{'hd-logo-cn': lang === 'zh-cn'}"></a>
+            <!--簡中市場加上hd-logo-cn，其餘市場則不需要-->
+            <div class="nav-items">
+                <ul>
+                    <li ui-sref-active="active"><a ui-sref="home" class="icon-home" ng-bind="'Home'|translate">Home</a></li>
+                    <li ui-sref-active="active"><span class="line"></span><a ui-sref="mobile" class="icon-mobile" ng-bind="'Mobile'|translate">Mobile</a></li>
+                    <li ui-sref-active="active"><span class="line"></span><a ui-sref="gb_sports" ng-bind="'Sportsbook'|translate">Sportsbook</a></li>
+                    <li ui-sref-active="active"><span class="line"></span><span ng-if="lang==='zh-cn'" class="newtag gametag">电竞投注</span><a ui-sref="sports" ng-bind="'IBC_Sports'|translate">IBC_Sports</a></li>
+                    <li ui-sref-active="active" ng-show="lang === 'zh-cn'"><span class="line"></span><span ng-if="lang==='zh-cn'" class="newtag"></span><a ui-sref="FishingGame" ng-bind="'FishingGame'|translate">FishGame</a></li>
+                    <li ui-sref-active="active"><span class="line"></span><a ui-sref="casino" ng-bind="'Live_Casino'|translate">Live_Casino</a></li>
+                    <li ui-sref-active="active"><span class="line"></span><a ui-sref="games" ng-bind="'Casino'|translate">Casino</a></li>
+                    <li ui-sref-active="active" class="numberGame"><span class="line"></span><a href="" class="nopr active" ng-bind="'number_game'|translate">Number Game</a><span class="nav-downArrow"></span></li>
+                    <li ui-sref-active="active"><span class="line"></span><a ui-sref="promotion" ng-bind="'Promotion'|translate">Promotion</a></li>
+                    <li><span class="line"></span><a ng-if="lang === 'zh-cn'" ng-click="openExploreVwin()" ng-bind="'Explore_Vwin'|translate">Explore_Vwin</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="sec-nav" class="">
+            <div class="nav-sh"></div>
+            <div class="mw">
+                <div class="sec-nav-items">
+                    <ul>
+                        <li ui-sref-active="active">
+                            <a ui-sref="keno">
+                                <img src="/static/v1/images/number-game/menu_icon_keno.png" class="none1024">
+                                <div class="menu_block">
+                                    <span class="fbb" style="line-height:18px;">{{'Keno'|translate}}<p ng-show="lang==='zh-cn'" class="fmb">7个国家，7x24小时</p></span>
+                                    <img ng-src="/static/v1/images/number-game/menu_text_keno.png">
+                                </div>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <span class="line"></span>
+                            <a ui-sref="lotto">
+                                <img src="/static/v1/images/number-game/menu_icon_lotto.png" class="none1024">
+                                <div class="menu_block">
+                                    <span class="fbb" style="line-height:18px;">{{'Lotto'|translate}}<p ng-show="lang==='zh-cn'" class="fmb">10大地区，日日开奖</p></span>
+                                    <img ng-src="/static/v1/images/number-game/menu_text_lotto.png">
+                                </div>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" class="last">
+                            <span class="line"></span>
+                            <div ng-show="!SSCActive" class="comming"></div>
+                            <a ui-sref="ssc">
+                                <img src="/static/v1/images/number-game/menu_icon_constantly.png" class="none1024">
+                                <div class="menu_block">
+                                    <span class="fbb" style="line-height:18px;">{{'SSC'|translate}}<p ng-show="lang==='zh-cn'" class="fmb">全网独家，出手必中</p></span>
+                                    <img ng-src="/static/v1/images/number-game/menu_text_constantly.png">
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

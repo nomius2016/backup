@@ -1,0 +1,71 @@
+<div class="">
+    <div class="cl">
+        <div class="col-12">
+            <div class="vw-p-hd">
+                <h3>
+                    {{ 'member_security@name' | translate }}
+                    <div class="label_box orange red">
+                        <i class="icon_er1 mgrt5 "></i>
+                        {{ 'member_security_name@success_message_1' | translate }}{{name.BonusAmount}}{{ 'member_security_name@success_message_2' | translate }}
+                    </div>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="pwdPanel" class="cl">
+    <div class="vw-part">
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-bd vw-tip">
+                    <p>{{ 'member_security_name@notice_message' | translate }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mya_result vw-form mt20">
+        <form action="btn-1" id="" class="pt30">
+            <ul class="thema-a" ng-if="currencyID == 2">
+                <li class="vw-fItem">
+                    <label class="grey5" for="">{{ 'member_security_name@name' | translate }}：</label>
+                    <div class="vw-ui-input cl">
+                        <input type="text" name="name" placeholder="{{ 'member_security_name@name_placeholder' | translate }}" ng-model="name.value" ng-readonly="name.valid">
+                    </div>
+                </li>
+                <li class="vw-fItem">
+                    <label class="grey5" for="">{{ 'member_security_name@code' | translate }}：</label>
+                    <div class="vw-ui-input cl">
+                        <input type="text" name="id" placeholder="{{ 'member_security_name@code_placeholder' | translate }}" ng-model="name.code">
+                    </div>
+                </li>
+                <li class="vw-fItem">
+                    <a class="btn-1" ng-class="{'btn-disable': !name.value || !name.code}" btn-process callback="CreateSecurityName(name)">{{ 'member_security_name@submit' | translate }}</a>
+                    <div class="vw-input-error">{{ 'member_security_name@code_error' | translate }}</div>
+                </li>
+            </ul>
+
+            <ul class="thema-a" ng-if="currencyID != 2">
+                <li class="vw-fItem">
+                    <label class="grey5" for="">{{ 'member_security_name@name' | translate }}：</label>
+                    <div class="vw-ui-input cl">
+                        <input type="text" placeholder="{{'member_bank_withdraw@first_name' | translate}}" style="width:274px;" ng-model="name.value" ng-readonly="name.valid">
+                        <input type="text" placeholder="{{'member_bank_withdraw@middle_name' | translate}}" style="width:274px;" ng-model="name.middleName" ng-readonly="name.valid">
+                        <input type="text" placeholder="{{'member_bank_withdraw@last_name' | translate}}" style="width:274px;" ng-model="name.lastName" ng-readonly="name.valid">
+                    </div>
+                </li>
+                <li class="vw-fItem" ng-show="!name.valid">
+                    <a class="btn-1" ng-class="{'btn-disable': !name.value || !name.lastName}" btn-process callback="CreateforeignSecurityName(name)">{{ 'member_security_name@submit' | translate }}</a>
+                    <div class="vw-input-error">{{ 'member_security_name@code_error' | translate }}</div>
+                </li>
+                <li class="vw-fItem" ng-show="name.valid">
+                    <a ui-sref="about({menuItem:'contact'})">{{ 'member_security_question@notice_page_3_1' | translate }}</a>
+                    {{ 'member_security_name@content_us_1' | translate }}
+                    <a ng-click="openLiveChat();">{{ 'member_security_question@notice_page_3_2' | translate }}</a>
+                    {{ 'member_security_name@content_us_2' | translate }}
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div class="vw-rtn-back"><a ui-sref="member.security({method: 'index'})">BACK</a></div>
+</div>
+

@@ -1,0 +1,45 @@
+<div id="err_header">
+    <div class="mw">
+        <div class="err_hd-logo fltlft"></div>
+    </div>
+</div>
+<div id="err_nav">
+    <div class="mw">
+        <div class="err_nav-items">
+            <ul>
+                <li><a ng-click="goHome()">首頁</a></li>
+                <li><span class="line"></span><a href="">體育</a></li>
+                <li><span class="line"></span><a href="">真人娛樂場</a></li>
+                <li><span class="line"></span><a href="">遊戲</a></li>
+                <li><span class="line"></span><a href="">快樂彩</a></li>
+                <li><span class="line"></span><a href="">世界樂透</a></li>
+                <li><span class="line"></span><a href="">最新優惠</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="mw">
+    <div class="err_nav"></div>
+    <div class="err_con1 rltv">
+        <div class="err_con1_line1 absl"></div>
+        <div class="err_con1_line2 absl"></div>
+        <div class="absl border-top" style="top: 50px;"><img src="/styles/images/border-top.png"></div>
+        <div class="err_con1_outer">
+            <div class="err_con1_inner" ng-if="type === 'error'">
+                <img class="mgbt20" src="/styles/images/m3.gif">
+                <h3 class="yellow2 mgbt20">我們對此感到抱歉！內部服務器出了點問題！</h3>
+                <p class="white mgbt20">如有任何疑問請聯係<a class="yellow2" ng-click="openLiveChat()">24小時在線服務</a>或發郵件到<a class="yellow2" href="mailto:vwincs@vwin.com">vwincs@vwin.com</a></p>
+                <p class="white">或回到首頁重新開始Vwin帶給您的最佳娛樂體驗&gt;</p>
+            </div>
+            <div class="err_con1_inner" ng-if="type === 'block'">
+                <img class="mgbt20" src="/styles/images/m2.gif" />
+                <h4 class="yellow2 mgbt20">你的當前區域不允許訪問，對您造成不便，敬請諒解</h4>
+                <h3 class="yellow2 mgbt20">您的IP來自：{{ip}}</h3>
+                <p class="white">如有任何疑問請聯係<a class="yellow2" ng-click="openLiveChat()">24小時在線服務</a>或發郵件到<a class="yellow2" href="mailto:vwincs@vwin.com">vwincs@vwin.com</a></p>
+            </div>
+        </div>
+        <div class="absl border-bottom" style="bottom: -18px;"><img src="/styles/images/border-bottom.png"></div>
+    </div>
+    
+</div>
+<div class="err_footer"><img src="/styles/images/bg-bottom.png" /></div>

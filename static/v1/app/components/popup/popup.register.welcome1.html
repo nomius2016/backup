@@ -1,0 +1,41 @@
+<div class="wdsa">
+    <!--白底透明遮罩 pop outside-->
+    <div class="ppos">
+        <!--內容區塊 pop area-->
+        <div class="ppa">
+            <div class="pphead">
+                <h2 style="font-size: 34px;letter-spacing: 0px;">{{'header_register@welcome_title' | translate}}</h2>
+                <h4 class="red">{{'header_register@welcome_description' | translate}}</h4>
+            </div>
+            <hr>
+            <!--內容 pop content-->
+            <div class="ppct">
+                <!--3項驗證-->
+                <div class="cols4 tactr" ng-click="openSpecificPage('member.security', {method: 'name'})">
+                    <a href="javascript://" class="IDVerify"><span class="vrf_tn mgbt10"></span></a>
+                    <h4 class="mgbt5">{{'header_register@welcome_name_verify' | translate}}</h4>
+                    <h5 class="mgbt10">{{'header_register@welcome_name_verify_info' | translate}}</h5>
+                    <h5 class="red" style="">{{'header_register@welcome_verify_complete' | translate}}<span class="fs40 fbb mgrt5 mglft5" ng-style="(countryCode === '84') && {'line-height': '2em'}">{{symbol}}{{bonusList.name | number:2}}</span></h5>
+                </div>
+                <div class="cols4 tactr" ng-click="openSpecificPage('member.security', {method: 'mobile'})">
+                    <a href="javascript://" class="Mobile"><span class="vrf_ml mgbt10"></span></a>
+                    <h4 class="mgbt5">{{'header_register@welcome_mobile_verify' | translate}}</h4>
+                    <h5 class="mgbt10">{{'header_register@welcome_mobile_verify_info' | translate}}</h5>
+                    <h5 class="red" style="">{{'header_register@welcome_verify_complete' | translate}}<span class="fs40 fbb mgrt5 mglft5" ng-style="(countryCode === '84') && {'line-height': '2em'}">{{symbol}}{{bonusList.mobile | number:2}}</span></h5>
+                </div>
+                <div class="cols4 last tactr" ng-click="openSpecificPage('member.security', {method: 'email'})">
+                    <a href="javascript://" class="Email"><span class="vrf_mb mgbt10"></span></a>
+                    <h4 class="mgbt5">{{'header_register@welcome_email_verify' | translate}}</h4>
+                    <h5 class="mgbt10">{{'header_register@welcome_email_verify_info' | translate}}</h5>
+                    <h5 class="red" style="">{{'header_register@welcome_verify_complete' | translate}}<span class="fs40 fbb mgrt5 mglft5" ng-style="(countryCode === '84') && {'line-height': '2em'}">{{symbol}}{{bonusList.email | number:2}}</span></h5>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <hr>
+            <!--內容頁頭 pop footer-->
+            <div class="ppft">
+                <p>{{'header_register@welcome_problem_contact' | translate}}<a class="LiveChat" href="javascript:void(0);" ng-click="openLiveChat()">{{'header_register@welcome_online_help' | translate}}</a>{{'header_register@welcome_or' | translate}}<a class="ContactUsBox" ng-click="openSpecificPage('about', {menuItem: 'contact'})">{{'header_register@welcome_contact_us' | translate}}</a></p>
+            </div>
+        </div>
+    </div>
+</div>

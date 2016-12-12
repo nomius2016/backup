@@ -1,0 +1,33 @@
+<div ng-controller="promotionCtrl">
+    <!--內容-->
+    <div id="content" style="padding-top: 125px;background-color:#eee;">
+        <div class="mw rltv">
+            <!--直線-->
+            <div class="beeline"></div>
+            <!--最新優惠-全部內容區塊-->
+            <div id="PromotionDetail" class="fltlft" style="width:89.4%; margin-top:100px;" ng-include="templateUrl" onload="loadTemplateComplete()">
+
+            </div>
+            <!--最新優惠-選單-->
+            <div class="fltrt" style="width:100%; margin-top:100px;min-width:980px;max-width:1280px;position:fixed;">
+                <ul class="pmt_mn" style="width:90px;right:0;position:absolute;">
+                    <li id="li_All" class="pmtmenu active"><span class=" pmt-img1"></span><div class="clear"></div><span>{{'promotion@menu_all' | translate}}</span></li>
+                    <span class="line"></span>
+                    <li id="li_DWMoney" class="pmtmenu" data-type="DWMoney"><span class=" pmt-img2"></span><div class="clear"></div><span>{{'promotion@menu_deposit' | translate}}</span></li>
+                    <span class="line"></span>
+                    <li id="li_Sports" class="pmtmenu" data-type="Sports"><span class=" pmt-img3"></span><div class="clear"></div><span>{{'promotion@menu_sport' | translate}}</span></li>
+                    <span class="line"></span>
+                    <li id="li_Casino" class="pmtmenu" data-type="Casino"><span class=" pmt-img4"></span><div class="clear"></div><span>{{'promotion@menu_live_casino' | translate}}</span></li>
+                    <span class="line"></span>
+                    <li id="li_Games" class="pmtmenu" data-type="Games"><span class="pmt-img5"></span><div class="clear"></div><span>{{'promotion@menu_casino' | translate}}</span></li>
+                    <span class="line"></span>
+                    <li id="li_NumberGames" class="pmtmenu" data-type="NumberGames"><span class="pmt-img6"></span><div class="clear"></div><span>{{'promotion@menu_game' | translate}}</span></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div popup-dialog show='showPop'>
+        <div ng-include="promotionRuleUrl"></div>
+    </div>
+</div>

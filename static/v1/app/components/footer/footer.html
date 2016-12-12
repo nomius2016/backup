@@ -1,0 +1,366 @@
+<div>
+    <div class="mw">
+        <ul class="con3">
+            <li class="lv1">
+                <h5>{{'footer@download' | translate}}</h5>
+                <ul>
+                    <li><a href="javascript://" class="downloadProduct" code="EA">{{'footer@download_birgin' | translate}}</a></li>
+                    <li><a href="javascript://" class="downloadProduct" code="AG">{{'footer@download_emerald' | translate}}</a></li>
+                    <li ng-show="PlaytechActive">
+                        <a href="javascript://" class="downloadProduct" code="PT">{{'footer@download_playtech' | translate}}</a>
+                    </li>
+                    <li ng-show="lang !== 'th-th'">
+                        <a href="javascript://" class="downloadProduct" code="GamesOS">{{'footer@download_gamesos' | translate}}</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="lv1">
+                <h5>{{'footer@about' | translate}}</h5>
+                <ul>
+                    <li><a ui-sref="about({menuItem:'vwin'})">{{'footer@about_vwin' | translate}}</a></li>
+                    <li><a ui-sref="about({menuItem:'responsible'})">{{'footer@about_responsible' | translate}}</a></li>
+                    <li><a ui-sref="about({menuItem:'condition'})">{{'footer@about_condition' | translate}}</a></li>
+                    <li><a ui-sref="about({menuItem:'promotion'})">{{'footer@about_promotion' | translate}}</a></li>
+                    <li><a ui-sref="about({menuItem:'privacy'})">{{'footer@about_privacy' | translate}}</a></li>
+                    <li><a ui-sref="about({menuItem:'contact'})">{{'footer@about_contact' | translate}}</a></li>
+                </ul>
+            </li>
+            <li class="lv1">
+                <h5>{{'footer@help' | translate}}</h5>
+                <ul>
+                    <li><a class="btnDeposit" ui-sref="help({mainmenu:'greenhand', menu: 'v2-Depositsop'})">{{'footer@help_deposit' | translate}} </a></li>
+                    <li><a class="btnWithdraw" ui-sref="help({mainmenu:'greenhand', menu: 'v2-Withdrawalsop'})">{{'footer@help_withdraw' | translate}} </a></li>
+                    <li><a class="btnOpenAccount" ui-sref="help({mainmenu:'greenhand', menu: 'v2-SignupLogin'})">{{'footer@help_account' | translate}} </a></li>
+                    <li><a class="btnFAQ" ui-sref="help({mainmenu:'greenhand', menu: 'v2-ClearBrowserCache'})">{{'footer@help_faq' | translate}} </a></li>
+                </ul>
+            </li>
+            <li class="lv1">
+                <h5>&nbsp;</h5>
+                <ul>
+                    <li><a class="btnGBSportRule" ui-sref="help({mainmenu:'sport', menu: 'v2-GBBettingRules'})">{{'footer@help_gbsport' | translate}}</a></li>
+                    <li><a class="btnSportRule" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-BettingRules'})">{{'footer@help_sport' | translate}}</a></li>
+                    <li ng-if="lang === 'zh-cn' || lang === 'th-th'"><a class="btnCasinoRules" ui-sref="help({mainmenu:'casino', menu: 'v2-Baccarat'})">{{'footer@help_casino' | translate}} </a></li>
+                    <li ng-if="lang === 'zh-cn' || lang === 'th-th'"><a class="btnGameRules" ui-sref="help({mainmenu:'game', menu: 'v2-Miracle'})">{{'footer@help_game' | translate}} </a></li>
+                    <li><a class="btnKenoRule" ui-sref="help({mainmenu:'keno', menu: 'v2-SizeMono'})">{{'footer@help_keno' | translate}} </a></li>
+                    <li><a class="btnLottoRule" ui-sref="help({mainmenu:'lotto', menu: 'v2-HK'})">{{'footer@help_lotto' | translate}} </a></li>
+                    <li><a class="btnLottoRule" ui-sref="help({mainmenu:'ssc', menu: 'v2-SSC'})">{{'footer@help_ssc' | translate}} </a></li>
+                </ul>
+            </li>
+
+            <li class="lv1 sct" ng-style="{width: footerConfig.col1Width}">
+                <h5>{{'footer@social' | translate}}</h5>
+                <ul>
+                    <li ng-show="footerConfig.col1App['WeChat'] !== undefined">
+                        <ng-include src='template' ng-if="activeApp === 'WeChat'"></ng-include>
+                        <a id="btnWeChat" href="javascript://" ng-click="clickApp('WeChat', footerConfig.col1App['WeChat'])">
+                            <span class=" vwin-img si1 ahover"></span>{{'footer@wechat' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col1App['Weibo'] !== undefined">
+                        <a id="btnTsina" href="javascript://" ng-click="clickApp('Weibo', footerConfig.col1App['Weibo'])">
+                            <span class=" vwin-img si2 ahover"></span>{{'footer@weibo' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col1App['Line'] !== undefined">
+                        <ng-include src='template' ng-if="activeApp === 'Line'"></ng-include>
+                        <a id="btnLine" href="javascript://" ng-click="clickApp('Line', footerConfig.col1App['Line'])">
+                            <span class="vwin-img si10 ahover"></span>{{'footer@line' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col1App['Zalo'] !== undefined">
+                        <ng-include src='template' ng-if="activeApp === 'Zalo'"></ng-include>
+                        <a id="btnZalo" href="javascript://" ng-click="clickApp('Zalo', footerConfig.col1App['Zalo'])">
+                            <span class="vwin-img si12 ahover"></span>{{'footer@zalo' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col1App['Facebook'] !== undefined">
+                        <a id="btnFacebook" href="javascript://" ng-click="clickApp('Facebook', footerConfig.col1App['Facebook'])">
+                            <span class="vwin-img si4 ahover"></span>{{'footer@facebook' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col1App['Talk'] !== undefined">
+                        <a href="javascript://" code="open" ng-click="clickApp('Talk', footerConfig.col1App['Talk'])">
+                            <span class="si13 ahover" style="opacity: 0.5;"></span>{{'footer@talk' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col1App['Phone'] !== undefined">
+                        <a id="btnWeChat" href="javascript://" ng-click="clickApp('Phone', footerConfig.col1App['Phone'])">
+                            <span class="si14 ahover"></span>{{'footer@phone' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col1App['YouTube2'] !== undefined">
+                        <a id="btnYouTube2" href="javascript://" ng-click="clickApp('YouTube2', footerConfig.col1App['YouTube2'])">
+                            <span class=" vwin-img si5 ahover"></span>{{'footer@youtube' | translate}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="lv1 sct" ng-show="footerConfig.col1Width === '11%'">
+                <h5>&nbsp;</h5>
+                <ul>
+                    <li ng-show="footerConfig.col2App['Tudou'] !== undefined">
+                        <a id="btnTudou" href="javascript://" ng-click="clickApp('Tudou', footerConfig.col2App['Tudou'])">
+                            <span class=" vwin-img si6 ahover"></span>{{'footer@tudou' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col2App['56.com'] !== undefined">
+                        <a id="btn56com" href="javascript://" ng-click="clickApp('56.com', footerConfig.col2App['56.com'])">
+                            <span class=" vwin-img si3 ahover"></span>{{'footer@56.com' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col2App['Viber'] !== undefined">
+                        <ng-include src='template' ng-if="activeApp === 'Viber'"></ng-include>
+                        <a id="btnViber" href="javascript://" ng-click="clickApp('Viber', footerConfig.col2App['Viber'])">
+                            <span class="si11 ahover"></span>{{'footer@viber' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col2App['Line2'] !== undefined">
+                        <ng-include src='template' ng-if="activeApp === 'Line2'"></ng-include>
+                        <a id="btnLine" href="javascript://" ng-click="clickApp('Line2', footerConfig.col2App['Line2'])">
+                            <span class="vwin-img si10 ahover"></span>{{'footer@line' | translate}}
+                        </a>
+                    </li>
+                    <li ng-show="footerConfig.col2App['YouTube'] !== undefined">
+                        <a id="btnYouTube" href="javascript://" ng-click="clickApp('YouTube', footerConfig.col2App['YouTube'])">
+                            <span class=" vwin-img si5 ahover"></span>{{'footer@youtube' | translate}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="lv1 last">
+                <h5>
+                    <!--加盟合作-->
+                    {{'footer@cooperation' | translate}}
+                </h5>
+                <ul>
+                    <li>
+                        <a ng-click="openAffiliates()">
+                            <div class="call-box">
+                                <div class="icon-shake"></div>
+                                <div class="ilblk vamd">
+                                    <h4 class="white fmb">
+                                        <!--代理加盟合作-->
+                                        {{'footer@affiliate_rights' | translate}}
+                                    </h4>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <div class="call-box call-box2">
+                            <div class="icon-call"></div>
+                            <div class="ilblk vamd">
+                                <h3 class="grey fmb">
+                                    {{'footer@phone_number' | translate}}
+                                </h3>
+                                <p class="grey">
+                                    <!--国内24小时免费电话-->
+                                    {{'footer@phone_free' | translate}}
+                                </p>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <!--24小时访客数量-->
+                        {{'footer@visitors_24hr' | translate}}
+                        <div class="olpp">
+                            <ul>
+                                <li class="olpp1">
+                                    {{visit[0]}}
+                                    <hr>
+                                </li>
+                                <li class="olpp2">
+                                    {{visit[1]}}
+                                    <hr>
+                                </li>
+                                <li class="olpp3">
+                                    {{visit[2]}}
+                                    <hr>
+                                </li>
+                                <li class="olpp4">
+                                    {{visit[3]}}
+                                    <hr>
+                                </li>
+                                <li class="olpp5">
+                                    {{visit[4]}}
+                                    <hr>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="mgtp8">
+                        <span ng-show="isLoggedIn()" ng-click="clickFriendsBtn()"
+                              class="btn-1 ivt_btn" id="btnFriends"
+                              style="position:relative;border-top-left-radius: 16px; border-top-right-radius: 16px;
+                                border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; width: auto; width: initial;">
+                            <div ng-show="showFriendsMain" class="ivt lft" id="inviteFriendsMain" style="position: absolute; bottom: 50px; left: 50%; margin-left: -355px; z-index: 100;">
+                                <div ng-mouseover="showFriendBonus=true" ng-mouseleave="showFriendBonus=false" ng-click="clickBonusPage(); $event.stopPropagation();" class="gtbns BonusPage">
+                                    <h5 ng-if="showFriendBonus" class="mgrt5 pd0 fltlft">
+                                        <a href="javascript:void(0);">
+                                            {{'footer@friend_bonus' | translate}}
+                                        </a>
+                                    </h5>
+                                    <span class="mn3 fltlft"></span>
+                                    <div class=" fmb nb">{{bonusCount}}</div>
+                                </div>
+                                <h3 class="yellow mgbt10">{{'footer@invite_friends_logo01' | translate}}</h3>
+                                <h5 class="mgbt10 pd0">{{'footer@invite_friends_logo02' | translate}}</h5>
+                                <h5 class="mgbt10 pd0">{{'footer@invite_friends_logo03' | translate}}</h5>
+                                <div class="fm">
+                                    <input id="invitefriendsUrl" type="text" value="{{shareURL}}" class="mgrt10 mgbt10" style="width: 336px;" disabled="disabled">
+                                    <a clipboard text="shareURL" on-copied="copyUrlSuccess()" id="btnCopy" href="javascript:void(0);" class="btn5 fltlft" style="border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                                        <span class="icon_enter2"></span><span>{{'footer@copy_url' | translate}}</span>
+                                    </a>
+                                    <div class="clear"></div>
+                                </div>
+                                <!--分享小圖按鈕-->
+                                <div class="sricon" ng-show="getCurrencyID() !== 16">
+                                    <label>{{'footer@share' | translate}}</label>
+                                    <ul>
+                                        <li ng-mouseover="onJiaMouseOver($event); $event.stopPropagation();" ng-mouseleave="onJiaMouseLeave($event); $event.stopPropagation();" class="jiathis_style_32x32 pd0 fltlft">
+                                            <a id="btnFriendsWeChat" href="javascript:void(0);" class="jiathis_button_weixin" code="open" title="{{'footer@wechat_title' | translate}}"><span class="si1 ahover"></span></a>
+                                        </li>
+                                        <div id="FriendsshareWeChat" class="ppa lft absl" style="display: none; width: 260px; z-index: 100; bottom: 100px; background-color: #ffffff; margin-left: -130px; color: rgb(102, 102, 102);">
+                                            <div class="ppct pd20">
+                                                <h3 class="pdrt40">{{'footer@wechat_logo1' | translate}}</h3>
+                                                <span class="dlg-btn-close btnFriendsWeChat_close"></span>
+                                            </div>
+                                            <hr class="mglft20 mgrt20">
+                                            <div class="ppct">
+                                                <!--img id="imgFriendsWeChatURL" src="">-->
+                                                <qrcode data="{{shareURL}}" size="120"></qrcode>
+                                            </div>
+                                            <hr class="mglft20 mgrt20">
+                                            <div class="ppct pd20">
+                                                <h5 class="pd0">{{'footer@wechat_logo2' | translate}}</h5>
+                                            </div>
+                                        </div>
+                                        <li ng-show="getCurrencyID() === 18" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft"><a href="javascript://" class="jiathis_button_fb"><span class="si4 ahover" style="opacity: 0.5;"></span></a></li>
+                                        <li ng-show="getCurrencyID() === 18" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft"><a href="http://line.naver.jp/R/msg/text/?@Html.Raw(TitleResource.ShareSummary)+@Html.Raw(string.Format(TitleResource.ShareLinkURL,SessionBL.UserInfo.ResultBasicinfo.MainAccountSN))"><span class="si10 ahover" style="opacity: 0.5;"></span></a></li>
+                                        <li ng-show="getCurrencyID() !== 18" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft"><a href="javascript://" class="jiathis_button_tsina" title="{{'footer@tsina_title' | translate}}"><span class="si2 ahover" style="opacity: 0.5;"></span></a></li>
+                                        <li ng-show="getCurrencyID() !== 18" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft"><a href="javascript://" class="jiathis_button_qzone" title="{{'footer@qzone_title' | translate}}"><span class="si7 ahover"></span></a></li>
+                                        <li ng-show="getCurrencyID() !== 18" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft"><a href="javascript://" class="jiathis_button_tqq" title="{{'footer@tqq_title' | translate}}"><span class="si8 ahover" style="opacity: 0.5;"></span></a></ling-mouseover="onJiaMouseOver($event)">
+                                        <li ng-show="getCurrencyID() !== 18" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft"><a href="javascript://" class="jiathis_button_renren" title="{{'footer@renren_title' | translate}}"><span class="si9 ahover" style="opacity: 0.5;"></span></a></li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                                <!--了解自己與朋友可獲得-->
+                                <div class="bns-info" style="letter-spacing:0;">
+                                    <a ng-click="clickFriends1()" href="javascript:void(0);" class="mgrt10 btninviteFriends1"><span class="icon_ivt1"></span><span>{{'footer@invite_friends_logo11' | translate}}</span></a>
+                                    <a ng-click="clickFriends2()" href="javascript:void(0);" class="btninviteFriends2"><span class="icon_ivt2"></span><span>{{'footer@invite_friends_logo12' | translate}}</span></a>
+                                </div>
+                                <!--下指符號-->
+                                <div class="downArrow"></div>
+                            </div>
+                            <div ng-if="showFriends1" class="ivt ivt_self lft" id="inviteFriends1" style="position: absolute; bottom: 50px; left: 50%; margin-left: -355px; z-index: 100;">
+                                <div ng-mouseover="showFriendBonus=true" ng-mouseleave="showFriendBonus=false" class="gtbns BonusPage">
+                                    <h5 ng-if="showFriendBonus" class="mgrt5 pd0 fltlft"><a href="javascript:void(0);">{{'footer@friend_bonus' | translate}}</a></h5>
+                                    <span class="mn3 fltlft"></span>
+                                    <div class=" fmb nb">{{bonusCount}}</div>
+                                </div>
+                                <h3 class="yellow mgbt10">{{'footer@invite_friends_logo04' | translate}}</h3>
+                                <h5 class="mgbt10 pd0 w60">{{'footer@invite_friends_logo05' | translate : '{money: friends_bouns.DepositAmount}'}}</h5>
+                                <h5 class="mgbt10 pd0 w60">{{'footer@invite_friends_logo06' | translate : '{money: friends_bouns.BonusAmount}'}}</h5>
+                                <div class="ipt ipt3">
+                                    <a ng-click="clickFriendsMain()" href="javascript:void(0);" class="btn5 fltlft btninviteFriendsMain" style="border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                                        <span class="icon_enter2"></span><span>{{'footer@immediately_invite' | translate}}</span>
+                                    </a>
+                                </div>
+                                <!--了解自己與朋友可獲得-->
+                                <div class="bns-info" style="letter-spacing:0;">
+                                    <a ng-click="clickFriends1()" href="javascript:void(0);" class="mgrt10 active btninviteFriends1"><span class="icon_ivt1"></span><span>{{'footer@invite_friends_logo11' | translate}}</span></a>
+                                    <a ng-click="clickFriends2()" href="javascript:void(0);" class="btninviteFriends2"><span class="icon_ivt2"></span><span>{{'footer@invite_friends_logo12' | translate}}</span></a>
+                                </div>
+                                <!--下指符號-->
+                                <div class="downArrow"></div>
+                            </div>
+                            <div ng-if="showFriends2" class="ivt ivt_friend lft" id="inviteFriends2" style="position: absolute; bottom: 50px; left: 50%; margin-left: -355px; z-index: 100;">
+                                <div ng-mouseover="showFriendBonus=true" ng-mouseleave="showFriendBonus=false" class="gtbns BonusPage">
+                                    <h5 ng-if="showFriendBonus" class="mgrt5 pd0 fltlft"><a href="javascript:void(0);">{{'footer@friend_bonus' | translate}}</a></h5>
+                                    <span class="mn3 fltlft"></span>
+                                    <div class=" fmb nb">{{bonusCount}}</div>
+                                </div>
+                                <h3 class="yellow mgbt10">{{'footer@invite_friends_logo07' | translate}}</h3>
+                                <ol>
+                                    <li class="pd0 white">{{'footer@invite_friends_logo08' | translate}}</li>
+                                    <li class="pd0 white">{{'footer@invite_friends_logo09' | translate}}</li>
+                                    <li class="pd0 white" ng-show="getCurrencyID() !== 16">{{'footer@invite_friends_logo10' | translate}}</li>
+                                </ol>
+                                <div class="ipt ipt3">
+                                    <a ng-click="clickFriendsMain()" href="javascript:void(0);" class="btn5 fltlft btninviteFriendsMain" style="border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                                        <span class="icon_enter2"></span><span>{{'footer@immediately_invite' | translate}}</span>
+                                    </a>
+                                </div>
+                                <!--了解自己與朋友可獲得-->
+                                <div class="bns-info" style="letter-spacing:0;">
+                                    <a ng-click="clickFriends1()" href="javascript:void(0);" class="mgrt10 btninviteFriends1"><span class="icon_ivt1"></span><span>{{'footer@invite_friends_logo11' | translate}}</span></a>
+                                    <a ng-click="clickFriends2()" href="javascript:void(0);" class="active btninviteFriends2"><span class="icon_ivt2"></span><span>{{'footer@invite_friends_logo12' | translate}}</span></a>
+                                </div>
+                                <!--下指符號-->
+                                <div class="downArrow"></div>
+                            </div>
+                            <div class="ivt_iframe"></div>
+                            <span style="cursor:pointer;">
+                                <!--推荐朋友-->
+                                {{'footer@refer_friends' | translate}}
+                            </span>
+                        </span>
+                    </li>
+
+
+
+                </ul>
+            </li>
+            <div class="clear"></div>
+        </ul>
+    </div>
+
+    <div id="footer">
+        <div class="mw">
+            <div class="pt-icon">
+                <a href="javascript://" class="vwin-img pt1 ahover" style="opacity: 0.5;"></a>
+                <a href="javascript://" class="vwin-img pt2 ahover" style="opacity: 0.5;"></a>
+                <a href="javascript://" class="vwin-img pt3 ahover"></a>
+                <a href="javascript://" class="vwin-img pt4 ahover"></a>
+                <a href="javascript://" class="vwin-img pt5 ahover"></a>
+                <a href="javascript://" class="vwin-img pt6 ahover"></a>
+                <a href="javascript://" class="vwin-img pt7 ahover"></a>
+                <a href="javascript://" class="vwin-img pt8 ahover"></a>
+                <a href="javascript://" class="vwin-img pt14 ahover"></a>
+                <a href="javascript://" class="vwin-img pt10 ahover firstcagayan" onclick="window.open('http://www.firstcagayan.com/fclrc/', '_blank')"></a>
+                <a href="javascript://" class="vwin-img pt11 ahover"></a>
+                <a href="javascript://" class="vwin-img pt12 ahover"></a>
+                <a href="javascript://" class="vwin-img pt13 ahover last"></a>
+            </div>
+            <div class="fc">
+                <h6>{{'footer@vwin_description' | translate}}</h6>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="popDialog">
+        <div class="ppa lft absl" style="width: 260px; z-index: 100; bottom: 40px; margin-left: -90px; display: block; background-color: rgb(255, 255, 255);">
+            <div class="ppct pd20">
+                <h3 class="pdrt40">{{dialogMsg[activeApp].head | translate}}</h3>
+                <a class="dlg-btn-close" ng-click="closeDlg()"></a>
+            </div>
+            <hr class="mglft20 mgrt20">
+            <div class="ppct">
+                <img ng-src="/styles/{{lang}}/images/{{appQRImg}}">
+            </div>
+            <hr class="mglft20 mgrt20">
+            <div class="ppct pd20">
+                <h5>{{dialogMsg[activeApp].content | translate}}</h5>
+            </div>
+        </div>
+    </script>
+</div>

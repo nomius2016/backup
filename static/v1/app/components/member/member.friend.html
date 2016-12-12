@@ -1,0 +1,128 @@
+<div class="vw-content invite-panel" ng-controller="memberFriendCtrl">
+    <div class="vw-part">
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-hd">
+                    <h3>{{'member_friend@title' | translate}}</h3>
+                </div>
+                <div class="vw-p-bd">
+                    <p>{{'member_friend@notice' | translate}}</p>
+                    <div class="vw-ui-input">
+                        <input type="text" ng-model="copylink" readonly />
+                    </div>
+                    <a clipboard on-copied="copyUrlSuccess()" text="copylink" class="btn-1">{{'member_friend@copy_url' | translate}}</a>
+
+                    <!--分享小圖按鈕-->
+                    <div class="fltrt sricon" style="display:flex;">
+                        <span class="txt;" style="float: left;">{{'member_friend@share' | translate}}：</span>
+                        <ul>
+                            <!--WeChat-->
+                            <li ng-show="getIcon('WeChat')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <ng-include src='template' ng-if="activeApp === 'WeChat'"></ng-include>
+                                <a id="btnFriendsWeChat1" href="javascript://" ng-click="clickApp('WeChat');"><span class=" si1 ahover"></span></a>
+                            </li>
+                            <li ng-show="getIcon('Weibo')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <a href="javascript://" ng-click="clickApp('Weibo')"><span class="vwin-img si2 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('Line')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <ng-include src='template' ng-if="activeApp === 'Line'"></ng-include>
+                                <a id="btnLine" href="javascript://" ng-click="clickApp('Line')"><span class="vwin-img si10 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('Zalo')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <ng-include src='template' ng-if="activeApp === 'Zalo'"></ng-include>
+                                <a href="javascript://" ng-click="clickApp('Zalo')"><span class="vwin-img si12 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('Facebook')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <a href="javascript://" ng-click="clickApp('Facebook')"><span class="vwin-img si4 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('Talk')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <a href="javascript://" ng-click="clickApp('Talk')"><span class="si13 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('Phone')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <a href="javascript://" ng-click="clickApp('Phone')"><span class="si14 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('YouTube2')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <a href="javascript://" ng-click="clickApp('YouTube2')"><span class="vwin-img si5 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+
+                            <li ng-show="getIcon('Tudou')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <a href="javascript://" ng-click="clickApp('Tudou')"><span class="vwin-img si6 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('56.com')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <a href="javascript://" ng-click="clickApp('56.com')"><span class="win-img si3 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('Viber')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <ng-include src='template' ng-if="activeApp === 'Viber'"></ng-include>
+                                <a href="javascript://" ng-click="clickApp('Viber')"><span class="si11 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('Line2')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <ng-include src='template' ng-if="activeApp === 'Line2'"></ng-include>
+                                <a id="btnLine2" href="javascript://" ng-click="clickApp('Line2')"><span class="vwin-img si10 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <li ng-show="getIcon('YouTube')" ng-mouseover="onJiaMouseOver($event)" ng-mouseleave="onJiaMouseLeave($event)" class="jiathis_style_32x32 pd0 fltlft">
+                                <a href="javascript://" ng-click="clickApp('YouTube')"><span class=" vwin-img si5 ahover" style="opacity: 0.5;"></span></a>
+                            </li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="tip">
+                    <div class="red-warning">
+                        {{'footer@invite_friends_logo04' | translate}}{{'footer@invite_friends_logo05' | translate : '{money: invite_bonus.DepositAmount}'}}
+                        <span class="red" translate="footer@invite_friends_logo06" translate-values="{ money: invite_bonus.BonusAmount }"></span>
+                        {{'member_friend@warning_message_3' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="invite-list">
+        <p class="tip">{{'member_friend@tip' | translate }}</p>
+        <table width="100%" class="transaction_table" ng-if="friends_bouns.length > 0">
+            <thead>
+                <tr>
+                    <th>{{'member_friend@invite_name' | translate}}</th>
+                    <th>{{'member_friend@invite_create_date' | translate}}</th>
+                    <th>{{'member_friend@invite_deposit' | translate}}</th>
+                    <th>{{'member_friend@invite_bonus' | translate}}</th>
+                    <th class="nthr">
+                        <div>{{'member_friend@invite_state' | translate}}</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in friends_bouns">
+                    <td ng-bind="item.MainAccountID"></td>
+                    <td ng-bind="item.CreateTime"></td>
+                    <td ng-bind="item.RealDepositAmount"></td>
+                    <td ng-bind="item.BonusAmount"></td>
+                    <td class="nthr">
+                        <div ng-if="item.Status === 0">{{'member_friend@invite_state_0' | translate}}</div>
+                        <div class="red" ng-if="item.Status === 1" ui-sref="member.bonus">{{'member_friend@invite_state_1' | translate}}</div>
+                        <div ng-if="item.Status === 2">{{'member_bonus@history_claimed' | translate}}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div pager page-count="pager.pageCount" page-index="pager.pageIndex" update="pager.turnPage(num)"></div>
+    </div>
+
+    <script type="text/ng-template" id="popDialog2">
+        <div id="FriendsshareWeChat1" class="ppa lft" style="position:fixed;border: 2px; border-style:solid; width: 260px; z-index: 100; bottom: 100px; background-color: #ffffff; margin-left: -130px; color: rgb(102, 102, 102);">
+            <div class="ppct pd20">
+                <h3 class="pdrt40">{{dialogMsg[activeApp].head | translate}}</h3>
+                <a class="dlg-btn-close" ng-click="closeDlg()"></a>
+            </div>
+            <hr class="mglft20 mgrt20">
+            <div class="ppct">
+                <!--img id="imgFriendsWeChatURL" src="">-->
+                <img ng-src="/styles/{{lang}}/images/{{appQRImg}}">
+            </div>
+            <hr class="mglft20 mgrt20">
+            <div class="ppct pd20">
+                <h5>{{dialogMsg[activeApp].content | translate}}</h5>
+            </div>
+        </div>
+    </script>
+</div>

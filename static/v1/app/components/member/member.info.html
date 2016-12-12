@@ -1,0 +1,111 @@
+<div class="vw-content" ng-controller="memberInfoCtrl">
+    <div class="vw-part vw-zhxx">
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-hd">
+                    <h3>{{'member_info@title' | translate}}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-bd vw-tip">
+                    <p>{{'member_info@notice' | translate}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-bd vw-form mt35">
+                    <form action="">
+                        <ul class="thema-a">
+                            <li class="vw-fItem">
+                                <label class="grey5" for="">{{'member_info@birthday' | translate}}：</label>
+                                <div class="vw-sel3 cl">
+                                    <div class="vw-ui-input fltlft">
+                                        <input value="{{userdata.birthday}}" readonly="readonly" ng-show="birthday_readonly"/>
+                                        <input type="text" id="datepicker_birthday" ng-model="userdata.birthday" readonly="readonly" ng-show="!birthday_readonly"/>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="vw-fItem" ng-show="!gender_readonly">
+                                <label class="grey5" for="">{{'member_security_name@sex' | translate}}：</label>
+                                <div class="thema-a cl" ng-init="userdata.gender=1">
+                                    <div class="ui-checkbox fltlft" ng-click="userdata.gender='1'">
+                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '1'}"></span>{{ 'member_security_name@sex_1' | translate }}</p>
+                                    </div>
+                                    <div class="ui-checkbox fltlft" ng-click="userdata.gender='0'">
+                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '0'}"></span>{{ 'member_security_name@sex_2' | translate }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="vw-fItem" ng-show="gender_readonly">
+                                <label class="grey5" for="">{{'member_security_name@sex' | translate}}：</label>
+                                <div class="thema-a cl" ng-init="userdata.gender=1">
+                                    <div class="ui-checkbox fltlft">
+                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '1'}"></span>{{ 'member_security_name@sex_1' | translate }}</p>
+                                    </div>
+                                    <div class="ui-checkbox fltlft">
+                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '0'}"></span>{{ 'member_security_name@sex_2' | translate }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="vw-fItem">
+                                <label class="grey5" for="">{{'member_info@country' | translate}}：</label>
+                                <div class="vw-ui-input cl">
+                                    <div class="cols6 mgrt0">
+                                        <div class="ui-select" id="info_country_select" code=countryCode>
+                                            <span class="select-icon-flag cn"></span>
+                                            <span class="select-text">{{'header_register@zh_cn' | translate}}</span>
+                                            <span class="select-icon-right icon-arrow-down"></span>
+                                            <div class="select-choice">
+                                                <ul>
+                                                    <li class="li_country" countryid="2" code="86">
+                                                        <span class="icon-flag cn"></span>
+                                                        <span class="select-text">{{'header_register@zh_cn' | translate}}</span>
+                                                    </li>
+                                                    <li class="li_country" countryid="602" code="66">
+                                                        <span class="icon-flag thai"></span>
+                                                        <span class="select-text">{{'header_register@th_th' | translate}}</span>
+                                                    </li>
+                                                    <li class="li_country" countryid="618" code="84">
+                                                        <span class="icon-flag vn"></span>
+                                                        <span class="select-text">{{'header_register@vi_vn' | translate}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="select-choice-area"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="vw-fItem">
+                                <label class="grey5" for="">{{'member_info@country_code' | translate}}：</label>
+                                <div class="vw-ui-input">
+                                    <input type="text" placeholder="{{'member_info@country_code_placeholder' | translate}}" ng-model="userdata.zipcode"/>
+                                </div>
+                            </li>
+                            <li class="vw-fItem">
+                                <label class="grey5" for="">{{'member_info@city' | translate}}：</label>
+                                <div class="vw-ui-input">
+                                    <input type="text" style="width: 173px;position: relative;float: left;" placeholder="{{ 'member_info@city_placeholder' | translate }}" ng-model="userdata.city">
+                                    <input type="text" style="width: 173px;position: relative;float: left;" placeholder="{{ 'member_info@region_placeholder' | translate }}" ng-model="userdata.region">
+                                </div>
+                            </li>
+                            <li class="vw-fItem">
+                                <label class="grey5" for="">{{'member_info@address' | translate}}：</label>
+                                <div class="vw-ui-input">
+                                    <input type="text" placeholder="{{'member_info@address_placeholder' | translate}}" ng-model="userdata.address"/>
+                                </div>
+                            </li>
+                            <li class="vw-fItem">
+                                <a class="btn-1" ng-class="{'btn-disable': !userdata.birthday || !userdata.gender || !userdata.zipcode || !userdata.city || !userdata.region || !userdata.address }"
+                                   btn-process callback="CreateInfo(userdata.gender, userdata.zipcode, userdata.city, userdata.region, userdata.address)">{{'member_info@submit' | translate}}</a>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

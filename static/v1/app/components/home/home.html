@@ -1,0 +1,13 @@
+<div ng-controller="homeCtrl">
+  <div id="main-banner">
+    <div banner></div>
+  </div>
+  <div style="background-color: #fff; height: 18px;">
+    <img src="/static/v1/images/index-hero-img-1.png" style="vertical-align: top;">
+  </div>
+  <div ui-view="content">
+  </div>
+  <div popup-dialog show='showWelcome'>
+    <div popup-register-welcome2 ng-show="flag == 'cn'"></div>
+  </div>
+</div>

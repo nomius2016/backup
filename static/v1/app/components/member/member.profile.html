@@ -1,0 +1,118 @@
+<div class="vw-content" ng-controller="memberProfileCtrl">
+    <div class="vw-part vw-part_profile_header vw-fund">
+        <!--上方主標-->
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-hd">
+                    <h3>
+                        {{'header@member' | translate}}
+                    </h3>
+                    <!--<a class="vw-refresh" style="float:right;" ng-click="reloadPage()"></a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div wallet-widget></div>
+    <div class="vw-part vw-user">
+        <div class="cl">
+            <!--個人資料-->
+            <div class="col-6">
+                <div class="vw-p-hd br">
+                    <h3>{{'member_profile@title' | translate}}</h3>
+                </div>
+                <div class="vw-p-bd br">
+                    <div class="vw-user-grzl">
+                        <ul>
+                            <li>
+                                <span class="t">{{'member_profile@name' | translate}}：</span>
+                                <span class="default">
+                                    {{data.member.name}}
+                                    <a ng-if="!data.member.nameValid" ui-sref="member.security({method: 'name'})">{{'member_security@name' | translate}}</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="t">{{'member_profile@register_time' | translate}}：</span>
+                                <span class="default">{{profilt_userdata.CreateTime}}</span>
+                            </li>
+                            <li>
+                                <span class="t">{{'member_profile@birthday' | translate}}：</span>
+                                <span class="default">
+                                    {{data.member.birthday}}
+                                    <a ng-if="!data.member.birthdayValid" ui-sref="member.security({method: 'name'})">{{'member_security@name' | translate}}</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="t">{{'member_profile@mobile' | translate}}：</span>
+                                <span class="default">
+                                    {{data.member.mobile}}
+                                    <a ng-if="!data.member.mobileValid" ui-sref="member.security({method: 'mobile'})">{{'member_security@mobile' | translate}}</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="t">{{'member_profile@email' | translate}}：</span>
+                                <span class="default">
+                                    {{data.member.email}}
+                                    <a ng-if="!data.member.emailValid" ui-sref="member.security({method: 'email'})">{{'member_security@email' | translate}}</a>
+                                </span>
+                            </li>
+                            <li ng-if="member.introducer">
+                                <span class="t">{{'member_profile@introducer' | translate}}：</span>
+                                <span class="default">{{data.member.introducer}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--消息盒子-->
+            <div class="col-6">
+                <div class="vw-p-hd pl24">
+                    <h3>
+                        {{'member_profile@message_box' | translate}}
+                    </h3>
+                    <!--<a class="vw-refresh" ng-click="getMessageList()"></a>-->
+                    <a class="vw-link" ui-sref="member.message">
+                        {{'member_profile@all_message' | translate}}
+                    </a>
+                </div>
+                <div class="vw-p-bd pl24" ng-if="messages.length > 0">
+                    <div class="vw-user-news">
+                        <ul>
+                            <!--<li ng-repeat="message in messages" ng-class="{'hot': message.ReadStatus === '0'}">-->
+                            <li ng-repeat="message in messages">
+                                <h5 ui-sref="member.message"><a ng-bind="message.Subject + ' ' + (message.CreateTime|date:'yyyy/MM/dd')"></a></h5>
+                                <p ng-bind="message.ContentDetail"></p>
+                            </li>
+                        </ul>
+                        <div class="blank"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--最近玩過-->
+    <div ng-if="data.recentGames.length > 0" class="vw-part vw-history">
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-hd">
+                    <h3>{{"games_playground@recent_played" | translate}}</h3>
+                </div>
+                <div class="vw-p-bd" ng-if="data.recentGames.length > 0">
+                    <div class="vw-box vw-box1 pt35 pb20">
+                        <ul>
+                            <li ng-repeat="game in data.recentGames" ng-click="clickOnGames(game)">
+                                <div class="img">
+                                    <a>
+                                        <img ng-src="{{game.image}}" alt="" />
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <p>{{game.name}}</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

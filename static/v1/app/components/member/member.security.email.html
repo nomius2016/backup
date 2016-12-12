@@ -1,0 +1,70 @@
+<div class="">
+    <div class="cl">
+        <div class="col-12">
+            <div class="vw-p-hd">
+                <h3>
+                    {{ 'member_security@email' | translate }}
+                    <div class="label_box orange red" ng-if="!security_status.email">
+                        <i class="icon_er1 mgrt5 "></i>
+                        <span translate="member_security_email@success_message" translate-values="{money : email.BonusAmount}"></span>
+                    </div>
+                </h3>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="pwdPanel" class="cl">
+    <div class="vw-part" ng-if="!security_status.email">
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-bd vw-tip">
+                    <p>{{ 'member_security_email@notice' | translate }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mya_result vw-form mt20" ng-if="!security_status.email">
+        <form action="btn-1 check-email" id="checkEmail" class="pt30">
+            <ul class="thema-a">
+                <li class="vw-fItem">
+                    <label class=" grey5" for="">{{ 'member_security_email@email' | translate }}：</label>
+                    <div class="vw-ui-input cl">
+                        <input type="text" name="email" placeholder="{{ 'member_security_email@email_placeholder' | translate }}"
+                               ng-model="email.value" ng-change="email.checkValid()" ng-readonly="email.readonly">
+                    </div>
+                </li>
+                <li class="vw-fItem" style="height:auto;">
+                    <label class="grey5" for="">{{ 'member_security_email@code' | translate }}：</label>
+                    <div class="vw-ui-input cl">
+                        <div class="vw-ui-input cols8 mgrt0" style="width:62.67%;">
+                            <input type="text" name="code" placeholder="{{ 'member_security_email@code_placeholder' | translate }}" ng-model="email.code">
+                            <p class="mgtp8">{{ 'member_security_email@code_notice' | translate }}</p>
+                        </div>
+                        <div style="cursor: pointer" class="min call-box label_box gray fs14 col-3" id="bt_SendCode" ng-click="SendEmailVerifyCode(email)">{{ 'member_security_email@get_code' | translate }}</div>
+                    </div>
+                </li>
+
+                <li class="vw-fItem">
+                    <a class="btn-1" ng-class="{'btn-disable': !email.value || !email.code }" btn-process callback="CreateSecurityEmail(email)">{{ 'member_security_email@submit' | translate }}</a>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <div class="mya_result cl" ng-if="security_status.email">
+        <div class="mya_wrap yellowBg">
+            <div class="result_tit"><i class="icon_yes"></i>{{'member_security_email@notice_title_2' | translate}}</div>
+            <div class="result_cnt">
+                <p translate="member_security_email@notice_message_2" translate-values="{money : email.BonusAmount}"></p>
+                <a class="red" ui-sref="member.bonus">{{'member_security_email@notice_page_2' | translate}}</a>    
+            </div>
+        </div>
+        <div class="mya_help">
+            <h5><b>{{'member_security_email@notice_title_3' | translate}}</b></h5>
+            <p style="line-height:30px;">{{'member_security_email@notice_message_3_1' | translate}}<a ui-sref="about({menuItem:'contact'})">{{'member_security_email@notice_page_3_1' | translate}}</a>，{{'member_security_email@notice_message_3_2' | translate}}<a ng-click="openLiveChat()">{{'member_security_email@notice_page_3_2' | translate}}</a>{{'member_security_email@notice_message_3_3' | translate}}</p>
+            <a class="btn-1 white" ng-click="ModifySecurityEmail()">{{'member_security_email@submit_2' | translate}}</a>
+        </div>
+    </div>
+    <div class="vw-rtn-back"><a ui-sref="member.security({method: 'index'})">BACK</a></div>
+</div>

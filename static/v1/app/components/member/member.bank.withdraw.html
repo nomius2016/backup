@@ -1,0 +1,338 @@
+<div id="tk" class="tab_box vw-ck-cnt">
+    <div partial-loading show="showLoading" top="40%"></div>
+    <!--驗證頁-->
+    <div class="mya_cnt" ng-if="stateCheck">
+        <div class="mya_decheck" ng-class="{cursorPointer: !nameValid}" ng-if="!nameValid">
+            <h4>
+                <i>1</i>
+                <span>
+                    {{'member_bank_withdraw@please_validate_name' | translate}}
+                </span>
+            </h4>
+            <div class="fltlft mya_decz">
+                <!-- 人民幣市場輸入限制 -->
+                <div class="vw-ui-input" ng-if="currencyID === 2">
+                    <input type="text" class="mn-ipt" placeholder="{{'member_bank_withdraw@first_name' | translate}}"
+                           style="width:274px;" ng-model="withdraw.firstName" ng-pattern="/^([\u4d00-\ue863]+[\u002E\u3002\u00B7\u2022]?[\u4d00-\ue863]+|[a-zA-Z]{4,50})$/">
+                </div>
+                <!-- 外幣市場輸入ˇ -->
+                <div class="vw-ui-input" ng-if="currencyID !== 2">
+                    <input type="text" class="mn-ipt" placeholder="{{'member_bank_withdraw@first_name' | translate}}"
+                           style="width:274px;" ng-model="withdraw.firstName">
+                </div>
+                <div class="vw-ui-input" ng-if="currencyID !== 2">
+                    <input type="text" class="mn-ipt" placeholder="{{'member_bank_withdraw@middle_name' | translate}}"
+                           style="width:274px;" ng-model="withdraw.middleName">
+                </div>
+                <div class="vw-ui-input" ng-if="currencyID !== 2">
+                    <input type="text" class="mn-ipt" placeholder="{{'member_bank_withdraw@last_name' | translate}}"
+                           style="width:274px;" ng-model="withdraw.lastName">
+                </div>
+                <a class="btn-1 btn-next mt25" callback="setRealName(withdraw.firstName,withdraw.middleName,withdraw.lastName)" ng-class="{'btn-disable':!withdraw.firstName}" btn-process ng-if="currencyID === 2">
+                    {{'member_bank_withdraw@submit' | translate}}
+                </a>
+                <a class="btn-1 btn-next mt25" callback="setRealName(withdraw.firstName,withdraw.middleName,withdraw.lastName)" ng-class="{'btn-disable':!withdraw.firstName || !withdraw.lastName}" btn-process
+                   ng-if="currencyID !== 2">
+                    {{'member_bank_withdraw@submit' | translate}}
+                </a>
+            </div>
+        </div>
+        <div class="clears"></div>
+        <div class="mya_decheck" ng-class="{cursorpointer: !withdrawValid}" ng-click="validateWithdraw()">
+            <h4>
+                <i ng-if="!nameValid">2</i>
+                <i ng-if="nameValid">1</i>
+                <span>
+                    {{'member_bank_withdraw@please_validate_password' | translate}}
+                </span>
+                <span ng-class="{'icon-valid': withdrawValid, 'icon-invalid': !withdrawValid}"></span>
+            </h4>
+        </div>
+    </div>
+    <!--流程頁-->
+    <div class="mya_cnt" ng-if="stateOrder">
+        <!-- 存款方式選單 XPay MoneyPay -->
+        <div class="mya_dep1" ng-if="currencyID !== 2">
+            <ul class="mya_deplul" ng-if="currencyID !== 2">
+                <li ng-class="{'active': withdraw.method === 'moneypay'}" ng-if="withdraw.MoneyPayActive">
+                    <a ng-click="withdraw.setMethod('moneypay')">
+                        {{'member_bank_withdraw@moneypay_payment' | translate}}
+                    </a>
+                </li>
+                <li ng-class="{'active': withdraw.method === 'xpay'}" ng-if="withdraw.XPayActive">
+                    <a ng-click="withdraw.setMethod('xpay')">
+                        {{'member_bank_withdraw@xpay_payment' | translate}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- 存款方式選單 XPay MoneyPay END-->
+        <!--请输入银行卡号-->
+        <div class="mya_decheck">
+            <h4>
+                <i>1</i>
+                <span>
+                    {{'member_bank_withdraw@please_input_bank_account' | translate}}
+                </span>
+            </h4>
+            <!-- AsiaPay -->
+            <div class="mya_decz" ng-if="currencyID === 2">
+                <p class="tip">
+                    {{'member_bank_withdraw@tip' | translate}}
+                </p>
+                <div class="tb-input-panel" style="height:auto;">
+                    <div ng-repeat="item in withdraw.favoriteCards">
+                        <label style="height:42px; cursor:pointer;">
+                            <input type="radio" ng-model="withdraw.selectCard" style="display:inline;" ng-value="item" ng-click="withdraw.changeCard()" />
+                            <img ng-src="/styles/images/bank/{{item.ImageName}}.jpg" style="padding-top:3px;padding-bottom:3px;" ng-click="withdraw.changeCard()" />
+                            &nbsp;&nbsp;&nbsp;
+                            <div class="icon_dlt" style="background-repeat:no-repeat;padding-top:13px;padding-bottom:22px;" ng-click="withdraw.deleteCard(item)"></div>
+                        </label>
+                    </div>
+                    <div>
+                        <label style="height:42px; cursor:pointer;" ng-click="withdraw.changeCard()">
+                            <input type="radio" style="display:inline;vertical-align:middle;" ng-model="withdraw.selectCard" value="other" />
+                            {{'member_bank_withdraw@other_bank' | translate}}
+                        </label>
+                    </div>
+                    <div class="vw-ui-input col-3" style="height:inherit; margin-bottom:10px;">
+                        <input id="tkID" type="text" maxlength="19" placeholder="{{'member_bank_withdraw@please_input_bank_account' | translate}}" ng-model="withdraw.cardNumber"
+                               ng-change="updateCard(withdraw.cardNumber)" ng-pattern="/^\d+$/" ng-disabled="withdraw.oldCard" />
+                        <!--ng-pattern="/^\d+$/" ng-disabled="withdraw.oldCard" />-->
+                        <h3 class="fdj" ng-bind="cardNumberFix" ng-if="cardNumberFix"></h3>
+                    </div>
+                    <!--根據銀行卡號前n碼 與 銀行編號列表 進行比對以顯示圖示-->
+                    <div class="label_box" ng-if="cardBank">
+                        <img ng-src="/styles/images/bank/{{cardBank}}.jpg" />
+                    </div>
+                </div>
+                <div class="clears"></div>
+                <p class="red-warning red">
+                    {{'member_bank_withdraw@warning' | translate}}
+                </p>
+            </div>
+            <!-- XPay MoneyPay -->
+            <div class="mya_decz" ng-if="currencyID !== 2">
+                <!-- MoneyPay -->
+                <div class="fltlft" ng-if="withdraw.method === 'moneypay'">
+                    <div class="thema-a">
+                        <select class="ui-select" ng-model="withdraw.bankName" ng-options="item.BankName as item.Desc for item in withdraw.bankList" required
+                                style="width:274px;">
+                            <option value="" disabled>
+                                {{'member_bank_deposit@select_bank' | translate}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="thema-a" ng-if="withdraw.method === 'xpay'">
+                        <select class="ui-select" ng-model="withdraw.bankName" ng-options="item.BankName as item.BankName for item in withdraw.bankList" required
+                                style="width:274px;">
+                            <option value="" disabled>
+                                {{'member_bank_deposit@select_bank' | translate}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="vw-ui-input">
+                        <div class="vw-ui-input">
+                            <input type="text" ng-model="withdraw.account" placeholder="{{'member_bank_withdraw@account' | translate}}" />
+                        </div>
+                    </div>
+                    <div class="clears"></div>
+                </div>
+                <!-- XPay -->
+                <div class="fltlft" ng-if="withdraw.method === 'xpay'">
+                    <div class="thema-a">
+                        <select class="ui-select" ng-model="withdraw.bankName" ng-options="item.BankName as item.BankName for item in withdraw.bankList" required
+                                style="width:274px;">
+                            <option value="" disabled>
+                                {{'member_bank_deposit@select_bank' | translate}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="vw-ui-input">
+                        <input type="text" ng-model="withdraw.branch" placeholder="{{'member_bank_withdraw@branch' | translate}}" />
+                    </div>
+                    <div class="vw-ui-input">
+                        <input type="text" ng-model="withdraw.province" placeholder="{{'member_bank_withdraw@province' | translate}}" />
+                    </div>
+                    <div class="vw-ui-input">
+                        <input type="text" ng-model="withdraw.city" placeholder="{{'member_bank_withdraw@city' | translate}}" />
+                    </div>
+                    <!--<div class="vw-ui-input">
+                        <input type="text" ng-model="withdraw.userName" readonly placeholder="{{'member_bank_withdraw@name' | translate}}" />
+                    </div>-->
+                    <div class="vw-ui-input">
+                        <div class="vw-ui-input">
+                            <input type="text" ng-model="withdraw.account" placeholder="{{'member_bank_withdraw@account' | translate}}" />
+                        </div>
+                    </div>
+                    <div class="clears"></div>
+                </div>
+            </div>
+            <div class="clears"></div>
+            <!--请输入提款金额-->
+            <div class="mys_deczje">
+                <h4>
+                    <i>2</i>
+                    <span>
+                        {{'member_bank_withdraw@please_input_withdraw_amount' | translate}}
+                    </span>
+                </h4>
+                <div class="mya_decz">
+                    <p class="tip">
+                        {{'member_bank_withdraw@tip' | translate}}
+                    </p>
+                    <div class="fltlft mt20">
+                        <div class="vw-ui-input">
+                            <input type="text" class="mn-ipt" placeholder="{{'member_bank_withdraw@please_input_withdraw_amount' | translate}}"
+                                   ng-model="amount" min="{{withdraw.minValue}}" max="{{withdraw.maxValue}}" step="1" ng-pattern="/^\d+$/" onkeyup="value=value.replace(/[^-0-9]/g,'')">
+                        </div>
+                    </div>
+                </div>
+                <div class="fltlft mya_deczhint mt20">
+                    <table class="tp_depositTable">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {{'member_bank_withdraw@single_limit' | translate}}
+                                    ：
+                                    <em>
+                                        {{withdraw.minValue | currencyFix}} - {{withdraw.maxValue | currencyFix}}
+                                    </em>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{'member_bank_withdraw@daily_limit' | translate}}
+                                    ：
+                                    <em>
+                                        {{withdraw.dailyLimit | currencyFix}}
+                                    </em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clears"></div>
+            </div>
+            <!--请输入提款密码-->
+            <div class="mys_deczje tk_pwd">
+                <h4 ng-if="withdraw.needPassword">
+                    <i>3</i>
+                    {{'member_bank_withdraw@please_input_withdraw_password' | translate}}
+                </h4>
+                <div class="mya_decz">
+                    <div class="fltlft">
+                        <div class="min-input" ng-if="withdraw.needPassword">
+                            <div ng-repeat="item in withdraw.passwordSet" style="display:inline-block;" ng-class="{tk_withdraw_password_style: !$last}">
+                                <input type="text" class="item-input" ng-disabled="!item.enable" ng-if="!item.isEmpty" ng-model="item.value"
+                                       maxlength="1" ng-change="withdraw.generatePaasword()" />
+                                <span class="item-input" ng-if="item.isEmpty">...</span>
+                            </div>
+                        </div>
+                        <div class="clears"></div>
+                        <div class="min-label" style="text-align:center; width: inherit;" ng-if="withdraw.needPassword">
+                            <span class="item1" ng-class="{show: withdraw.passwordSet[0].enable}">{{'member_bank_withdraw@digit_1' | translate}}</span>
+                            <span class="item2" ng-class="{show: withdraw.passwordSet[1].enable}">{{'member_bank_withdraw@digit_2' | translate}}</span>
+                            <span class="item3" ng-class="{show: withdraw.passwordSet[2].enable}">{{'member_bank_withdraw@digit_3' | translate}}</span>
+                            <span class="item4" ng-class="{show: withdraw.passwordSet[3].enable}">{{'member_bank_withdraw@digit_4' | translate}}</span>
+                            <span class="item5" ng-class="{show: withdraw.passwordSet[4].enable}">{{'member_bank_withdraw@digit_5' | translate}}</span>
+                            <span class="blank"></span>
+                            <span class="item6" ng-class="{show: withdraw.passwordSet[6].enable}">{{'member_bank_withdraw@digit_last2' | translate}}</span>
+                            <span class="item7" ng-class="{show: withdraw.passwordSet[7].enable}">{{'member_bank_withdraw@digit_last' | translate}}</span>
+                        </div>
+                        <div class="clears"></div>
+                        <p class="red-warning red" ng-if="withdraw.needPassword">
+                            {{'member_bank_withdraw@fill_password_to_field' | translate}}
+                            <a class="tk_fl" ng-click="$parent.passwordTip = !$parent.passwordTip">
+                                {{'member_bank_withdraw@sample' | translate}}
+                            </a>
+                        </p>
+                        <!-- asia pay -->
+                        <a class="btn-next" ng-class="{'btn-1': !inProcess, 'btn-3':inProcess, 'btn-disable':!withdraw.cardNumber || !amount || (!withdraw.passwordValid && withdraw.needPassword)}"
+                           callback="withdraw.createOrder(withdraw.cardNumber, amount)" btn-process ng-if="currencyID === 2">
+                            <span style="line-height:21px;">
+                                {{'member_bank_withdraw@next' | translate}}
+                            </span>
+                        </a>
+                        <!-- xpay -->
+                        <a class="btn-next" ng-class="{'btn-1': !inProcess, 'btn-3':inProcess, 'btn-disable':!withdraw.bankName || !withdraw.branch || !withdraw.province || !withdraw.city || !withdraw.account || !amount || !withdraw.passwordValid}"
+                           callback="withdraw.createXOrder(amount)" btn-process ng-if="withdraw.method === 'xpay'">
+                            <!--ng-if="withdraw.method === 'xpay'"-->
+                            <span style="line-height:21px;">
+                                {{'member_bank_withdraw@next' | translate}}
+                            </span>
+                        </a>
+                        <!-- MoneyPay -->
+                        <a class="btn-next" ng-class="{'btn-1': !inProcess, 'btn-3':inProcess, 'btn-disable':!withdraw.bankName || !withdraw.account || !amount || !withdraw.passwordValid}"
+                           callback="withdraw.createMoneyPayOrder(amount)" btn-process ng-if="withdraw.method === 'moneypay'">
+                            <span style="line-height:21px;">
+                                {{'member_bank_withdraw@next' | translate}}
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-6 label_box" ng-show="passwordTip">
+                        <p>
+                            {{'member_bank_withdraw@password_tip' | translate}}
+                        </p>
+                        <div class="min-input">
+                            <input type="text" class="item-input" disabled />
+                            <input type="text" class="item-input" value="A" readonly />
+                            <input type="text" class="item-input" disabled />
+                            <input type="text" class="item-input" disabled />
+                            <input type="text" class="item-input" value="W" readonly />
+                            <span class="item-input">...</span>
+                            <input type="text" class="item-input" disabled />
+                            <input type="text" class="item-input" value="8" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="clears"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="mya_cnt" ng-if="stateResult">
+        <div class="mya_result">
+            <div class="mya_wrap yellowBg">
+                <div class="result_tit">
+                    <i class="icon_yes"></i>
+                    {{'member_bank_withdraw@submit_success' | translate}}
+                </div>
+                <div class="result_cnt">
+                    <p ng-if="currencyID != 18">
+                        {{'member_bank_withdraw@order_result_info_part1' | translate}}
+                        <br />
+                        {{'member_bank_withdraw@order_result_info_part2' | translate}}
+                        <em>
+                            {{leaveTime}} {{'member_bank_withdraw@order_result_info_part3' | translate}}
+                        </em>
+                        {{'member_bank_withdraw@order_result_info_part4' | translate}}
+                    </p>
+                    <p ng-if="currencyID === 18">
+                        {{'member_bank_withdraw@order_result_info_part1' | translate}}
+                        <br />
+                        {{'member_bank_withdraw@order_result_info_part5' | translate}}
+                        <br />
+                        {{'member_bank_withdraw@order_result_info_part2' | translate}}
+                        <em>
+                            {{leaveTime}} {{'member_bank_withdraw@order_result_info_part3' | translate}}
+                        </em>
+                        {{'member_bank_withdraw@order_result_info_part4' | translate}}
+                    </p>
+                </div>
+            </div>
+            <div class="mya_help">
+                <h5>
+                    {{'member_bank_withdraw@order_result_help_part1' | translate}}
+                </h5>
+                <p>
+                    {{'member_bank_withdraw@order_result_help_part2' | translate}}
+                    <a>
+                        {{'member_bank_withdraw@order_result_help_part3' | translate}}
+                    </a>
+                    {{'member_bank_withdraw@order_result_help_part4' | translate}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

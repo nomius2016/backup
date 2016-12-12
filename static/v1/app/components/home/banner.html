@@ -1,0 +1,26 @@
+<div riowidget></div>
+<div class="hero">
+  <div class="hero-slide">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+  <div class="hero-kv">
+    <ul id="hero_kv_insert">
+    </ul>
+  </div>
+  <div id="hero_nav">
+    <ul class="adSlider" id="hero_nav_insert">
+    </ul>
+    <br clear="all">
+  </div>
+</div>
+<div id="notice" ng-if="bulletinObj.enabled">
+  <div class="mw">
+    <div style="width: 5%; float: left;">{{'banner@bulletin' | translate}}：</div>
+    <div id="demo" style="width: 95%; float: left; height: 40px; overflow: hidden;">
+      <marquee id="marq_news" scrollamount={{bulletinObj.speed}}>
+        {{bulletinObj.content}}
+      </marquee>
+    </div>
+  </div>
+</div>

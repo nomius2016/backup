@@ -1,0 +1,56 @@
+<div class="rio-widget-warp" ng-show="enable && step != 3">
+  <div class="rio-widget-mw">
+    <div class="rio-widget">
+      <div class="rio-widget-bg-left fltlft"></div>
+      <div class="rio-widget-content fltlft" ng-class="{'rio-widget-content-before':step==1}">
+        <div class="rio-bg-logo">
+          <div class="fltlft rio-title">
+            <ul>
+              <li class="rio-title-1">{{title1 | translate}}</li>
+              <li class="rio-title-2">{{title2 | translate}}</li>
+              <li class="rio-title-3">{{'beijintin@rio' | translate}} : <span>{{'riotime@rio' | translate}}</span></li>
+            </ul>
+          </div>
+          <div class="rio-day"><span ng-bind="cntDays"><timer autostart="false" countdown="countDown">{{'days' | translate}}</timer></span>{{countUnit | translate}}</div>
+          <div class="rio-arrow"></div>
+        </div>
+        <div class="rio-content-inner">
+          <div class="rio-line"></div>
+          <div class="rio-line-sh"></div>
+          <div class="rio-good-wrap">
+            <div class="rio-good-wrap-title fltlft" ng-class="{'bounceIn':showBounce}">{{'cheerText1@rio' | translate}}<span ng-bind="cheerCnt | number:0"></span>{{'cheerText2@rio' | translate}}<br>{{'cheerText3@rio' | translate}}</div>
+            <a class="fltrt" ng-click="doCheer()">{{'cheerText4@rio' | translate}}</a>
+            <div class="rio-inner-line"></div>
+          </div>
+          <div class="rio-news" ng-bind-html="tpGB">
+          <!--<ul class="mgbt10">
+              <li class="mgbt5">今日焦点赛事</li>
+              <li><a href="#">男子篮球准决赛 - 美国 VS 西班牙</a></li>
+              <li><a href="#">男子足球准决赛 - 巴西 VS 德國</a></li>
+          </ul>
+          <div class="rio-inner-line mgbt10"></div>-->
+          </div>
+          <div class="rio-bonus" ng-bind-html="tpPromo">
+            <!--<ul>
+                <li><a href="#">Vwin奥运专属优惠，戳我戳我！</a></li>
+            </ul>-->
+          </div>
+        </div>
+      </div>
+      <div class="rio-widget-bg-right fltlft"></div>
+    </div>
+  </div>
+</div>
+<div class="rio-torch-warp" ng-if="enable && step == 2">
+  <div class="rio-torch-mw">
+    <div class="rio-torch-inner">
+      <a href="#/promotion" class="rio-torch-fire">
+      </a>
+    </div>
+  </div>
+</div>
+<div class="rio-torch-warp2" ng-if="enable && step == 3">
+  <div class="mw">
+    <span class="rio2016"></span>
+  </div>
+</div>

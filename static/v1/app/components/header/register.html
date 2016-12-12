@@ -1,0 +1,184 @@
+<div id="registerPage">
+    <!--第一步-->
+    <!--第二步-->
+    <div class="register-step-2" style="width: 328px; margin-right:25px; float:left;">
+        <h3>{{'header_register@register_account' | translate}}</h3>
+        <div class="thema-a">
+            <div class="step-style-1 mgbt10">
+                <div class="step-line"></div>
+                <div class="step-number-3 tart"><span class="icon-step-on">1</span></div>
+
+                <div class="step-number-3 fltrt tart"><span class="icon-step-off">✔</span></div>
+            </div>
+
+            <div class="ui-input-text" ng-class="{'ui-input-text-wrong': userName.focus}">
+                <span class="icon icon-user"></span>
+                <input type="text" id="tb_userid" name="userName" placeholder="{{'header_register@username' | translate}}"
+                       ng-model="userName.value" ng-focus="userName.focus=true;" ng-blur="userName.focus=false;" ng-change="userName.checkValid()">
+            </div>
+            <!--錯誤提示訊息欄位-->
+            <div class="wrongMsg" id="tip_userid" ng-show="userName.focus">
+                <table class="talft">
+                    <tbody>
+                        <tr>
+                            <td><span ng-class="userName.lengthValid? 'icon_er2': 'icon_er1'" id="li_userid1"></span></td>
+                            <td><span>{{'header_register@name_length_error' | translate}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span ng-class="userName.charValid? 'icon_er2': 'icon_er1'" id="li_userid2"></span></td>
+                            <td><span>{{'header_register@name_char_error' | translate}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span ng-class="userName.unique? 'icon_er2': 'icon_er1'" id="li_userid3"></span></td>
+                            <td><span>{{'header_register@name_exist_error' | translate}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="rtArrow"></span>
+            </div>
+
+            <div class="clear mgbt10"></div>
+
+            <div class="ui-input-text" ng-class="{'ui-input-text-wrong': password.focus}">
+                <span class="icon icon-lock"></span>
+                <input type="password" id="tb_password" placeholder="{{'header_register@password' | translate}}"
+                       ng-model="password.value" ng-focus="password.focus=true;" ng-blur="password.focus=false;" ng-change="password.checkValid()">
+            </div>
+            <!--錯誤提示訊息欄位-->
+            <div class="wrongMsg" id="tip_password" ng-show="password.focus">
+                <table class="talft">
+                    <tbody>
+                        <tr>
+                            <td><span ng-class="password.lengthValid? 'icon_er2': 'icon_er1'" id="li_password1"></span></td>
+                            <td><span>{{'header_register@password_length_error' | translate}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span ng-class="password.charValid? 'icon_er2': 'icon_er1'" id="li_password2"></span></td>
+                            <td><span>{{'header_register@password_char_error' | translate}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span ng-class="password.diffWithName? 'icon_er2': 'icon_er1'" id="li_password3"></span></td>
+                            <td><span>{{'header_register@password_diff_error' | translate}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="rtArrow"></span>
+            </div>
+
+            <div class="clear mgbt10"></div>
+
+            <div class="ui-input-text" ng-class="{'ui-input-text-wrong': passwordRepeat.focus}">
+                <span class="icon icon-openLock"></span>
+                <input type="password" id="tb_passwordcof" placeholder="{{'header_register@password_repeat' | translate}}"
+                       ng-model="passwordRepeat.value" ng-focus="passwordRepeat.focus=true;" ng-blur="passwordRepeat.focus=false;" ng-change="passwordRepeat.checkValid()">
+            </div>
+            <!--錯誤提示訊息欄位-->
+            <div class="wrongMsg" id="tip_passwordcof" ng-show="passwordRepeat.focus">
+                <table class="talft">
+                    <tbody>
+                        <tr>
+                            <td><span ng-class="passwordRepeat.valid? 'icon_er2': 'icon_er1'" id="li_passwordcof1"></span></td>
+                            <td><span>{{'header_register@password_repeat_error' | translate}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="rtArrow"></span>
+            </div>
+
+            <div class="clear mgbt10"></div>
+
+            <div class="ui-select" id="area_select" code=countryCode>
+                <span class="select-icon-flag" ng-class="flag"></span>
+                <span class="select-text">{{trans | translate}}</span>
+                <span class="select-icon-right icon-arrow-down"></span>
+                <div class="select-choice">
+                    <ul>
+                        <li class="li_country" countryid="2" code="86">
+                            <span class="icon-flag cn"></span>
+                            <span class="select-text">{{'header_register@zh_cn' | translate}}</span>
+                        </li>
+                        <li class="li_country" countryid="618" code="84">
+                            <span class="icon-flag vn"></span>
+                            <span class="select-text">{{'header_register@vi_vn' | translate}}</span>
+                        </li>
+                        <li class="li_country" countryid="602" code="66">
+                            <span class="icon-flag thai"></span>
+                            <span class="select-text">{{'header_register@th_th' | translate}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="select-choice-area"></div>
+            </div>
+
+            <div class="clear mgbt10"></div>
+
+            <div class="ui-input-text" ng-class="{'ui-input-text-wrong': phone.focus}">
+                <span class="icon icon-mobile-1"></span>
+                <input type="text" id="tb_contact" placeholder="{{'header_register@mobile' | translate}}"
+                       ng-model="phone.value" ng-focus="phone.focus=true;" ng-blur="phone.focus=false;" ng-change="phone.checkValid()">
+            </div>
+            <!--錯誤提示訊息欄位-->
+            <div class="wrongMsg" id="tip_mobile" ng-show="phone.focus">
+                <table style="talft">
+                    <tbody>
+                        <tr>
+                            <td><span ng-class="phone.valid? 'icon_er2': 'icon_er1'" id="li_mobile"></span></td>
+                            <td style="text-align:left;"><span>{{'header_register@mobile_error' | translate}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="rtArrow"></span>
+            </div>
+
+            <div class="clear mgbt10"></div>
+
+            <div class="ui-input-text" ng-class="{'ui-input-text-wrong': agent.focus}">
+                <span class="icon icon-agents"></span>
+                <input type="text" id="tb_affiliatecode" placeholder="{{'header_register@affiliate' | translate}}"
+                       ng-model="agent.value" ng-focus="agent.focus=true;" ng-blur="agent.focus=false;" ng-change="agent.checkValid()" ng-disabled="agent.autoSet">
+            </div>
+            <!--錯誤提示訊息欄位-->
+            <div class="wrongMsg" id="tip_affiliatecode" ng-show="agent.focus">
+                <table style="talft">
+                    <tbody>
+                        <tr>
+                            <td><span ng-class="agent.value? 'icon_er2': 'icon_er1'" id="li_affiliatecode1"></span></td>
+                            <td><span>{{'header_register@affiliate_blank_notify' | translate}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span ng-class="agent.valid? 'icon_er2': 'icon_er1'" id="li_affiliatecode2"></span></td>
+                            <td><span>{{'header_register@affiliate_invalid' | translate}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="rtArrow"></span>
+            </div>
+
+            <div class="clear mgbt10"></div>
+
+            <a class="btn-1 mgbt10 goToStep3" id="btnGameSubmit" ng-click="submit()">{{'header_register@register_now' | translate}}</a>
+
+            <p class="tos" ng-click="checkCondition()">
+                <span id="chkAgree" class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': allowCondition}" style="top: 5px;"></span>
+                <span>{{'header_register@confirm_text' | translate}}<a class="TermsConditions" ng-click="openSpecificPage('about', {menuItem: 'condition'})">{{'header_register@terms_conditions' | translate}}</a>。</span>
+            </p>
+            <!--註冊錯誤訊息-->
+            <p class="ui-msg-text wrongmsg2" ng-hide="allValid">
+                <span class="errormsg">{{submitErrMsg | translate}}</span>
+            </p>
+        </div>
+    </div>
+    <!--成功畫面-->
+    <div class="register-step-3" style="width: 328px; float:right;">
+        <span class="icon-personal-1"></span>
+        <div class="clear"></div>
+        <span class="icon-vwin"></span>
+        <h4 class="h3" style="font-size:20px;">{{'header_register@register_success' | translate}}</h4>
+        <div class="thema-a">
+        </div>
+    </div>
+    <div popup-dialog show='showWelcome'>
+        <div popup-register-welcome1 ng-hide="flag == 'cn'"></div>
+        <div popup-register-welcome2 ng-show="flag == 'cn'"></div>
+    </div>
+</div>

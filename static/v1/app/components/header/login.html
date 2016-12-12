@@ -1,0 +1,337 @@
+<div id="loginPage" style="display:none;">
+    <h3>{{'header_login@login_account' | translate}}</h3>
+    <h4>{{'header_login@best_site' | translate}}</h4>
+    <div class="thema-a">
+        <div class="ui-input-text" ng-class="{'ui-input-text-wrong': accountName.focus}">
+            <span class="icon icon-user"></span>
+            <input type="text" placeholder="{{'header_login@username' | translate}}" ng-focus="accountName.focus=true;" ng-blur="accountName.focus=false;" ng-model="accountName.value" />
+        </div>
+        <div class="clear mgbt10"></div>
+        <div class="ui-input-text" ng-class="{'ui-input-text-wrong': accountPassword.focus}">
+            <span class="icon icon-lock"></span>
+            <input type="password" placeholder="{{'header_login@password' | translate}}" ng-focus="accountPassword.focus=true;" ng-blur="accountPassword.focus=false;" ng-model="accountPassword.value"
+                   ng-keyup="onKeyUp($event)" />
+            <a class="btn-right" ng-click="forgetPassword()">{{'header_login@forgot' | translate}}</a>
+        </div>
+        <p class="ui-msg-text wrongmsg2" ng-if="errorMsg !== ''">
+            <span class="errormsg">{{errorMsg | translate}}</span>
+        </p>
+        <a ng-click="submit()" ng-class="{'btn-3 mgbt10' : loginButtonClicked===true, 'btn-1 mgbt10' : loginButtonClicked===false}">
+            <span ng-if="loginButtonClicked" class="icon-loading-1"></span>
+            <span ng-if="!loginButtonClicked">{{'header_login@login_now' | translate}}</span>
+        </a>
+        <p class="tos fltlft" ng-click="checkLogAccountName()">
+            <span id="chkremember" class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': allowLogAccountName}" style="top: 5px;"></span>
+            <span>{{'header_login@remember_name' | translate}}</span>
+        </p>
+        <a class="fltrt registerPage btn-text" ng-click="goRegister()">
+            <span>▶{{'header_login@register_free' | translate}}</span>
+        </a>
+        <div class="clear mgbt10"></div>
+        <p class="talft grey5">
+            <span>{{'header_login@problem_contact' | translate}}</span><a ng-click="openLiveChat()">{{'header_login@online_help' | translate}}</a><span>{{'header_login@or' | translate}}</span><a ng-click="contactus()">{{'header_login@welcome_contact_us' | translate}}</a><span>{{'header_login@ssl_services' | translate}}</span>
+        </p>
+    </div>
+</div>
+
+<div popup-dialog show='forgetPasswordObj.showForgotPassword'>
+    <div class="wdsa" style="width: 700px;">
+        <!--白底透明遮罩 pop outside-->
+        <div class="ppos">
+            <!--內容區塊 pop area-->
+            <div class="ppa">
+                <div partial-loading show="showLoading"></div>
+                <span class="popTopImg"></span>
+
+                <div id="find_psw_step0" ng-if="forgetPasswordObj.verifyStep === '0'">
+                    <!--頁頭 pop head-->
+                    <div class="pphead">
+                        <div class="rgst-info"><span>{{'find_password@is_have_account' | translate}}<a href="javascript://" id="btnLogin" ng-click="onLogin()">{{'find_password@login' | translate}}</a></span></div>
+                        <span class="logImg"></span>
+                        <!--主標題-->
+                        <h3>{{'find_password@enter_username' | translate}}</h3>
+                        <!--副標題-->
+                        <h4>{{'find_password@is_forgot_username' | translate}}<a href="javascript://" class="LiveChat" ng-click="openLiveChat()">{{'find_password@live_help' | translate}}</a></h4>
+                    </div>
+                    <hr>
+                    <!--內容 pop content-->
+                    <div class="ppct">
+                        <div class="fm mgbt20">
+                            <span class="usn"></span>
+                            <input id="tb_UserName" type="text" tabindex="1" placeholder="{{'find_password@username' | translate}}" maxlength="16" ng-model="forgetPasswordObj.accountName">
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="fm">
+                            <a class="btn4" href="javascript://" id="bt_Submit" tabindex="2" style="border-radius: 20px;">
+                                <span class="icon_enter"></span><span ng-click="checkAccount()">{{'find_password@next_step' | translate}}</span>
+                                <div class="wrongMsg2" ng-if="forgetPasswordObj.accountNameErr" style="left:130px">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="icon_er1"></span></td>
+                                                <td class="errormsg">{{'find_password@account_error' | translate}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <span class="lftArrow"></span>
+                                </div>
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--頁尾 pop footer-->
+                    <div class="ppft">
+                        <p>{{'find_password@login_problem' | translate}}<a class="LiveChat" href="javascript:void(0);" ng-click="openLiveChat()">{{'find_password@live_help' | translate}}</a>{{'find_password@or' | translate}}<a class="ContactUsBox" href="javascript:void(0);" ng-click="contactus()">{{'find_password@contact_us' | translate}}</a></p>
+                        <p>{{'find_password@trust_server' | translate}}</p>
+                    </div>
+                </div>
+
+                <div id="find_psw_step0" ng-if="forgetPasswordObj.verifyStep !== '0'">
+                    <div id="div_ChangePwdComp">
+                        <div class="pphead">
+                            <div class="rgst-info"><span><a href="javascript://" class="LiveChat" ng-click="openLiveChat()">{{'find_password@live_help' | translate}}</a></span></div>
+                            <span class="logImg"></span>
+                            <!--步驟進度條 step box-->
+
+                            <div class="stpbox">
+                                <div class="stp mglft0 stpStart" ng-class="{active: forgetPasswordObj.verifyStep === '1'}">
+                                    <div class="stp_md mglft0">
+                                        <div class="stpct"><span class="fbb">1</span>{{'find_password@chose_verify_way' | translate}}</div>
+                                    </div>
+                                    <div class="stp_rt"></div>
+                                </div>
+                                <div class="stp stpMid" ng-class="{active: forgetPasswordObj.verifyStep === '2'}">
+                                    <div class="stp_lft">
+                                        <div class="slft1"></div>
+                                        <div class="slft2"></div>
+                                    </div>
+                                    <div class="stp_md">
+                                        <div class="stpct"><span class="fbb">2</span>{{'find_password@enter_verify' | translate}}</div>
+                                    </div>
+                                    <div class="stp_rt"></div>
+                                </div>
+                                <div class="stp stpComp" ng-class="{active: forgetPasswordObj.verifyStep === '3'}">
+                                    <div class="stp_lft">
+                                        <div class="slft1"></div>
+                                        <div class="slft2"></div>
+                                    </div>
+                                    <div class="stp_md">
+                                        <div class="stpct"><span class="fbb">3</span>{{'find_password@reset_password' | translate}}</div>
+                                    </div>
+                                    <div class="stp_rt"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+
+                            <div ng-if="!forgetPasswordObj.hasVerify && forgetPasswordObj.verifyStep === '1'">
+                                <!--主標題-->
+                                <h3>{{'find_password@unbind_please_contact' | translate}}<a href="javascript://" class="btn4 mglft10 LiveChat" style="border-radius: 20px;" ng-click="openLiveChat()"><span class="icon_lc2 vamd"></span><span class="vamd">{{'find_password@live_help' | translate}}</span></a></h3>
+                                <!--副標題-->
+                                <h4>{{'find_password@not_set_verification' | translate}}</h4>
+                            </div>
+                            <div ng-if="forgetPasswordObj.hasVerify && forgetPasswordObj.verifyStep === '1'">
+                                <!--主標題-->
+                                <h3>{{'find_password@chose_way_to_change_password' | translate}}</h3>
+                            </div>
+                            <div ng-if="forgetPasswordObj.verifyStep === '2' && forgetPasswordObj.verifyType === 'question'">
+                                <!--主標題-->
+                                <h3>{{'find_password@please_answer_the_question' | translate}}</h3>
+                                <!--副標題-->
+                                <h4>{{'find_password@find_password_by_question' | translate}}</h4>
+                            </div>
+                            <div ng-if="forgetPasswordObj.verifyStep === '2' && forgetPasswordObj.verifyType === 'mobile'">
+                                <!--主標題-->
+                                <h3>{{'find_password@please_enter_mobile_code' | translate}}</h3>
+                                <!--副標題-->
+                                <h4>{{'find_password@find_password_by_mobile' | translate}}</h4>
+                            </div>
+                            <div ng-if="forgetPasswordObj.verifyStep === '2' && forgetPasswordObj.verifyType === 'email'">
+                                <!--主標題-->
+                                <h3>{{'find_password@please_enter_email_code' | translate}}</h3>
+                                <!--副標題-->
+                                <h4>{{'find_password@find_password_by_email' | translate}}</h4>
+                            </div>
+                            <div ng-if="forgetPasswordObj.verifyStep === '3'">
+                                <!--主標題-->
+                                <h3>{{'find_password@reset_safe_password' | translate}}</h3>
+                                <!--副標題-->
+                                <h4>{{'find_password@use_char_number_to_update_password' | translate}}</h4>
+                            </div>
+                        </div>
+                        <div id="div_ChangePwd">
+                            <hr>
+                            <!--內容 pop content-->
+                            <div class="ppct" ng-if="forgetPasswordObj.verifyStep === '1'">
+                                <div class="vrfpp">
+                                    <span ng-class="forgetPasswordObj.isQuestion? 'vrf_ctt': 'vrf_ctt_dsab'">
+                                        <a ng-click="goVerifyInput('question')" ng-if="forgetPasswordObj.isQuestion"></a>
+                                    </span>
+                                    <h5>{{'find_password@question' | translate}}</h5>
+                                    <h5 class="red" ng-if="!forgetPasswordObj.isQuestion"><span class="icon_er1"></span>{{'find_password@unbind' | translate}}</h5>
+                                </div>
+                                <div class="vrfpp">
+                                    <span ng-class="forgetPasswordObj.isMobile? 'vrf_ml': 'vrf_ml_dsab'">
+                                        <a ng-click="goVerifyInput('mobile')" ng-if="forgetPasswordObj.isMobile"></a>
+                                    </span>
+                                    <h5>{{'find_password@mobile' | translate}}</h5>
+                                    <h5 class="red" ng-if="!forgetPasswordObj.isMobile"><span class="icon_er1"></span>{{'find_password@unbind' | translate}}</h5>
+                                </div>
+                                <div class="vrfpp">
+                                    <span ng-class="forgetPasswordObj.isEmail? 'vrf_mb': 'vrf_mb_dsab'">
+                                        <a ng-click="goVerifyInput('email')" ng-if="forgetPasswordObj.isEmail"></a>
+                                    </span>
+                                    <h5>{{'find_password@email' | translate}}</h5>
+                                    <h5 class="red" ng-if="!forgetPasswordObj.isEmail"><span class="icon_er1"></span>{{'find_password@unbind' | translate}}</h5>
+                                </div>
+                            </div>
+
+                            <div class="ppct" ng-if="forgetPasswordObj.verifyStep === '2' && forgetPasswordObj.verifyType === 'question'">
+                                <div class="vrfpp vrfpp2"><span class="vrf_ctt"></span></div>
+                                <div class="fm fm2">
+                                    <label class="w60">{{'find_password@question' | translate}}：{{forgetPasswordObj.textQuestion}}</label>
+                                    <div class="clear"></div>
+                                    <input type="text" id="tb_answer" tabindex="1" maxlength="25" ng-model="forgetPasswordObj.answerQuestion">
+                                    <a href="javascript://" class="btn4 fltlft mglft10" id="bt_Submit" ng-click="verifyQuestion()">
+                                        <span class="icon_enter"></span><span>{{'find_password@next_step' | translate}}</span>
+                                        <!--按鈕提交後錯誤訊息欄-->
+                                        <div class="wrongMsg2" ng-if="forgetPasswordObj.questionErr" style="left:130px">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><span class="icon_er1"></span></td>
+                                                        <td class="errormsg">{{'find_password@wrong_verify_code' | translate}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <span class="lftArrow"></span>
+                                        </div>
+                                    </a>
+                                    <div class="clear"></div>
+                                    <label class="w60"><a href="javascript://" ng-click="rechooseVerifyType()">{{'find_password@rechose_way' | translate}}</a></label>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+
+                            <div class="ppct" ng-if="forgetPasswordObj.verifyStep === '2' && forgetPasswordObj.verifyType === 'mobile'">
+                                <div class="vrfpp vrfpp2"><span class="vrf_ml"></span></div>
+                                <div class="fm fm2">
+                                    <input type="text" disabled="disabled" id="tb_contactCS" class="mgbt10" value="{{forgetPasswordObj.textMobile}}">
+                                    <a class="btn4 fltlft mgbt10 mglft10 grey_bg re-send" href="javascript://" tabindex="1" ng-click="sendMobileCode()" ng-class="{'btn-disable':countDownProcess}">
+                                        <span class="icon_enter3"></span><span class="rsd-text SendCode">{{'find_password@send_verify_code' | translate}} {{countDownValue}}</span>
+                                        <div class="wrongMsg2 wrongMsgSC" style="left: 175px;" ng-show="sendSuccess">
+                                            <table>
+                                                <tr>
+                                                    <td class="erroricon erroriconSC"><span class="icon_er1"></span></td>
+                                                    <td class="errormsg errormsgSC">{{'find_password@send_success' | translate}}</td>
+                                                </tr>
+                                            </table>
+                                            <span class="lftArrow"></span>
+                                        </div>
+                                    </a>
+                                    <div class="clear"></div>
+                                    <input type="text" id="tb_code" tabindex="2" placeholder="{{'find_password@verify_code' | translate}}" maxlength="6" ng-model="forgetPasswordObj.mobileCode" />
+                                    <a class="btn4 fltlft mglft10" href="javascript://" id="bt_Verify" tabindex="3" ng-click="verifyMobile()">
+                                        <span class="icon_enter"></span><span>{{'find_password@next_step' | translate}}</span>
+                                        <div class="wrongMsg2" ng-if="forgetPasswordObj.mobileErr" style="left:130px">
+                                            <table>
+                                                <tr>
+                                                    <td><span class="icon_er1"></span></td>
+                                                    <td class="errormsg">{{'find_password@wrong_verify_code' | translate}}</td>
+                                                </tr>
+                                            </table>
+                                            <span class="lftArrow"></span>
+                                        </div>
+                                    </a>
+                                    <div class="clear"></div>
+                                    <label class="w60"><a href="javascript://" ng-click="rechooseVerifyType()">{{'find_password@rechose_way' | translate}}</a></label>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+
+                            <div class="ppct" ng-if="forgetPasswordObj.verifyStep === '2' && forgetPasswordObj.verifyType === 'email'">
+                                <div class="vrfpp vrfpp2"><span class="vrf_mb"></span></div>
+                                <div class="fm fm2" style="top: 13px;">
+                                    <input type="text" disabled="disabled" id="tb_emailCS" class="mgbt10" value="{{forgetPasswordObj.textEmail}}">
+                                    <a class="btn4 fltlft mgbt10 mglft10 grey_bg re-send" href="javascript://" tabindex="1" ng-click="sendEmailCode()" ng-class="{'btn-disable':countDownProcess}">
+                                        <span class="icon_enter3"></span><span class="rsd-text SendCode">{{'find_password@send_verify_code' | translate}} {{countDownValue}}</span>
+                                        <div class="wrongMsg2 wrongMsgSC" style="left: 175px;" ng-show="sendSuccess">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="erroricon erroriconSC"><span class="icon_er1"></span></td>
+                                                        <td class="errormsg errormsgSC">{{'find_password@send_success' | translate}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <span class="lftArrow"></span>
+                                        </div>
+                                    </a>
+                                    <div class="clear"></div>
+                                    <input type="text" id="tb_code" tabindex="2" placeholder="{{'find_password@verify_code' | translate}}" maxlength="6" ng-model="forgetPasswordObj.emailCode">
+                                    <a class="btn4 fltlft mglft10" href="javascript://" id="bt_Verify" tabindex="3" ng-click="verifyEmail()">
+                                        <span class="icon_enter"></span><span>{{'find_password@next_step' | translate}}</span>
+                                        <div class="wrongMsg2" ng-if="forgetPasswordObj.emailErr" style="left:130px">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><span class="icon_er1"></span></td>
+                                                        <td class="errormsg">{{'find_password@wrong_verify_code' | translate}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <span class="lftArrow"></span>
+                                        </div>
+                                    </a>
+                                    <div class="clear"></div>
+                                    <label class="w60"><a href="javascript://" ng-click="rechooseVerifyType()">{{'find_password@rechose_way' | translate}}</a></label>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+
+                            <div class="ppct" ng-if="forgetPasswordObj.verifyStep === '3'">
+                                <!--填寫密碼欄位-->
+                                <div class="fm">
+                                    <span class="psw"></span>
+                                    <input type="password" id="tb_passwordnew" tabindex="1" maxlength="20" placeholder="{{'find_password@new_password' | translate}}" ng-model="forgetPasswordObj.newpassword">
+                                </div>
+                                <div class="clear"></div>
+                                <div class="fm">
+                                    <span class="psw"></span>
+                                    <input type="password" id="tb_passwordcof" tabindex="2" maxlength="20" placeholder="{{'find_password@confirm_password' | translate}}" ng-model="forgetPasswordObj.repeatNewpassword">
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <a href="javascript://" id="bt_Submit" tabindex="3" class="btn4 " ng-click="resetPassword()">
+                                        <span class="icon_enter"></span><span>{{'find_password@submit' | translate}}</span>
+                                        <div class="wrongMsg2" ng-if="forgetPasswordObj.newPasswordErr" style="left:130px">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><span class="icon_er1"></span></td>
+                                                        <td class="errormsg">{{forgetPasswordObj.newPasswordErrMsg | translate}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <span class="lftArrow"></span>
+                                        </div>
+                                        <div style="position:absolute;left:80px;top:5px;">
+                                            <span style="color:rgb(128,128,128)">{{countDownValue}}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <hr>
+                            <!--頁尾 pop footer-->
+                            <div class="ppft">
+                                <p>{{'find_password@if_verify_tool_all_fail' | translate}}<a href="javascript://" ng-click="openLiveChat()">{{'find_password@live_help' | translate}}</a>{{'find_password@contact_and_changed' | translate}}</p>
+                                <p>{{'find_password@manually_handle' | translate}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

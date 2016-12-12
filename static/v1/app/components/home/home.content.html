@@ -1,0 +1,235 @@
+<div id="content" style="padding-top: 10px; background-color:#dddddd; padding-bottom: 17px;" ng-controller="homeContentCtrl">
+    <div class="mw">
+        <div class="con1-1">
+            <div class="casino"> <img src="/static/v1/images/index-con1-1-img-1.png" /> </div>
+            <div class="con1-text">
+                <h4><span></span>{{'home@live_casino' | translate}}</h4>
+                <p>{{'home@live_casino_info' | translate}}</p>
+            </div>
+            <!--娛樂場滑鼠移入顯示內容-->
+            <div class="casino-on" style="opacity:0;">
+                <!--上移後模糊背景-->
+                <div class="casino-con">
+                    <img src="/static/v1/images/index-con1-1-img-3.png" />
+                    <ul>
+                        <li ng-repeat="stage in casinoStages" ng-click="clickOnCasino($index)" ng-mouseenter="casinoMouseEnterEffect($index+1)" ng-mouseleave="casinoMouseLeaveEffect($index+1)">
+                            <a href="javascript://">
+                                <div class="casino-box">
+                                    <h5>{{stage.name | translate}}</h5>
+                                    <span><img ng-src="{{stage.image}}" /></span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="con1-shadow"><img src="/static/v1/images/index-con1-1-img-2.png" /></div>
+        </div>
+
+        <a ui-sref="sports">
+            <div class="con1-2 zoom">
+                <div class="zoom-img">
+                    <div class="zoom-bg"></div>
+                    <img src="/static/v1/images/index-con1-2-img-1.png" />
+                </div>
+                <div class="con1-text">
+                    <h4><span></span>{{'home@ibc_sports' | translate}}</h4>
+                    <p>{{'home@ibc_sports_info' | translate}}</p>
+                    <div class="clear mgbt10"></div>
+                    <div class="btn-1">{{'home@bet_now' | translate}}</div>
+                </div>
+                <div class="con1-shadow"><img src="/static/v1/images/index-con1-2-img-2.png" /></div>
+            </div>
+        </a>
+        <a ui-sref="games">
+            <div class="con1-3 zoom">
+                <div class="zoom-img">
+                    <div class="zoom-bg"></div>
+                    <img src="/static/v1/images/index-con1-3-img-1.png" />
+                </div>
+                <div class="con1-text">
+                    <h4><span></span>{{'home@casino' | translate}}</h4>
+                    <p>{{'home@casino_info' | translate}}</p>
+                    <div class="clear mgbt10"></div>
+                    <div class="btn-1">{{'home@play_now' | translate}}</div>
+                </div>
+                <div class="con1-shadow"><img src="/static/v1/images/index-con1-3-img-2.png" /></div>
+            </div>
+        </a>
+        <a ui-sref="vip">
+            <div class="clear mgbt10"></div>
+            <div class="con1-4 zoom">
+                <div class="zoom-img">
+                    <div class="zoom-bg"></div>
+                    <img src="/static/v1/images/index-con1-4-img-1.png" />
+                </div>
+                <div class="con1-text">
+                    <img class=" mgbt10" src="/static/v1/images/index-con1-4-img-3.png" />
+                    <p>{{'home@vip_info' | translate}}</p>
+                    <div class="clear mgbt10"></div>
+                    <div class="btn-1">{{'home@learn_more' | translate}}</div>
+                </div>
+                <div class="con1-shadow"><img src="/static/v1/images/index-con1-2-img-2.png" /></div>
+            </div>
+        </a>
+        <a>
+            <div class="con1-5 zoom">
+                <div class="zoom-img">
+                    <div class="zoom-bg"></div>
+                    <img src="/static/v1/images/12_VwinBaby.png" />
+                </div>
+                <div class="con1-text tactr">
+                    <img class="mgbt10" ng-src="/static/v1/images/index-con1-5-img-2.png" style="margin-top:-15px" />
+                    <p class="tactr">{{'home@vwinbaby_dec_title' | translate}}</p>
+                    <div class="clear mgbt10"></div>
+                    <div class="btn-1" onclick="window.open('http://www.vwinbaby.com/', '_blank')">{{'home@learn_more' | translate}}</div>
+                </div>
+                <div class="con1-shadow"><img src="/static/v1/images/index-con1-2-img-2.png" /></div>
+            </div>
+        </a>
+
+        <div class="con1-6">
+            <div class="sport-outer">
+                <img src="/static/v1/images/index-con1-6-img-1.png" />
+                <!--草皮-->
+                <div class="sport-grass"><img src="/static/v1/images/index-con1-6-img-4.png" /> </div>
+            </div>
+            <!--比賽內容-->
+            <div class="sport-inner">
+                <!--GB體育標題-->
+                <div class="con1-text">
+                    <h4 class="ilblk"><span></span>{{'home@recommend_events' | translate}}</h4>
+                    <!--<div class="fltrt"><a href="#"><span class="mgrt5">换一批</span><span class="reflash"></span></a></div>-->
+                </div>
+                <div class="sport-game-1">
+                    <!--隊伍透明底圖-->
+                    <div class="team-bg"><img class="ImgAbg" src=""></div>
+                    <div class="team-bg team-bg-right"><img class="ImgBbg" src=""></div>
+                    <!--隊伍資訊-->
+                    <ul>
+                        <li>
+                            <div>
+                                <img class="ImgA">
+                            </div>
+                        </li>
+                        <li>
+                            <!--開賽時間-->
+                            <div class="score Prematch" style="display:inline-block">
+                                <img src="/static/v1/images/index-con1-6-img-6.png">
+                                <div class="score-time">
+                                    <p class="yellow">{{'home@game_time' | translate}}</p>
+                                    <p class="ETime"></p>
+                                </div>
+                            </div>
+                            <!--分數區-->
+                            <div class="score Live" style="opacity: 1; display:none;">
+                                <div class="score-btn"><a ui-sref="gb_sports">{{'home@bet_now' | translate}}</a> </div>
+                                <img src="/static/v1/images/index-con1-6-img-5.png">
+                                <span class="score-left">
+                                    <img src="/static/v1/images/icon-socre-0.png"><img src="/static/v1/images/icon-socre-0.png">
+                                </span>
+                                <span class="score-right">
+                                    <img src="/static/v1/images/icon-socre-0.png"><img src="/static/v1/images/icon-socre-0.png">
+                                </span>
+                            </div>
+                            <!--按鈕-->
+                            <div class="score-btn"><a class="btn-1" ui-sref="gb_sports">{{ 'home@bet_now' | translate }}</a> </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img class="ImgB">
+                            </div>
+                        </li>
+                        <div class="clear mgbt10"></div>
+                        <li>
+                            <div>
+                                <h5 class="TA"></h5>
+                                <h3 class="RteA"></h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h5 class="score-name TN"></h5>
+                                <h3 class="RteX SPV"></h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h5 class="TB"></h5>
+                                <h3 class="RteB"></h3>
+                            </div>
+                        </li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+                <div class="clear "></div>
+                <div class="sport-game-1">
+                    <!--中間分隔線-->
+                    <div class="sport-game-gap"><img src="/static/v1/images/index-con1-6-img-2.png" /> </div>
+                    <!--隊伍透明底圖-->
+                    <div class="team-bg"><img class="ImgAbg" src=""></div>
+                    <div class="team-bg team-bg-right"><img class="ImgBbg" src=""></div>
+                    <!--隊伍資訊-->
+                    <ul>
+                        <li>
+                            <div>
+                                <img class="ImgA">
+                            </div>
+                        </li>
+                        <li>
+                            <!--開賽時間-->
+                            <div class="score Prematch" style="display:inline-block">
+                                <img src="/static/v1/images/index-con1-6-img-6.png">
+                                <div class="score-time">
+                                    <p class="yellow">{{'home@game_time' | translate}}</p>
+                                    <p class="ETime"></p>
+                                </div>
+                            </div>
+                            <!--分數區-->
+                            <div class="score Live" style="opacity: 1; display:none;">
+                                <div class="score-btn"><a ui-sref="gb_sports">{{'home@bet_now' | translate}}</a> </div>
+                                <img src="/static/v1/images/index-con1-6-img-5.png">
+                                <span class="score-left">
+                                    <img src="/static/v1/images/icon-socre-0.png"><img src="/static/v1/images/icon-socre-0.png">
+                                </span>
+                                <span class="score-right">
+                                    <img src="/static/v1/images/icon-socre-0.png"><img src="/static/v1/images/icon-socre-0.png">
+                                </span>
+                            </div>
+                            <!--按鈕-->
+                            <div class="score-btn"><a class="btn-1" ui-sref="gb_sports">{{'home@bet_now' | translate}}</a> </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img class="ImgB">
+                            </div>
+                        </li>
+                        <div class="clear mgbt10"></div>
+                        <li>
+                            <div>
+                                <h5 class="TA"></h5>
+                                <h3 class="RteA"></h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h5 class="score-name TN"></h5>
+                                <h3 class="RteX SPV"></h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h5 class="TB"></h5>
+                                <h3 class="RteB"></h3>
+                            </div>
+                        </li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+            <div class="con1-shadow"><img src="/static/v1/images/index-con1-6-img-3.png" /></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="clear horizonLine"></div>

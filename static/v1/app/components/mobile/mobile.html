@@ -1,0 +1,303 @@
+<div ng-controller="mobileCtrl">
+  <div id="main-banner" class="mobile-banner">
+    <div class="hero">
+      <div class="hero-slide-2">
+        <div class="prev"></div>
+        <div class="next"></div>
+      </div>
+      <div class="hero-kv">
+        <ul>
+          <li class="slide-active">
+            <img src="assets/images/mobile/mobile-hero-bg.jpg" />
+            <div class="hero-point-0" style="position: absolute; bottom:0;  left: 50%;  margin-left: -33px; display:none;"><img ng-src="assets/images/mobile/{{imgResource[0][0]}}.png" /></div>
+            <div class="text0">
+              <div style="position: absolute;  bottom: 394px;  left: 50%;  margin-left: -443px; display:none;"><img ng-src="assets/images/mobile/{{imgResource[0][1]}}.png" /></div>
+              <div style="position: absolute;  bottom: 240px;  left: 50%;  margin-left: -487px; display:none;"><img ng-src="assets/images/mobile/{{imgResource[0][2]}}.png" /></div>
+              <div style="position: absolute;  bottom: 134px;  left: 50%;  margin-left: -441px; display:none;"><img ng-src="assets/images/mobile/{{imgResource[0][3]}}.png" /></div>
+            </div>
+          </li>
+          <li style="display:none;">
+            <img src="assets/images/mobile/mobile-hero-bg-1.jpg" />
+            <div class="hero-point-1" style="position: absolute;  bottom: 25px;  left: 50%;  margin-left: -33px; display:none;"><img src="assets/images/mobile/{{imgResource[1][0]}}.png" /></div>
+            <div class="text1">
+              <div style="position: absolute;  bottom: 375px;  left: 50%;  margin-left: -420px; display:none;"><img src="assets/images/mobile/{{imgResource[1][1]}}.png" /></div>
+              <div style="position: absolute;  bottom: 222px;  left: 50%;  margin-left: -416px; display:none;"><img src="assets/images/mobile/{{imgResource[1][2]}}.png" /></div>
+              <div style="position: absolute;  bottom: 105px;  left: 50%;  margin-left: -386px; display:none;"><img src="assets/images/mobile/{{imgResource[1][3]}}.png" /></div>
+            </div>
+          </li>
+          <li style="display:none;">
+            <img src="assets/images/mobile/mobile-hero-bg-2.jpg" />
+            <div class="hero-point-2" style="position: absolute; bottom:0;  left: 50%;  margin-left: -11px; display:none;"><img src="assets/images/mobile/{{imgResource[2][0]}}.png" /></div>
+            <div class="text2">
+              <div style="position: absolute;  bottom: 396px;  left: 50%;  margin-left: -274px; display:none;"><img src="assets/images/mobile/mobile-hero-22.png" /></div>
+              <div style="position: absolute;  bottom: 199px;  left: 50%;  margin-left: -446px; display:none;"><img src="assets/images/mobile/{{imgResource[2][2]}}.png" /></div>
+              <div style="position: absolute;  bottom: 86px;  left: 50%;  margin-left: -335px; display:none;"><img src="assets/images/mobile/{{imgResource[2][3]}}.png" /></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div id="hero_nav">
+        <ul class="adSlider-2">
+          <li class="heroNavActive"></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <br clear="all">
+      </div>
+    </div>
+  </div>
+  <!--最新公告-->
+  <div id="notice" class="mobile-link">
+    <div class="mw">
+      <ul>
+        <!--騎士制度-->
+        <li class="cols4">
+          <h4><a name="#mobileBox-1" ng-click="scrollTo('mobileBox-1')">{{'mobile@support_devices' | translate}}</a></h4>
+        </li>
+        <!--領取獎勵-->
+        <li class="cols4">
+          <h4><a name="#mobileBox-4" ng-click="scrollTo('mobileBox-4')">{{'mobile@support_games' | translate}}</a></h4>
+        </li>
+        <!--騎士課堂-->
+        <li class="cols4 last">
+          <h4><a name="#mobileBox-5" ng-click="scrollTo('mobileBox-5')">{{'mobile@7_advantages' | translate}} </a></h4>
+        </li>
+      </ul>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <!--內容-->
+  <div id="content">
+    <!--蘋果手機-->
+    <div class="mobileBox-1 grey3_bg" id="mobileBox-1">
+      <div class="mw">
+        <div class=" mobile-intro-1">
+          <div class="mobile-icon"></div>
+          <div class="mobile-text">
+            <h2 class="mgbt10">{{'mobile@mobile_support' | translate}}</h2>
+            <h3>{{'mobile@safe_easy' | translate}}</h3>
+          </div>
+        </div>
+        <div class="cols8">
+          <div class="flyIn-left">
+            <div class="mobile-image-ios"><img src="assets/images/mobile-image-ios.png" /></div>
+          </div>
+        </div>
+        <div class="cols4 last">
+          <div class="flyIn-right mobile-intro-2">
+            <h3><span class="mobile-icon icon-ios"></span>{{'mobile@iphone' | translate}}</h3>
+            <h5>{{'mobile@iphone_description' | translate}}</h5>
+            <p>iphone4 / iphone4S / iphone5 / iphone5S / iphone6 / iphone6+</p>
+            <p>{{'mobile@iphone_adopt' | translate}}</p>
+            <div class="mobile-qr mobile-qr2">
+              <div style="display:inline-block; padding-right:15px;"><img src="assets/images/qrcode_160811.png" />
+                <p ng-style="lang == 'en-us' && {'line-height': '16px'}">{{'mobile@iphone_qrcode' | translate}}</p>
+              </div>
+              <div class="line"></div>
+              <p style="display:inline-block; padding-left:15px; vertical-align: top; padding-top: 20px;">{{'mobile@iphone_qrcode2' | translate}}</p>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="horizonLine"></div>
+    <!--安卓手機-->
+    <div class="mobileBox-2 grey4_bg">
+      <div class="mw rltv">
+        <div class=" pd20"></div>
+        <div class="cols6">
+          <div class="flyIn-left mobile-intro-2">
+            <h3><span class="mobile-icon icon-android"></span>{{'mobile@android' | translate}}</h3>
+            <h5>{{'mobile@android_description' | translate}}</h5>
+            <p>
+              {{'mobile@android_phones' | translate}}<br /> {{'mobile@android_adopt' | translate}}
+            </p>
+            <div class="mobile-qr">
+              <img ng-if="lang === 'zh-cn'" ng-src="assets/images/mobile-android-qr.jpg" />
+              <img ng-if="lang !== 'zh-cn'" ng-src="assets/images/mobile-android-qr-en.png" />
+              <p>{{'mobile@android_qrcode' | translate}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="cols6 last">
+          <div class="mobile-image-poker"></div>
+          <div class="mobile-image-android"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="horizonLine"></div>
+    <!--其他設備-->
+    <div class="mobileBox-3 grey3_bg" style="height:360px;">
+      <div class="mw rltv">
+        <div class=" pd20"></div>
+        <div class="cols6">
+          <div class="flyIn-left">
+            <div class="mobile-image-wap">
+              <div class="magnifier"><img src="assets/images/mobile-image-magnifier.png" /></div>
+              <img ng-if="lang === 'zh-cn'" src="assets/images/mobile-image-wap.png" />
+              <img ng-if="lang !== 'zh-cn'" src="assets/images/mobile-image-wap-en.png" />
+            </div>
+          </div>
+        </div>
+        <div class="cols6 last">
+          <div class="flyIn-right mobile-intro-2">
+            <h3><span class="mobile-icon icon-wap"></span>{{'mobile@other_devices' | translate}}</h3>
+            <h5>{{'mobile@other_devices_description' | translate}}</h5>
+            <div class="mobile-qr mobile-qr2">
+              <div style="display:inline-block; padding-right:15px;">
+                <img src="assets/images/mobile-other-qr.png" />
+                <p>{{'mobile@other_devices_qrcode' | translate}}</p>
+              </div>
+              <div class="line"></div>
+              <div style="display:inline-block; padding-left:15px;">
+                <img src="assets/images/qr-m-link.png" style="margin-bottom:36px;" />
+                <p>{{'mobile@other_devices_browser' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="horizonLine"></div>
+    <!--支持平台及遊戲-->
+    <div class="mobileBox-4 grey4_bg" id="mobileBox-4">
+      <div class="mw rltv">
+        <div class=" pd20"></div>
+        <div class="cols5">
+          <div class="flyIn-left mobile-intro-2">
+            <div class="mobile-text" style="padding-left:0; margin-top:30px;">
+              <h2 class="mgbt20">{{'mobile@support_games_platforms' | translate}}</h2>
+            </div>
+            <h3><span class="mobile-icon icon-mobile-sport"></span>{{'mobile@sports' | translate}}</h3>
+            <h5 style="margin-bottom:55px;">{{'mobile@sports_description' | translate}}</h5>
+            <h3><span class="mobile-icon icon-mobile-casino"></span>{{'mobile@casino' | translate}}</h3>
+            <h5 style="margin-bottom:80px;">{{'mobile@casino_description' | translate}}</h5>
+          </div>
+        </div>
+        <div class="cols7 last">
+          <div class="mobile-image-dice2"></div>
+          <div class="mobile-image-sport"></div>
+          <div class="mobile-image-casino"></div>
+          <div class="mobile-image-dice1"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="cols7">
+          <div class="flyIn-left mobile-intro-3" style="position:relative; opacity:0; top:60px;">
+            <div class="mobile-games" style="position:absolute; left:50%; width:0; top:60%; margin-left:14%;"><img src="assets/images/mobile-image-iromMan.png" /></div>
+            <img src="assets/images/mobile-image-games.png" />
+          </div>
+        </div>
+        <div class="cols5 last">
+          <div class="flyIn-right mobile-intro-2">
+            <h3><span class="mobile-icon icon-wap"></span>{{'mobile@mini_games' | translate}}</h3>
+            <h5>{{'mobile@mini_games_description' | translate}}</h5>
+          </div>
+          <div class="flyIn-right mobile-intro-2">
+            <h3><span class="mobile-icon icon-wap"></span>{{'mobile@keno' | translate}}</h3>
+            <h5>{{'mobile@keno_description' | translate}}</h5>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="clear mgbt10"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="horizonLine"></div>
+    <!--七大優勢-->
+    <div class="mobileBox-5 grey3_bg" style="height:350px;" id="mobileBox-5">
+      <div class="mw rltv">
+        <div class=" mobile-intro-1">
+          <div class="mobile-text">
+            <h2>{{'mobile@7advantages_description' | translate}}</h2>
+          </div>
+        </div>
+        <ul class="mobile-7">
+          <li>
+            <div class="mobile-msg">
+              <h5>
+                  {{'mobile@strong_compatibility_note1' | translate}}<br />
+                  {{'mobile@strong_compatibility_note2' | translate}}
+              </h5>
+              <div class="mobile-msg-arrow"></div>
+            </div>
+            <img src="assets/images/mobile-7-1.png" />
+            <h4>{{'mobile@strong_compatibility' | translate}}</h4>
+          </li>
+          <li>
+            <div class="mobile-msg">
+              <h5>
+                  {{'mobile@safe_fast_note1' | translate}}<br />
+                  {{'mobile@safe_fast_note2' | translate}}
+              </h5>
+              <div class="mobile-msg-arrow"></div>
+            </div>
+            <img src="assets/images/mobile-7-2.png" />
+            <h4>{{'mobile@safe_fast' | translate}}</h4>
+          </li>
+          <li>
+            <div class="mobile-msg">
+              <h5>
+                                {{'mobile@flexible_deposit_withdraw_note1' | translate}}<br />
+                                {{'mobile@flexible_deposit_withdraw_note2' | translate}}
+                            </h5>
+              <div class="mobile-msg-arrow"></div>
+            </div>
+            <img src="assets/images/mobile-7-3.png" />
+            <h4>{{'mobile@flexible_deposit_withdraw' | translate}}</h4>
+          </li>
+          <li ng-show="lang !== 'th-th'">
+            <div class="mobile-msg">
+              <h5>
+                                {{'mobile@mobile_alipay_note1' | translate}}<br />
+                                {{'mobile@mobile_alipay_note2' | translate}}
+                            </h5>
+              <div class="mobile-msg-arrow"></div>
+            </div>
+            <img src="assets/images/mobile-7-4.png" />
+            <h4>{{'mobile@mobile_alipay' | translate}}</h4>
+          </li>
+          <li>
+            <div class="mobile-msg">
+              <h5>
+                                {{'mobile@have_your_way_note1' | translate}}<br />
+                                {{'mobile@have_your_way_note2' | translate}}
+                            </h5>
+              <div class="mobile-msg-arrow"></div>
+            </div>
+            <img src="assets/images/mobile-7-5.png" />
+            <h4>{{'mobile@have_your_way' | translate}}</h4>
+          </li>
+          <li>
+            <div class="mobile-msg">
+              <h5>
+                                {{'mobile@multi_languages_note1' | translate}}<br />
+                                {{'mobile@multi_languages_note2' | translate}}
+                            </h5>
+              <div class="mobile-msg-arrow"></div>
+            </div>
+            <img src="assets/images/mobile-7-6.png" />
+            <h4>{{'mobile@multi_languages' | translate}}</h4>
+          </li>
+          <li class="last">
+            <div class="mobile-msg">
+              <h5>
+                                {{'mobile@anytime_anywhere_note1' | translate}}<br />
+                                {{'mobile@anytime_anywhere_note2' | translate}}
+                            </h5>
+              <div class="mobile-msg-arrow"></div>
+            </div>
+            <img src="assets/images/mobile-7-7.png" />
+            <h4>{{'mobile@anytime_anywhere' | translate}}</h4>
+          </li>
+        </ul>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</div>
