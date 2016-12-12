@@ -90,4 +90,42 @@ class BaseController extends CI_Controller {
 	public function f(int $n) {
 	    return sprintf('%.2f',$n/1000);
 	}
+
+	/*包装前台需要返回的数据
+	 * {Success: false, Code: "0.2", Message: "密码错误，您还可以输入4次！", Result: [{TotalErrorCount: 4, LockMinute: 0}]}
+	 * {Success: true, Code: "1.0", Message: "Unknown", Result: [,…]}
+	*/
+	public function teamapi($data){
+		$response = array();
+
+		$response['Success'] = $data['status'] === true ? true : false; 
+		$response['Code']    = isset($data['code']) ? $data['code'] : 'undefined';
+		if(isset($data['msg']) && $data['msg']) $response['Message'] = $data['msg'];
+		if(isset($data['message']) && $data['message']) $response['Message'] = $data['message'];
+
+		if(isset($data['result'])){
+			if(is_array($data['result'])){
+			 	$response['Result'] = json_encode($data['result']);
+			}else{
+				$tmp = json_decode($data['result'],TRUE);
+				if(is_array($tmp)){
+					$response['Result'] = $data['result'];
+				}else{
+					$response['Result'] = json_encode(array());
+				}
+			}
+		}else{
+			$response['Result'] = json_encode(array());
+		}
+
+		exit(json_encode($response));
+
+	}
+
+	public function getApiParams(){
+		$data = file_get_contents('php://input'); 
+		return json_decode($data,TRUE);
+	}
+
+
 }
