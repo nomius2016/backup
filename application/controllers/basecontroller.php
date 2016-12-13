@@ -105,17 +105,17 @@ class BaseController extends CI_Controller {
 
 		if(isset($data['result'])){
 			if(is_array($data['result'])){
-			 	$response['Result'] = json_encode($data['result']);
+			 	$response['Result'] = $data['result'];
 			}else{
 				$tmp = json_decode($data['result'],TRUE);
 				if(is_array($tmp)){
-					$response['Result'] = $data['result'];
+					$response['Result'] = $tmp;
 				}else{
-					$response['Result'] = json_encode(array());
+					$response['Result'] = array();
 				}
 			}
 		}else{
-			$response['Result'] = json_encode(array());
+			$response['Result'] = array();
 		}
 
 		exit(json_encode($response));
