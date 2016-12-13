@@ -11,5 +11,11 @@
 	URL: /api/user/login
 	参数: username,password  password必须加密之后   
 	返回: 
-	     成功  --> {"Success":true,"Code":"1.0","Message":"\u767b\u5f55\u6210\u529f!","Result":"[]"}
-	     失败  --> {"Success":false,"Code":"0.2","Message":"\u7528\u6237\u540d\u6216\u5bc6\u7801\u4e0d\u6b63\u786e!","Result":"[]"}
+	     成功  --> {"Success":true,"Code":"1","Message":"\u767b\u5f55\u6210\u529f!","Result":"[]"}
+	     失败  --> {"Success":false,"Code":"-1","Message":"\u7528\u6237\u540d\u6216\u5bc6\u7801\u4e0d\u6b63\u786e!","Result":"[]"}
+(2)注册接口
+   URL:/api/user/register
+   参数: username,password,confirm_password,phone,agent_code
+   返回: 
+        成功  --> {"Success":true,"Code":"1","Message":"\u767b\u5f55\u6210\u529f!","Result":"[]"}
+        失败  --> {"Success":false,"Code":"-1","Message":"\u7528\u6237\u540d\u6216\u5bc6\u7801\u4e0d\u6b63\u786e!","Result":"[]"}
