@@ -16,7 +16,8 @@ angular.module('requesterModule', []).service('restService', ['$http', '$state',
       sendData.token = Storage.getCookie(App.token);
       sendData.inputdata = data;
       if (callback) {
-        httpPost(url, sendData).success(function(result) {
+        // httpPost(url, sendData).success(function(result) {
+        httpPost(url, data).success(function(result) {
           if (!result.Success) {
             if (url.indexOf('GetBalance') > -1) {
 
@@ -64,7 +65,8 @@ angular.module('requesterModule', []).service('restService', ['$http', '$state',
           appServices.showLoading(false);
         });
       } else {
-        return httpPost(url, sendData);
+        // return httpPost(url, sendData);
+        return httpPost(url, data);
       }
     }
   };

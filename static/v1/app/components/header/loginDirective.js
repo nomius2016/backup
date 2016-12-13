@@ -4,12 +4,9 @@ angular.module('ciApp').directive('login', ['$state', 'appServices', 'App', 'Sto
     restrict: 'A',
     scope: {},
     link: function($scope) {
-      console.log('md5 string for a123456 is: ', md5.createHash('a123456'));
-
       function getBasicinfo(reload, page) {
         AccountService.call('MainAccount_Basicinfo_Get', {}, function(result) {
           if (result.Success) {
-            if (reload) {
               Storage.putCookie(App.currencyID, result.Result[0].CurrencyID);
               Container.setCurrencyID(result.Result[0].CurrencyID);
               Container.setPromotionID(result.Result[0].PromotionID);
@@ -20,34 +17,35 @@ angular.module('ciApp').directive('login', ['$state', 'appServices', 'App', 'Sto
               appServices.basicInfoUpdated();
               $scope.accountName.value = $scope.allowLogAccountName ? $scope.accountName.value : '';
               $scope.accountPassword.value = '';
-            }
-            switch (page) {
-              case 'id':
-                $state.go('member.security', {
-                  method: 'name'
-                });
-                break;
-              case 'phone':
-                $state.go('member.security', {
-                  method: 'mobile'
-                });
-                break;
-              case 'email':
-                $state.go('member.security', {
-                  method: 'email'
-                });
-                break;
-              case 'message':
-                $state.go('member.message');
-                break;
-              case 'withdraw':
-                $state.go('member.bank', {
-                  method: 'withdraw'
-                });
-                break;
-              default:
-                $state.go('home');
-                break;
+            if (reload) {
+              switch (page) {
+                case 'id':
+                  $state.go('member.security', {
+                    method: 'name'
+                  });
+                  break;
+                case 'phone':
+                  $state.go('member.security', {
+                    method: 'mobile'
+                  });
+                  break;
+                case 'email':
+                  $state.go('member.security', {
+                    method: 'email'
+                  });
+                  break;
+                case 'message':
+                  $state.go('member.message');
+                  break;
+                case 'withdraw':
+                  $state.go('member.bank', {
+                    method: 'withdraw'
+                  });
+                  break;
+                default:
+                  $state.go('home');
+                  break;
+              }
             }
           }
         });
@@ -182,14 +180,14 @@ angular.module('ciApp').directive('login', ['$state', 'appServices', 'App', 'Sto
           var parser = new UAParser();
           var browser = parser.getBrowser();
           var data = {
-            intLoginType: 1,
-            strLoginItem: $scope.accountName.value,
-            strPassword: $scope.accountPassword.value,
-            IovationBlackBox: document.getElementById('blackBox').value,
-            RuleSet: 'login',
-            strDomain: appServices.getDomainName(),
-            strBrowserType: browser.name + ' ' + browser.major,
-            strBrowserResolution: window.outerWidth + '*' + window.outerHeight
+            // intLoginType: 1,
+            username: $scope.accountName.value,
+            password: md5.createHash($scope.accountPassword.value),
+            // IovationBlackBox: document.getElementById('blackBox').value,
+            // RuleSet: 'login',
+            // strDomain: appServices.getDomainName(),
+            // strBrowserType: browser.name + ' ' + browser.major,
+            // strBrowserResolution: window.outerWidth + '*' + window.outerHeight
           };
           AccountService.call('MainAccount_Login', data, function(result) {
             if (result.Success) {

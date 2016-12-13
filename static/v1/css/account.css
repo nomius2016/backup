@@ -25,8 +25,8 @@
 
 @font-face {
     font-family: iconfont;
-    src: url(/assets/font/iconfont/iconfont.eot);
-    src: url(/assets/font/iconfont/iconfont.eot?#iefix) format('embedded-opentype'), url(/assets/font/iconfont/iconfont.woff) format('woff'), url(/assets/font/iconfont/iconfont.ttf) format('truetype'), url(/assets/font/iconfont/iconfont.svg#iconfont) format('svg')
+    src: url(../font/iconfont/iconfont.eot);
+    src: url(../font/iconfont/iconfont.eot?#iefix) format('embedded-opentype'), url(../font/iconfont/iconfont.woff) format('woff'), url(../font/iconfont/iconfont.ttf) format('truetype'), url(../font/iconfont/iconfont.svg#iconfont) format('svg')
 }
 
 .iconfont {
@@ -309,7 +309,7 @@
 
 .vw-part:after, .vw-tip:after {
     display: block;
-    background: url(/assets/images/shadow_b1.png) top center no-repeat;
+    background: url(../images/shadow_b1.png) top center no-repeat;
     margin-bottom: -13px
 }
 
@@ -322,12 +322,12 @@
 }
 
 .vw-user:after {
-    background: url(/assets/images/shadow_b2.png) top center no-repeat
+    background: url(../images/shadow_b2.png) top center no-repeat
 }
 
 .vw-account .mc-con1:after {
     display: block;
-    background: url(/assets/images/shadow_b4.png) top center no-repeat;
+    background: url(../images/shadow_b4.png) top center no-repeat;
     margin-bottom: -13px
 }
 
@@ -418,7 +418,7 @@
     border-radius: 32px;
     margin-right: 10px;
     text-align: center;
-    background: url(/assets/images/icon2.png) no-repeat #fff;
+    background: url(../images/icon2.png) no-repeat #fff;
     font-size: 28px;
     color: #c9c9c9
 }
@@ -570,7 +570,7 @@
     border-radius: 83px;
     text-align: center;
     color: #27ae61;
-    background: url(/assets/images/percent.png)
+    background: url(../images/percent.png)
 }
 
 .account_lpercent.lp25 {
@@ -635,7 +635,7 @@
     right: -73px;
     width: 67px;
     height: 24px;
-    background: url(/assets/images/vip.png)
+    background: url(../images/vip.png)
 }
 
 .vw-wrapper .menu li:after, .vw-wrapper .menu:after {
@@ -707,7 +707,7 @@
     position: absolute;
     bottom: 0;
     width: 25px;
-    background: url(/assets/images/shadow.png) left top no-repeat;
+    background: url(../images/shadow.png) left top no-repeat;
     z-index: 9
 }
 
@@ -1938,7 +1938,7 @@ dl.view .vw-mbox-hd {
     width: 33px;
     height: 32px;
     margin-right: 7px;
-    background: url(/assets/images/icon.png) no-repeat;
+    background: url(../images/icon.png) no-repeat;
     border-radius: 4px;
     background-position-x: 0
 }
@@ -2188,7 +2188,7 @@ dl.view .vw-mbox-hd {
     display: block;
     margin-left: 0;
     margin-top: 10px;
-    background: url(/assets/images/icon_flag2.png) right 5px no-repeat
+    background: url(../images/icon_flag2.png) right 5px no-repeat
 }
 
 .hl-tip.fltrt ul li.dividend_gth {
@@ -2277,11 +2277,11 @@ dl.view .vw-mbox-hd {
 }
 
 .hl-tip a.hl-lqzg {
-    background: url(/assets/images/icon_flag.png) no-repeat
+    background: url(../images/icon_flag.png) no-repeat
 }
 
 .hl-tip a.hl-lqzg-verified {
-    background: url(/assets/images/icon1.png) no-repeat;
+    background: url(../images/icon1.png) no-repeat;
     background-position-y: -19px
 }
 
@@ -3405,15 +3405,15 @@ dl.view .vw-mbox-hd {
     width: 100%;
     height: 14px;
     margin-bottom: -14px;
-    background: url(/assets/images/shadow_b3.png) center top no-repeat
+    background: url(../images/shadow_b3.png) center top no-repeat
 }
 
 .vw-quick1 {
-    background-image: url(/assets/images/bg1.png)
+    background-image: url(../images/bg1.png)
 }
 
 .vw-quick2 {
-    background-image: url(/assets/images/bg2.png)
+    background-image: url(../images/bg2.png)
 }
 
 .vw-quick .thema-a .ui-select {
@@ -3427,7 +3427,7 @@ dl.view .vw-mbox-hd {
     display: block;
     width: 10px;
     height: 64px;
-    background-image: url(/assets/images/icon3.png);
+    background-image: url(../images/icon3.png);
     background-repeat: no-repeat
 }
 
@@ -3612,7 +3612,7 @@ dl.view .vw-mbox-hd {
     border: none;
     border-radius: 3px 3px 0 0;
     border-top: 2px solid #efefef;
-    background: url(/assets/images/shadow_b5.png) left bottom no-repeat #aaa
+    background: url(../images/shadow_b5.png) left bottom no-repeat #aaa
 }
 
 .vw-ck .vw-ck-tab .mya_declassul li.active {
@@ -4005,7 +4005,7 @@ dl.view .vw-mbox-hd {
     right: -42px;
     width: 315px;
     height: 356px;
-    background: url(/assets/images/phone.png) no-repeat
+    background: url(../images/phone.png) no-repeat
 }
 
 .p_code {
@@ -4315,7 +4315,7 @@ p.tip {
     border: none;
     border-radius: 3px 3px 0 0;
     border-top: 2px solid #efefef;
-    background: url(/assets/images/shadow_b5.png) left bottom no-repeat #aaa
+    background: url(../images/shadow_b5.png) left bottom no-repeat #aaa
 }
 
 .vw-hl-tab .mya_declassul li.active {

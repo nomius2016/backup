@@ -493,16 +493,12 @@ angular.module('ciApp', ['ui.router',
       var domain = window.location.hostname;
       switch (domain) {
         case 'localhost':
-        case 'sitmrcat.66.net':
-        case 'uatmrcat.66.net':
-          url = "http://uatservice.66.net:82/api";
-          break;
-        case 'ptmrcat.66.net':
-          url = "http://uatservice.66.net:81/api";
+        case '127.0.0.1':
+          url = "http://127.0.0.1/api";
           break;
         default:
           Container.setRelease(true);
-          url = appServices.getCombinedUrl("service") + "/Api";
+          url = appServices.getCombinedUrl("service") + "/api";
           break;
       }
       ZeusService.setHost(url);

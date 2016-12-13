@@ -4,12 +4,12 @@
     <div class="thema-a">
         <div class="ui-input-text" ng-class="{'ui-input-text-wrong': accountName.focus}">
             <span class="icon icon-user"></span>
-            <input type="text" placeholder="{{'header_login@username' | translate}}" ng-focus="accountName.focus=true;" ng-blur="accountName.focus=false;" ng-model="accountName.value" />
+            <input type="text" name="username" placeholder="{{'header_login@username' | translate}}" ng-focus="accountName.focus=true;" ng-blur="accountName.focus=false;" ng-model="accountName.value" />
         </div>
         <div class="clear mgbt10"></div>
         <div class="ui-input-text" ng-class="{'ui-input-text-wrong': accountPassword.focus}">
             <span class="icon icon-lock"></span>
-            <input type="password" placeholder="{{'header_login@password' | translate}}" ng-focus="accountPassword.focus=true;" ng-blur="accountPassword.focus=false;" ng-model="accountPassword.value"
+            <input type="password" name="password" placeholder="{{'header_login@password' | translate}}" ng-focus="accountPassword.focus=true;" ng-blur="accountPassword.focus=false;" ng-model="accountPassword.value"
                    ng-keyup="onKeyUp($event)" />
             <a class="btn-right" ng-click="forgetPassword()">{{'header_login@forgot' | translate}}</a>
         </div>

@@ -1,8 +1,8 @@
 angular.module('requesterModule').factory('AccountService', ['ZeusService', function(ZeusService) {
-  var route = 'SP';
+  var route = 'USER';
   var actionMap = {
-    'MainAccount_Basicinfo_Get': 'MainAccount_Basicinfo_Get',
-    'MainAccount_Login': 'MainAccount_Login',
+    'MainAccount_Basicinfo_Get': 'Basic_Info',
+    'MainAccount_Login': 'Login',
     'MainAccount_Logout': 'MainAccount_Logout',
     'MainAccount_Create': 'MainAccount_Create',
     'MainAccountExists_Check': 'MainAccountExists_Check',

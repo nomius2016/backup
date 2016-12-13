@@ -119,7 +119,7 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
       var url = window.location.hostname;
       switch (url) {
         case 'localhost':
-          url = 'www.ciapp.com';
+          url = 'localhost';
           break;
       }
       var protocal = window.location.protocol;
@@ -128,7 +128,8 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
         arrayUrl.unshift('');
       }
       arrayUrl[0] = headUrl;
-      return protocal + '//' + arrayUrl.join('.');
+      // return protocal + '//' + arrayUrl.join('.');
+      return protocal + '//' + window.location.hostname;
     },
     replaceImgSrc: function(elem, attr) {
       var domain = this.getCombinedUrl('image');

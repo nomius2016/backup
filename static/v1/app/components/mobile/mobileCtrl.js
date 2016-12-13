@@ -103,13 +103,13 @@ angular.module('ciApp')
       }
     }
     $scope.bannerItems = [{
-      imgSrc: '/assets/images/mobile-hero-bg.jpg',
+      imgSrc: '/static/v1/images/mobile-hero-bg.jpg',
       link: ''
     }, {
-      imgSrc: '/assets/images/mobile-hero-bg-1.jpg',
+      imgSrc: '/static/v1/images/mobile-hero-bg-1.jpg',
       link: ''
     }, {
-      imgSrc: '/assets/images/mobile-hero-bg-2.jpg',
+      imgSrc: '/static/v1/images/mobile-hero-bg-2.jpg',
       link: ''
     }];
     $scope.imgResource = [
