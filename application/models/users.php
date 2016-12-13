@@ -185,6 +185,84 @@ class Users extends Base_Model{
 	}
 	
 	/**
+	 * [register 用户注册]
+	 * username,password,confirm_password,phone,agent_code
+	 * @return [type] [description]
+	 */
+	public function register($params){
+		$user = $user_profile = array();
+		$user['account_name']  = trim($params['username']);
+		$user['password']      = trim($params['password']);
+		if($params['phone'])      $user_profile['phone'] = trim($params['phone']);
+		if($params['agent_code']) $user['parent_id']     = trim($params['agent_code']);
+		if(!($user['account_name']&&$user['password'])){
+			return array(
+					'status'=>false,
+					'code'=>-1,
+				    'msg'=>'参数不全'
+				);
+			;
+		}
+
+		if(strlen($user['password'])!==32){
+			return array(
+					'status'=>false,
+					'code'=>-1,
+				    'msg'=>'密码不对'
+				);
+			;
+		}
+
+		if($this->getUserinfoByAccountName($user['account_name'])){
+			return array(
+					'status'=>false,
+					'code'=>-1,
+				    'msg'=>'用户名已经存在!'
+				);
+			;
+		}
+
+		try {
+			$this->trans_begin();
+			//其他信息
+			$user['register_ip']     = $this->getRequestIP();
+			$user['register_time']   = date('Y-m-d H:i:s');
+			$user['last_login_ip']   = $user['register_ip'];
+			$user['last_login_time'] = $user['register_time'];
+			$user['last_update_time']= $user['register_time'];
+			$user['status'] = 1;
+			$user_id = $this->insert($user);
+			if($user_id && $user_profile){
+				$this->load->model('user_profile');
+				$return_id = $this->user_profile->update(array('user_id'=>$user_id),$user_profile);
+				if(!$return_id){
+					$this->trans_rollback();
+					return array(
+							'status'=>false,
+							'code'=>-1,
+						    'msg'=>'DB-ERROR!'
+						);
+				}
+			}
+
+			$this->trans_commit();
+			return array(
+					'status'=>true,
+					'code'=>1,
+				    'msg'=>'注册成功!'
+				);
+		} catch (Exception $e) {
+			$this->trans_rollback();
+			return array(
+					'status'=>false,
+					'code'=>-1,
+				    'msg'=>'DB-ERROR!'
+				);
+		}
+
+	}
+
+	/**
 	 * @desc 取得用户名
 	 * @param int $id
 	 * @return String
@@ -194,6 +272,16 @@ class Users extends Base_Model{
 	    return $row['account_name'];
 	}
 	
+	/**
+	 * [getUserinfoByAccountName description]
+	 * @param  [type] $account_name [description]
+	 * @return [type]               [description]
+	 */
+	public function getUserinfoByAccountName($account_name){
+		$row = $this->selectByCons(array('account_name' => $account_name));
+	    return $row;
+	}
+
 	/**
 	 * @desc 取得用户名
 	 * @param int $id

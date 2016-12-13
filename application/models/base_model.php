@@ -878,4 +878,27 @@ laydate(end);
 	}
 
 	
+	/**
+	 * 获取请求ip
+	 * boolean
+	 * @author  2013-12-10 下午11:04:05
+	 */
+	public function getRequestIP(){
+
+		$client  = @$_SERVER['HTTP_CLIENT_IP'];
+		$forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+		$remote  = $_SERVER['REMOTE_ADDR'];
+
+		if(filter_var($client, FILTER_VALIDATE_IP)){
+			$ip = $client;
+		}
+		elseif(filter_var($forward, FILTER_VALIDATE_IP)){
+			$ip = $forward;
+		}else{
+			$ip = $remote;
+		}
+
+		return $ip;
+	}
+
 }

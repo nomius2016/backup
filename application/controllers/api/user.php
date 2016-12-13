@@ -14,6 +14,18 @@ class User extends Basecontroller {
 		$this->teamapi($ret);
 	}
 	
+	/**
+	 * [register 用户注册]
+	 * username,password,confirm_password,phone,agent_code
+	 * 用户名,密码,确认密码,电话号码,代理编号
+	 * @return [type] [description]
+	 */
+	public function register(){
+		$params = $this->getApiParams();
+		$this->load->model('users');
+		$ret = $this->users->register($params);
+		$this->teamapi($ret);
+	}
 
 }
 

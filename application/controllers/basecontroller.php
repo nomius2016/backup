@@ -124,7 +124,12 @@ class BaseController extends CI_Controller {
 
 	public function getApiParams(){
 		$data = file_get_contents('php://input'); 
-		return json_decode($data,TRUE);
+		$data = json_decode($data,TRUE);
+		if(!$data){
+			$data = $_POST;
+		}
+		
+		return $data;
 	}
 
 
