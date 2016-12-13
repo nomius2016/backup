@@ -171,15 +171,20 @@ class Users extends Base_Model{
 		$password = trim($params['password']);
 		$row = $this->selectByWhere(array('account_name'=>$account_name,'password'=>$password));
 		if(!$row){
-			return array('status'=>false,'msg'=>'用户名或密码不正确!','code'=>'-1');
+			return array('status'=>false,'msg'=>'用户名或密码不正确!','code'=>-1);
 		}
 		
+		//更新最新一次登录时间
+		$user = array();
+		$user['last_login_ip']   = $this->getRequestIP();
+		$user['last_login_time'] = date('Y-m-d H:i:s');
+		$this->update(array('user_id'=>$row['user_id']),$user);
 		//开始写COOKIE
 		$row = $row['0'];
 		$this->session->set_userdata($row);
 		return array(
 				'status'=>true,
-				'code'=>'1',
+				'code'=>1,
 				'msg'=>'登录成功!'
 			);
 	}

@@ -9,13 +9,13 @@
 
 (1)登录接口
 	URL: /api/user/login
-	参数: username,password  password必须加密之后   
+	参数: username[目前没限制格式-必填],password[32位长度-必填]  password必须加密之后   
 	返回: 
 	     成功  --> {"Success":true,"Code":"1","Message":"\u767b\u5f55\u6210\u529f!","Result":"[]"}
 	     失败  --> {"Success":false,"Code":"-1","Message":"\u7528\u6237\u540d\u6216\u5bc6\u7801\u4e0d\u6b63\u786e!","Result":"[]"}
 (2)注册接口
    URL:/api/user/register
-   参数: username,password,confirm_password,phone,agent_code  [密码和确认密码MD5 之后传输]
+   参数: username[目前没限制格式-必填],password[32位长度-必填],confirm_password[后端没校验,随意],phone[低于13位数字],agent_code[10位以下数字]  [密码和确认密码MD5 之后传输]
    返回: 
         成功  --> {"Success":true,"Code":"1","Message":"\u767b\u5f55\u6210\u529f!","Result":"[]"}
         失败  --> {"Success":false,"Code":"-1","Message":"\u7528\u6237\u540d\u6216\u5bc6\u7801\u4e0d\u6b63\u786e!","Result":"[]"}

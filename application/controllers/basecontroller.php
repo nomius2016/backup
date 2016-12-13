@@ -96,8 +96,8 @@ class BaseController extends CI_Controller {
 	 * {Success: true, Code: "1.0", Message: "Unknown", Result: [,…]}
 	*/
 	public function teamapi($data){
+		header('Content-Type:application/json; charset=utf-8');
 		$response = array();
-
 		$response['Success'] = $data['status'] === true ? true : false; 
 		$response['Code']    = isset($data['code']) ? $data['code'] : 'undefined';
 		if(isset($data['msg']) && $data['msg']) $response['Message'] = $data['msg'];
