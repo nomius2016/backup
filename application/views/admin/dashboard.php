@@ -506,7 +506,7 @@
   	  	 	 var myNewChart=new Chart(ctx).Line(lineData,lineOptions)
 	  	 	 */
   	  	});
-    	// setTimeout('data_parse()',10000); 
+    	setTimeout('data_parse()',10000); 
   	}
   	data_parse();
 </script>
