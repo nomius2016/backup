@@ -39,7 +39,7 @@ class User extends Basecontroller {
 			'status'=>true,
 			'msg'=>'获取成功', 
 			'code'=>1,
-			'result'=>array(array($userinfo))
+			'result'=>array($userinfo)
 		);
 
 		$this->teamapi($ret);
