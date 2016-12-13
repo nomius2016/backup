@@ -12,7 +12,7 @@
         particleScatteringY:        200,
         particleDirection:          'right' /* 'right', 'left', 'center'*/,
         gravity:                    -100,
-        imgSource:                  './assets/images/fishingGame/bubble.png',
+        imgSource:                  '/static/v1/images/fishingGame/bubble.png',
         RenewBubbles:               'on'
       };
       var options = $.extend(defaults, options);

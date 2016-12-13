@@ -11,7 +11,8 @@ angular.module('ciApp')
     //     $scope.externalUrl = $sce.trustAsResourceUrl(result.Result)
     //   }
     // });
-    $scope.externalUrl = $sce.trustAsResourceUrl("http://msp2.vw033.com/Sports/Asia/Index.aspx?tpid=001&token=6296e4da60dbf110e928d53111cb0e576bcb8abbfea045ef4df57aa7f4ef11d6ee04ba2b73d79be467ba303e4d6b821cb7741c438249c058e0a3c98c5c7c7f277fe431c1dcbb6dfab42a8f08e42555061440780d2c83b0a4de978991b99e0c81e427b1bc78c8497015cdc173ddae1776&languagecode=zh-cn");
+    var url = "http://msp2.vw077.com/Sports/Asia/Index.aspx?tpid=001&token=e297cd487d986442a291900987a317099f8290e648c3189e71a659812caae2c02ef1524deb9ffe2d795a3c68524fac16258253218aeb4a97cfdcb0fa8ef86e104a731cca56b488abd52bdb2de1769a5b1df1c7e0d934432b6155dfb454ccaa4b27e39e54cb7e7d7bc85629e3d47da9e0&languagecode=zh-cn";
+    $scope.externalUrl = $sce.trustAsResourceUrl(url);
     $(document.body).css('overflow-y', 'hidden');
     $scope.$on('$destroy', function(e) {
       $(document.body).css('overflow-y', '');

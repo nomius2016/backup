@@ -29,7 +29,7 @@
                         <div class="game-tag icon-hot"></div>
                         <a ng-click="onPlayBtnClicked('0', game.GameCode, game.GameCategoryID, game.PlatformCode)"><img ng-src={{game.ImgUrl}} /></a>
                     </div>
-                    <img src="assets/images/game-images/game-img-shadow.png" />
+                    <img src="/static/v1/images/game-images/game-img-shadow.png" />
                     <h5>{{game.GameName}}</h5>
                 </li>
                 <div class="clear"></div>
@@ -83,7 +83,7 @@
                             <div class="game-tag" ng-class="{'icon-hot': game.Focus !== null && game.Amount === null, 'icon-new': game.tagType === 'new', 'icon-jackpot': game.Amount !== null}"></div>
                             <div ng-if="game.Amount !== null" class="game-goods-jackpot">{{game.Symbol}}{{game.Amount|number:2}}</div>
                             <img ng-src={{game.ImgUrl}} />
-                            <div class="game-img-black" style="filter: alpha(opacity=0); opacity: 0;"><img src="assets/images/game-images/game-img-black.png" /> </div>
+                            <div class="game-img-black" style="filter: alpha(opacity=0); opacity: 0;"><img src="/static/v1/images/game-images/game-img-black.png" /> </div>
                             <div class="game-btn-play">
                                 <a ng-click="onPlayBtnClicked((!isLoggedIn && game.Experience === true)?'1':'0', game.GameCode, game.GameCategoryID, game.PlatformCode)">
                                     <div ng-class="(!isLoggedIn && game.Experience === true) ? 'icon-try' : 'icon-play'">
@@ -91,7 +91,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <img src="assets/images/game-images/game-img-shadow.png" />
+                            <img src="/static/v1/images/game-images/game-img-shadow.png" />
                             <div ng-if="!isLoggedIn && game.Experience === false" class="game-btn-try" style="filter: alpha(opacity=0); opacity: 0;">{{"games@not_support_free" | translate}}</div>
                             <h5>{{game.GameName}}</h5>
                         </div>
@@ -159,7 +159,7 @@
                                 <div class="icon-ranking" ng-class="'icon-ranking-0' + game.RowNumber"></div>
                                 <img ng-src={{game.ImgUrl}} />
                                 <div class="game-img-black" style="filter: alpha(opacity=0); opacity: 0;">
-                                    <img src="assets/images/game-images/game-img-black.png" />
+                                    <img src="/static/v1/images/game-images/game-img-black.png" />
                                 </div>
                                 <div class="game-btn-play">
                                     <a ng-click="onPlayBtnClicked('0', game.GameCode, game.GameCategoryID, game.PlatformCode)">
@@ -168,7 +168,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <img src="assets/images/game-images/game-img-shadow.png" />
+                                <img src="/static/v1/images/game-images/game-img-shadow.png" />
                                 <div ng-if="!isLoggedIn" class="game-btn-try" style="filter: alpha(opacity=0); opacity: 0;">{{"games@not_support_free" | translate}}</div>
                                 <h5>{{game.GameName}}</h5>
                             </div>
