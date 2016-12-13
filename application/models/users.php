@@ -181,10 +181,17 @@ class Users extends Base_Model{
 		//开始写COOKIE
 		$row = $row['0'];
 		$this->session->set_userdata($row);
+		$sessions = $this->getLoginInfo();
 		return array(
 				'status'=>true,
 				'code'=>1,
-				'msg'=>'登录成功!'
+				'msg'=>'登录成功!',
+				'result'=>array(array(
+					'Token'=>$sessions['session_id'],
+					'LoginSuccess'=>1,
+					'AuditStatus'=>'',
+					'MainAccountType'=>"1",
+				)),
 			);
 	}
 	

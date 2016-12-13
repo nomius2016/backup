@@ -117,7 +117,8 @@ class BaseController extends CI_Controller {
 		}else{
 			$response['Result'] = array();
 		}
-
+		// $sessions = $this->session->all_userdata();
+		// $response['token'] = $sessions['session_id'];
 		exit(json_encode($response));
 
 	}
