@@ -369,18 +369,22 @@
   	  	            data : o.profit_line.labels,
   	  	  	        xisLabel: {
       	                show: true,
-        	              interval: 1,
+        	            interval: 1,
       	                textStyle: {
       	                    color: '#990000'
       	                }
       	            },
-        	          axisLine : {    // 轴线
-                          show: true,
-                          lineStyle: {
-                              color: '#ccc',
-                              width: 1
-                          }
-                      },
+        	        axisLine : {    // 轴线
+                        show: true,
+                        lineStyle: {
+                            color: '#ccc',
+                            width: 1
+                        }
+                    },
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 30
+                    }
   	  	        }
   	  	    ],
   	  	    yAxis : [
@@ -502,7 +506,7 @@
   	  	 	 var myNewChart=new Chart(ctx).Line(lineData,lineOptions)
 	  	 	 */
   	  	});
-    	setTimeout('data_parse()',10000); 
+    	// setTimeout('data_parse()',10000); 
   	}
   	data_parse();
 </script>

@@ -71,8 +71,9 @@ class Data extends Basecontroller {
 	private function profit() {
 	    $aRS = array();
 	    $stat = $this->stat_summary->getList(array('rows' => 30,'orderby' => 'desc'));
+	    // print_r($stat);exit;
 	    foreach ((array)$stat['rows'] AS $v) {
-	        $aRS['labels'][]       = substr($v['date'], -2);
+	        $aRS['labels'][]       = substr($v['date'], 5);
 	        $aRS['profit_gross'][] = $this->f(($v['bet']-$v['bonus'])/10000);
 	        $aRS['profit_net'][]   = $this->f(($v['bet']-$v['bonus']-$v['fandian']-$v['activity_cost']-$v['commission'])/10000);
 	        $aRS['profit_cash'][]  = $this->f(($v['deposit']-$v['withdraw'])/10000);
