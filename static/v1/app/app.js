@@ -257,11 +257,11 @@ angular.module('ciApp', ['ui.router',
       });
     }
     if (Container.getAuthStatus()) {
-      UtilityService.call("ValidGUIDToken", {}, function(result) {
+      UtilityService.call("Valid_Token", {}, function(result) {
         if (result.Success) {
           AccountService.call("MainAccount_Basicinfo_Get", {}, function(res) {
             if (res.Success) {
-              Container.setPromotionID(e.Result[0].PromotionID);
+              Container.setPromotionID(res.Result[0].PromotionID);
               appServices.basicInfoUpdated();
             }
           });

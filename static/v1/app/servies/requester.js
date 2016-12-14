@@ -15,6 +15,8 @@ angular.module('requesterModule', []).service('restService', ['$http', '$state',
       var sendData = {};
       sendData.token = Storage.getCookie(App.token);
       sendData.inputdata = data;
+
+      data.token = Storage.getCookie(App.token);
       if (callback) {
         // httpPost(url, sendData).success(function(result) {
         httpPost(url, data).success(function(result) {

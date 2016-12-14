@@ -1,7 +1,7 @@
 angular.module('requesterModule').factory('UtilityService', ['ZeusService', function(ZeusService) {
   var actionMap = {
     GetClientIPAddress: 'Utility',
-    ValidGUIDToken: 'Token',
+    Valid_Token: 'Token',
     IPAddressDeny_Get: 'SP',
     History_Referral_Get: 'SP',
     GuestsCounts_Get: 'SP',
