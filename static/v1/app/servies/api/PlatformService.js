@@ -1,9 +1,9 @@
 angular.module('requesterModule').factory('PlatformService', ['ZeusService', function(ZeusService) {
-  var route = 'SP';
+  var route = 'USER';
   var route_Game = 'Mercury/Game';
   var actionMap = {
     PlayGame: route_Game,
-    GetBalance: route_Game,
+    Balance: route,
     PlatformList_Get: route,
     Transfer: route_Game,
     Platform_History_Funds_Get: route,

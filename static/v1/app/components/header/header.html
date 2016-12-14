@@ -7,8 +7,8 @@
                     <span class="line"></span>
                     <div><a ui-sref="about({menuItem:'contact'})" ng-bind="'Contact_Us'|translate">Contact_Us</a></div>
                     <span class="line"></span>
-                    <div><a ui-sref="about({menuItem:'vwin'})" ng-bind="'License'|translate">License</a></div>
-                    <span class="line" ng-if="lang === 'zh-cn' || lang === 'vi-vn'|| lang === 'th-th'"></span>
+                    <!-- <div><a ui-sref="about({menuItem:'vwin'})" ng-bind="'License'|translate">License</a></div>
+                    <span class="line" ng-if="lang === 'zh-cn' || lang === 'vi-vn'|| lang === 'th-th'"></span> -->
                     <div ng-if="lang === 'zh-cn'">
                         <a href="http://www.v66088.com" target="_blank" ng-bind="'header@circult_center'|translate">Circuit Center</a>
                     </div>
@@ -73,15 +73,15 @@
             <div class="nav-items">
                 <ul>
                     <li ui-sref-active="active"><a ui-sref="home" class="icon-home" ng-bind="'Home'|translate">Home</a></li>
-                    <li ui-sref-active="active"><span class="line"></span><a ui-sref="mobile" class="icon-mobile" ng-bind="'Mobile'|translate">Mobile</a></li>
-                    <li ui-sref-active="active"><span class="line"></span><a ui-sref="gb_sports" ng-bind="'Sportsbook'|translate">Sportsbook</a></li>
-                    <li ui-sref-active="active"><span class="line"></span><span ng-if="lang==='zh-cn'" class="newtag gametag">电竞投注</span><a ui-sref="sports" ng-bind="'IBC_Sports'|translate">IBC_Sports</a></li>
-                    <li ui-sref-active="active" ng-show="lang === 'zh-cn'"><span class="line"></span><span ng-if="lang==='zh-cn'" class="newtag"></span><a ui-sref="FishingGame" ng-bind="'FishingGame'|translate">FishGame</a></li>
                     <li ui-sref-active="active"><span class="line"></span><a ui-sref="casino" ng-bind="'Live_Casino'|translate">Live_Casino</a></li>
+                   <!--  <li ui-sref-active="active"><span class="line"></span><a ui-sref="mobile" class="icon-mobile" ng-bind="'Mobile'|translate">Mobile</a></li> -->
+                    <li ui-sref-active="active"><span class="line"></span><a ui-sref="gb_sports" ng-bind="'Sportsbook'|translate">Sportsbook</a></li>
+                    <!-- <li ui-sref-active="active"><span class="line"></span><span ng-if="lang==='zh-cn'" class="newtag gametag">电竞投注</span><a ui-sref="sports" ng-bind="'IBC_Sports'|translate">IBC_Sports</a></li> -->
                     <li ui-sref-active="active"><span class="line"></span><a ui-sref="games" ng-bind="'Casino'|translate">Casino</a></li>
+                    <li ui-sref-active="active" ng-show="lang === 'zh-cn'"><span class="line"></span><span ng-if="lang==='zh-cn'" class="newtag"></span><a ui-sref="FishingGame" ng-bind="'FishingGame'|translate">FishGame</a></li>
                     <li ui-sref-active="active" class="numberGame"><span class="line"></span><a href="" class="nopr active" ng-bind="'number_game'|translate">Number Game</a><span class="nav-downArrow"></span></li>
                     <li ui-sref-active="active"><span class="line"></span><a ui-sref="promotion" ng-bind="'Promotion'|translate">Promotion</a></li>
-                    <li><span class="line"></span><a ng-if="lang === 'zh-cn'" ng-click="openExploreVwin()" ng-bind="'Explore_Vwin'|translate">Explore_Vwin</a></li>
+                    <!-- <li><span class="line"></span><a ng-if="lang === 'zh-cn'" ng-click="openExploreVwin()" ng-bind="'Explore_Vwin'|translate">Explore_Vwin</a></li> -->
                 </ul>
             </div>
         </div>

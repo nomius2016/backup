@@ -71,10 +71,10 @@ angular.module('ciApp').directive('header', ['$state', '$translate', '$interval'
       }
       // getBalance()
       function getBalance() {
-        PlatformService.call('GetBalance', {
+        PlatformService.call('Balance', {
           PlatformCode: '10001'
         }, function(result) {
-          $scope.amount = result.Success ? result.Result[0].BalanceAmount : 0;
+          $scope.amount = result.Success ? result.Result[0].balance : 0;
         });
       }
 
