@@ -116,4 +116,6 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 4 导入数据库 使用d_file/backup-20161106.sql 这个进行初始化
 
 
-
+2016-12-15
+(1)添加了重置用户密码功能
+需要 运行  d_file/20161215-Tom.sql

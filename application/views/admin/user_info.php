@@ -110,7 +110,7 @@
 										}
 									?></status> <a href="Javascript:status()" class="fa fa-pencil">更改</a>
 									</td>
-                            		<td><label>路径：</label><?php echo $user['parent_path'];?></td>
+                            		<td><label>密码：</label>*************** <a href="Javascript:setpassword()" class="fa fa-pencil">重置</a></td>
                             		<td><label></td>
                             		<td><label></td>
                             	</tr>
@@ -254,6 +254,30 @@
     <script src="/static/hplus/js/plugins/layer/laydate/laydate.js"></script>
     <script src="/static/hplus/js/content.js"></script>
     <?php  echo $script;?>
+    
+<div id="set_password" style="display: none">
+ 	<div class="_box_content">
+ 		<table>
+ 			<tr>
+ 				<td class="_label">新密码</td>
+ 				<td><input type="password" id="new_password"></td>
+ 			</tr>
+ 			<tr>
+ 				<td class="_label">确认</td>
+ 				<td><input type="password" id="conf_password"></td>
+ 			</tr>
+ 			<tr>
+ 				<td class="_label">原因</td>
+ 				<td><textarea id="set_password_remark"></textarea></td>
+ 			</tr>
+ 			<tr>
+ 				<td colspan="2" class="_submit"><a id="set_password_submit">确 定</a></td>
+ 			</tr>
+ 		</table>
+ 		
+ 	</div>
+ </div>
+ 
  <div id="balance_change" style="display: none">
  	<div class="_box_content">
  		<table>
@@ -320,6 +344,33 @@ $(function(){
 		});
 	});
 
+	$("a#set_password_submit").click(function() {
+		var new_passwd = $("#new_password").val();
+		var conf_passwd = $("#conf_password").val();
+		var remark = $("#set_password_remark").val();
+
+		if (new_passwd=="" || new_passwd.length<6) {
+			layer.tips('请输入小于6位的密码', '#new_password');
+		} else if (new_passwd!=conf_passwd) {
+			layer.tips('两次密码不一致', '#conf_password');
+		} else if (remark=="") {
+			layer.tips('请输入操作的理由', '#set_password_remark');
+		} else {
+    		$.post('/admin/user/set_password',{user_id:<?php echo $user['user_id'];?>,new_password:new_passwd},function(data){
+    			if (data.err_no==0) {
+    				$("#new_password").val('');
+        			$("#conf_password").val('');
+        			$("#set_password_remark").val('');
+        			layer.msg('操作成功~',function() {
+        				layer.closeAll();
+            		});
+    			} else {
+        			layer.alert(data.err_msg);
+    			}
+    		},'json');
+		}
+	});
+
 	$("a#balance_change_submit").click(function() {
 		var amount = $("#balance_change_amount").val();
 		var remark = $("#balance_change_remark").val();
@@ -375,6 +426,16 @@ $(function(){
 	
 });
 
+
+function setpassword() {
+	layer.open({
+		  title:'重置用户密码',
+		  type: 1,
+		  skin: 'layui-layer-rim', //加上边框
+		  area: ['420px', '240px'], //宽高
+		  content: $("#set_password"),
+		});
+}
 function restrict(field) {
 	layer.prompt({
 	    title: '请输入新的限定值',

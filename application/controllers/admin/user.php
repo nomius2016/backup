@@ -110,6 +110,30 @@ class User extends Basecontroller {
 	    echo $this->users->set_restrict($aParam['user_id'], $aField);
 	}
 	
+	
+	public function set_password() {
+	    $aRS = array();
+	    $aRS['err_no'] = 0;
+	    $aRS['err_msg'] = '';
+	    try {
+	        $this->db->trans_begin();
+	   
+	        $p = $this->input->post();
+	        $status = $this->users->update(array('user_id' => $p['user_id']),array('password' => md5($p['new_password'])));
+	        if ($status!=1) {
+	            throw new Exception('failed to update password ',10002);
+	        }
+	        $this->log("对 user id={$p['user_id']} 的账号进行密码重置，{$p['remark']}");
+	        //////////////////////////////
+	        $this->db->trans_commit();
+	    } catch (Exception $e) {
+	        $this->db->trans_rollback();
+	        $aRS['err_no'] = $e->getCode();
+	        $aRS['err_msg'] = $e->getMessage();
+	    }
+	    echo json_encode($aRS);
+	}
+	
 	/**
 	 * @desc 改变用户的金额操作，可以是添加锁定或减少锁定，
 	 * @access ajax method
@@ -126,7 +150,6 @@ class User extends Basecontroller {
 	        $iAdminID = $this->admins->getLoginAdminId();
 	        
 	        $p = $this->input->post();
-	        $this->log("对 user id={$p['user_id']}锁定金额操作，锁定amount={$p['amount']},{$p['remark']}");
 	        if ($p['transfer_type_id']==1) {
 	            $aField = array();
 	            $aField['user_id'] = $p['user_id'];

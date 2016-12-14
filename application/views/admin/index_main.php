@@ -76,7 +76,7 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content">
-                        <a href="javascript:;" class="J_menuTab active" data-id="/admin/report/dashboard">首页<i class="fa fa-times-circle"></i></a>
+                        <a href="javascript:;" class="J_menuTab active" data-id="/admin/report/dashboard">仪表盘 <i class="fa fa-times-circle"></i></a>
 <!--                         <a href="javascript:;" class="J_menuTab active" data-id="/admin/user/message">站内信记录 <i class="fa fa-times-circle"></i></a> -->
                     </div>
                 </nav>
