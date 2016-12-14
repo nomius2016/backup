@@ -26,3 +26,9 @@
 (4) 用户基本信息
   URL:/api/user/basic_info
   参数:无
+(5) token验证接口
+  URL:/api/token/valid_token
+  参数:token
+  返回:
+      成功 -->{"Success":true,"Code":1,"Message":"\u5728\u7ebf!","Result":[{"Token":"843af1eba76841c6037b0b70fe9bcb0f","AccountId":"Tom","Status":1}]}
+      失败 -->{"Success":false,"Code":-1,"Message":"\u5f53\u524d\u672a\u767b\u5f55!","Result":[]}
