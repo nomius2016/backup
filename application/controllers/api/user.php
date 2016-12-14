@@ -46,5 +46,21 @@ class User extends Basecontroller {
 
 	}  
 
+	/**
+	 * [logout 登出]
+	 * @return [type] [description]
+	 */
+	public function logout(){
+		
+		$this->session->sess_destroy();
+		$ret = array(
+			'status'=>true,
+			'msg'=>'成功登出', 
+			'code'=>1
+		);
+
+		$this->teamapi($ret);
+	}
+
 }
 

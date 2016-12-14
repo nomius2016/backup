@@ -19,3 +19,10 @@
    返回: 
         成功  --> {"Success":true,"Code":"1","Message":"\u767b\u5f55\u6210\u529f!","Result":"[]"}
         失败  --> {"Success":false,"Code":"-1","Message":"\u7528\u6237\u540d\u6216\u5bc6\u7801\u4e0d\u6b63\u786e!","Result":"[]"}
+(3)登出接口
+   URL:/api/user/logout
+   参数:无
+   返回 --> {"Success":true,"Code":1,"Message":"\u6210\u529f\u767b\u51fa","Result":[]}
+(4) 用户基本信息
+  URL:/api/user/basic_info
+  参数:无
