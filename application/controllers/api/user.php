@@ -62,5 +62,33 @@ class User extends Basecontroller {
 		$this->teamapi($ret);
 	}
 
+	/**
+	 * [balance 获取用户余额]
+	 * @return [type] [description]
+	 */
+	public function balance(){
+		$this->load->model('users');
+		$sessions = $this->session->all_userdata();
+		// print_r($sessions);exit;
+		$ret = array();
+		$ret['status'] = false;
+		$ret['code']   = -1;
+		$ret['msg']    = '登录状态丢失!';
+
+		if($sessions['account_name']){
+			$user = $this->users->getUserinfoByAccountName($sessions['account_name']);
+			$ret['status'] = true;
+			$ret['code'] = 1;
+			$ret['msg'] = '获取成功';
+			$ret['result'] = array(array(
+						'balance'=>$user['balance'],
+						'balance_locked'=>$user['balance_locked'],
+				));
+		}
+
+		$this->teamapi($ret);
+		
+	}
+
 }
 
