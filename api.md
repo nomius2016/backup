@@ -32,3 +32,9 @@
   返回:
       成功 --> `{"Success":true,"Code":1,"Message":"\u5728\u7ebf!","Result":[{"Token":"843af1eba76841c6037b0b70fe9bcb0f","AccountId":"Tom","Status":1}]}`
       失败 --> `{"Success":false,"Code":-1,"Message":"\u5f53\u524d\u672a\u767b\u5f55!","Result":[]}`
+> (6)获取用户资金信息
+  URL:/api/user/balance
+  参数:无
+  返回 
+      成功 --> `{"Success":true,"Code":1,"Message":"\u83b7\u53d6\u6210\u529f","Result":[{"balance":"0","balance_locked":"0"}]}` //余额 和 锁定金额
+      失败 --> `{"Success":false,"Code":-1,"Message":"\u767b\u5f55\u72b6\u6001\u4e22\u5931!","Result":[]}`
