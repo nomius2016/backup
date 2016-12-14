@@ -110,7 +110,8 @@ angular.module('ciApp')
     }
     $scope.userLang = Container.getLang() || "zh-cn";
     var scoreImage = '<img src="/static/v1/images/icon-socre-{0}.png">';
-    var gbURL = Container.getRelease() ? appServices.getCombinedUrl(Config.gbplatform_release) : Config.gbplatform_local;
+    // var gbURL = Container.getRelease() ? appServices.getCombinedUrl(Config.gbplatform_release) : Config.gbplatform_local;
+    var gbURL = 'http://'+ window.location.hostname + '/static/v1';
     if (Container.getGbPlatform()) {
       try {
         if (GbPlatform !== undefined) {
@@ -120,9 +121,9 @@ angular.module('ciApp')
         }
       } catch (e) {}
     } else {
-      var gbJsUrl = gbURL + "/js/GbPlatform.js";
+      var gbJsUrl = gbURL + "/GbPlatform.js";
       appServices.loadScript(gbJsUrl, initGbPlatform);
-      Container.setGbPlatform(!0);
+      Container.setGbPlatform(true);
     }
     $scope.casinoStages = [{
       name: "home@game_ag",

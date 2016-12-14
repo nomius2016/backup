@@ -3,7 +3,7 @@ angular.module('requesterModule').factory('AccountService', ['ZeusService', func
   var actionMap = {
     'MainAccount_Basicinfo_Get': 'Basic_Info',
     'MainAccount_Login': 'Login',
-    'MainAccount_Logout': 'MainAccount_Logout',
+    'MainAccount_Logout': 'Logout',
     'MainAccount_Create': 'MainAccount_Create',
     'MainAccountExists_Check': 'MainAccountExists_Check',
     'MainAccount_UpdateBasicInfo': 'MainAccount_UpdateBasicInfo',

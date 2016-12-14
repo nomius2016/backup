@@ -100,8 +100,10 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
       }
       return path;
     },
-    logout: function(bManual, msg) {
-      $rootScope.$broadcast('logout', bManual, msg);
+    logout: function(bManual) {
+      $rootScope.$broadcast('logout', {
+        bManual: bManual
+      });
     },
     needLogin: function() {
       $rootScope.$broadcast('needLogin');

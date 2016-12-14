@@ -182,12 +182,23 @@ angular.module('ciApp', ['ui.router',
     $translateProvider.preferredLanguage('zh-cn');
   }])
   .controller('appCtrl', ['$scope', '$translate', '$state', 'appServices', 'App', 'Storage', 'Container', 'Config', 'UtilityService', 'AccountService', '$filter', function($scope, $translate, $state, appServices, App, Storage, Container, Config, UtilityService, AccountService, $filter) {
-    function m(t) {
-      t && l.call("MainAccount_Logout", {}, function(e) {}), r.putCookie(a.token, ''), i.setAuthStatus(!1), i.setCurrencyID(-1), o.basicInfoUpdated(), e.$broadcast("closeSidebar"), e.$broadcast("logoutFromMain"), o.reloadPage("home")
+    function logout(bManual) {
+      if(bManual) {
+        AccountService.call("MainAccount_Logout", {}, function(e) {});
+      }
+      Storage.putCookie(App.token, '');
+      Container.setAuthStatus(!1);
+      Container.setCurrencyID(-1);
+      appServices.basicInfoUpdated()
+      $scope.$broadcast("closeSidebar");
+      $scope.$broadcast("logoutFromMain");
+      appServices.reloadPage("home")
     }
 
-    function d(t, n) {
-      $scope.alertTitle = t, e.alertContent = n, e.showAlert = !0
+    function showAlertMsg(title, content) {
+      $scope.alertTitle = title;
+      $scope.alertContent = content;
+      $scope.showAlert = !0
     }
 
     function f(e, t) {
@@ -255,7 +266,7 @@ angular.module('ciApp', ['ui.router',
             }
           });
         } else {
-          m(!1);
+          logout(false);
         }
       });
     }
@@ -281,7 +292,7 @@ angular.module('ciApp', ['ui.router',
       $scope.$broadcast("openRegister")
     });
     $scope.$on("logout", function(e, t) {
-      m(t.bManual)
+      logout(t.bManual)
     });
     $scope.$on("onChangeLanguage", function(n, s) {
       if ("langKey" in s && s.langKey !== $translate.use()) {
@@ -314,8 +325,8 @@ angular.module('ciApp', ['ui.router',
       }
       $scope.maskHeight = "height" in n ? n.height : "100%"
     });
-    $scope.$on("showAlertMsg", function(e, t) {
-      d(t.title, t.content)
+    $scope.$on("showAlertMsg", function(e, data) {
+      showAlertMsg(data.title, data.content)
     });
     $scope.$on("showLoading", function(t, n) {
       $scope.showLoading = n.showLoading;
@@ -353,7 +364,7 @@ angular.module('ciApp', ['ui.router',
           var _ = t.name.split(".")[0];
           if ("member" === _) {
             e.preventDefault();
-            d("錯誤", "請重新登入");
+            showAlertMsg("錯誤", "請重新登入");
             $state.go("home");
           }
         }
