@@ -81,8 +81,8 @@ class User extends Basecontroller {
 			$ret['code'] = 1;
 			$ret['msg'] = '获取成功';
 			$ret['result'] = array(array(
-						'balance'=>$user['balance'],
-						'balance_locked'=>$user['balance_locked'],
+						'balance'=> $this->f($user['balance']),
+						'balance_locked'=>$this->f($user['balance_locked']),
 				));
 		}
 
