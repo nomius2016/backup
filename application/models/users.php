@@ -191,6 +191,8 @@ class Users extends Base_Model{
 					'LoginSuccess'=>1,
 					'AuditStatus'=>'',
 					'MainAccountType'=>"1",
+					'last_login_ip'=>$row['last_login_ip'],
+					'last_login_time'=>$row['last_login_time'],
 				)),
 			);
 	}
