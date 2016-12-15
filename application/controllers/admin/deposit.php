@@ -44,9 +44,9 @@ class Deposit extends Basecontroller {
 	    $post = $this->input->post();
 		$ret = $this->fund_deposit->verify(1,$post);
 		if ($post['status']>0) {
-		  $this->log("通过deposit id={$post['id']}存款初审");
+		  $this->wlog("通过deposit id={$post['id']}存款初审");
 		} else {
-		    $this->log("拒绝deposit id={$post['id']}存款初审");
+		    $this->wlog("拒绝deposit id={$post['id']}存款初审");
 		}
 		exit(json_encode($ret));
 
@@ -96,9 +96,9 @@ class Deposit extends Basecontroller {
 	    $post = $this->input->post();
 		$ret = $this->fund_deposit->verify(2,$post);
 	    if ($post['status']>0) {
-		    $this->log("通过deposit id={$post['id']}存款复审");
+		    $this->wlog("通过deposit id={$post['id']}存款复审");
 		} else {
-		    $this->log("拒绝deposit id={$post['id']}存款复审");
+		    $this->wlog("拒绝deposit id={$post['id']}存款复审");
 		}
 		exit(json_encode($ret));
 

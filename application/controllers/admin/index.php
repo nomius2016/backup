@@ -26,9 +26,11 @@ class Index extends Basecontroller {
 		$this->load->model('admins');
 		$params = $this->input->post();
 		$ret = $this->admins->loginAdmin($params);
-		if($ret['status']){
+		if ($ret['status']) {
+		    $this->wlog('账号['.$params['username'].']登录了后台');
 			header("Location: /admin/index/main");
-		}else{
+		} else {
+		    $this->wlog('账号['.$params['username'].']尝试登录后台，密码错误登录失败');
 			$this->adminview('index_index',array('errorMsg'=>$ret['msg']));
 		}
 	}

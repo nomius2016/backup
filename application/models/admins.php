@@ -86,8 +86,7 @@ class Admins extends Base_Model{
 	public function getLoginAdminId(){
 		
 		$data = $this->getLoginInfo();
-		return $data['id'];
-
+		return intval($data['id']);
 	}
 
 	/**
@@ -124,7 +123,7 @@ class Admins extends Base_Model{
 	 */
 	public function getAdminName($id) {
 	    $row = $this->selectById($id);
-	    return $row['username'];
+	    return $row['username'] ? $row['username'] : '?';
 	}
 	
 	public function isLogin(){

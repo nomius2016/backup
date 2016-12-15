@@ -118,4 +118,9 @@ git remote set-url origin git@github.com:nomius2016/backup.git
 
 2016-12-15
 (1)添加了重置用户密码功能
+///////白天 ///////////
+(2)添加了存款、提现、资金变化一共6个API接口
+(3)将后台写管理员日志重新命名为 $this->wlog()
+(4)修复了一些bug
+
 需要 运行  d_file/20161215-Tom.sql

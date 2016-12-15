@@ -674,7 +674,7 @@ class System extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function cplog(){
-	    //$this->log('查看后台操作日志');
+	    //$this->wlog('查看后台操作日志');
 	    $this->load->model('admin_log');
 	    $this->load->model('admins');
 	    if(!isset($_GET['getdata'])){

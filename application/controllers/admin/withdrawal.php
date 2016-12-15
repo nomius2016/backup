@@ -49,9 +49,9 @@ class Withdrawal extends Basecontroller {
 	    $post = $this->input->post();
 		$ret = $this->fund_withdraw->verify(1,$post);
 		if ($post['status']>0) {
-		    $this->log("通过withdraw id={$post['id']}提款初审");
+		    $this->wlog("通过withdraw id={$post['id']}提款初审");
 		} else {
-		    $this->log("拒绝withdraw id={$post['id']}提款初审");
+		    $this->wlog("拒绝withdraw id={$post['id']}提款初审");
 		}
 		exit(json_encode($ret));
 
@@ -101,9 +101,9 @@ class Withdrawal extends Basecontroller {
 	    $post = $this->input->post();
 	    $ret = $this->fund_withdraw->verify(2,$post);
 	    if ($post['status']>0) {
-	        $this->log("通过withdraw id={$post['id']}提款复审");
+	        $this->wlog("通过withdraw id={$post['id']}提款复审");
 	    } else {
-	        $this->log("拒绝withdraw id={$post['id']}提款复审");
+	        $this->wlog("拒绝withdraw id={$post['id']}提款复审");
 	    }
 		exit(json_encode($ret));
         

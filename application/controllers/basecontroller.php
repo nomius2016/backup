@@ -4,11 +4,14 @@ class BaseController extends CI_Controller {
     private $_adminname = array();
     private $_username = array();
 	public $islogin = false;
+	public $user_id = 0;
 
 	public function __construct(){
 		parent::__construct();
 		//获取登录状态
 		$this->islogin = $this->checklogin();
+		$sessions = $this->session->all_userdata();
+		$this->user_id = $sessions['user_id'];
 	}
 	
 
@@ -69,7 +72,7 @@ class BaseController extends CI_Controller {
 	 * @desc 后台专用管理员操作日志
 	 * @param String $desc 文字面上的做日子内容
 	 */
-	public function log(String $desc) {
+	public function wlog(String $desc) {
 	    $this->load->model('admin_log');
 	    $this->admin_log->insert(array(
 	        'admin_id'    => $this->admins->getLoginAdminId(),

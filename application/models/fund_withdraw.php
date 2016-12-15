@@ -89,6 +89,20 @@ class fund_withdraw extends Base_Model{
 				'page'=>$page
 			);
 	}
+	
+	/**
+	 * @desc 今日未被拒绝的提款，用来控制单日最大提款额
+	 * @param int $userid
+	 */
+	public function todayTotal(int $userid) {
+	    $rs = $this->db->from('fund_withdraw')->select_sum('amount')->where(array(
+	        'user_id'       => $userid,
+	        'status >='     => 0,
+	        'createtime >=' => date('Y-m-d').' 00:00:00',
+	        'createtime <=' => date('Y-m-d').' 23:59:59'
+	    ))->get()->result_array();
+	    return $rs['amount'];
+	}
 
 	/*提款审核*/
 	/*状态 (1 申请中 2 一审成功 -2一审失败 3二审成功 -3二审失败)'*/
