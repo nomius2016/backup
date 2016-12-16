@@ -119,8 +119,12 @@
 
 
 > * 7 用户存款记录
+
     URL:/api/deposit/history
-```json  {page:?} // page 第几页
+```json
+{
+  page:?
+} // page 第几页
 {
   "Success": true,
   "Code": 1,
@@ -131,8 +135,7 @@
 	  "page":1   // 一共有几页
    }
 }
-```
-```json
+
 {
   "Success": false,
   "Code": -1,
@@ -144,7 +147,11 @@
 > * 8 用户存款
 
     URL:/api/deposit/apply
- 	json:{amount:?, pay_method_id:?}
+```json
+{
+  amount:?,
+  pay_method_id:?
+}
 {
   "Success": true,
   "Code": 1,
@@ -154,10 +161,7 @@
     "balance_locked": "0" //锁定金额
   }]
 }
-```
 
-> * 9 用户提现记录
-```json
 {
   "Success": false,
   "Code": -1,
@@ -166,8 +170,14 @@
 }
 ```
 
+
+> * 9 用户提现记录
+
     URL:/api/withdraw/history
-```json  {page:?} // page 第几页
+```json
+{
+  page:?
+} // page 第几页
 {
   "Success": true,
   "Code": 1,
@@ -178,8 +188,7 @@
 	  "page":1
    }
 }
-```
-```json
+
 {
   "Success": false,
   "Code": -1,
@@ -191,7 +200,8 @@
 > * 10 用户申请提现
 
     URL:/api/withdraw/apply
- 	json:{amount:?, user_card_id:?} // 金额和绑定的银行卡id
+```json
+{amount:?, user_card_id:?} // 金额和绑定的银行卡id
 {
   "Success": true,
   "Code": 1,
@@ -201,8 +211,7 @@
     "balance_locked": "0" //锁定金额
   }]
 }
-```
-```json
+
 {
   "Success": false,
   "Code": -1,
@@ -216,7 +225,8 @@
 > * 11 获取用户账变记录
 
     URL:/api/fund/log
-```json  {page:?} // page 第几页
+```json
+{page:?} // page 第几页
 {
   "Success": true,
   "Code": 1,
@@ -227,8 +237,7 @@
 	  "page":1
    }
 }
-```
-```json
+
 {
   "Success": false,
   "Code": -1,
@@ -240,7 +249,8 @@
 > * 12 个平台间转转账
 
     URL:/api/user/balance
-```json ：{ from:'blance',to:'AG', amount:?} //from 从哪里留出，to 转账到哪里，amount 金额
+```json
+{ from:'blance',to:'AG', amount:?} //from 从哪里留出，to 转账到哪里，amount 金额
 {
   "Success": true,
   "Code": 1,
@@ -250,8 +260,6 @@
     "relation_balance": "0" // 相关操作的平台余额
   }]
 }
-```
-```json
 {
   "Success": false,
   "Code": -1,

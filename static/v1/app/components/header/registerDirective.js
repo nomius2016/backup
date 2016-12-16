@@ -1,4 +1,4 @@
-angular.module('ciApp').directive('register', ["$timeout", "$state", "appServices", "verifyService", "affiliateService", "App", "Container", "Storage", "AccountService", "BRAND_ID", "BonusService", function($timeout, $state, appServices, verifyService, affiliateService, App, Container, Storage, AccountService, BRAND_ID, BonusService) {
+angular.module('ciApp').directive('register', ["$timeout", "$state", "appServices", "verifyService", "affiliateService", "App", "Container", "Storage", "AccountService", "BRAND_ID", "BonusService", "md5", function($timeout, $state, appServices, verifyService, affiliateService, App, Container, Storage, AccountService, BRAND_ID, BonusService, md5) {
   return {
     templateUrl: '/static/v1/app/components/header/register.html',
     restrict: 'A',
@@ -41,16 +41,17 @@ angular.module('ciApp').directive('register', ["$timeout", "$state", "appService
         checkValid: function() {
           var self = this;
           var regular = /^\d*[a-zA-Z][a-zA-Z0-9]*$/;
-          this.lengthValid = this.value && this.value.length >= 8 && this.value.length <= 16;
+          this.lengthValid = this.value && this.value.length >= 6 && this.value.length <= 16;
           this.charValid = this.value && regular.test(this.value);
           if (this.lengthValid && this.charValid) {
-              AccountService.call('MainAccountExists_Check', {
-                  strMainAccountID: this.value,
-                  intBrandID: BRAND_ID
-              }).success(function(result) {
-                  self.unique = result.Success;
-                  self.valid = self.unique;
-              });
+              // AccountService.call('MainAccountExists_Check', {
+              //     strMainAccountID: this.value,
+              //     intBrandID: BRAND_ID
+              // }).success(function(result) {
+              //     self.unique = result.Success;
+              //     self.valid = self.unique;
+              // });
+              this.valid = true;
           } else {
               this.valid = false;
           }
@@ -96,7 +97,7 @@ angular.module('ciApp').directive('register', ["$timeout", "$state", "appService
           if(!this.value) {
             this.valid = false
           }
-          this.valid = this.value === $scope.passwor$scope.value;
+          this.valid = this.value === $scope.password.value;
         },
         reset: function() {
           this.value = '';
@@ -178,12 +179,13 @@ angular.module('ciApp').directive('register', ["$timeout", "$state", "appService
             return;
           }
           $scope.allValid = true;
-          submitData.strMainAccountID = $scope.userName.value;
-          submitData.strMainAccountPassword = $scope.password.value;
+          submitData.username = $scope.userName.value;
+          submitData.password = md5.createHash($scope.password.value);
+          submitData.confirm_password = submitData.password;
           submitData.strAreaCode = $scope.countryCode;
-          submitData.strContactNumber = $scope.phone.value;
+          submitData.phone = $scope.phone.value;
           submitData.intPromotionType = $scope.agent.type;
-          submitData.strPromotionCode = $scope.agent.value;
+          submitData.agent_code = $scope.agent.value;
           $("#btnGameSubmit").removeClass().addClass("btn-3 mgbt10 goToStep3").html('<span class="icon-loading-1"></span>');
           AccountService.call("MainAccount_Create", submitData, function(result) {
               if(result.Success) {

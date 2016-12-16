@@ -16,7 +16,8 @@ angular.module('ciApp').directive('header', ['$state', '$translate', '$interval'
                   a = i;
                   break
               }
-          t.selectLang(a), n.setLangByAssigned("")
+          // t.selectLang(a);
+          n.setLangByAssigned("")
       }
 
       function u() {
@@ -24,7 +25,7 @@ angular.module('ciApp').directive('header', ['$state', '$translate', '$interval'
           if(!angular.isDefined(b) && !Container.getIE8()) {
             b = $interval(function() {
               getBalance();
-            }, 3e3)
+            }, 10 * 1000)
           }
       }
 
@@ -63,7 +64,7 @@ angular.module('ciApp').directive('header', ['$state', '$translate', '$interval'
           }
           $scope.listLang.push(y[1]);
           if(!e) {
-            $scope.selectLang(0)
+            // $scope.selectLang(0)
           }
         } else {
           $scope.listLang = y;
@@ -336,9 +337,7 @@ angular.module('ciApp').directive('header', ['$state', '$translate', '$interval'
       }
       h($state.current.name);
       $(document).scroll(function() {
-        if (P) {
-          $('#header').addClass('header-color');
-        }
+        P && p($(document).scrollTop() > 0)
       });
       $(".popup-header-bgArea").click(function() {
           $(".popup-style-1").slideUp("fast", function() {
@@ -348,4 +347,19 @@ angular.module('ciApp').directive('header', ['$state', '$translate', '$interval'
       });
     }
   };
+}]).directive("myCurrentTime", ["$interval", "dateFilter", "appServices", function($interval, dateFilter, appServices) {
+  return function($scope, i, n) {
+    function s() {
+      i.text(dateFilter(new Date, r) + " " + appServices.getGMTStr());
+    }
+    var r, c;
+    $scope.$watch(n.myCurrentTime, function(e) {
+      r = e;
+      s();
+    });
+    c = $interval(s, 1e3);
+    i.on("$destroy", function() {
+      $interval.cancel(c);
+    });
+  }
 }]);

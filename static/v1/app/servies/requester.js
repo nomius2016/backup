@@ -2,14 +2,13 @@ angular.module('requesterModule', []).service('restService', ['$http', '$state',
   var httpPost = function(url, sendData) {
     return $http({
       url: url,
-      method: 'post',
+      method: "post",
       data: $.param(sendData || {}),
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
       }
-    });
+    })
   };
-
   return {
     post: function(url, data, callback) {
       var sendData = {};
@@ -18,10 +17,9 @@ angular.module('requesterModule', []).service('restService', ['$http', '$state',
 
       data.token = Storage.getCookie(App.token);
       if (callback) {
-        // httpPost(url, sendData).success(function(result) {
         httpPost(url, data).success(function(result) {
           if (!result.Success) {
-            if (url.indexOf('GetBalance') > -1) {
+            if (url.indexOf('balance') > -1) {
 
             } else if (url.indexOf('MainAccount_ReAccountName_Check') > -1) {
 
@@ -33,45 +31,23 @@ angular.module('requesterModule', []).service('restService', ['$http', '$state',
               console.log('inputdata', data);
               console.log('message', result.Message);
             }
-            if ((result.Code && result.Code.indexOf('0.99') === 0) || result.Code === '-1.99.0') {
+            if (result.Code && result.Code == -1) {
               if (Container.getAuthStatus()) {
-                var msg = '';
-                if (result.Code.indexOf('0.99') === 0) {
-                  switch (result.Code) {
-                    case '0.99.1':
-                      msg = '距离您的上一步操作已有一段时间，请问您在站点的访问是否遇到什么问题？ 7 X 24小时在线客服将会竭诚为您服务！';
-                      break;
-                    case '0.99.2':
-                      msg = '己检测到相同账号登录，如有疑问请联系在线客服';
-                      break;
-                    case '0.99.4':
-                      msg = '您的网路线路不稳，请重新登入';
-                      break;
-                    case '0.99.8':
-                      msg = '您的帐户被锁定，请联系在线客服';
-                      break;
-                    default:
-                      break;
-                  }
-                }
                 Container.setAuthStatus(false);
-                appServices.logout(false, msg);
+                appServices.logout(false);
               }
-              appServices.showLoading(false);
               return false;
             }
           }
           return callback(result);
         }).error(function() {
           console.log(url, 'response failed');
-          appServices.showLoading(false);
         });
       } else {
-        // return httpPost(url, sendData);
-        return httpPost(url, data);
+        httpPost(url, data);
       }
     }
-  };
+  }
 }]).factory('LogService', ['restService', function(restService) {
   var url;
   var protocal = 'http://';

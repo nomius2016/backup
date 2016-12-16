@@ -11,7 +11,7 @@ angular.module("ciApp").controller("keno", ["$sce", "$scope", "appServices", "Co
   //     t.externalUrl = e.trustAsResourceUrl(o)
   //   }
   // });
-  var url = "http://keno.vw099.com/keno/Default.aspx?tpid=001&token=072db883ecb49b5971559add4d053daa0db8b64c6b05181aff1a54dedc47820fa30818df8c9f4ab1ac1d485f3827f07e38ff692228334cb42bb14bad853cd295e8de01a4f2119ff6bd233feeb12d3cea09652f599a631547b15c95aa78e46b64c2d25b949c89708dc47c45755d149c8f&languagecode=zh-cn";
+  var url = "http://keno.vw033.com/keno/Default.aspx?tpid=001&token=76e8975a0dd65330020a1744b7678eab45919ad17455088b876728f99c72a6d7d64f1edf30daabfb08a5c57fe840d2acdfb689a4017b93d0757be37801d2ed2592b07730fb1da5bf6fce799b0fb914f4daaff1a4d647ce7b17599a67ffc0515462814f84b97c3a24039d4a21e7fe6903&languagecode=zh-cn";
   t.externalUrl = e.trustAsResourceUrl(url);
   $(document.body).css("overflow-y", "hidden");
   t.$on("$destroy", function(e) {

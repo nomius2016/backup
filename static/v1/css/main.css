@@ -855,9 +855,9 @@ a.btn3:hover span.icon_dl1,a.btn4:hover span.icon_dl1,a.btn5:hover span.icon_dl1
 }
 
 .hd-logo,.hd-logo-cn {
-    height: 40px;
+    height: 50px;
     background-size: cover;
-    margin-top: 15px;
+    margin-top: 12px;
     cursor: pointer
 }
 
@@ -878,13 +878,13 @@ a.btn3:hover span.icon_dl1,a.btn4:hover span.icon_dl1,a.btn5:hover span.icon_dl1
 }
 
 .hd-logo {
-    background-image: url(../images/vwin-logo.png);
+    background-image: url(../images/logo.png);
     width: 247px
 }
 
 .hd-logo-cn {
-    background-image: url(../images/vwin-logo-cn.png);
-    width: 215px
+    background-image: url(../images/logo-cn.png);
+    width: 192px
 }
 
 .info-default,.info-default a {

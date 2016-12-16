@@ -4,7 +4,7 @@ angular.module('requesterModule').factory('AccountService', ['ZeusService', func
     'MainAccount_Basicinfo_Get': 'Basic_Info',
     'MainAccount_Login': 'Login',
     'MainAccount_Logout': 'Logout',
-    'MainAccount_Create': 'MainAccount_Create',
+    'MainAccount_Create': 'Register',
     'MainAccountExists_Check': 'MainAccountExists_Check',
     'MainAccount_UpdateBasicInfo': 'MainAccount_UpdateBasicInfo',
     'MainAccount_VIPInfo_Get': 'MainAccount_VIPInfo_Get',
