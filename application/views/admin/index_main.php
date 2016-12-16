@@ -28,7 +28,7 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <span><img alt="image" class="img-circle" src="/static/hplus/img/touxiang.gif" /></span>
+                            <span><img width="64" height="64" class="img-circle" src="/static/hplus/img/touxiang.png" /></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold"><?php echo $userinfo['name'];?></strong></span>
