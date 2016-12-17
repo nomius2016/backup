@@ -6,38 +6,47 @@ angular.module('ciApp').directive('transferWidget', ['Container', 'PlatformServi
     scope: !0,
     link: function($scope) {
       $scope.platforms = [{
-        code: '10001',
-        key: 'MainAccount'
-      }, {
-        code: '30001',
-        key: 'SBSport'
-      }, {
-        code: '20001',
-        key: 'EA'
-      }, {
-        code: '20006',
-        key: 'AG'
-      }, {
-        code: '20007',
-        key: 'W88'
-      }, {
-        code: '20002',
-        key: 'EV'
-      }, {
-        code: '20004',
-        key: 'OPUS'
-      }, {
-        code: '20008',
-        key: 'GD'
-      }, {
-        code: '40003',
-        key: 'Playtech'
-      }, {
-        code: '20009',
-        key: 'BBIN'
+          code: "10001",
+          key: "MainAccount"
+      },
+      {
+          code: "30001",
+          key: "SBSport"
+      },
+      // {
+      //     code: "20001",
+      //     key: "EA"
+      // },
+      {
+          code: "20006",
+          key: "AG"
+      },
+      // {
+      //     code: "20007",
+      //     key: "W88"
+      // },
+      // {
+      //     code: "20002",
+      //     key: "EV"
+      // },
+      // {
+      //     code: "20004",
+      //     key: "OPUS"
+      // },
+      // {
+      //     code: "20008",
+      //     key: "GD"
+      // },
+      // {
+      //     code: "40003",
+      //     key: "Playtech"
+      // },
+      {
+          code: "20009",
+          key: "BBIN"
       }];
       angular.forEach($scope.platforms, function(platform) {
-        $scope.name = $filter('translate')('wallet_widget@' + platform.key);
+        platform.name = $filter('translate')('wallet_widget@' + platform.key);
       });
       $scope.inProcess = !1;
       $scope.transfer = function() {
