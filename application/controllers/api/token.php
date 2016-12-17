@@ -18,7 +18,8 @@ class Token extends Basecontroller {
 		$ret['code']   =-1;
 		$ret['msg'] = '当前未登录!';
 
-		if(($params['token'] == $sessions['session_id']) && isset($sessions['account_name']) && $sessions['account_name']){
+		// if(($params['token'] == $sessions['session_id']) && isset($sessions['account_name']) && $sessions['account_name']){
+		if(isset($sessions['account_name']) && $sessions['account_name']){
 			$ret['status'] = true;
 			$ret['code']   = 1;
 			$ret['msg'] = '在线!';
