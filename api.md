@@ -288,3 +288,48 @@
 }
 
 json    
+
+> *获取用户登录信息
+  URL:api/user/login_info
+```json
+  {}  不需要参数
+  {
+  "Success": true,
+  "Code": 1,
+  "Message": "用户未登录",
+  "Result": [
+    {
+      "MainAccountID": "dick",  //用户名
+      "FirstName": "",   //姓名
+      "BalanceAmount": "0",  //中心钱包 余额 
+      "ContactNumber": "13211111111", //联系电话
+      "EMail": "",  //电子邮箱
+      "Birthday": "1990-11-11",
+      "Gender": "",
+      "CountryID": "",
+      "AreaCode": "86",
+      "ZipCode": null,
+      "City": null,
+      "Address": null,
+      "CountryName": "中国",
+      "IDVerifiedNumber": "",
+      "CurrencyID": 2,
+      "LanguageCode": "zh-cn",
+      "MiddleName": "",
+      "LastName": "",
+      "HandicapID": 2,
+      "Region": null,
+      "NewsLetter": 1,
+      "LevelTypeID": "2",
+      "MainAccountSN": "d3c1ec19-2748-4a03-9f68-7e5379d46007",
+      "SecurityQuestionID": null,
+      "SecurityAnswer": null,
+      "LastLoginTime": "2016-12-16T12:31:44.983",
+      "CreateTime": "2016-06-17T10:16:02.883",
+      "PromotionID": 134496,
+      "MainAccountType": 1
+    }
+  ]
+}
+
+json 

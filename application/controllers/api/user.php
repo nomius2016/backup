@@ -108,6 +108,54 @@ class User extends Basecontroller {
 		$this->teamapi($ret);
 	}
 
+	/**
+	 * [login_info 登录信息]
+	 * @return [type] [description]
+	 */
+	public function login_info(){
 
+		$ret = array('status'=>false,'code'=>-1,'msg'=>'用户未登录');
+		if($this->islogin){
+			$this->load->model('users');
+			$this->load->model('user_profile');
+			$login_info = $this->users->getLoginInfo();
+			$ext_info = $this->user_profile->getInfoByUserId($login_info['user_id']);
+			$ret['status'] = true;
+			$ret['code'] = 1;
+			$info = array();
+			$info['MainAccountID'] = $login_info['account_name'];   //
+			$info['FirstName'] = $ext_info['name']; 
+			$info['BalanceAmount'] = $login_info['balance']; 
+			$info['ContactNumber'] = $ext_info['phone']; 
+			$info['EMail'] = $ext_info['email']; 
+			$info['Birthday'] = '1990-11-11'; 
+			$info['Gender'] = ($ext_info['sex'] == 1) ? 'male' : (($ext_info['sex'] == 2) ? 'female' : 'secret') ;   //'性别 1男 2女 3保密',
+			$info['CountryID'] = ''; 
+			$info['AreaCode']= "86";
+			$info['ZipCode']= null;
+			$info['City']= null;
+			$info['Address']= null;
+			$info['CountryName']= "中国";
+			$info['IDVerifiedNumber']= "";
+			$info['CurrencyID']= 2;
+			$info['LanguageCode']= "zh-cn";
+			$info['MiddleName']= "";
+			$info['LastName']= "";
+			$info['HandicapID']= 2;
+			$info['Region']= null;
+			$info['NewsLetter']= 1;
+			$info['LevelTypeID']= "2";
+			$info['MainAccountSN']= "d3c1ec19-2748-4a03-9f68-7e5379d46007";
+			$info['SecurityQuestionID']= null;
+			$info['SecurityAnswer']= null;
+			$info['LastLoginTime']= "2016-12-16T12:31:44.983";
+			$info['CreateTime']= "2016-06-17T10:16:02.883";
+			$info['PromotionID']= 134496;
+			$info['MainAccountType']= 1;
+			$ret['result'] = array($info);
+		}
+
+		$this->teamapi($ret);
+	}
 }
 
