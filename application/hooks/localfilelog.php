@@ -9,11 +9,6 @@ class LocalFileLog{
 	public function write($params){
 		$filePath ="/data/extdata/phplog/backup/";
 		$fileName = 'phplog';
-		$objSession = & load_class('Session', 'libraries');
-		$sessions = $objSession->all_userdata ();
-		if (is_array ( $sessions ) && ! empty ( $sessions )) {
-			$userid = $sessions ['id'] == null ? 0 : $sessions ['id'];
-		}
 		$nowTimestamp = time();
 		$nowDate = date('Y-m-d', $nowTimestamp);
 		$nowTime = date('H:i:s', $nowTimestamp);
@@ -23,7 +18,7 @@ class LocalFileLog{
 		$strUA = $_SERVER['HTTP_USER_AGENT'];
 		$strPOST = var_export($_REQUEST,true);
 		$strPOST = str_replace(array("\n", "\t", "\r"), '', $strPOST);
-		$logContent = "date[${nowDate}] time[${nowTime}] IP[${strIP}] userid[${userid}] domain[${strDomain}] URI[${strURI}] UA[${strUA}] SERVER[${strAddress}] POST[${strPOST}]";
+		$logContent = "date[${nowDate}] time[${nowTime}] IP[${strIP}]  domain[${strDomain}] URI[${strURI}] UA[${strUA}] SERVER[${strAddress}] POST[${strPOST}]";
 
 		if ( !is_dir($filePath)) {
 			if ( !mkdir($filePath, 0755, true)){
