@@ -267,3 +267,24 @@
   "Result": []
 }
 ```
+
+
+> * 获取用户积分和等级
+    URL:api/user/vippoint
+```json
+  {}  不需要参数
+  {
+  "Success": true,
+  "Code": 1,
+  "Message": "获取成功",
+  "Result": [
+    {
+      "monthPoint": 0,            //月度积分
+      "yearPoint": 0,             //年度积分
+      "vipName": "VIP1",          //晋级的 VIP 名称
+      "LevelUpBonus": "168.00"    //会员晋级即可领取 的金额
+    }
+  ]
+}
+
+json    
