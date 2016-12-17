@@ -34,8 +34,12 @@ class Index extends CI_Controller {
     	$ar = explode('?v',$fullname);
     	$filename = 'v1/'.$ar['0'];
     	// $fullname =  'v1/'.basename($_SERVER['REQUEST_URI']);
-    	$this->load->view($filename);
-	}
+    	if(file_exists($filename)){
+    		$this->load->view($filename);
+    	}else{
+    		header("HTTP/1.0 404 Not Found");
+    	}
+    }
 
 }
 
