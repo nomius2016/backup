@@ -7,7 +7,7 @@ angular.module('requesterModule').factory('AccountService', ['ZeusService', func
     'MainAccount_Create': 'Register',
     'MainAccountExists_Check': 'MainAccountExists_Check',
     'MainAccount_UpdateBasicInfo': 'MainAccount_UpdateBasicInfo',
-    'MainAccount_VIPInfo_Get': 'MainAccount_VIPInfo_Get',
+    'MainAccount_VIPInfo_Get': 'VipPoint',
     'MainAccount_VIPBonus_Setting_Get': 'MainAccount_VIPBonus_Setting_Get',
     'Mainaccount_All_Auth_Get': 'Mainaccount_All_Auth_Get',
     'MainAccount_ReAccountName_Check': 'MainAccount_ReAccountName_Check',

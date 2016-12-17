@@ -223,63 +223,68 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
 
 
   c.getVIPStatus = function() {
-    AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
-      c.vip_values.LevelTypeID_now = e.Result[0].LevelTypeID;
-      AccountService.call('MainAccount_VIPBonus_Setting_Get', {
-        intLevelTypeID: parseInt(c.vip_values.LevelTypeID_now)
-      }, function(e) {
-        c.vip_values.BirthdayBonus = e.Result[0].BirthdayBonus;
-        c.vip_values.CasinoBonus = e.Result[0].CasinoBonus;
-        c.vip_values.DP_MaxLimit = e.Result[0].DP_MaxLimit;
-        c.vip_values.LevelTypeID = e.Result[0].LevelTypeID;
-        c.vip_values.LevelUpBonus = e.Result[0].LevelUpBonus;
-        c.vip_values.SportsBonus = e.Result[0].SportsBonus;
-        c.vip_values.TotalBonus = e.Result[0].TotalBonus;
-        c.vip_values.TurnoverAmount = e.Result[0].TurnoverAmount;
-        c.vip_values.VIPHelpBonusLimit = e.Result[0].VIPHelpBonusLimit;
-        c.vip_values.VIPName = e.Result[0].VIPName;
-        switch (c.vip_values.LevelTypeID) {
-          case '3':
-            c.vip_values.icon = 'vip_1';
-            break;
-          case '4':
-            c.vip_values.icon = 'vip_2';
-            break;
-          case '5':
-            c.vip_values.icon = 'vip_3';
-            break;
-          case '6':
-            c.vip_values.icon = 'vip_4';
-            break;
-          default:
-            c.vip_values.icon = '';
-            break;
-        }
-      });
-    });
+    // AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
+    //   c.vip_values.LevelTypeID_now = e.Result[0].LevelTypeID;
+    //   AccountService.call('MainAccount_VIPBonus_Setting_Get', {
+    //     intLevelTypeID: parseInt(c.vip_values.LevelTypeID_now)
+    //   }, function(e) {
+    //     c.vip_values.BirthdayBonus = e.Result[0].BirthdayBonus;
+    //     c.vip_values.CasinoBonus = e.Result[0].CasinoBonus;
+    //     c.vip_values.DP_MaxLimit = e.Result[0].DP_MaxLimit;
+    //     c.vip_values.LevelTypeID = e.Result[0].LevelTypeID;
+    //     c.vip_values.LevelUpBonus = e.Result[0].LevelUpBonus;
+    //     c.vip_values.SportsBonus = e.Result[0].SportsBonus;
+    //     c.vip_values.TotalBonus = e.Result[0].TotalBonus;
+    //     c.vip_values.TurnoverAmount = e.Result[0].TurnoverAmount;
+    //     c.vip_values.VIPHelpBonusLimit = e.Result[0].VIPHelpBonusLimit;
+    //     c.vip_values.VIPName = e.Result[0].VIPName;
+    //     switch (c.vip_values.LevelTypeID) {
+    //       case '3':
+    //         c.vip_values.icon = 'vip_1';
+    //         break;
+    //       case '4':
+    //         c.vip_values.icon = 'vip_2';
+    //         break;
+    //       case '5':
+    //         c.vip_values.icon = 'vip_3';
+    //         break;
+    //       case '6':
+    //         c.vip_values.icon = 'vip_4';
+    //         break;
+    //       default:
+    //         c.vip_values.icon = '';
+    //         break;
+    //     }
+    //   });
+    // });
     AccountService.call('MainAccount_VIPInfo_Get', {
       intCurrencyID: 3
     }, function(e) {
-      c.vip_values.NextLevelTypeID = e.Result[0].NextLevelTypeID;
-      c.vip_values.NextPoint = e.Result[0].NextPoint;
-      c.vip_values.Points = e.Result[0].Points;
-      c.vip_values.TotalPoints = Math.round(e.Result[0].TotalPoints) / 100;
-      c.vip_values.YearPoints = Math.round(e.Result[0].YearPoints) / 100;
-      AccountService.call('MainAccount_VIPBonus_Setting_Get', {
-        intLevelTypeID: c.vip_values.NextLevelTypeID
-      }, function(e) {
-        c.vip_values.BirthdayBonus_N = e.Result[0].BirthdayBonus;
-        c.vip_values.CasinoBonus_N = e.Result[0].CasinoBonus;
-        c.vip_values.DP_MaxLimit_N = e.Result[0].DP_MaxLimit;
-        c.vip_values.LevelTypeID_N = e.Result[0].LevelTypeID;
-        c.vip_values.LevelUpBonus_N = e.Result[0].LevelUpBonus;
-        c.vip_values.SportsBonus_N = e.Result[0].SportsBonus;
-        c.vip_values.TotalBonus_N = e.Result[0].TotalBonus;
-        c.vip_values.TurnoverAmount_N = e.Result[0].TurnoverAmount;
-        c.vip_values.VIPHelpBonusLimit_N = e.Result[0].VIPHelpBonusLimit;
-        c.vip_values.VIPName_N = e.Result[0].VIPName;
-        c.vip_values.VIPImage_N = '../../Styles/images/vip' + (c.vip_values.NextLevelTypeID - 2) + '.png'
-      });
+      c.vip_values.TotalPoints = Math.round(e.Result[0].monthPoint) / 100;
+      c.vip_values.YearPoints = Math.round(e.Result[0].yearPoint) / 100;
+      c.vip_values.VIPName_N = e.Result[0].vipName;
+      c.vip_values.LevelUpBonus_N = e.Result[0].LevelUpBonus;
+      // c.vip_values.NextLevelTypeID = e.Result[0].NextLevelTypeID;
+      // c.vip_values.NextPoint = e.Result[0].NextPoint;
+      // c.vip_values.Points = e.Result[0].Points;
+      // c.vip_values.TotalPoints = Math.round(e.Result[0].TotalPoints) / 100;
+      // c.vip_values.YearPoints = Math.round(e.Result[0].YearPoints) / 100;
+      // c.vip_values.YearPoints = Math.round(e.Result[0].YearPoints) / 100;
+      // AccountService.call('MainAccount_VIPBonus_Setting_Get', {
+      //   intLevelTypeID: c.vip_values.NextLevelTypeID
+      // }, function(e) {
+      //   c.vip_values.BirthdayBonus_N = e.Result[0].BirthdayBonus;
+      //   c.vip_values.CasinoBonus_N = e.Result[0].CasinoBonus;
+      //   c.vip_values.DP_MaxLimit_N = e.Result[0].DP_MaxLimit;
+      //   c.vip_values.LevelTypeID_N = e.Result[0].LevelTypeID;
+      //   c.vip_values.LevelUpBonus_N = e.Result[0].LevelUpBonus;
+      //   c.vip_values.SportsBonus_N = e.Result[0].SportsBonus;
+      //   c.vip_values.TotalBonus_N = e.Result[0].TotalBonus;
+      //   c.vip_values.TurnoverAmount_N = e.Result[0].TurnoverAmount;
+      //   c.vip_values.VIPHelpBonusLimit_N = e.Result[0].VIPHelpBonusLimit;
+      //   c.vip_values.VIPName_N = e.Result[0].VIPName;
+      //   c.vip_values.VIPImage_N = '../../Styles/images/vip' + (c.vip_values.NextLevelTypeID - 2) + '.png'
+      // });
     });
   };
   c.$on('$stateChangeSuccess', function(e, t, i, a, s) {
@@ -288,5 +293,5 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
     }
   });
   // c.getSecurityStatus();
-  // c.getVIPStatus();
+  c.getVIPStatus();
 }]);
