@@ -81,19 +81,13 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
   c.userdata.birthday = moment(res1.Result[0].Birthday).format('YYYY/MM/DD');
   var _ = new Date();
   var v = _.getTimezoneOffset() / -60;
-  // AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
-  //   if (e.Result[0].LastLoginTime !== undefined) {
-  //     c.userdata.LastLoginTime = moment(e.Result[0].LastLoginTime).add(v - -4, 'hour').format('YYYY/MM/DD HH:mm:ss') + ' ' + appServices.getGMTStr();
-  //   } else {
-  //     c.userdata.LastLoginTime = '-';
-  //   }
-  // });
-  var res1 = {"Success":true,"Code":"1.0","Message":"Unknown","Result":[{"MainAccountID":"god123456","FirstName":"","BalanceAmount":0.0000,"ContactNumber":"13612031031","EMail":null,"Birthday":null,"Gender":null,"CountryID":2,"AreaCode":"86","ZipCode":null,"City":null,"Address":null,"CountryName":"中国","IDVerifiedNumber":"","CurrencyID":2,"LanguageCode":"zh-cn","MiddleName":"","LastName":"","HandicapID":2,"Region":null,"NewsLetter":1,"LevelTypeID":"2","MainAccountSN":"d3c1ec19-2748-4a03-9f68-7e5379d46007","SecurityQuestionID":null,"SecurityAnswer":null,"LastLoginTime":"2016-12-14T03:38:44.44","CreateTime":"2016-06-17T10:16:02.883","PromotionID":134496,"MainAccountType":1}]};
-  if (res1.Result[0].LastLoginTime !== undefined) {
-    c.userdata.LastLoginTime = moment(res1.Result[0].LastLoginTime).add(v - -4, 'hour').format('YYYY/MM/DD HH:mm:ss') + ' ' + appServices.getGMTStr();
-  } else {
-    c.userdata.LastLoginTime = '-';
-  }
+  AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
+    if (e.Result[0].LastLoginTime !== undefined) {
+      c.userdata.LastLoginTime = moment(e.Result[0].LastLoginTime).add(v - -4, 'hour').format('YYYY/MM/DD HH:mm:ss') + ' ' + appServices.getGMTStr();
+    } else {
+      c.userdata.LastLoginTime = '-';
+    }
+  });
 
   c.getSecurityStatus = function() {
     c.security_status.name = false;
@@ -223,40 +217,40 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
 
 
   c.getVIPStatus = function() {
-    // AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
-    //   c.vip_values.LevelTypeID_now = e.Result[0].LevelTypeID;
-    //   AccountService.call('MainAccount_VIPBonus_Setting_Get', {
-    //     intLevelTypeID: parseInt(c.vip_values.LevelTypeID_now)
-    //   }, function(e) {
-    //     c.vip_values.BirthdayBonus = e.Result[0].BirthdayBonus;
-    //     c.vip_values.CasinoBonus = e.Result[0].CasinoBonus;
-    //     c.vip_values.DP_MaxLimit = e.Result[0].DP_MaxLimit;
-    //     c.vip_values.LevelTypeID = e.Result[0].LevelTypeID;
-    //     c.vip_values.LevelUpBonus = e.Result[0].LevelUpBonus;
-    //     c.vip_values.SportsBonus = e.Result[0].SportsBonus;
-    //     c.vip_values.TotalBonus = e.Result[0].TotalBonus;
-    //     c.vip_values.TurnoverAmount = e.Result[0].TurnoverAmount;
-    //     c.vip_values.VIPHelpBonusLimit = e.Result[0].VIPHelpBonusLimit;
-    //     c.vip_values.VIPName = e.Result[0].VIPName;
-    //     switch (c.vip_values.LevelTypeID) {
-    //       case '3':
-    //         c.vip_values.icon = 'vip_1';
-    //         break;
-    //       case '4':
-    //         c.vip_values.icon = 'vip_2';
-    //         break;
-    //       case '5':
-    //         c.vip_values.icon = 'vip_3';
-    //         break;
-    //       case '6':
-    //         c.vip_values.icon = 'vip_4';
-    //         break;
-    //       default:
-    //         c.vip_values.icon = '';
-    //         break;
-    //     }
-    //   });
-    // });
+    AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
+      c.vip_values.LevelTypeID_now = e.Result[0].LevelTypeID;
+      AccountService.call('MainAccount_VIPBonus_Setting_Get', {
+        intLevelTypeID: parseInt(c.vip_values.LevelTypeID_now)
+      }, function(e) {
+        c.vip_values.BirthdayBonus = e.Result[0].BirthdayBonus;
+        c.vip_values.CasinoBonus = e.Result[0].CasinoBonus;
+        c.vip_values.DP_MaxLimit = e.Result[0].DP_MaxLimit;
+        c.vip_values.LevelTypeID = e.Result[0].LevelTypeID;
+        c.vip_values.LevelUpBonus = e.Result[0].LevelUpBonus;
+        c.vip_values.SportsBonus = e.Result[0].SportsBonus;
+        c.vip_values.TotalBonus = e.Result[0].TotalBonus;
+        c.vip_values.TurnoverAmount = e.Result[0].TurnoverAmount;
+        c.vip_values.VIPHelpBonusLimit = e.Result[0].VIPHelpBonusLimit;
+        c.vip_values.VIPName = e.Result[0].VIPName;
+        switch (c.vip_values.LevelTypeID) {
+          case '3':
+            c.vip_values.icon = 'vip_1';
+            break;
+          case '4':
+            c.vip_values.icon = 'vip_2';
+            break;
+          case '5':
+            c.vip_values.icon = 'vip_3';
+            break;
+          case '6':
+            c.vip_values.icon = 'vip_4';
+            break;
+          default:
+            c.vip_values.icon = '';
+            break;
+        }
+      });
+    });
     AccountService.call('MainAccount_VIPInfo_Get', {
       intCurrencyID: 3
     }, function(e) {
