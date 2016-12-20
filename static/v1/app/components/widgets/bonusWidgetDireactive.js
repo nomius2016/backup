@@ -21,7 +21,7 @@ angular.module('ciApp').directive('bonusWidget', ['$log', '$state', 'BonusServic
           intRecordCounts: 100,
           strOrderField: "",
           bitDesc: !1
-        }).success(function(result) {
+        }, function(result) {
           if (result.Success) {
             var o = result.Result.Table;
             var s = Container.getCurrencyID();

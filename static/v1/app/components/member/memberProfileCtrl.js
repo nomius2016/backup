@@ -38,23 +38,15 @@ angular.module('ciApp').controller('memberProfileCtrl', ['$scope', '$state', 'Co
       $scope.data.member.emailValid = true;
     }
   });
-  // AccountService.call('MainAccount_Logininfo_Get', {}, function(result) {
-  //   $scope.profilt_userdata.CreateTime = moment(result.Result[0].CreateTime).format('YYYY/MM/DD HH:mm:ss');
-  //   $scope.profilt_userdata.LastLoginTime = moment(result.Result[0].LastLoginTime).format('YYYY/MM/DD HH:mm:ss');
-  //   $scope.data.member.mobile = result.Result[0].ContactNumber;
-  //   if ($scope.data.member.mobile !== '') {
-  //     $scope.data.member.mobile = maskService.maskMobile(result.Result[0].ContactNumber);
-  //     $scope.data.member.mobileValid = true;
-  //   }
-  // });
-  var res0 = {"Success":true,"Code":"1.0","Message":"Unknown","Result":[{"MainAccountID":"god123456","FirstName":"","BalanceAmount":0.0000,"ContactNumber":"13612031031","EMail":null,"Birthday":null,"Gender":null,"CountryID":2,"AreaCode":"86","ZipCode":null,"City":null,"Address":null,"CountryName":"中国","IDVerifiedNumber":"","CurrencyID":2,"LanguageCode":"zh-cn","MiddleName":"","LastName":"","HandicapID":2,"Region":null,"NewsLetter":1,"LevelTypeID":"2","MainAccountSN":"d3c1ec19-2748-4a03-9f68-7e5379d46007","SecurityQuestionID":null,"SecurityAnswer":null,"LastLoginTime":"2016-12-16T11:41:58.07","CreateTime":"2016-06-17T10:16:02.883","PromotionID":134496,"MainAccountType":1}]};
-  $scope.profilt_userdata.CreateTime = moment(res0.Result[0].CreateTime).format('YYYY/MM/DD HH:mm:ss');
-  $scope.profilt_userdata.LastLoginTime = moment(res0.Result[0].LastLoginTime).format('YYYY/MM/DD HH:mm:ss');
-  $scope.data.member.mobile = res0.Result[0].ContactNumber;
-  if ($scope.data.member.mobile !== '') {
-    $scope.data.member.mobile = maskService.maskMobile(res0.Result[0].ContactNumber);
-    $scope.data.member.mobileValid = true;
-  }
+  AccountService.call('MainAccount_Logininfo_Get', {}, function(result) {
+    $scope.profilt_userdata.CreateTime = moment(result.Result[0].CreateTime).format('YYYY/MM/DD HH:mm:ss');
+    $scope.profilt_userdata.LastLoginTime = moment(result.Result[0].LastLoginTime).format('YYYY/MM/DD HH:mm:ss');
+    $scope.data.member.mobile = result.Result[0].ContactNumber;
+    if ($scope.data.member.mobile !== '') {
+      $scope.data.member.mobile = maskService.maskMobile(result.Result[0].ContactNumber);
+      $scope.data.member.mobileValid = true;
+    }
+  });
   
   $scope.getMessageList = function() {
     $scope.messages = [];

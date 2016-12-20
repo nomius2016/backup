@@ -528,19 +528,19 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
     }
   }
 }).service("bankService", ["CashFlowService", "$q", "Container", "Config", function(e, t, n, o) {
-  var a = {},
-    r = {},
-    i = {},
-    s = {},
-    c = !1,
-    l = {},
-    u = {},
-    m = ["withdraw", "online", "transfer", "cash", "deposit"];
-  angular.forEach(m, function(e) {
-    s[e] = {}
+  var a = {};
+  var r = {};
+  var i = {};
+  var s = {};
+  var c = !1;
+  var l = {};
+  var u = {};
+  var payMethod = ["withdraw", "online", "transfer", "cash", "deposit"];
+  angular.forEach(payMethod, function(e) {
+    s[e] = {};
   });
-  var d = [e.call("BankList_Get", {}), e.call("XPayBankList_Get", {}), e.call("BankPrefixList_Get", {})],
-    f = o.MoneyPayActive;
+  var d = [e.call("BankList_Get", {}), e.call("XPayBankList_Get", {}), e.call("BankPrefixList_Get", {})];
+  var f = o.MoneyPayActive;
   return f && d.push(e.call("BankListbyPaymentAgentID_Get", {
     intBrandID: 2,
     strPaymentAgentID: "PA00004"

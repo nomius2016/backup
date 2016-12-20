@@ -29,11 +29,12 @@ angular.module("ciApp").controller("memberBonusCtrl", ["$filter", "$scope", "$st
           e.Result.length > 0 && (l.data.vipName = e.Result[0].VIPName)
         })
       }
-    }), s.call("GetCategories", {
+    });
+    s.call("GetCategories", {
       intBrandID: 2,
       intApplyType: "applicable" === l.method ? 1 : -1,
       strLanguageCode: r.getLang()
-    }).success(function(e) {
+    }, function(e) {
       e.Success && l.data.bonusCategories.push.apply(l.data.bonusCategories, e.Result)
     });
     var e = -1,
@@ -51,7 +52,7 @@ angular.module("ciApp").controller("memberBonusCtrl", ["$filter", "$scope", "$st
       intRecordCounts: 100,
       strOrderField: "",
       bitDesc: !1
-    }).success(function(e) {
+    }, function(e) {
       if (e.Success) {
         l.data.bonusList = e.Result.Table;
         var t = r.getCurrencyID();

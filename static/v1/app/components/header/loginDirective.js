@@ -7,16 +7,16 @@ angular.module('ciApp').directive('login', ['$state', 'appServices', 'App', 'Sto
       function getBasicinfo(reload, page) {
         AccountService.call('MainAccount_Basicinfo_Get', {}, function(result) {
           if (result.Success) {
-              Storage.putCookie(App.currencyID, result.Result[0].CurrencyID);
-              Container.setCurrencyID(result.Result[0].CurrencyID);
-              Container.setPromotionID(result.Result[0].PromotionID);
-              $scope.$emit('loginSuccess', {
-                userName: $scope.accountName.value,
-                reload: !reload
-              });
-              appServices.basicInfoUpdated();
-              $scope.accountName.value = $scope.allowLogAccountName ? $scope.accountName.value : '';
-              $scope.accountPassword.value = '';
+            Storage.putCookie(App.currencyID, result.Result[0].CurrencyID);
+            Container.setCurrencyID(result.Result[0].CurrencyID);
+            Container.setPromotionID(result.Result[0].PromotionID);
+            $scope.$emit('loginSuccess', {
+              userName: $scope.accountName.value,
+              reload: !reload
+            });
+            appServices.basicInfoUpdated();
+            $scope.accountName.value = $scope.allowLogAccountName ? $scope.accountName.value : '';
+            $scope.accountPassword.value = '';
             if (reload) {
               switch (page) {
                 case 'id':
@@ -200,8 +200,8 @@ angular.module('ciApp').directive('login', ['$state', 'appServices', 'App', 'Sto
               }
             } else {
               $scope.errorMsg = result.Message;
-              $scope.loginButtonClicked = false;
             }
+            $scope.loginButtonClicked = false;
           });
         }
       };
