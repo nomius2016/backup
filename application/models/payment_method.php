@@ -83,4 +83,20 @@ class payment_method extends Base_Model{
         $aMethod = $this->selectByCons(array('payment_method_id' => $id));
         return $this->_merchants[$aMethod['payment_group_id']].':'.$aMethod['title'];
     }
+    
+    /**
+     * [getOnlineBank 获取转账的银行]
+     * @return [type] [description]
+     */
+    public function getOnlineBank(){
+    	
+    	$payments = $this->selectAllByWhere(array('payment_group_id'=>5));
+    	
+    	$banks = array();
+
+    	// foreach ($payments as  $payment) {
+    	// 	$bank = array();
+    	// 	$bank
+    	// }
+    }
 }

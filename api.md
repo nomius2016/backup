@@ -376,3 +376,7 @@ json
       "Message": "资金密码错误!",
       "Result": []
     }
+
+
+//提款银行卡  字段 bank_code,card_no,branch_name,bank_address,user_id['name']
+//存款银行卡  字段 银行名称 帐号 地址

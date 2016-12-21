@@ -73,4 +73,12 @@ class Deposit extends Basecontroller {
 	    }
 	    return $i;
 	}
+
+	/**
+	 * [get_onlone_bank 获取转账用的银行列表]
+	 * @return [type] [description]
+	 */
+	public function get_onlone_bank(){
+		
+	}
 }
