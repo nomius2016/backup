@@ -78,7 +78,7 @@ class Deposit extends Basecontroller {
 	 * [get_onlone_bank 获取转账用的银行列表]
 	 * @return [type] [description]
 	 */
-	public function get_onlone_bank(){
+	public function get_online_bank(){
 		$this->load->model('payment_method');
 		$banks = $this->payment_method->getOnlineBank();
 		$ret = array();

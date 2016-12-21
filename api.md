@@ -381,7 +381,7 @@ json
 
 
 > *获取充值用的银行卡
-URL:/api/deposit/get_onlone_bank
+URL:/api/deposit/get_online_bank
 
 参数 {} 无
 成功的时候返回
