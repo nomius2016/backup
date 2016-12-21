@@ -79,6 +79,20 @@ class Deposit extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function get_onlone_bank(){
-		
+		$this->load->model('payment_method');
+		$banks = $this->payment_method->getOnlineBank();
+		$ret = array();
+		if(!$banks){
+			$ret['status'] = false;
+	        $ret['code'] = -1;
+	        $ret['msg'] = '无可用银行卡';
+		}else{
+			$ret['status'] = true;
+	        $ret['code'] = 1;
+	        $ret['msg'] = '获取成功';
+	        $ret['result'] = $banks;
+		}
+
+		$this->teamapi($ret);
 	}
 }

@@ -90,13 +90,12 @@ class payment_method extends Base_Model{
      */
     public function getOnlineBank(){
     	
-    	$payments = $this->selectAllByWhere(array('payment_group_id'=>5));
+    	$sql = "SELECT g.merchant as bank_name,m.title AS bank_address,m.secret_key AS account_no,m.company_id AS name FROM payment_group AS g  INNER JOIN payment_method AS m 
+    		ON g.payment_group_id = m.payment_group_id WHERE g.status = 1 and m.status = 1 
+    		and g.payment_group_id in (6,7,8,9,10) GROUP BY g.payment_group_id
+    	";
+    	$banks = $this->querySql($sql);
+    	return $banks;
     	
-    	$banks = array();
-
-    	// foreach ($payments as  $payment) {
-    	// 	$bank = array();
-    	// 	$bank
-    	// }
     }
 }
