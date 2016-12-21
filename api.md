@@ -355,3 +355,24 @@ json
       "Message": "帐号不存在",
       "Result": []
     }
+
+> *检查已登录用户资金密码
+  URL:api/user/check_fundpassword
+```json
+  {'fund_password':'f97b6ec32544b5e6dfbd459cca60edef'}  //用户资金密码需要MD5之后传输
+
+  资金密码正确存在返回 
+    {
+    "Success": true,
+    "Code": 1,
+    "Message": "资金密码正确!",
+    "Result": []
+  }
+
+  资金密码错误返回
+    {
+      "Success": false,
+      "Code": -1,
+      "Message": "资金密码错误!",
+      "Result": []
+    }

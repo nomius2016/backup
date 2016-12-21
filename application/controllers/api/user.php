@@ -174,7 +174,37 @@ class User extends Basecontroller {
 		}
 
 		$this->teamapi($ret);
-
 	}
+
+	/**
+	 * [check_fundpassword 检查用户资金密码]
+	 * @return [type] [description]
+	 */
+	public function check_fundpassword(){
+		
+		$ret = array('status'=>false,'code'=>-1,'msg'=>'资金密码格式不对!');
+		$fund_password = trim($this->getApiParams('fund_password'));
+		if(!$fund_password){
+			$this->teamapi($ret);
+		}
+
+		
+		if(!$this->islogin){
+			$ret['msg'] = '用户未登录!';
+			$this->teamapi($ret);
+		}
+
+		$login_info = $this->users->getLoginInfo();
+		$this->load->model('users');
+		$user = $this->users->getUserInfo($login_info['user_id']);
+		if($user['fund_password'] === $fund_password){
+			$ret = array('status'=>TRUE,'code'=>1,'msg'=>'资金密码正确!');
+		}else{
+			$ret['msg'] = '资金密码错误!';
+		}
+
+		$this->teamapi($ret);
+	}
+
 }
 
