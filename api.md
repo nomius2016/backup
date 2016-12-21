@@ -391,30 +391,35 @@ URL:/api/deposit/get_online_bank
       "Message": "获取成功",
       "Result": [
         {
+          "payment_method_id": "6",
           "bank_name": "工商银行",
           "bank_address": "中国工商一行福建支行",
           "account_no": "6222084402005312444",
           "name": "张三"
         },
         {
+          "payment_method_id": "10",
           "bank_name": "招商银行",
           "bank_address": "招商银行天津支行",
           "account_no": "6222084402005312449",
           "name": "康熙"
         },
         {
+          "payment_method_id": "8",
           "bank_name": "中国银行",
           "bank_address": "中国银行湖北支行",
           "account_no": "62220844020053124446",
           "name": "王麻子"
         },
         {
+          "payment_method_id": "7",
           "bank_name": "农业银行",
           "bank_address": "中国农业银行北京支行",
           "account_no": "6222084402005312445",
           "name": "李四"
         },
         {
+          "payment_method_id": "9",
           "bank_name": "建设银行",
           "bank_address": "建设银行陕西支行",
           "account_no": "6222084402005312447",
