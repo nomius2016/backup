@@ -333,3 +333,25 @@ json
 }
 
 json 
+
+
+> *检查用户帐号接口
+  URL:api/user/check_username
+```json
+  {'username':'Tom'}  //用户名
+
+  如果帐号存在返回 
+    {
+      "Success": true,
+      "Code": 1,
+      "Message": "帐号存在",
+      "Result": []
+    }
+
+  帐号不存在返回
+    {
+      "Success": false,
+      "Code": -1,
+      "Message": "帐号不存在",
+      "Result": []
+    }

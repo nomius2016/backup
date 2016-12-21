@@ -157,5 +157,24 @@ class User extends Basecontroller {
 
 		$this->teamapi($ret);
 	}
+
+	/**
+	 * [check_username 验证用户名是否存在]
+	 * @return [type] [description]
+	 */
+	public function check_username(){
+		
+		$username = trim($this->getApiParams('username'));
+		$this->load->model('users');
+		$info = $this->users->getUserinfoByAccountName($username);
+		
+		$ret = array('status'=>false,'code'=>-1,'msg'=>'帐号不存在');
+		if($info){
+			$ret = array('status'=>true,'code'=>1,'msg'=>'帐号存在');
+		}
+
+		$this->teamapi($ret);
+
+	}
 }
 

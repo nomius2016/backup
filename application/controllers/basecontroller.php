@@ -126,11 +126,20 @@ class BaseController extends CI_Controller {
 
 	}
 
-	public function getApiParams(){
+	/**
+	 * [getApiParams 获取POST 提交的参数]
+	 * @param  [type] $key [description]
+	 * @return [type]      [description]
+	 */
+	public function getApiParams($key = NULL){
 		$data = file_get_contents('php://input'); 
 		$data = json_decode($data,TRUE);
 		if(!$data){
 			$data = $_POST;
+		}
+		if($key){
+			if(isset($data[$key])) return $data[$key];
+			return null;
 		}
 		
 		return $data;
