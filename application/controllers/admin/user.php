@@ -345,5 +345,59 @@ class User extends Basecontroller {
 	public function changelog(){
 		exit("给力开发中......");
 	}
+
+	/**
+	 * [user_withdrawal_bankcards 用户提款卡管理]
+	 * @return [type] [description]
+	 */
+	public function user_withdrawal_bankcards(){
+		$this->load->model('bank_cards');
+		if(!isset($_GET['getdata'])){
+			$ret = $this->bank_cards->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$this->adminview('hplus_normal',$ret);
+			return;
+		}
+		
+		$params = $this->input->get();
+		$params['status']  = 2;
+		$ret = $this->bank_cards->getList($params);
+
+		echo json_encode($ret);
+		exit;
+	}
+
+	/**
+	 * [user_withdrawal_bankcards_op 用户提款银行卡 操作权限]
+	 * @return [type] [description]
+	 */
+	public function user_withdrawal_bankcards_op(){
+
+		$params = $this->getApiParams();
+		$this->load->model('bank_cards');
+		switch ($params['oper']) {
+			case 'edit': 
+			   
+				break;
+			case 'add':
+				$bank = array();
+				$bank = array(
+						'user_id'=>$params['user_id'],
+						'name'=>$params['name'],
+						'bank_code'=>$params['bank_name'],
+						'account_no'=>$params['account_no'],
+						'display_name'=>$params['display_name'],
+						'branch_name'=>$params['branch_name'],
+						'create_time'=>date('Y-m-d H:i:s'),
+					);
+				$this->bank_cards->b_insert($bank);
+				break;
+
+		}
+
+		exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
+
+
+	}
+
 }
 
