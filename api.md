@@ -436,5 +436,30 @@ URL:/api/deposit/get_online_bank
     "Result": []
   }
 
-//提款银行卡  字段 bank_code,card_no,branch_name,bank_address,user_id['name']
-//存款银行卡  字段 银行名称 帐号 地址
+>* 获取用户提款银行卡
+
+URL: api/withdraw/getUserWithdrawalCards
+参数:无
+成功时返回
+{
+  "Success": true,
+  "Code": 1,
+  "Message": "获取成功",
+  "Result": [
+    {
+      "id": "124",
+      "user_id": "22",
+      "name": "昂山",
+      "bank_code": "ICBC",
+      "bank_name": "工商银行",
+      "account_no": "123341234134",
+      "display_name": "工行一",
+      "branch_name": "福建支行",
+      "create_time": "2016-12-23 00:45:43",
+      "status": "1"
+    }
+  ]
+}
+
+失败返回
+{"Success":false,"Code":-1,"Message":"\u7528\u6237\u672a\u767b\u9646","Result":[]}

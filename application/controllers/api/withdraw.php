@@ -107,4 +107,31 @@ class Withdraw extends Basecontroller {
 	    }
 	    return $i;
 	}
+
+	/**
+	 * [getUserWithdrawalCards 获取用户提款银行卡]
+	 * @return [type] [description]
+	 */
+	public function getUserWithdrawalCards(){
+		
+		$ret = array('status'=>false,'code'=>-1,'msg'=>'用户未登陆');
+		if(!$this->islogin){
+			$this->teamapi($ret);
+		}
+		$this->load->model('users');
+		$this->load->model('bank_cards');
+		$userinfo = $this->users->getLoginInfo();
+		$banks = $this->bank_cards->getCardsByUserId($userinfo['user_id']);
+		if(!$banks){
+			$ret['msg'] = '用户无可用提款卡!';
+			$this->teamapi($ret);
+		}
+
+		$ret['status'] = true;
+		$ret['code'] = 1;
+		$ret['msg'] = '获取成功';
+		$ret['result'] = $banks;
+		$this->teamapi($ret);
+
+	}
 }

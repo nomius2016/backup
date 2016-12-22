@@ -72,18 +72,8 @@ class bank_cards extends Base_Model{
 	 */
 	public function getList($params){
 		$where = array();
-		if ($params['date_start'] || $params['date_end']) {
-		    if ($params['date_start']) {
-		        $where['date >='] = $params['date_start'];
-		    }
-		    if ($params['date_end']) {
-		        $where['date <='] = $params['date_end'];
-		    }
-		    
-		} else {
-		    $where['date'] = date('Y-m-d');
-		}
-
+		if($params['user_id'])  $where['user_id'] = $params['user_id'];
+		if($params['name'])     $where['name'] = $params['name'];
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
 		$start = ($page - 1) * $pageSize; 
@@ -91,21 +81,7 @@ class bank_cards extends Base_Model{
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 		
 		$count = $this->count($where);
-		if ($count>0) {
-		    $aField = array(
-		        'user_id','date',
-		        'SUM(deposit) AS deposit',
-		        'SUM(withdraw) AS withdraw',
-		        'SUM(bet) AS bet',
-		        'SUM(bonus) AS bonus',
-		        'SUM(user_new_reg) AS user_new_reg',
-		        'SUM(user_have_bet) AS user_have_bet',
-		        'SUM(deposit) AS deposit',
-		        'SUM(fandian) AS fandian',
-		        'SUM(commission) AS commission',
-		    );
-		    $list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
-		}
+		$list = $this->selectByWhere($where,'*',$limit);
 
 		return array(
 				'rows'  => $list,
@@ -117,6 +93,16 @@ class bank_cards extends Base_Model{
 	public function b_insert($data){
 		$data['bank_name'] = $this->_bank_list[$data['bank_code']];
 		return $this->insert($data);
+	}
+
+	/**
+	 * [getCardsByUserId 根据用户ID 来获取提款卡]
+	 * @param  boolean $user_id [description]
+	 * @return [type]           [description]
+	 */
+	public function getCardsByUserId($user_id = false){
+		$where = array('user_id'=>$user_id,'status'=>1);
+		return $this->selectByWhere($where,'*');
 	}
 
 

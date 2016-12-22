@@ -376,7 +376,15 @@ class User extends Basecontroller {
 		$this->load->model('bank_cards');
 		switch ($params['oper']) {
 			case 'edit': 
-			   
+				$bank = array(
+						'user_id'=>$params['user_id'],
+						'name'=>$params['name'],
+						'bank_code'=>$params['bank_name'],
+						'account_no'=>$params['account_no'],
+						'display_name'=>$params['display_name'],
+						'branch_name'=>$params['branch_name'],
+					);
+			    $this->bank_cards->update(array('id'=>$params['id']),$bank);
 				break;
 			case 'add':
 				$bank = array();
