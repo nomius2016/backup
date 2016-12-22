@@ -447,14 +447,14 @@ URL: api/withdraw/getUserWithdrawalCards
   "Message": "获取成功",
   "Result": [
     {
-      "id": "124",
-      "user_id": "22",
-      "name": "昂山",
-      "bank_code": "ICBC",
-      "bank_name": "工商银行",
-      "account_no": "123341234134",
-      "display_name": "工行一",
-      "branch_name": "福建支行",
+      "id": "124", 
+      "user_id": "22",   //用户ID
+      "name": "昂山",     //卡主姓名
+      "bank_code": "ICBC",  //银行编码
+      "bank_name": "工商银行", //银行
+      "account_no": "123341234134", //银行账号
+      "display_name": "工行一",  //用户设置的银行卡昵称 比如 "常用卡"
+      "branch_name": "福建支行",  //开户行 分行地址
       "create_time": "2016-12-23 00:45:43",
       "status": "1"
     }
