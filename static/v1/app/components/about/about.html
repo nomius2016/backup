@@ -1,0 +1,273 @@
+<div id="content" style="padding-top: 125px;" ng-controller="aboutCtrl">
+    <div class="mw">
+        <br clear="all">
+        <div class="mc-con1 mc-con3">
+            <!--右側選單　menu-->
+            <div class="menu absl">
+                <!--單一選單　menu 1 -->
+                <div class="mn1" id="div_AMenu1" ui-sref-active="active">
+                    <div class="lastCols3"><span class="nav_about"></span></div>
+                    <div class="cols9 last height100">
+                        <a class="Detail" id="div_AMenu11" currentmenu="v2-AboutVwin" menu="v2-AboutVwin" item="xxx" ui-sref="about({menuItem:'vwin'})">
+                            <div class="mnrt">
+                                <h5>{{'about_vwin@title' | translate}}</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+                <!--單一選單　menu 1 -->
+                <div class="mn1" id="div_AMenu2" ui-sref-active="active">
+                    <div class="lastCols3"><span class="nav_about nav_responsibility"></span></div>
+                    <div class="cols9 last height100">
+                        <a class="Detail" id="div_AMenu21" currentmenu="v2-ResponsibleGaming" menu="v2-ResponsibleGaming" item="xxx" ui-sref="about({menuItem:'responsible'})">
+                            <div class="mnrt">
+                                <h5>{{'about_responsible@title' | translate}}</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+                <!--單一選單　menu 1 -->
+                <div class="mn1" id="div_AMenu3" ui-sref-active="active">
+                    <div class="lastCols3"><span class="nav_about nav_conditions"></span></div>
+                    <div class="cols9 last height100">
+                        <a class="Detail" id="div_AMenu31" currentmenu="v2-TermsConditions" menu="v2-TermsConditions" item="xxx" ui-sref="about({menuItem:'condition'})">
+                            <div class="mnrt">
+                                <h5>{{'about_condition@title' | translate}}</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+
+                <!--單一選單　menu 1  優惠活動規則與條款-->
+                <div class="mn1" id="div_AMenu6" ui-sref-active="active">
+                    <div class="lastCols3"><span class="nav_about nav_conditions_gift"></span></div>
+                    <div class="cols9 last height100">
+                        <a class="Detail" id="div_AMenu61" currentmenu="v2-OfferTermsConditions" menu="v2-OfferTermsConditions" item="xxx" ui-sref="about({menuItem:'promotion'})">
+                            <div class="mnrt">
+                                <h5>{{'about_promotion@title' | translate}}</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+
+                <!--單一選單　menu 1 -->
+                <div class="mn1" id="div_AMenu4" ui-sref-active="active">
+                    <div class="lastCols3"><span class="nav_about nav_privacy"></span></div>
+                    <div class="cols9 last height100">
+                        <a class="Detail" id="div_AMenu41" currentmenu="v2-PrivacyPolicy" menu="v2-PrivacyPolicy" item="xxx" ui-sref="about({menuItem:'privacy'})">
+                            <div class="mnrt">
+                                <h5>{{'about_privacy@title' | translate}}</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+                <!--單一選單　menu 1 -->
+                <div class="mn1" id="div_AMenu5" ui-sref-active="active">
+                    <div class="lastCols3"><span class="nav_about nav_contact_us"></span></div>
+                    <div class="cols9 last height100">
+                        <a class="Detail" id="div_AMenu51" currentmenu="v2-ContactUs" menu="v2-ContactUs" item="xxx" ui-sref="about({menuItem:'contact'})">
+                            <div class="mnrt">
+                                <h5>{{'about_contact@title' | translate}}</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+            <!--右側填寫內容頁 member center right center-->
+            <div class="fltlft mc-rtct">
+                <div class="mc-ct" id="HelperCenterDetail" style="display: block;">
+                </div>
+                <div id="div_LockAccount" ng-show="isLoggedIn && menuItem === 'responsible' && lang === 'zh-cn'">
+                    <p class="mgbt10 mglft20"><a ng-click="checkAccountIsLocked()" id="btnLockAccount" href="javascript://" class="btn4 grey_bg dsab fancybox" style="border-radius: 20px;"><span>{{'about_responsible@lock_account' | translate}}</span></a></p>
+                </div>
+                <!-- 聯絡我們 -->
+                <div class="mc-ct" style="display: block;" ng-show="menuItem === 'contact'">
+                    <h3>{{'about_contact@title' | translate}}</h3>
+                    <div class="horizonLine2 mgbt20"></div>
+                    <div class="mgbt20">
+                        <h4 class="mgbt10">{{'about_contact@welcome' | translate}}</h4>
+                        <p class="mgbt10 mglft20">
+                            {{'about_contact@welcome_content' | translate}}
+                        </p>
+                    </div>
+                    <div class="mgbt20">
+                        <h4 class="mgbt10">{{'about_contact@comment' | translate}}</h4>
+                        <p class="mgbt10 mglft20">{{'about_contact@comment_content' | translate}}</p>
+                    </div>
+
+                    <div class="mglft20">
+                        <div class="ct_fmlft">
+                            <div class="fm w100">
+                                <label>{{'about_contact@name' | translate}}</label>
+                                <input id="name" name="name" type="text" tabindex="1" ng-model="$parent.name">
+                            </div>
+                            <div class="fm w100">
+                                <label>{{'about_contact@email' | translate}}</label>
+                                <input id="email" name="email" type="email" tabindex="2" ng-model="$parent.email">
+                            </div>
+                            <div class="fm w100">
+                                <label>{{'about_contact@type' | translate}}</label>
+                                <div>
+                                    <select style="width: 278px; height: 35px; padding:0 10px; float: left; border: none" ng-model="$parent.selectType"
+                                            ng-options="type as type.name | translate for type in contactType" ng-change="onTypeChanged()" required>
+                                        <option value="" disabled>{{'about_contact@type_hint' | translate}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="fm w100">
+                                <label>{{'about_contact@subject' | translate}}</label>
+                                <div>
+                                    <select style="width: 278px; height: 35px; padding:0 10px; float: left; border: none" ng-model="$parent.selectSubject"
+                                            ng-options="subject as subject.name | translate for subject in subjectsByType" required>
+                                        <option value="" disabled>{{'about_contact@subject_hint' | translate}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="fm w100">
+                                <label>{{'about_contact@information' | translate}}</label>
+                                <div style="float: left; width: 278px">
+                                    <textarea id="message" name="message" style="height: 110px; width: 278px;" tabindex="5" ng-model="$parent.message"></textarea>
+                                </div>
+                            </div>
+                            <div class="fm w100">
+                                <label></label>
+                                <a class="btn-1" id="sendMsg" style="border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;"
+                                   callback="submit()" btn-process ng-class="{'btn-disable': !$parent.name || !$parent.email || !$parent.message || !$parent.selectType || !$parent.selectSubject}">
+                                    {{'about_contact@submit' | translate}}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="ct_fmrt rule">
+                            <ul>
+                                <li>
+                                    <p>{{'about_contact@hotline' | translate}}</p>
+                                </li>
+                                <li>
+                                    <p>{{'about_contact@market' | translate}}</p>
+                                </li>
+                                <li ng-show="lang === 'zh-cn'">
+                                    <p>{{'about_contact@promote' | translate}}</p>
+                                </li>
+                                <li>
+                                    <p>{{'about_contact@customer_service' | translate}}</p>
+                                </li>
+                                <li>
+                                    <p><a class="LiveChat red" href="javascript:void(0);" ng-click="openLiveChat()">{{'about_contact@live_chat' | translate}}</a></p>
+                                </li>
+                                <li ng-show="lang === 'th-th'">
+                                    <p class="red">{{'about_contact@line' | translate}}</p>
+                                </li>
+                                <li ng-show="lang === 'th-th' || lang === 'vi-vn'">
+                                    <p class="red">{{'about_contact@skype' | translate}}</p>
+                                </li>
+                                <li>
+                                    <p>{{'about_contact@address' | translate}}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <!-- 凍結帳戶 -->
+    <div popup-dialog show='showLockAccountDialog'>
+        <div ng-show="!isIDVerified" class="wdsa">
+            <!--白底透明遮罩 pop outside-->
+            <div class="ppos">
+
+                <!--內容區塊 pop area-->
+                <div class="ppa">
+                    <!--頁頭 pop head-->
+                    <div class="pphead">
+                        <!--主標題-->
+                        <h3>{{'about_responsible@title' | translate}}</h3>
+                        <!--副標題-->
+                        <h4 id="ResponsibleGaming_title">{{'about_responsible@lock_account_subtitle' | translate:translationData}}</h4>
+                    </div>
+                    <!--內容 pop content-->
+                    <div class="ppct">
+                        <div class="fm mgbt10">
+                            <a ng-click="clickIDVerify()" id="btnIDVerify" href="javascript://" class="btn4 mgbt10" style="border-radius: 20px;">
+                                <span class="icon_enter "></span><span>{{'about_responsible@go_verify' | translate}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="isIDVerified" class="wdsa">
+            <!--白底透明遮罩 pop outside-->
+            <div class="ppos">
+                <!--內容區塊 pop area-->
+                <div class="ppa">
+                    <!--頁頭 pop head-->
+                    <div class="pphead">
+                        <!--步驟進度條 step box-->
+                        <div class="stpbox">
+                            <div class="stp mglft0 stpStart">
+                                <div class="stp_md mglft0">
+                                    <div class="stpct"><span class="fbb">1</span>验证码确认</div>
+                                </div>
+                                <div class="stp_rt"></div>
+                            </div>
+                            <div class="stp stpMid">
+                                <div class="stp_lft">
+                                    <div class="slft1"></div>
+                                    <div class="slft2"></div>
+                                </div>
+                                <div class="stp_md">
+                                    <div class="stpct"><span class="fbb">2</span>设定冻结时间</div>
+                                </div>
+                                <div class="stp_rt"></div>
+                            </div>
+                            <div class="stp stpComp">
+                                <div class="stp_lft">
+                                    <div class="slft1"></div>
+                                    <div class="slft2"></div>
+                                </div>
+                                <div class="stp_md">
+                                    <div class="stpct"><span class="fbb">3</span>冻结帐户完成</div>
+                                </div>
+                                <div class="stp_rt"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <!--主標題-->
+                        <h3>{{'about_responsible@title' | translate}}</h3>
+                        <!--副標題-->
+                        <h4 id="ResponsibleGaming_title1" style="display: none;"></h4>
+                        <h4 id="ResponsibleGaming_title2" style="display: none;"></h4>
+                    </div>
+                    <hr>
+                    <!--內容 pop content-->
+                    <div ng-include src="'Features/about/lockAccount.html'"></div>
+                    <hr>
+                    <!--頁尾 pop footer-->
+                    <div class="ppft">
+                        <p>{{'about_responsible@footer1' | translate}}
+                            <a href="javascript://" ng-click="openLiveChat()">{{'about_responsible@live_chat' | translate}}</a>
+                        </p>
+                        <p>{{'about_responsible@footer2' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

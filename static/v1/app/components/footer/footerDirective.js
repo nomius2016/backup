@@ -61,25 +61,6 @@ angular.module('ciApp').directive('footer', function($state, $translate) {
         $scope.showFriends2 = false;
         $('#FriendsshareWeChat').hide();
       });
-      $('.downloadProduct').click(function() {
-        var e = $(this).attr('code');
-        switch (e) {
-          case 'EA':
-            $(this).attr('href', '/Download/vwin_casino.exe');
-            break;
-          case 'AG':
-            $(this).attr('href', '/Download/VWin_setup.exe');
-            break;
-          case 'GamesOS':
-            $(this).attr('href', '/Download/CasinoInstall.exe');
-            break;
-          case 'PT':
-            $(this).attr('href', '/Download/setup.exe');
-            break;
-          default:
-            break;
-        }
-      });
       $('.ahover').bind('mouseover', function() {
         $(this).stop().animate({
           opacity: '1'
