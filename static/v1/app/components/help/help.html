@@ -1,0 +1,800 @@
+<div id="content" style="padding-top: 125px;">
+    <div class="mw">
+        <br clear="all">
+        <div class="mc-con1 mc-con3">
+            <!--左側選單　menu-->
+            <div class="menu absl" id="div_submenu">
+                <!--單一選單　新手上路 -->
+                <div class="mn1" id="div_HMenu1" ng-click="openMenu('greenhand')" ng-class="{'active': mainMenu === 'greenhand'}">
+                    <div class="lastCols3"><span class="help_center_icon_novice"></span></div>
+                    <div class="cols9 last height100">
+                        <div class="mnrt">
+                            <h5>{{'help_greenhand@title' | translate}}</h5>
+                            <ul class="hlpMn">
+                                <a ui-sref-active="yellow2" id="div_HMenu11" currentmenu="v2-SignupLogin" menu="v2-SignupLogin" item="xxx" ui-sref="help({mainmenu:'greenhand', menu: 'v2-SignupLogin'})">
+                                    <li class="active">{{'help_greenhand@signup_login' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" id="div_HMenu12" currentmenu="v2-Depositsop" menu="v2-Depositsop" item="xxx" ui-sref="help({mainmenu:'greenhand', menu:'v2-Depositsop'})">
+                                    <li class="">{{'help_greenhand@deposit' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" id="div_HMenu13" currentmenu="v2-Withdrawalsop" menu="v2-Withdrawalsop" item="xxx" ui-sref="help({mainmenu:'greenhand', menu: 'v2-Withdrawalsop'})">
+                                    <li>{{'help_greenhand@withdrawal' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" id="div_HMenu14" currentmenu="v2-DepositFAQ" menu="v2-DWFAQ" item="DF_Pag" ui-sref="help({mainmenu:'greenhand', menu: 'v2-DWFAQ'})">
+                                    <li>{{'help_greenhand@faq' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" id="div_HMenu15" currentmenu="v2-ClearBrowserCache" menu="v2-ClearBrowserCache" item="xxx" ui-sref="help({mainmenu:'greenhand', menu: 'v2-ClearBrowserCache'})">
+                                    <li>{{'help_greenhand@browser_cache' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" id="div_HMenu16" currentmenu="v2-IdentityVerify" menu="v2-IdentityVerify" item="xxx" ui-sref="help({mainmenu:'greenhand', menu: 'v2-IdentityVerify'})" ng-if="lang !== 'th-th' && lang !== 'vi-vn'">
+                                    <li>{{'help_greenhand@id_verify' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" id="div_HMenu17" currentmenu="v2-Vwallet" menu="v2-Vwallet" item="xxx" ui-sref="help({mainmenu:'greenhand', menu: 'v2-Vwallet'})">
+                                    <li>{{'help_greenhand@vwallet' | translate}}</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+                <!--單一選單　GB體育規則 -->
+                <div class="mn1" id="div_HMenu7" ng-click="openMenu('sport')" ng-class="{'active': mainMenu === 'sport'}">
+                    <div class="lastCols3"><span class="help_center_icon_novice help_center_icon_sport"></span></div>
+                    <div class="cols9 last height100">
+                        <div class="mnrt">
+                            <h5>{{'help_sport@title' | translate}}</h5>
+                            <ul class="hlpMn">
+                                <a ui-sref-active="yellow2" id="div_HMenu71" currentmenu="v2-GBBettingRules" menu="v2-GBBettingRules" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBBettingRules'})">
+                                    <li>{{'help_sport@betting' | translate}}</li>
+                                </a>
+                                <!--menu="v2-GBHandicap"-->
+                                <a ui-sref-active="yellow2" currentmenu="v2-GBHandicapRules" menu="v2-GBHandicap" item="DF_Pag" ui-sref="help({mainmenu:'sport', menu: 'v2-GBHandicap'})">
+                                    <li>{{'help_sport@handicap' | translate}}</li>
+                                </a>
+                                <li>{{'help_sport@ball_rules' | translate}}</li>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBPlayRule-FootballMatchesTR" menu="v2-GBFootball" item="DF_Pag" ui-sref="help({mainmenu:'sport', menu: 'v2-GBFootball'})">
+                                    <li><span class="ball_1"></span>{{'help_sport@football' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBTennis" menu="v2-GBTennis" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBTennis'})">
+                                    <li><span class="ball_1 ball_5"></span>{{'help_sport@tennis' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBBasketball" menu="v2-GBBasketball" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBBasketball'})">
+                                    <li><span class="ball_1 ball_2"></span>{{'help_sport@basketball' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBAmericanFootball" menu="v2-GBAmericanFootball" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBAmericanFootball'})">
+                                    <li><span class="ball_1 ball_15"></span>{{'help_sport@us_football' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBIceHockey" menu="v2-GBIceHockey" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBIceHockey'})">
+                                    <li><span class="ball_1 ball_4"></span>{{'help_sport@ice_hockey' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBBaseball" menu="v2-GBBaseball" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBBaseball'})">
+                                    <li><span class="ball_1 ball_3"></span>{{'help_sport@baseball' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBHandball" menu="v2-GBHandball" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBHandball'})">
+                                    <li><span class="ball_1 ball_11"></span>{{'help_sport@handball' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBVolleyballo" menu="v2-GBVolleyballo" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBVolleyballo'})">
+                                    <li><span class="ball_1 ball_8"></span>{{'help_sport@volleyball' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBBeachVolleyball" menu="v2-GBBeachVolleyball" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBBeachVolleyball'})">
+                                    <li><span class="ball_1 ball_8"></span>{{'help_sport@beach_volleyball' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBIndoorSoccer" menu="v2-GBIndoorSoccer" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBIndoorSoccer'})">
+                                    <li><span class="ball_1"></span>{{'help_sport@indoor_soccer' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBBadminton" menu="v2-GBBadminton" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBBadminton'})">
+                                    <li><span class="ball_1 ball_6"></span>{{'help_sport@badminton' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBBRugby" menu="v2-GBBRugby" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBBRugby'})">
+                                    <li><span class=" ball_1 ball_15"></span>{{'help_sport@rugby_union' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBDarts" menu="v2-GBDarts" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBDarts'})">
+                                    <li><span class="ball_1 ball_16"></span>{{'help_sport@darts' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBBilliards" menu="v2-GBBilliards" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBBilliards'})">
+                                    <li><span class="ball_1 ball_9"></span>{{'help_sport@billiard' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBTableTennis" menu="v2-GBTableTennis" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBTableTennis'})">
+                                    <li><span class="ball_1 ball_7"></span>{{'help_sport@table_tennis' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-GBGolf" menu="v2-GBGolf" item="xxx" ui-sref="help({mainmenu:'sport', menu: 'v2-GBGolf'})">
+                                    <li><span class="ball_1 ball_10"></span>{{'help_sport@golf' | translate}}</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+                <!--單一選單　體育規則 -->
+                <div class="mn1" id="div_HMenu2" ng-click="openMenu('ibcsport')" ng-class="{'active': mainMenu === 'ibcsport'}">
+                    <div class="lastCols3"><span class="help_center_icon_novice help_center_icon_sport"></span></div>
+                    <div class="cols9 last height100">
+                        <div class="mnrt">
+                            <h5>{{'help_ibcsport@title' | translate}}</h5>
+                            <ul class="hlpMn">
+                                <a ui-sref-active="yellow2" id="div_HMenu21" currentmenu="v2-BettingRules" menu="v2-BettingRules" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-BettingRules'})">
+                                    <li>{{'help_ibcsport@betting' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-HandicapRules" menu="v2-Handicap" item="DF_Pag" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Handicap'})">
+                                    <li>{{'help_ibcsport@handicap' | translate}}</li>
+                                </a>
+                                <li>{{'help_ibcsport@ball_rules' | translate}}</li>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-PlayRule-FootballMatchesTR" menu="v2-Football" item="DF_Pag" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Football'})">
+                                    <li><span class="ball_1"></span>{{'help_ibcsport@football' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-OtherFootballItems" menu="v2-OtherFootballItems" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-OtherFootballItems'})">
+                                    <li><span class="ball_1"></span>{{'help_ibcsport@other_football' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Basketball" menu="v2-Basketball" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Basketball'})">
+                                    <li><span class="ball_1 ball_2"></span>{{'help_ibcsport@basketball' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Baseball" menu="v2-Baseball" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Baseball'})">
+                                    <li><span class="ball_1 ball_3"></span>{{'help_ibcsport@baseball' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Hockey" menu="v2-Hockey" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Hockey'})">
+                                    <li><span class="ball_1 ball_4"></span>{{'help_ibcsport@hockey' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Tennis" menu="v2-Tennis" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Tennis'})">
+                                    <li><span class="ball_1 ball_5"></span>{{'help_ibcsport@tennis' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Badminton" menu="v2-Badminton" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Badminton'})">
+                                    <li><span class="ball_1 ball_6"></span>{{'help_ibcsport@badminton' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-TableTennis" menu="v2-TableTennis" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-TableTennis'})">
+                                    <li><span class="ball_1 ball_7"></span>{{'help_ibcsport@table_tennis' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Volleyball" menu="v2-Volleyball" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Volleyball'})">
+                                    <li><span class="ball_1 ball_8"></span>{{'help_ibcsport@all_volleyball' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Billiards" menu="v2-Billiards" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Billiards'})">
+                                    <li><span class="ball_1 ball_9"></span>{{'help_ibcsport@billiard' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Golf" menu="v2-Golf" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Golf'})">
+                                    <li><span class="ball_1 ball_10"></span>{{'help_ibcsport@golf' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Handball" menu="v2-Handball" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Handball'})">
+                                    <li><span class="ball_1 ball_11"></span>{{'help_ibcsport@handball' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-WaterPolo" menu="v2-WaterPolo" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-WaterPolo'})">
+                                    <li><span class="ball_1 ball_12"></span>{{'help_ibcsport@water_polo' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Squash" menu="v2-Squash" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Squash'})">
+                                    <li><span class="ball_1 ball_13"></span>{{'help_ibcsport@squash' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Cricket" menu="v2-Cricket" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Cricket'})">
+                                    <li><span class="ball_1 ball_14"></span>{{'help_ibcsport@cricket' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" style="list-style-type: none" currentmenu="v2-Football1" menu="v2-Football1" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-Football1'})">
+                                    <li><span class="ball_1 ball_15"></span>{{'help_ibcsport@rugby' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-OtherSportsTR" menu="v2-OtherSportsTR" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-OtherSportsTR'})">
+                                    <li>{{'help_ibcsport@other_sports' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-WinterOlympicsRules" menu="v2-WinterOlympicsRules" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-WinterOlympicsRules'})">
+                                    <li>{{'help_ibcsport@winter_olympic' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-OlympicCompetitionRules" menu="v2-OlympicCompetitionRules" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-OlympicCompetitionRules'})">
+                                    <li>{{'help_ibcsport@olympic' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-RacingTrading" menu="v2-RacingTrading" item="xxx" ui-sref="help({mainmenu:'ibcsport', menu: 'v2-RacingTrading'})">
+                                    <li>{{'help_ibcsport@racing_trading' | translate}}</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+
+                <!--單一選單　娱乐场规则 -->
+                <div class="mn1" id="div_HMenu6" ng-click="openMenu('casino')" ng-class="{'active': mainMenu === 'casino'}" ng-if="lang === 'zh-cn' || lang === 'th-th'">
+                    <div class="lastCols3"><span class="help_center_icon_novice help_center_icon_casino"></span></div>
+                    <div class="cols9 last height100">
+                        <div class="mnrt">
+                            <h5>{{'help_casino@title' | translate}}</h5>
+                            <ul class="hlpMn">
+                                <a ui-sref-active="yellow2" id="div_HMenu61" currentmenu="v2-Baccarat" menu="v2-Baccarat" item="xxx" ui-sref="help({mainmenu:'casino', menu: 'v2-Baccarat'})">
+                                    <li>{{'help_casino@baccarat' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-RotaryTable" menu="v2-RotaryTable" item="xxx" ui-sref="help({mainmenu:'casino', menu: 'v2-RotaryTable'})">
+                                    <li>{{'help_casino@rotary_table' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-21Point" menu="v2-21Point" item="xxx" ui-sref="help({mainmenu:'casino', menu: 'v2-21Point'})">
+                                    <li>{{'help_casino@21point' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Dragon" menu="v2-Dragon" item="xxx" ui-sref="help({mainmenu:'casino', menu: 'v2-Dragon'})">
+                                    <li>{{'help_casino@dragon' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Dice" menu="v2-Dice" item="xxx" ui-sref="help({mainmenu:'casino', menu: 'v2-Dice'})">
+                                    <li>{{'help_casino@dice' | translate}}</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+                <!--單一選單　小游戏规则 -->
+                <div class="mn1" id="div_HMenu5" ng-click="openMenu('game')" ng-class="{'active': mainMenu === 'game'}" ng-if="lang === 'zh-cn' || lang === 'th-th'">
+                    <div class="lastCols3"><span class="help_center_icon_novice help_center_icon_game"></span></div>
+                    <div class="cols9 last height100">
+                        <div class="mnrt">
+                            <h5>{{'help_game@title' | translate}}</h5>
+                            <ul class="hlpMn">
+                                <li currentmenu="v2-Game1" menu="v2-Miracle" item="G_Page1">{{'help_game@tiger' | translate}}</li>
+                                <a ui-sref-active="yellow2" id="div_HMenu51" currentmenu="v2-Game1" menu="v2-Miracle" item="G_Page1" ui-sref="help({mainmenu:'game', menu: 'v2-Miracle'})" style="list-style-type: none">
+                                    <li><span class="ball_1 games_icon"></span>{{'help_game@miracle' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game7" menu="v2-Lines5-10" item="G_Page2" ui-sref="help({mainmenu:'game', menu: 'v2-Lines5-10'})" style="list-style-type: none">
+                                    <li><span class="ball_1 games_icon"></span>{{'help_game@lines5_10' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game9" menu="v2-Lines15-20" item="G_Page3" ui-sref="help({mainmenu:'game', menu: 'v2-Lines15-20'})" style="list-style-type: none">
+                                    <li><span class="ball_1 games_icon"></span>{{'help_game@lines15_20' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game11" menu="v2-Lines25" item="G_Page4" ui-sref="help({mainmenu:'game', menu: 'v2-Lines25'})" style="list-style-type: none">
+                                    <li><span class="ball_1 games_icon"></span>{{'help_game@lines25' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game13" menu="v2-Multi-turn" item="G_Page5" ui-sref="help({mainmenu:'game', menu: 'v2-Multi-turn'})" style="list-style-type: none">
+                                    <li><span class="ball_1 games_icon"></span>{{'help_game@multi_turn' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game15" menu="v2-Slots" item="G_Page6" ui-sref="help({mainmenu:'game', menu: 'v2-Slots'})">
+                                    <li>{{'help_game@slots' | translate}}</li>
+                                </a>
+                                <li currentmenu="v2-Game18" menu="v2-Table" item="G_Page7">{{'help_game@table_game' | translate}}</li>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game18" menu="v2-Table" item="G_Page7" ui-sref="help({mainmenu:'game', menu: 'v2-Table'})" style="list-style-type: none">
+                                    <li><span class="ball_1 games_icon"></span>{{'help_game@21point' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game21" menu="v2-GRotaryTable" item="G_Page8" ui-sref="help({mainmenu:'game', menu: 'v2-GRotaryTable'})" style="list-style-type: none">
+                                    <li><span class="ball_1 games_icon"></span>{{'help_game@rotary' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game24" menu="v2-Scratch" item="G_Page9" ui-sref="help({mainmenu:'game', menu: 'v2-Scratch'})">
+                                    <li>{{'help_game@scratch' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game28" menu="v2-Multi-player" item="G_Page10" ui-sref="help({mainmenu:'game', menu: 'v2-Multi-player'})">
+                                    <li>{{'help_game@multi_player' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game31" menu="v2-Asia" item="G_Page11" ui-sref="help({mainmenu:'game', menu: 'v2-Asia'})">
+                                    <li>{{'help_game@asia_game' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Game33" menu="v2-BigGame" item="G_Page12" ui-sref="help({mainmenu:'game', menu: 'v2-BigGame'})">
+                                    <li>{{'help_game@big_game' | translate}}</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+
+
+                <!--單一選單　快樂彩規則 -->
+                <div class="mn1" id="div_HMenu3" ng-click="openMenu('keno')" ng-class="{'active': mainMenu === 'keno'}">
+                    <div class="lastCols3"><span class="help_center_icon_novice help_center_icon_keno"></span></div>
+                    <div class="cols9 last height100">
+                        <div class="mnrt">
+                            <h5>{{'help_keno@title' | translate}}</h5>
+                            <ul class="hlpMn">
+                                <a ui-sref-active="yellow2" id="div_HMenu31" currentmenu="v2-Size/Mono" menu="v2-Size/Mono" item="xxx" ui-sref="help({mainmenu:'keno', menu: 'v2-SizeMono'})">
+                                    <li>{{'help_keno@size_mono' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-OddEven/OnInUnder" menu="v2-OddEven/OnInUnder" item="xxx" ui-sref="help({mainmenu:'keno', menu: 'v2-OddEvenOnInUnder'})">
+                                    <li>{{'help_keno@old_even' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Beads" menu="v2-Beads" item="xxx" ui-sref="help({mainmenu:'keno', menu: 'v2-Beads'})">
+                                    <li>{{'help_keno@beads' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-SizeMonoPass" menu="v2-SizeMonoPass" item="xxx" ui-sref="help({mainmenu:'keno', menu: 'v2-SizeMonoPass'})">
+                                    <li>{{'help_keno@size_mono_pass' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-SizeIndex/Five" menu="v2-SizeIndex/Five" item="xxx" ui-sref="help({mainmenu:'keno', menu: 'v2-SizeIndexFive'})">
+                                    <li>{{'help_keno@size_index_five' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Mix/NotMixPass" menu="v2-Mix/NotMixPass" item="xxx" ui-sref="help({mainmenu:'keno', menu: 'v2-MixNotMixPass'})">
+                                    <li>{{'help_keno@mix_notmix' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-ChaseNo/DoubleBets" menu="v2-DoubleBets" item="xxx" ui-sref="help({mainmenu:'keno', menu: 'v2-DoubleBets'})">
+                                    <li>{{'help_keno@double_bets' | translate}}</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+                <!--單一選單　世界樂透規則 -->
+                <div class="mn1" id="div_HMenu4" ng-click="openMenu('lotto')" ng-class="{'active': mainMenu === 'lotto'}">
+                    <div class="lastCols3"><span class="help_center_icon_novice help_center_icon_keno"></span></div>
+                    <div class="cols9 last height100">
+                        <div class="mnrt">
+                            <h5>{{'help_lotto@title' | translate}}</h5>
+                            <ul class="hlpMn">
+                                <a ui-sref-active="yellow2" id="div_HMenu41" currentmenu="v2-HK" menu="v2-HK" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-HK'})">
+                                    <li>{{'help_lotto@hk' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-CN" menu="v2-CN" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-CN'})">
+                                    <li>{{'help_lotto@cn' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-SG" menu="v2-SG" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-SG'})">
+                                    <li>{{'help_lotto@sg' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-NZ" menu="v2-NZ" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-NZ'})">
+                                    <li>{{'help_lotto@nz' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-DE" menu="v2-DE" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-DE'})">
+                                    <li>{{'help_lotto@de' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-ES" menu="v2-ES" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-ES'})">
+                                    <li>{{'help_lotto@es' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-ZA" menu="v2-ZA" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-ZA'})">
+                                    <li>{{'help_lotto@za' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-CA" menu="v2-CA" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-CA'})">
+                                    <li>{{'help_lotto@ca' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-US" menu="v2-US" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-US'})">
+                                    <li>{{'help_lotto@us' | translate}}</li>
+                                </a>
+                                <a ui-sref-active="yellow2" currentmenu="v2-Glossary" menu="v2-Glossary" item="xxx" ui-sref="help({mainmenu:'lotto', menu: 'v2-Glossary'})">
+                                    <li>{{'help_lotto@glossary' | translate}}</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+                <!--單一選單　時時彩規則 -->
+                <div class="mn1" id="div_HMenu5" ng-click="openMenu('ssc')" ng-class="{'active': mainMenu === 'ssc'}" ui-sref="help({mainmenu:'ssc', menu: 'v2-SSC'})">
+                    <div class="lastCols3"><span class="help_center_icon_novice help_center_icon_keno"></span></div>
+                    <div class="cols9 last height100">
+                        <div class="mnrt">
+                            <h5>{{'help_ssc@title' | translate}}</h5>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mn1-line"><span class="line1"></span><span class="line2"></span></div>
+                </div>
+                <!--單一選單　手機/平板使用 (暫不使用) -->
+
+            </div>
+
+            <!--右側填寫內容頁 member center right center-->
+            <div class="fltlft mc-rtct">
+                <div class="mc-ct" id="HelpMainForm">
+                    <!--右側-標題及子分頁選單-->
+                    <div id="DepositeItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help_greenhand@deposit' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+                        <ul class="hlp_mn_mn">
+                            <a class="Detail" currentmenu="v2-Depositsop1" menu="v2-Depositsop" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-Depositsop1'}">
+                                    <h4 style="color: #666666;">{{'help@menu_deposit1' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-Depositsop2" menu="v2-Depositsop" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-Depositsop2'}">
+                                    <h4 style="color: #666666;">{{'help@menu_deposit2' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-Depositsop3" menu="v2-Depositsop" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-Depositsop3'}">
+                                    <h4 style="color: #666666;">{{'help@menu_deposit3' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-Depositsop4" menu="v2-Depositsop" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-Depositsop4'}">
+                                    <h4 style="color: #666666;">{{'help@menu_deposit4' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-Depositsop5" menu="v2-Depositsop" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-Depositsop5'}">
+                                    <h4 style="color: #666666;">{{'help@menu_deposit5' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-Depositsop6" menu="v2-Depositsop" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-Depositsop6'}">
+                                    <h4 style="color: #666666;">{{'help@menu_deposit6' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-Depositsop7" menu="v2-Depositsop" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-Depositsop7'}">
+                                    <h4 style="color: #666666;">{{'help@menu_deposit7' | translate}}</h4>
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                    <div id="DWFAQItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_faq_dw' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+                        <ul class="hlp_mn_mn">
+                            <a class="Detail" currentmenu="v2-DepositFAQ" menu="v2-DWFAQ" item="xxx" href="javascript://">
+                                <li class="" id="DepositFAQ" ng-class="{'active': currentMenu === 'v2-DepositFAQ'}">
+                                    <h4 style="color: #666666;">{{'help@menu_faq_deposit' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-WithdrawalFAQ" menu="v2-DWFAQ" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-WithdrawalFAQ'}">
+                                    <h4 style="color: #666666;">{{'help@menu_faq_withdrawal' | translate}}</h4>
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                    <div id="GBHandicapInfoItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_handicap' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+                        <ul class="hlp_mn_mn">
+                            <a class="Detail" currentmenu="v2-GBHandicapRules" menu="v2-GBHandicap" item="xxx" href="javascript://">
+                                <li id="GBHandicapRules" ng-class="{'active': currentMenu === 'v2-GBHandicapRules'}">
+                                    <h4 style="color: #666666;">{{'help@menu_handicap_normal' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-GBMixedPassRules" menu="v2-GBHandicap" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-GBMixedPassRules'}">
+                                    <h4 style="color: #666666;">{{'help@menu_handicap_mix' | translate}}</h4>
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                    <div id="HandicapInfoItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_handicap' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+                        <ul class="hlp_mn_mn">
+                            <a class="Detail" currentmenu="v2-HandicapRules" menu="v2-Handicap" item="xxx" href="javascript://">
+                                <li id="HandicapRules" ng-class="{'active': currentMenu === 'v2-HandicapRules'}">
+                                    <h4 style="color: #666666;">{{'help@menu_handicap_normal' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-MixedPassRules" menu="v2-Handicap" item="xxx" href="javascript://">
+                                <li ng-class="{'active': currentMenu === 'v2-MixedPassRules'}">
+                                    <h4 style="color: #666666;">{{'help@menu_handicap_mix' | translate}}</h4>
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                    <div id="GBFootballItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_football' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+                        <ul class="hlp_mn_mn">
+                            <a class="Detail" currentmenu="v2-GBPlayRule-FootballMatchesTR" menu="v2-GBFootball" item="xxx" href="javascript://">
+                                <li id="GBFootballMatchesTR" ng-class="{'active': currentMenu === 'v2-GBPlayRule-FootballMatchesTR'}">
+                                    <h4 style="color: #666666;">{{'help@menu_football_rules' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-GBPlayRule-Correct" menu="v2-GBFootball" item="DF_PagFB" href="javascript://">
+                                <li id="GBFootballInfo" ng-class="{'active': currentMenu === 'v2-GBPlayRule-Correct'}">
+                                    <h4 style="color: #666666;">{{'help@menu_football_special' | translate}}</h4>
+                                </li>
+                            </a>
+                        </ul>
+                        <div class="clear"></div>
+                        <!--內容分類背景-->
+                        <div class="sub-box">
+                            <div id="GBFootballMenu" style="display: none">
+                                <!--內容分類次選單-->
+                                <a class="Detail" currentmenu="v2-GBFootball1" menu="v2-GBFootball" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2" id="GBCorrect">{{'help@menu_football1' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-GBFootball2" menu="v2-GBFootball" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@menu_football2' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-GBFootball3" menu="v2-GBFootball" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@menu_football3' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-GBFootball4" menu="v2-GBFootball" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@menu_football4' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-GBFootball5" menu="v2-GBFootball" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@menu_football5' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-GBFootball6" menu="v2-GBFootball" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@menu_football6' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-GBFootball7" menu="v2-GBFootball" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@menu_football7' | translate}}</div>
+                                </a>
+
+                                <div class="mgbt20"></div>
+                            </div>
+                            <!--for 足球規則內容-->
+                            <div id="GBSportsContent"></div>
+                        </div>
+                    </div>
+                    <div id="FootballItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_football' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+                        <ul class="hlp_mn_mn">
+                            <a class="Detail" currentmenu="v2-PlayRule-FootballMatchesTR" menu="v2-Football" item="xxx" href="javascript://">
+                                <li id="FootballMatchesTR" ng-class="{'active': currentMenu === 'v2-PlayRule-FootballMatchesTR'}">
+                                    <h4 style="color: #666666;">{{'help@menu_football_rules' | translate}}</h4>
+                                </li>
+                            </a>
+                            <a class="Detail" currentmenu="v2-PlayRule-Correct" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                <li id="FootballInfo" ng-class="{'active': currentMenu === 'v2-PlayRule-Correct'}">
+                                    <h4 style="color: #666666;">{{'help@menu_football_special' | translate}}</h4>
+                                </li>
+                            </a>
+                        </ul>
+                        <div class="clear"></div>
+                        <!--內容分類背景-->
+                        <div class="sub-box">
+                            <div id="FootballMenu" style="display: none">
+                                <!--內容分類次選單-->
+                                <a class="Detail" currentmenu="v2-PlayRule-Correct" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2" id="Correct">{{'help@play_rule_correct' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Goals1" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_goals1' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Goals2" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_goals2' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Goals3" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_goals3' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Goals4" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_goals4' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-SizeDisk" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_size_disk' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Penalties" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_penalties' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Score" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_score' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Win" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_win' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Handicap/Listings" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_handicap' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-StraightForecasts" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_straight' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Team1" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_team1' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Team2" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_team2' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-SpecificTimeBetting" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_specific' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Other1" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_other1' | translate}}</div>
+                                </a>
+                                <a class="Detail" currentmenu="v2-PlayRule-Other2" menu="v2-Football" item="DF_PagFB" href="javascript://">
+                                    <div class="hlpBtn2">{{'help@play_rule_other2' | translate}}</div>
+                                </a>
+                                <div class="mgbt20"></div>
+                            </div>
+                            <!--for 足球規則內容-->
+                            <div id="SportsContent"></div>
+                        </div>
+                    </div>
+
+                    <!--奇迹大奖-->
+                    <div id="MiracleItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_miracle' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <!--内容分类選單-->
+                        <a class="Detail" currentmenu="v2-Game1" menu="v2-Miracle" item="G_Page1" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page1">{{'help@menu_game1' | translate}}</div>
+                        </a><a class="Detail" currentmenu="v2-Game2" menu="v2-Miracle" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game2' | translate}}</div>
+                        </a><a class="Detail" currentmenu="v2-Game3" menu="v2-Miracle" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game3' | translate}}</div>
+                        </a><a class="Detail" currentmenu="v2-Game4" menu="v2-Miracle" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game4' | translate}}</div>
+                        </a><a class="Detail" currentmenu="v2-Game5" menu="v2-Miracle" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game5' | translate}}</div>
+                        </a><a class="Detail" currentmenu="v2-Game6" menu="v2-Miracle" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game6' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--5-10 条线-->
+                    <div id="Lines5-10Item" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_line5_10' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game7" menu="v2-Lines5-10" item="G_Page2" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page2">{{'help@menu_game7' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game8" menu="v2-Lines5-10" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game8' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--15-20 条线-->
+                    <div id="Lines15-20Item" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_line15_20' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game9" menu="v2-Lines15-20" item="G_Page3" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page3">{{'help@menu_game9' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game10" menu="v2-Lines15-20" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game10' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--25+ 条线-->
+                    <div id="Lines25Item" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_line25_plus' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game11" menu="v2-Lines25" item="G_Page4" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page4">{{'help@menu_game11' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game12" menu="v2-Lines25" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game12' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--多旋转-->
+                    <div id="Multi-turnItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_multi_turn' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game13" menu="v2-Multi-turn" item="G_Page5" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page5">{{'help@menu_game13' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game14" menu="v2-Multi-turn" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game14' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--经典老虎机-->
+                    <div id="SlotsItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_slots' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game15" menu="v2-Slots" item="G_Page6" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page6">{{'help@menu_game15' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game16" menu="v2-Slots" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game16' | translate}}</div>
+                        </a>
+
+                        <a class="Detail" currentmenu="v2-Game17" menu="v2-Slots" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game17' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--21点-->
+                    <div id="TableItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_table' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game18" menu="v2-Table" item="G_Page7" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page7">{{'help@menu_game18' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game19" menu="v2-Table" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game19' | translate}}</div>
+                        </a>
+
+                        <a class="Detail" currentmenu="v2-Game20" menu="v2-Table" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game20' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--轮盘-->
+                    <div id="RotaryTableItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_rotary_table' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game21" menu="v2-GRotaryTable" item="G_Page8" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page8">{{'help@menu_game21' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game22" menu="v2-GRotaryTable" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game22' | translate}}</div>
+                        </a>
+
+                        <a class="Detail" currentmenu="v2-Game23" menu="v2-GRotaryTable" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game23' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--刮刮乐-->
+                    <div id="ScratchItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_scratch' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game24" menu="v2-Scratch" item="G_Page9" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page9">{{'help@menu_game24' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game25" menu="v2-Scratch" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game25' | translate}}</div>
+                        </a>
+
+                        <a class="Detail" currentmenu="v2-Game26" menu="v2-Scratch" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game26' | translate}}</div>
+                        </a>
+
+                        <a class="Detail" currentmenu="v2-Game27" menu="v2-Scratch" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game27' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--多玩家游戏-->
+                    <div id="Multi-playerItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_multi_player' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game28" menu="v2-Multi-player" item="G_Page10" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page10">{{'help@menu_game28' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game29" menu="v2-Multi-player" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game29' | translate}}</div>
+                        </a>
+
+                        <a class="Detail" currentmenu="v2-Game30" menu="v2-Multi-player" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game30' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--亚洲游戏-->
+                    <div id="AsiaItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_asia_game' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game31" menu="v2-Asia" item="G_Page11" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page11">{{'help@menu_game31' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game32" menu="v2-Asia" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game32' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <!--大型电玩-->
+                    <div id="BigGameItem" class="div_SubmenuItem" style="display: none;">
+                        <h3>{{'help@menu_big_game' | translate}}</h3>
+                        <div class="horizonLine2 mgbt20"></div>
+
+                        <a class="Detail" currentmenu="v2-Game33" menu="v2-BigGame" item="G_Page12" href="javascript://">
+                            <div class="hlpGameBtn" id="G_Page12">{{'help@menu_game33' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game34" menu="v2-BigGame" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game34' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game35" menu="v2-BigGame" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game35' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game36" menu="v2-BigGame" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game36' | translate}}</div>
+                        </a>
+                        <a class="Detail" currentmenu="v2-Game37" menu="v2-BigGame" item="xxx" href="javascript://">
+                            <div class="hlpGameBtn">{{'help@menu_game37' | translate}}</div>
+                        </a>
+                        <div class="mgbt20"></div>
+                    </div>
+
+                    <div class="clear"></div>
+                    <!--右側-內容分類標題-->
+                    <!--
+                    <div ng-bind-html="htmlTemplate" ng-style="myStyle"></div>-->
+                    <div id="HelperCenterDetail">
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

@@ -94,9 +94,9 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
             lang = 'zh-cn';
           }
         }
-        path = window.location.protocol + '//' + this.getDomainName() + '/static/v1/app/templates/' + group + '/' + lang + '/' + group + '--' + key.replace('/', '_') + '.html' + '?v=' + VERSION;
+        path = window.location.protocol + '//' + this.getDomainName() + '/static/v1/app/templates/' + lang + '/' + group + '--' + key.replace('/', '_') + '.html' + '?v=' + VERSION;
       } else {
-        path = '/static/v1/app/templates' + '/' + group + '/' + lang + '/' + group + '--' + key.replace('/', '_') + '.html' + '?v=' + VERSION;
+        path = '/static/v1/app/templates' + '/' + lang + '/' + group + '--' + key.replace('/', '_') + '.html' + '?v=' + VERSION;
       }
       return path;
     },

@@ -83,7 +83,7 @@ p{
 .pdlef16{
 	padding-left: 16px;
 }
-.hlpBtn2{
+.hlpBtn2, .hlpGameBtn {
 	padding: 10px 20px;
     display: inline-block;
     background-color: #d9d9d9;
@@ -92,10 +92,13 @@ p{
 	margin-right: 5px;
 	cursor: pointer;
 }
+.hlpGameBtn {
+  background: #eee;
+}
 .hlpBtn2 a{
     color: #666666;
 }
-.checked{
+.checked, .Gamechecked {
     background-color: #98171a;
     color: #FFFFFF;
 }
