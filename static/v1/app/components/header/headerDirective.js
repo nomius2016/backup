@@ -1,4 +1,4 @@
-angular.module('ciApp').directive('header', ['$state', '$translate', '$interval', 'App', 'Config', 'Container', 'Storage', 'appServices', 'PlatformService', function($state, $translate, $interval, App, Config, Container, Storage, appServices, PlatformService) {
+angular.module('ciApp').directive('header', ['$state', '$translate', '$interval', '$timeout', 'App', 'Config', 'Container', 'Storage', 'appServices', 'PlatformService', function($state, $translate, $interval, $timeout, App, Config, Container, Storage, appServices, PlatformService) {
   return {
     templateUrl: '/static/v1/app/components/header/header.html',
     restrict: 'A',
@@ -216,6 +216,13 @@ angular.module('ciApp').directive('header', ['$state', '$translate', '$interval'
           $('.layer-style-1').removeClass('img-bg-finish');
           $('#registerPage').css('left', 0);
         });
+      };
+      $scope.sidebarFundsClick = function($event) {
+        $event.stopPropagation();
+        $timeout(function() {
+          var element = document.getElementById('sidebarFunds');
+          angular.element(element).triggerHandler('click');
+        }, 100);
       };
       $scope.logout = function() {
         $scope.login = false;

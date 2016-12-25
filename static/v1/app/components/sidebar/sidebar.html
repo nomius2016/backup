@@ -8,7 +8,7 @@
                 <div class="vw-bar-tab-arrow"></div>
                 <div class="vw-bar-tab-tip" style="right: 70px; opacity: 0; display: none;">{{'sidebar@privilege' | translate}}</div>
             </div>
-            <div class="mui-mbar-tab-asset vw-bar-tab" page="Bank" ng-click="selectPage(1)">
+            <div id="sidebarFunds" class="mui-mbar-tab-asset vw-bar-tab" page="Bank" ng-click="selectPage(1)">
                 <div class="vw-bar-tab-logo iconbar icon-uniE617" ng-if="currencyID === -1"></div>
                 <div class="vw-bar-tab-logo iconbar icon-uniE617" ng-if="currencyID === 2"></div>
                 <div class="vw-bar-tab-logo iconbar icon-uniE901" ng-if="currencyID === 16"></div>
@@ -157,11 +157,11 @@
                 <div class="vw-bar-asset-wrap">
                     <div class="vw-asset-content">
                         <div class="vw-asset-tab" id="totalMoney">
-                            <h5>{{'sidebar@total_funds' | translate}}<a class="btnToDeposit" ui-sref="member.bank({ method: 'deposit'})">{{'sidebar@deposit' | translate}}</a></h5>
+                            <h5>{{'sidebar@total_funds' | translate}}<a class="btnToDeposit btn-1" ui-sref="member.bank({ method: 'deposit'})">{{'sidebar@deposit' | translate}}</a></h5>
                             <p><span class="vw-bar-yen">{{currencySymbol}}</span><span class="money">{{total|number:2}}</span></p>
                         </div>
                         <div class="vw-asset-tab" id="allowWithdrawal">
-                            <h5>{{'sidebar@available_funds' | translate}}<a class="btnWithdrawal" ui-sref="member.bank({method: 'withdraw'})">{{'sidebar@withdraw' | translate}}</a></h5>
+                            <h5>{{'sidebar@available_funds' | translate}}<a class="btnWithdrawal btn-2" ui-sref="member.bank({method: 'withdraw'})">{{'sidebar@withdraw' | translate}}</a></h5>
                             <p><span class="vw-bar-yen">{{currencySymbol}}</span>{{totalWithdrawal|number:2}}</p>
                         </div>
                     </div>

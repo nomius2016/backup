@@ -25,68 +25,36 @@
           </div>
           <div class="vw-jf-fixed fltlft last">
             <div class="vw-pad25-fixed cl">
-              <div class="vw-tit">
-                {{'member@month_bonus' | translate}}：<em ng-bind="vip_values.TotalPoints"></em>
+              <div class="vw-tit c-red">
+                {{'wallet_widget@total_funds' | translate}}：
+                <span class="vw-money">
+                  <i ng-bind="symbol"></i>
+                  <font ng-bind="total|number:2"></font>
+                </span>
                 <div class="fltrt">
-                  {{'member@year_bonus' | translate}}：<em ng-bind="vip_values.YearPoints"></em>
+                  <a class="btn-1" ui-sref="member.bank({ method: 'deposit'})">
+                    {{'wallet_widget@deposit' | translate}}
+                  </a>
                 </div>
               </div>
-
               <div class="vw-info cl">
-                <span class="txt fltlft">{{'member@member_get' | translate}}</span>
-                <span class="icon-vip fltlft" ng-bind="vip_values.VIPName_N"></span>
-                <span class="vw-money fltlft"><i>{{Symbol}}</i><font ng-bind="vip_values.LevelUpBonus_N"></font></span>
+                {{'wallet_widget@funds_withdraw_limit' | translate}}：
+                <span class="vw-money">
+                    <i ng-bind="symbol"></i>
+                    <font ng-bind="withdrawLimit|number:2"></font>
+                </span>
+                <div class="fltrt">
+                  <a class="btn-2" ui-sref="member.bank({method: 'withdraw'})">
+                    {{'wallet_widget@withdraw' | translate}}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
           <div class="vw-tq-fixed fltlft last">
             <div class="vw-pad25-fixed cl">
-              <div class="vw-tit">
-                {{'member_vip@more_vip_title' | translate}}
-                <h3><a ui-sref="vip">{{'member_vip@more_vip_info' | translate}}</a></h3>
-              </div>
-              <div class="vw-info cl">
-                <div class="vw-icon-fixed icon1">
-                  <ul>
-                    <li class="lc-icon1 lc-fricon-fixed pop_hb">
-                      <a></a>
-                      <div class="pop">
-                        <div class="pop_cnt">{{'member_vip@levelup_bonus' | translate}}：<span class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.LevelUpBonus"></font></span></div>
-                      </div>
-                    </li>
-                    <li class="lc-icon2 lc-fricon-fixed pop_hb">
-                      <a></a>
-                      <div class="pop">
-                        <div class="pop_cnt">{{'member_vip@birthday_bonus' | translate}}：<span class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.BirthdayBonus"></font></span></div>
-                      </div>
-                    </li>
-                    <li class="lc-icon3 lc-fricon-fixed pop_hb">
-                      <a></a>
-                      <div class="pop">
-                        <div class="pop_cnt">{{'member_vip@withdraw_bonus' | translate}}：<span class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.DP_MaxLimit"></font></span></div>
-                      </div>
-                    </li>
-                    <li class="lc-icon4 lc-fricon-fixed pop_hb">
-                      <a></a>
-                      <div class="pop">
-                        <div class="pop_cnt">{{'member_vip@sport_bonus' | translate}}：<span class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.SportsBonus"></font></span></div>
-                      </div>
-                    </li>
-                    <li class="lc-icon5 lc-fricon-fixed pop_hb pop_en">
-                      <a></a>
-                      <div class="pop">
-                        <div class="pop_cnt">{{'member_vip@casino_bonus' | translate}}：<span class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.CasinoBonus"></font></span></div>
-                      </div>
-                    </li>
-                    <li class="lc-icon6 lc-fricon-fixed pop_hb">
-                      <a></a>
-                      <div class="pop">
-                        <div class="pop_cnt">{{'member_vip@vip_bonus' | translate}}：<span class="vw-money"><i>{{Symbol}}</i><font ng-bind="vip_values.VIPHelpBonusLimit"></font></span></div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              <div class="vw-tit">2</div>
+              <div class="vw-info cl">2</div>
             </div>
           </div>
         </div>
@@ -144,15 +112,6 @@
                 <!--<em class="icon_tx" ng-if="unreadMessageCount !== -1"><span ng-bind="unreadMessageCount"></span></em>-->
               </a>
             </li>
-            <li ui-sref="member.bonus" ui-sref-active="active">
-              <a><i class="m-icon4 iconfont">&#xe60f;</i><span>{{'member@bonus' | translate}}</span></a>
-            </li>
-            <!-- <li ui-sref="member.friend" ui-sref-active="active">
-              <a><i class="m-icon5 iconfont">&#xe623;</i><span>{{'member@invite_friend' | translate}}</span></a>
-            </li>
-            <li ui-sref="member.vip" ui-sref-active="active">
-              <a><i class="m-icon6 iconfont">&#xe622;</i><span>{{'member@vip' | translate}}</span></a>
-            </li> -->
             <li ui-sref="member.info" ui-sref-active="active">
               <a><i class="m-icon1 iconfont">&#xe61f;</i><span>{{'member@account_info' | translate}}</span></a>
             </li>
@@ -161,12 +120,6 @@
             </li>
           </ul>
         </div>
-      </div>
-      <div class="vw-quick-fixed">
-        <!--右側轉帳widget-->
-        <div transfer-widget></div>
-        <!--右側紅利widget-->
-        <div bonus-widget></div>
       </div>
     </div>
   </div>

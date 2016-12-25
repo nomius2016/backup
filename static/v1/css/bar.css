@@ -737,7 +737,7 @@ body {
 }
 
 .vw-asset-tab {
-    padding: 18px 0;
+    padding: 8px 0;
     font-size: 14px;
     color: #828282;
     border-bottom: 1px solid #e5e5e5;
@@ -745,35 +745,23 @@ body {
 
     .vw-asset-tab h5 {
         position: relative;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+        font-weight: normal;
     }
 
-        .vw-asset-tab h5 a {
-            position: absolute;
-            right: 0;
-            top: -8px;
-            color: #828282;
-            display: block;
-            /*width: 72px;*/
-            padding: 0 20px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            font-weight: 400;
-            color: #fff;
-            border-radius: 20px;
-            font-size: 14px;
-            background: -webkit-linear-gradient(#b9b9b9, #aaaaaa);
-            background: -o-linear-gradient(#b9b9b9, #aaaaaa);
-            background: -moz-linear-gradient(#b9b9b9, #aaaaaa);
-            background: linear-gradient(#b9b9b9, #aaaaaa);
-            background-color: #aaaaaa\9;
-            position: static;
-            margin-top: 10px;
-        }
+    .vw-asset-tab h5 a {
+        color: #828282;
+        padding: 4px 15px 6px;
+        text-align: center;
+        font-weight: 400;
+        color: #fff;
+        border-radius: 10px;
+        font-size: 12px;
+        float: right;
+    }
 
     .vw-asset-tab p {
-        font-size: 30px;
+        font-size: 24px;
         font-family: 'arial';
         letter-spacing: -1px;
     }

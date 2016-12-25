@@ -321,10 +321,6 @@
     display: none
 }
 
-.vw-user:after {
-    background: url(../images/shadow_b2.png) top center no-repeat
-}
-
 .vw-account .mc-con1:after {
     display: block;
     background: url(../images/shadow_b4.png) top center no-repeat;
@@ -691,7 +687,7 @@
 
 .vw-wrapper {
     position: relative;
-    width: 78.5%
+    width: 100%
 }
 
 .vw-wrapper .menu {

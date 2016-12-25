@@ -39,6 +39,12 @@
                         </div>
                         <span class="line"></span>
                         <div>
+                            <a id="Deposit" ui-sref="member.bank({ method: 'deposit'})" ng-bind="'wallet_widget@deposit'|translate">Deposit</a>
+                            <a id="Withdraw" ui-sref="member.bank({ method: 'withdraw'})" ng-bind="'wallet_widget@withdraw'|translate">Withdraw</a>
+                            <a id="Transfer" ng-click="sidebarFundsClick($event)" ng-bind="'transfer_widget@transfer'|translate">Transfer</a>
+                        </div>
+                        <span class="line"></span>
+                        <div>
                             <a id="UserInfo" ui-sref="member.profile" ng-bind="'Member_Center'|translate">Member_Center</a>
                         </div>
                         <span class="line"></span>
