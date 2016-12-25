@@ -94,19 +94,19 @@ class User extends Basecontroller {
 	 * [vippoint VIP 积分相关]
 	 * @return [type] [description]
 	 */
-	public function vippoint(){
-		$ret = array();
-		$ret['status'] = true;
-		$ret['code'] = 1;
-		$ret['msg'] = '获取成功';
-		$ret['result'] = array(array(
-					'monthPoint'=>0,
-					'yearPoint'=>0,
-					'vipName'=>'VIP1',
-					'LevelUpBonus'=>'168.00',
-			));
-		$this->teamapi($ret);
-	}
+	// public function vippoint(){
+	// 	$ret = array();
+	// 	$ret['status'] = true;
+	// 	$ret['code'] = 1;
+	// 	$ret['msg'] = '获取成功';
+	// 	$ret['result'] = array(array(
+	// 				'monthPoint'=>0,
+	// 				'yearPoint'=>0,
+	// 				'vipName'=>'VIP1',
+	// 				'LevelUpBonus'=>'168.00',
+	// 		));
+	// 	$this->teamapi($ret);
+	// }
 
 	/**
 	 * [login_info 登录信息]
