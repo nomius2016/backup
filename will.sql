@@ -58,12 +58,11 @@ INSERT INTO user_platform_accounts (`user_id`) SELECT user_id from users;
 INSERT INTO user_platform_balance (`user_id`) SELECT user_id from users;
 DROP TRIGGER `afeter_insert_users`;
 -- 修改触发器
-CREATE DEFINER=`root`@`localhost` TRIGGER `afeter_insert_users` AFTER INSERT ON `users`
-FOR EACH ROW BEGIN
+CREATE TRIGGER `afeter_insert_users` AFTER INSERT ON `users` FOR EACH ROW BEGIN
 	INSERT INTO user_restrict (user_id) VALUES (NEW.user_id);
 	INSERT INTO user_profile (user_id) VALUES (NEW.user_id);
-    INSERT INTO user_platform_accounts (user_id) VALUES (NEW.user_id);
-    INSERT INTO user_platform_balance (user_id) VALUES (NEW.user_id);
+              INSERT INTO user_platform_accounts (user_id) VALUES (NEW.user_id);
+              INSERT INTO user_platform_balance (user_id) VALUES (NEW.user_id);
 	UPDATE stat_summary_daily SET user_new_reg=user_new_reg+1 WHERE date=LEFT(NEW.register_time,10);
 	IF ((SELECT ROW_COUNT())<1) THEN
 		INSERT INTO stat_summary_daily (date,user_new_reg) VALUES (LEFT(NEW.register_time,10),1);
