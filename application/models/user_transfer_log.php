@@ -5,6 +5,8 @@
  */
 class user_transfer_log extends Base_Model{
 	
+
+	protected $gaming_api;
 	public function __construct() {
 		$this->setTableName("user_transfer");
 		parent::__construct ();
@@ -65,6 +67,44 @@ class user_transfer_log extends Base_Model{
 				'total'=>ceil($count/$pageSize),
 				'page'=>$page
 			);
+	}
+
+	/**
+	 * [transfer 用户转账操作]
+	 * @param  [type] $amount    [金额]
+	 * @param  [type] $gaming_id [游戏ID]
+	 * @param  [type] $io        [进/出]
+	 * @return [type]            [description]
+	 */
+	public function transfer($user_id,$amount,$gaming_id,$io){
+		
+		$ret = array('status'=>false,'code'=>-1);
+		if($amount<=0){
+			$ret['msg'] = '转账金额不合法';
+			return $ret;
+		}
+
+		$game = $this->getGames($gaming_id);
+		if(!$game){
+			$ret['msg'] = '游戏ID 不合法';
+			return $ret;
+		}
+		// echo CTP;exit;
+		if($io !== CTP && $io !== PTC){
+			$ret['msg'] = '转账类型不对';
+			return $ret;
+		}	
+
+		if($io === CTP){
+			$this->load->model('users');
+			
+		}
+
+		$this->load->model('gaming_adapter');
+		$ret = $this->gaming_adapter->transfer($user_id,$amount,$gaming_id,$io);
+		
+
+
 	}
 
 

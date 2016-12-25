@@ -38,8 +38,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
 //资金流进出
-define('IN',1);   //中心钱包增加前  
-define('OUT',-1); //中心钱包扣钱
+define('IN',1);   //中心钱包增加钱  
+define('OUT',0); //中心钱包扣钱
 
 //资金流类型常量定义  1 红利 2存款 3转入中心钱包  6 提款 7 转入平台
 define('BONUS',1);   //红利
@@ -56,9 +56,8 @@ define("EMAIL_FROM","hplus@admin.com");
 define("EMAIL_SHOW","HPLUS CENTER");
 
 
-
-define('SB','SB');        //SB 平台定义
-
+define('PTC',1);  //平台到中心钱包
+define('CTP',0); //中心钱包到平台
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * SB 平台的类文件
+ * AG 平台的类文件
  */
-class platform_sb extends base_platform{
+class gaming_ag extends base_gaming{
 	
 	public function __construct() {
 		parent::__construct ();
-		$this->_platform = SB;
+		// $this->_platform = AG;
 	}
 
 	/*获取登录连接*/
@@ -20,11 +20,14 @@ class platform_sb extends base_platform{
 	public function createAccount($userid){}
 
 	/*中心钱包转账到平台*/
-	public function ctp($userid,$amount){}
+	public function ctp($userid,$amount){
+		return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+	}
 
 	/*平台转账到中心钱包*/
-	public function ptc($userid,$amount){}
-
+	public function ptc($userid,$amount){
+		return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+	}
 	/*获取投注记录*/
 	public function getBetLog($params = array()){}
 

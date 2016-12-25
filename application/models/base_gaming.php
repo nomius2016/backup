@@ -3,7 +3,7 @@
 	/**
 	 *  平台类使用的抽象方法 
 	 */
-abstract class base_platform extends Base_Model {
+abstract class base_gaming extends Base_Model {
 
 	protected $_platform;  //初始化 必须包含平台信息
 

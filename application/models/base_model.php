@@ -176,7 +176,7 @@ class Base_Model extends CI_Model {
 
 		$rs = $this->db->from ( $this->_tableName )->where ( $cons )->get ()->result_array ();
 		if(count($rs) >= 1)
-			return $rs[0];
+			return $rs['0'];
 		else
 			return null;
 	}
@@ -899,6 +899,26 @@ laydate(end);
 		}
 
 		return $ip;
+	}
+
+	/**
+	 * [getGames 获取游戏相关信息]
+	 * @param  [type] $gaming_id [description]
+	 * @return [type]            [description]
+	 */
+	public function getGames($gaming_id = null){
+
+		if($gaming_id){
+			return $this->db->from('gaming')->where('gaming_id', $gaming_id)->get()->row_array();
+		}
+
+		$ret =  $this->db->get ('gaming')->result_array();
+		$data = array();
+		foreach ($ret as $key => $value) {
+			$data[$value['gaming_id']] = $value;
+		}
+
+		return $data;
 	}
 
 }
