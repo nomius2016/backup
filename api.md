@@ -201,7 +201,10 @@
 
     URL:/api/withdraw/apply
 ```json
-{amount:?, user_card_id:?} // 金额和绑定的银行卡id
+{
+	amount:?, 
+	user_card_id:?
+	fund_password:? // 金额和绑定的银行卡id
 {
   "Success": true,
   "Code": 1,

@@ -351,16 +351,16 @@ class User extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function user_withdrawal_bankcards(){
-		$this->load->model('bank_cards');
+		$this->load->model('user_bank_card');
 		if(!isset($_GET['getdata'])){
-			$ret = $this->bank_cards->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+			$ret = $this->user_bank_card->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
 			$this->adminview('hplus_normal',$ret);
 			return;
 		}
 		
 		$params = $this->input->get();
 		$params['status']  = 2;
-		$ret = $this->bank_cards->getList($params);
+		$ret = $this->user_bank_card->getList($params);
 
 		echo json_encode($ret);
 		exit;
@@ -373,7 +373,7 @@ class User extends Basecontroller {
 	public function user_withdrawal_bankcards_op(){
 
 		$params = $this->getApiParams();
-		$this->load->model('bank_cards');
+		$this->load->model('user_bank_card');
 		switch ($params['oper']) {
 			case 'edit': 
 				$bank = array(
@@ -384,7 +384,7 @@ class User extends Basecontroller {
 						'display_name'=>$params['display_name'],
 						'branch_name'=>$params['branch_name'],
 					);
-			    $this->bank_cards->update(array('id'=>$params['id']),$bank);
+			    $this->user_bank_card->update(array('id'=>$params['id']),$bank);
 				break;
 			case 'add':
 				$bank = array();
@@ -397,7 +397,7 @@ class User extends Basecontroller {
 						'branch_name'=>$params['branch_name'],
 						'create_time'=>date('Y-m-d H:i:s'),
 					);
-				$this->bank_cards->b_insert($bank);
+				$this->user_bank_card->b_insert($bank);
 				break;
 
 		}

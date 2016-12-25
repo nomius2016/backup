@@ -24,6 +24,8 @@ class Withdraw extends Basecontroller {
     	        $aRS = array('status' => false, 'msg' => '单笔最大提款不能大于'.$this->f($aRestrict['withdraw_max']));
     	    } else if ($this->fund_withdraw->todayTotal($this->user_id)>$aRestrict['withdraw_day_max']) {
     	        $aRS = array('status' => false, 'msg' => '当日最大提款总额不能大于'.$this->f($aRestrict['withdraw_day_max']));
+    	    } else if ($aUser['fund_password']!=$p['fund_password']) {
+    	        $aRS = array('status' => false, 'msg' => '资金密码不正确');
     	    } else {
     	        $aRS = array();
     	        $aRS['err_no'] = 0;
@@ -119,9 +121,9 @@ class Withdraw extends Basecontroller {
 			$this->teamapi($ret);
 		}
 		$this->load->model('users');
-		$this->load->model('bank_cards');
+		$this->load->model('user_bank_card');
 		$userinfo = $this->users->getLoginInfo();
-		$banks = $this->bank_cards->getCardsByUserId($userinfo['user_id']);
+		$banks = $this->user_bank_card->getCardsByUserId($userinfo['user_id']);
 		if(!$banks){
 			$ret['msg'] = '用户无可用提款卡!';
 			$this->teamapi($ret);

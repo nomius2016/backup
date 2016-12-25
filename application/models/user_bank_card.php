@@ -1,12 +1,12 @@
 <?php
 
 /**
- * bank_cards
+ * user_bank_card
  */
-class bank_cards extends Base_Model{
+class user_bank_card extends Base_Model{
 	
 	public function __construct() {
-		$this->setTableName("bank_cards");
+		$this->setTableName("user_bank_card");
 		parent::__construct ();
 
 		$this->_bank_list = array(
