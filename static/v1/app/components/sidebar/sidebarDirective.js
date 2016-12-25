@@ -1,4 +1,4 @@
-angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageService", "appServices", "AccountService", "SecurityService", "PlatformService", "BonusService", "Config", "Storage", "App", function(e, t, a, n, o, s, i, r, l, u, c) {
+angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageService", "appServices", "AccountService", "SecurityService", "PlatformService", "BonusService", "Config", "Storage", "App", function(e, t, a, n, o, s, PlatformService, r, l, u, c) {
   return {
     templateUrl: "/static/v1/app/components/sidebar/sidebar.html",
     restrict: "A",
@@ -140,7 +140,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
       }
 
       function I() {
-        i.call("PlatformList_Get", {
+        PlatformService.call("PlatformList_Get", {
           strLanguageCode: t.getLang()
         }, function(e) {
           e.Success && ($scope.platformsAll = e.Result, $scope.platforms = $scope.platformsAll.filter(y), D())
@@ -207,7 +207,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
       }
 
       function k(e) {
-        i.call("GetBalance", {
+        PlatformService.call("GetBalance", {
           PlatformCode: e
         }, function(t) {
           if (t.Success) {
@@ -369,7 +369,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
             To: $scope.to,
             TransferAmount: parseInt($scope.transferAmount)
           };
-          i.call("Transfer", e, function(e) {
+          PlatformService.call("Transfer", e, function(e) {
             e.Success ? (n.showAlertMsg("popup_alert@title_dear_user", "popup_alert@title_success"), D()) : n.showAlertMsg("popup_alert@title_fail", e.Message), $scope.inProcess = !1, $scope.from = "", $scope.to = "", $scope.transferAmount = ""
           })
         }

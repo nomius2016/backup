@@ -220,9 +220,8 @@ angular.module('ciApp').directive('header', ['$state', '$translate', '$interval'
       $scope.sidebarFundsClick = function($event) {
         $event.stopPropagation();
         $timeout(function() {
-          var element = document.getElementById('sidebarFunds');
-          angular.element(element).triggerHandler('click');
-        }, 100);
+          $(".vw-bar-tab-top .vw-bar-tab:eq(1)").click();
+        }, 10);
       };
       $scope.logout = function() {
         $scope.login = false;
