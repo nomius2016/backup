@@ -12,6 +12,7 @@ CREATE TABLE `user_gaming_account` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='用户平台账号密码表';
 
 DROP TRIGGER `afeter_insert_users`;
+delimiter $
 CREATE TRIGGER `afeter_insert_users` AFTER INSERT ON `users` FOR EACH ROW BEGIN
   INSERT INTO user_restrict (user_id) VALUES (NEW.user_id);
   INSERT INTO user_profile (user_id) VALUES (NEW.user_id);
@@ -28,4 +29,5 @@ CREATE TRIGGER `afeter_insert_users` AFTER INSERT ON `users` FOR EACH ROW BEGIN
     END IF;
     END IF;
 END;
+delimiter ;
 
