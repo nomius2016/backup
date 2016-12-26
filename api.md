@@ -68,6 +68,27 @@
 > * 4 用户基本信息
     
     URL:/api/user/basic_info
+    参数:无
+```json
+{
+  "Success": true,
+  "Code": 1,
+  "Message": "获取成功",
+  "Result": [
+    {
+      "username": "dick",  //用户名
+      "last_login_time": "2016-12-27 01:19:22",//上次登录时间
+      "last_login_ip": "127.0.0.1",//上次与登录IP
+      "total_balance": "100.00",//总资金
+      "can_withdrawal": "100.00",//可以提款金额
+      "email_checked": false, //邮箱是否验证
+      "id_checked": false,  //身份是否验证
+      "phone_checked": false, //手机是否验证
+      "profile_percent": 60 //资料完善度
+    }
+  ]
+}    
+json
 
 > * 5 token验证接口
 
@@ -249,7 +270,7 @@
 }
 ```
 
-> * 12 个平台间转转账
+> * 获取主钱包余额 和 锁定金额
 
     URL:/api/user/balance
 ```json

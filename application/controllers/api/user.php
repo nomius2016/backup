@@ -32,14 +32,33 @@ class User extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function basic_info(){
+		if(!$this->islogin){
+			$ret['status'] = false;
+			$ret['code'] = 1;
+			$ret['msg'] = '用户状态丢失';
+			$this->teamapi($ret);
+		}
 
-		$userinfo = json_decode('{"MainAccountSN":"d3c1ec19-2748-4a03-9f68-7e5379d46007","LanguageCode":"zh-cn","CurrencyID":2,"HandicapID":2,"FirstName":"","MiddleName":"","LastName":"","IDVerifiedNumber":null,"Birthday":null,"Gender":null,"EMail":null,"AreaCode":"86","ContactNumber":"3snd5EsUzaVOqehdl4IUkQ==","CountryID":2,"City":null,"Region":null,"ZipCode":null,"Address":null,"SecurityQuestionID":null,"SecurityAnswer":null,"NewsLetter":1,"Image":null,"PromotionType":1,"PromotionCode":"308","QQAccount":null,"SkypeAccount":null,"PromotionChannel":null,"PromotionExperience":null,"URL":null,"URL_Previous":null,"PromotionID":134496,"Audittype":0,"IsApply":1}');
+		$this->load->model('users');
+		$userinfo = $this->users->getLoginInfo();
+		
+		$data = array(
+				'username'=>$userinfo['account_name'],
+				'last_login_time'=>$userinfo['last_login_time'],
+				'last_login_ip'=>$userinfo['last_login_ip'],
+				'total_balance'=>$this->f($userinfo['balance'] + $userinfo['balance_locked']), //总资金 = 中心 + 冻结
+				'can_withdrawal'=>$this->f($userinfo['balance']), //中心
+				'email_checked'=>false,
+				'id_checked'=>false,
+				'phone_checked'=>false,
+				'profile_percent'=>60  //资料完善度
+			);
 
 		$ret = array(
 			'status'=>true,
 			'msg'=>'获取成功', 
 			'code'=>1,
-			'result'=>array($userinfo)
+			'result'=>array($data)
 		);
 
 		$this->teamapi($ret);
@@ -112,54 +131,54 @@ class User extends Basecontroller {
 	 * [login_info 登录信息]
 	 * @return [type] [description]
 	 */
-	public function login_info(){
+	// public function login_info(){
 
-		if ($this->islogin) {
-		    $ret = array('status' => true,'code' => 1,'msg'=>'获取成功');
-			$this->load->model('users');
-			$this->load->model('user_profile');
-			$login_info = $this->users->getLoginInfo();
-			$ext_info = $this->user_profile->getInfoByUserId($login_info['user_id']);
-			$ret['status'] = true;
-			$ret['code'] = 1;
-			$info = array();
-			$info['MainAccountID'] = $login_info['account_name'];   //
-			$info['FirstName']     = $ext_info['name']; 
-			$info['BalanceAmount'] = $login_info['balance']; 
-			$info['ContactNumber'] = $ext_info['phone']; 
-			$info['EMail']         = $ext_info['email']; 
-			$info['Birthday']      = '1990-11-11'; 
-			$info['Gender']        = ($ext_info['sex'] == 1) ? 'male' : (($ext_info['sex'] == 2) ? 'female' : 'secret') ;   //'性别 1男 2女 3保密',
-			$info['CountryID']     = ''; 
-			$info['AreaCode']      = "86";
-			$info['ZipCode']= null;
-			$info['City']= null;
-			$info['Address']= null;
-			$info['CountryName']= "中国";
-			$info['IDVerifiedNumber']= "";
-			$info['CurrencyID']= 2;
-			$info['LanguageCode']= "zh-cn";
-			$info['MiddleName']= "";
-			$info['LastName']= "";
-			$info['HandicapID']= 2;
-			$info['Region']= null;
-			$info['NewsLetter']= 1;
-			$info['LevelTypeID']= "2";
-			$info['MainAccountSN']= "d3c1ec19-2748-4a03-9f68-7e5379d46007";
-			$info['SecurityQuestionID']= null;
-			$info['SecurityAnswer']= null;
-			$info['LastLoginTime'] = $login_info['last_login_time'];
-			$info['LastLoginIP']   = $login_info['last_login_ip'];
-			$info['CreateTime']    = $login_info['register_time'];
-			$info['PromotionID']= 134496;
-			$info['MainAccountType']= 1;
-			$ret['result'] = array($info);
-		} else {
-		    $ret = array('status'=>false,'code'=>-1,'msg'=>'用户未登录');
-		}
+	// 	if ($this->islogin) {
+	// 	    $ret = array('status' => true,'code' => 1,'msg'=>'获取成功');
+	// 		$this->load->model('users');
+	// 		$this->load->model('user_profile');
+	// 		$login_info = $this->users->getLoginInfo();
+	// 		$ext_info = $this->user_profile->getInfoByUserId($login_info['user_id']);
+	// 		$ret['status'] = true;
+	// 		$ret['code'] = 1;
+	// 		$info = array();
+	// 		$info['MainAccountID'] = $login_info['account_name'];   //
+	// 		$info['FirstName']     = $ext_info['name']; 
+	// 		$info['BalanceAmount'] = $login_info['balance']; 
+	// 		$info['ContactNumber'] = $ext_info['phone']; 
+	// 		$info['EMail']         = $ext_info['email']; 
+	// 		$info['Birthday']      = '1990-11-11'; 
+	// 		$info['Gender']        = ($ext_info['sex'] == 1) ? 'male' : (($ext_info['sex'] == 2) ? 'female' : 'secret') ;   //'性别 1男 2女 3保密',
+	// 		$info['CountryID']     = ''; 
+	// 		$info['AreaCode']      = "86";
+	// 		$info['ZipCode']= null;
+	// 		$info['City']= null;
+	// 		$info['Address']= null;
+	// 		$info['CountryName']= "中国";
+	// 		$info['IDVerifiedNumber']= "";
+	// 		$info['CurrencyID']= 2;
+	// 		$info['LanguageCode']= "zh-cn";
+	// 		$info['MiddleName']= "";
+	// 		$info['LastName']= "";
+	// 		$info['HandicapID']= 2;
+	// 		$info['Region']= null;
+	// 		$info['NewsLetter']= 1;
+	// 		$info['LevelTypeID']= "2";
+	// 		$info['MainAccountSN']= "d3c1ec19-2748-4a03-9f68-7e5379d46007";
+	// 		$info['SecurityQuestionID']= null;
+	// 		$info['SecurityAnswer']= null;
+	// 		$info['LastLoginTime'] = $login_info['last_login_time'];
+	// 		$info['LastLoginIP']   = $login_info['last_login_ip'];
+	// 		$info['CreateTime']    = $login_info['register_time'];
+	// 		$info['PromotionID']= 134496;
+	// 		$info['MainAccountType']= 1;
+	// 		$ret['result'] = array($info);
+	// 	} else {
+	// 	    $ret = array('status'=>false,'code'=>-1,'msg'=>'用户未登录');
+	// 	}
 
-		$this->teamapi($ret);
-	}
+	// 	$this->teamapi($ret);
+	// }
 
 	/**
 	 * [check_username 验证用户名是否存在]
