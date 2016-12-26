@@ -640,23 +640,7 @@
     top: 0
 }
 
-.grzl h3 span.vip_1 {
-    background-position-y: -44px
-}
-
-.grzl h3 span.vip_2 {
-    background-position-y: -88px
-}
-
-.grzl h3 span.vip_3 {
-    background-position-y: -132px
-}
-
-.grzl h3 span.vip_4 {
-    background-position-y: -176px
-}
-
-.grzl h6 {
+.grzl h6, .grzl h4 {
     font-size: 12px;
     color: #b0b0b0;
     line-height: 22px;
@@ -667,6 +651,18 @@
 
 .grzl h6 em {
     color: #000
+}
+
+.grzl h4 {
+    border-top: none;
+    font-weight: normal;
+    font-size: 14px;
+    color: #b33234;
+}
+
+.grzl h4 em {
+    font-size: 16px;
+    color: #b33234
 }
 
 .grzl a {

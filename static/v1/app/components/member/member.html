@@ -19,7 +19,8 @@
               </div>
               <div class="grzl">
                 <h3>hi, <em ng-bind="info.UserName"></em><span ng-class="vip_values.icon"></span></h3>
-                <h6>{{'member@last_login_time' | translate}}<em ng-bind="userdata.LastLoginTime"></em></h6>
+                <h6>{{'member@last_login_time' | translate}}：<em ng-bind="userdata.LastLoginTime"></em></h6>
+                <h4>{{'member@last_login_ip' | translate}}：<em ng-bind="userdata.LastLoginIP"></em></h4>
               </div>
             </div>
           </div>

@@ -72,6 +72,11 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
     } else {
       $scope.userdata.LastLoginTime = '-';
     }
+    if (e.Result[0].LastLoginIP !== undefined) {
+      $scope.userdata.LastLoginIP = e.Result[0].LastLoginIP;
+    } else {
+      $scope.userdata.LastLoginIP = '-';
+    }
   });
 
   $scope.getSecurityStatus = function() {

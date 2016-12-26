@@ -1,12 +1,15 @@
-angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", "$state", "Container", "appServices", "AccountService", "verifyService", function(e, t, i, a, s, o, r) {
-  var n = e;
-  n.countryCode = 2, n.method = t.method, n.userdata = {
+angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", "$state", "Container", "appServices", "AccountService", "verifyService", function($scope, t, i, a, s, o, r) {
+  $scope.countryCode = 2;
+  $scope.method = t.method;
+  $scope.userdata = {
     birthday: moment(new Date).subtract(18, "year").format("YYYY/MM/DD"),
     birthday_readonly: !1
   };
-  n.getSecurityStatus = function() {
-    n.security_status = {}, n.security_status.name = !1, SecurityService.call("MainAccount_Auth_Get", {}, function(e) {
-      e.Success && null != e.Result[0].IDVerifiedTime && (n.security_status.name = !0)
+  $scope.getSecurityStatus = function() {
+    $scope.security_status = {};
+    $scope.security_status.name = !1;
+    SecurityService.call("MainAccount_Auth_Get", {}, function(e) {
+      e.Success && null != e.Result[0].IDVerifiedTime && ($scope.security_status.name = !0)
     })
   };
   o.call("MainAccount_Logininfo_Get", {}, function(e) {
@@ -15,10 +18,6 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
     n.userdata.HandicapID = e.Result[0].HandicapID;
     n.userdata.gender = e.Result[0].Gender;
     n.userdata.CountryID = e.Result[0].CountryID;
-    n.userdata.city = e.Result[0].City;
-    n.userdata.region = e.Result[0].Region;
-    n.userdata.zipcode = e.Result[0].ZipCode;
-    n.userdata.address = e.Result[0].Address;
     if(e.Result[0].Birthday !== undefined) {
       n.userdata.birthday = moment(e.Result[0].Birthday).format("YYYY/MM/DD")
     }
@@ -28,7 +27,7 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
     }
     $("#info_country_select li:contains(" + n.userdata.CountryID + ")").click();
   });
-  n.CreateInfo = function(t, l, u, c, d) {
+  n.CreateInfo = function(gender, realname) {
     return r.checkZipCodeFormat(l) ? void o.call("MainAccount_UpdateBasicInfo", {
       strLanguageCode: e.userLang,
       intCurrencyID: 2,
@@ -38,15 +37,11 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
       strLastName: "",
       dateBirthday: n.userdata.birthday,
       intGender: t,
-      intCountryID: e.countryCode,
-      strCity: u,
-      strRegion: c,
-      strZipCode: l,
-      strAddress: d,
+      strRealName: realname,
       bitNewsLetter: !1,
       strIPAddress: a.getIPAddress(),
       strMemo: "",
-      strCreator: "Vwin.com"
+      strCreator: "Hwin.com"
     }, function(e) {
       return e.Success === !1 ? void s.showAlertMsg("popup_alert@title_fail", e.Message) : (s.showAlertMsg("popup_alert@title_success", e.Message), void i.go("member.profile"))
     }) : void s.showAlertMsg("popup_alert@title_fail", "郵政編碼格式錯誤")
