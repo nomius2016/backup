@@ -519,3 +519,24 @@ URL: api/message/detail
 
 失败返回
 {"Success":false,"Code":-1,"Message":"\u7528\u6237\u672a\u767b\u9646","Result":[]}
+
+
+>* 转账接口
+
+URL: api/transfer/index
+参数:{amount: 100.00,io: 1,gaming_id:110 }   //金额  io[1 代表平台转入到中心钱包 0 代表中心钱包到pingtai ] gaming_id 代表游戏平台ID 
+成功时返回
+{
+  "Success": true,
+  "Code": 1,
+  "Message": "转账成功",
+  "Result": []
+}
+
+{
+  "Success": false,
+  "Code": -1,
+  "Message": "游戏ID 不合法",  //报错信息
+  "Result": []
+}
+

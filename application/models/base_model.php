@@ -921,4 +921,13 @@ laydate(end);
 		return $data;
 	}
 
+	/**
+	 * @desc 将存储的金额转化为元模式
+	 * @param int $n 原始数据
+	 * @return string
+	 */
+	public function f(int $n) {
+	    return sprintf('%.2f',$n/1000);
+	}
+
 }

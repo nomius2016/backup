@@ -20,7 +20,7 @@ class gaming_adapter extends Base_Model{
 	 * @param  [type] $io        [description]
 	 * @return [type]            [description]
 	 */
-	public function transfer($user_id,$amount,$gaming_id,$io){
+	public function transfer($user_id,$amount,$gaming_id,$io,$orderNo=''){
 
 		$this->gaming_id = $gaming_id;
 		$this->init();
