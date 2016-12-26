@@ -124,14 +124,14 @@ class User extends Basecontroller {
 			$ret['code'] = 1;
 			$info = array();
 			$info['MainAccountID'] = $login_info['account_name'];   //
-			$info['FirstName'] = $ext_info['name']; 
+			$info['FirstName']     = $ext_info['name']; 
 			$info['BalanceAmount'] = $login_info['balance']; 
 			$info['ContactNumber'] = $ext_info['phone']; 
-			$info['EMail'] = $ext_info['email']; 
-			$info['Birthday'] = '1990-11-11'; 
-			$info['Gender'] = ($ext_info['sex'] == 1) ? 'male' : (($ext_info['sex'] == 2) ? 'female' : 'secret') ;   //'性别 1男 2女 3保密',
-			$info['CountryID'] = ''; 
-			$info['AreaCode']= "86";
+			$info['EMail']         = $ext_info['email']; 
+			$info['Birthday']      = '1990-11-11'; 
+			$info['Gender']        = ($ext_info['sex'] == 1) ? 'male' : (($ext_info['sex'] == 2) ? 'female' : 'secret') ;   //'性别 1男 2女 3保密',
+			$info['CountryID']     = ''; 
+			$info['AreaCode']      = "86";
 			$info['ZipCode']= null;
 			$info['City']= null;
 			$info['Address']= null;
@@ -148,8 +148,9 @@ class User extends Basecontroller {
 			$info['MainAccountSN']= "d3c1ec19-2748-4a03-9f68-7e5379d46007";
 			$info['SecurityQuestionID']= null;
 			$info['SecurityAnswer']= null;
-			$info['LastLoginTime']= "2016-12-16T12:31:44.983";
-			$info['CreateTime']= "2016-06-17T10:16:02.883";
+			$info['LastLoginTime'] = $login_info['last_login_time'];
+			$info['LastLoginIP']   = $login_info['last_login_ip'];
+			$info['CreateTime']    = $login_info['register_time'];
 			$info['PromotionID']= 134496;
 			$info['MainAccountType']= 1;
 			$ret['result'] = array($info);
