@@ -466,3 +466,56 @@ URL: api/withdraw/getUserWithdrawalCards
 
 失败返回
 {"Success":false,"Code":-1,"Message":"\u7528\u6237\u672a\u767b\u9646","Result":[]}
+
+
+>* 获取消息或公告接口
+
+URL: api/message/get
+参数:{type: ?} type=1 公告，type=1私人的消息
+成功时返回
+{
+	"Success":true,
+	"Code":1,
+	"Message":"\u83b7\u53d6\u6210\u529f",
+	"Result":{
+		"rows":[
+			{"id":"34091","user_id":"1","title":"\u60a8\u597d\uff0c\u60a8\u7684\u5b58\u6b3e\u672a\u901a\u8fc7\u5ba1\u6838\uff0c\u8be6\u60c5\u54a8\u8be2\u5728\u7ebf\u5ba2\u670d\u3002","content":"\u5b58\u6b3e\u6d41\u6c34\u53f7:[000052ed53db93a81601]","type":"1","is_read":"1","is_important":"0","send_time":"2014-08-01 21:20:18","admin_name":"lemor","update_admin_id":"63","update_time":"2014-08-01 21:21:42","create_admin_id":"63","create_time":"2014-08-01 21:20:18"},{"id":"34092","user_id":"2","title":"\u60a8\u597d\uff0c\u60a8\u7684\u53d6\u6b3e\u5df2\u7ecf\u901a\u8fc7\u5ba1\u6838\u3002","content":"\u53d6\u6b3e\u6d41\u6c34\u53f7:[0000752353db93159483]","type":"1","is_read":"0","is_important":"0","send_time":"2014-08-01 21:21:17","admin_name":"lemor","update_admin_id":"63","update_time":"2014-08-01 21:21:17","create_admin_id":"63","create_time":"2014-08-01 21:21:17"},
+			{"id":"34093","user_id":"3","title":"\u60a8\u597d\uff0c\u60a8\u7684\u53d6\u6b3e\u5df2\u7ecf\u901a\u8fc7\u5ba1\u6838\u3002","content":"\u53d6\u6b3e\u6d41\u6c34\u53f7:[000061b853db94054273]","type":"1","is_read":"1","is_important":"0","send_time":"2014-08-01 21:25:28","admin_name":"lemor","update_admin_id":"63","update_time":"2014-08-01 21:43:30","create_admin_id":"63","create_time":"2014-08-01 21:25:28"},{"id":"34094","user_id":"1","title":"\u60a8\u597d\uff0c\u60a8\u7684\u5b58\u6b3e\u5df2\u7ecf\u901a\u8fc7\u5ba1\u6838\u3002","content":"\u5b58\u6b3e\u6d41\u6c34\u53f7:[000052ed53db95225565]","type":"1","is_read":"1","is_important":"0","send_time":"2014-08-01 21:26:40","admin_name":"lemor","update_admin_id":"63","update_time":"2014-08-01 21:45:31","create_admin_id":"63","create_time":"2014-08-01 21:26:40"},
+			],
+		"total":2,
+		"page":1
+	}
+}
+
+失败返回
+{"Success":false,"Code":-1,"Message":"\u7528\u6237\u672a\u767b\u9646","Result":[]}
+
+
+>* 获取消息或公告接口
+
+URL: api/message/detail
+参数:{id: ?} 公告或消息的ID
+成功时返回
+{
+	"Success":true,
+	"Code":1,
+	"Message":"\u83b7\u53d6\u6210\u529f",
+	"Result":{
+		"id":"34104",
+		"user_id":"2",
+		"title":"\u60a8\u597d\uff0c\u60a8\u7684\u53d6\u6b3e\u5df2\u7ecf\u901a\u8fc7\u5ba1\u6838\u3002",
+		"content":"\u53d6\u6b3e\u6d41\u6c34\u53f7:[0000330553dba0960972]",
+		"type":"0",
+		"is_read":"0",
+		"is_important":"0",
+		"send_time":"2014-08-01 22:17:19",
+		"admin_name":"lemor",
+		"update_admin_id":"63",
+		"update_time":"2014-08-01 22:17:19",
+		"create_admin_id":"63",
+		"create_time":"2014-08-01 22:17:19"
+	}
+}
+
+失败返回
+{"Success":false,"Code":-1,"Message":"\u7528\u6237\u672a\u767b\u9646","Result":[]}

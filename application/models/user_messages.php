@@ -107,5 +107,13 @@ class user_messages extends Base_Model{
 
 	}
 
+	/**
+	 * @desc 取得某条消息内容
+	 * @param int $message_id
+	 * @return Array
+	 */
+	public function detail(int $message_id) {
+	    return $this->selectById($message_id);
+	}
 
 }
