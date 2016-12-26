@@ -114,8 +114,8 @@ class User extends Basecontroller {
 	 */
 	public function login_info(){
 
-		$ret = array('status'=>false,'code'=>-1,'msg'=>'用户未登录');
-		if($this->islogin){
+		if ($this->islogin) {
+		    $ret = array('status' => true,'code' => 1,'msg'=>'获取成功');
 			$this->load->model('users');
 			$this->load->model('user_profile');
 			$login_info = $this->users->getLoginInfo();
@@ -154,6 +154,8 @@ class User extends Basecontroller {
 			$info['PromotionID']= 134496;
 			$info['MainAccountType']= 1;
 			$ret['result'] = array($info);
+		} else {
+		    $ret = array('status'=>false,'code'=>-1,'msg'=>'用户未登录');
 		}
 
 		$this->teamapi($ret);
