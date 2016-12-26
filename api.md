@@ -540,3 +540,79 @@ URL: api/transfer/index
   "Result": []
 }
 
+>* 获取平台信息
+URL: api/publicapi/getmaingames
+参数:无
+{
+  "Success": true,
+  "Code": 1,
+  "Message": "返回成功",
+  "Result": [
+    {
+      "gaming_id": "100",//game ID
+      "code": "AG",      //游戏平台别称
+      "name": "AG平台",  //名称
+      "status": "1"      // 状态 1 正常,2中心到平台,3平台到中心,4不能转账,5不能访问且不能转账 ',
+    },
+    {
+      "gaming_id": "101",
+      "code": "SB",
+      "name": "沙巴体育平台",
+      "status": "1"
+    },
+    {
+      "gaming_id": "102",
+      "code": "PT",
+      "name": "PT平台",
+      "status": "1"
+    },
+    {
+      "gaming_id": "103",
+      "code": "EA",
+      "name": "EA平台",
+      "status": "1"
+    },
+    {
+      "gaming_id": "104",
+      "code": "BBIN",
+      "name": "BBIN平台",
+      "status": "1"
+    },
+    {
+      "gaming_id": "105",
+      "code": "HG",
+      "name": "HG平台",
+      "status": "1"
+    },
+    {
+      "gaming_id": "106",
+      "code": "OPUS",
+      "name": "OPUS平台",
+      "status": "1"
+    },
+    {
+      "gaming_id": "108",
+      "code": "GD",
+      "name": "GD平台",
+      "status": "1"
+    },
+    {
+      "gaming_id": "109",
+      "code": "EA",
+      "name": "EG平台",
+      "status": "1"
+    },
+    {
+      "gaming_id": "110",
+      "code": "CROW",
+      "name": "皇冠体育转账",
+      "status": "1"
+    },
+    {
+      "gaming_id": "111",
+      "code": "MG",
+      "name": "MG平台",
+      "status": "1"
+    }
+  ]
+}
