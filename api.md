@@ -358,6 +358,7 @@ json
       "Message": "帐号不存在",
       "Result": []
     }
+json
 
 > *检查已登录用户资金密码
   URL:api/user/check_fundpassword
@@ -379,13 +380,11 @@ json
       "Message": "资金密码错误!",
       "Result": []
     }
-
-
-
+json
 
 > *获取充值用的银行卡
 URL:/api/deposit/get_online_bank
-
+```json
 参数 {} 无
 成功的时候返回
     {
@@ -439,11 +438,13 @@ URL:/api/deposit/get_online_bank
     "Result": []
   }
 
+json
 >* 获取用户提款银行卡
 
 URL: api/withdraw/getUserWithdrawalCards
 参数:无
 成功时返回
+```json
 {
   "Success": true,
   "Code": 1,
@@ -467,12 +468,13 @@ URL: api/withdraw/getUserWithdrawalCards
 失败返回
 {"Success":false,"Code":-1,"Message":"\u7528\u6237\u672a\u767b\u9646","Result":[]}
 
-
+json
 >* 获取消息或公告接口
 
 URL: api/message/get
 参数:{type: ?} type=1 公告，type=1私人的消息
 成功时返回
+```json
 {
 	"Success":true,
 	"Code":1,
@@ -490,12 +492,13 @@ URL: api/message/get
 失败返回
 {"Success":false,"Code":-1,"Message":"\u7528\u6237\u672a\u767b\u9646","Result":[]}
 
-
+json
 >* 获取消息或公告接口
 
 URL: api/message/detail
 参数:{id: ?} 公告或消息的ID
 成功时返回
+```json
 {
 	"Success":true,
 	"Code":1,
@@ -519,11 +522,12 @@ URL: api/message/detail
 
 失败返回
 {"Success":false,"Code":-1,"Message":"\u7528\u6237\u672a\u767b\u9646","Result":[]}
-
+json
 
 >* 转账接口
 
 URL: api/transfer/index
+```json
 参数:{amount: 100.00,io: 1,gaming_id:110 }   //金额  io[1 代表平台转入到中心钱包 0 代表中心钱包到pingtai ] gaming_id 代表游戏平台ID 
 成功时返回
 {
@@ -539,10 +543,11 @@ URL: api/transfer/index
   "Message": "游戏ID 不合法",  //报错信息
   "Result": []
 }
-
+json
 >* 获取平台信息
 URL: api/publicapi/getmaingames
 参数:无
+```json
 {
   "Success": true,
   "Code": 1,
@@ -616,3 +621,4 @@ URL: api/publicapi/getmaingames
     }
   ]
 }
+json
