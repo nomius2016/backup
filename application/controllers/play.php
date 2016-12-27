@@ -18,6 +18,11 @@ class Play extends Basecontroller {
 		}
 	}
 
+	// public function test(){
+	// 	$this->load->model('gaming_adapter');
+	// 	$ret = $this->gaming_adapter->getGameBanlance($this->user_id,101);
+	// 	print_r($ret);exit;
+	// }
 	
 
 }

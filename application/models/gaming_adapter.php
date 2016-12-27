@@ -46,5 +46,11 @@ class gaming_adapter extends Base_Model{
 		return $this->gaming_api->getUrl($user_id);
 	}
 
+	public function getGameBanlance($user_id,$gaming_id){
+		$this->gaming_id = $gaming_id;
+		$this->init();
+		return $this->gaming_api->getBalance($user_id);
+	}
+
 
 }

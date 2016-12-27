@@ -41,7 +41,20 @@ class gaming_sb extends base_gaming{
 	}
 
 	/*获取平台余额*/
-	public function getBalance($userid){}
+	public function getBalance($userid){
+
+		$data = array();
+		$data['agentId']  = SB_MERCHANT_ID;
+		$new_id   = SB_MERCHANT_ID.$userid;
+		$data['hash']     = md5(SB_MERCHANT_KEY."agentid=".SB_MERCHANT_ID."&userid={$new_id}");
+		$ret = $this->send_request("api/SportMember/{$new_id}/Balance",$data,'GET');
+		if($ret['status'] == 'success'){
+			return array('status'=>true,'balance'=>$ret['data']['balance']);
+		}else{
+			return array('status'=>false,'url'=>'获取链接失败');
+		}
+
+	}
 
 	/*获取创建平台帐号*/
 	public function createAccount($userid){
@@ -67,12 +80,34 @@ class gaming_sb extends base_gaming{
 
 	/*中心钱包转账到平台*/
 	public function ctp($userid,$amount){
-		return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+			
+		$data = array();
+		$data['agentId']  = SB_MERCHANT_ID;
+		$data['userId']   = SB_MERCHANT_ID.$userid;
+		$data['hash']     = md5(SB_MERCHANT_KEY."agentid=".SB_MERCHANT_ID."&userid={$data['userId']}");
+		$data['amount'] = $amount;
+		$ret = $this->send_request("api/SportMember/{$data['userId']}/TransferFund",$data);
+		if($ret['status'] == 'success'){
+			return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+		}else{
+			return array('status'=>false,'code'=>1,'msg'=>'转账失败!');
+		}
+
 	}
 
 	/*平台转账到中心钱包*/
 	public function ptc($userid,$amount){
-		return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+		$data = array();
+		$data['agentId']  = SB_MERCHANT_ID;
+		$data['userId']   = SB_MERCHANT_ID.$userid;
+		$data['hash']     = md5(SB_MERCHANT_KEY."agentid=".SB_MERCHANT_ID."&userid={$data['userId']}");
+		$data['amount'] = 0 - $amount;
+		$ret = $this->send_request("api/SportMember/{$data['userId']}/TransferFund",$data);
+		if($ret['status'] == 'success'){
+			return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+		}else{
+			return array('status'=>false,'code'=>1,'msg'=>'转账失败!');
+		}
 	}
 	/*获取投注记录*/
 	public function getBetLog($params = array()){}
