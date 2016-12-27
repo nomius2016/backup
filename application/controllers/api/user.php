@@ -41,7 +41,13 @@ class User extends Basecontroller {
 
 		$this->load->model('users');
 		$userinfo = $this->users->getLoginInfo();
-		
+
+		if(!$userinfo['fund_password']){
+			$fund_password_seted = false;
+		}else{
+			$fund_password_seted = true;
+		}
+
 		$data = array(
 				'username'=>$userinfo['account_name'],
 				'last_login_time'=>$userinfo['last_login_time'],
@@ -51,7 +57,8 @@ class User extends Basecontroller {
 				'email_checked'=>false,
 				'id_checked'=>false,
 				'phone_checked'=>false,
-				'profile_percent'=>60  //资料完善度
+				'profile_percent'=>60,  //资料完善度
+				'fund_password_seted'=>$fund_password_seted
 			);
 
 		$ret = array(
