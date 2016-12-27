@@ -42,6 +42,7 @@ class User extends Basecontroller {
 		$this->load->model('users');
 		$userinfo = $this->users->getLoginInfo();
 		$current_info = $this->users->getUserInfo($userinfo['user_id']);
+		$profile  = $this->users->profile($this->user_id);
 		if(!$current_info['fund_password']){
 			$fund_password_seted = false;
 		}else{
@@ -54,11 +55,12 @@ class User extends Basecontroller {
 				'last_login_ip'=>$userinfo['last_login_ip'],
 				'total_balance'=>$this->f($userinfo['balance'] + $userinfo['balance_locked']), //总资金 = 中心 + 冻结
 				'can_withdrawal'=>$this->f($userinfo['balance']), //中心
-				'email_checked'=>false,
-				'id_checked'=>false,
-				'phone_checked'=>false,
-				'profile_percent'=>60,  //资料完善度
-				'fund_password_seted'=>$fund_password_seted
+				'email_checked'       => false,
+				'id_checked'          => false,
+				'phone_checked'       => false,
+				'profile_percent'     => 60,  //资料完善度
+				'fund_password_seted' => $fund_password_seted,
+		        'real_name'           => $profile['name']
 			);
 
 		$ret = array(
