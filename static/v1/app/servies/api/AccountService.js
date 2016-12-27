@@ -14,7 +14,6 @@ angular.module('requesterModule').factory('AccountService', ['ZeusService', func
     'MainAccount_ReAccountName': 'MainAccount_ReAccountName',
     'MainAccount_RiskLevelType_Create': 'MainAccount_RiskLevelType_Create',
     'MainAccount_UpdateForgotPassword': 'MainAccount_UpdateForgotPassword',
-    'MainAccount_Logininfo_Get': 'Login_Info',
     'AffAccount_GetUrlParameter': 'AffAccount_GetUrlParameter',
     'Advertisement_GetParameterByID': 'Advertisement_GetParameterByID',
     'MainAccountReferralParameter_Get': 'MainAccountReferralParameter_Get',

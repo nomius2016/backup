@@ -66,7 +66,7 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
   $scope.userdata.birthday = moment(res1.Result[0].Birthday).format('YYYY/MM/DD');
   var _ = new Date();
   var v = _.getTimezoneOffset() / -60;
-  AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
+  AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
     if (e.Result[0].LastLoginTime !== undefined) {
       $scope.userdata.LastLoginTime = moment(e.Result[0].LastLoginTime).add(v - -4, 'hour').format('YYYY/MM/DD HH:mm:ss') + ' ' + appServices.getGMTStr();
     } else {

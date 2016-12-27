@@ -11,7 +11,6 @@ angular.module('ciApp').directive('register', ["$timeout", "$state", "appService
         intMainAccountType: 1,
         intPasswordStength: 0,
         strLanguageCode: 0,
-        intCurrencyID: 0,
         strAreaCode: '',
         strContactNumber: '',
         intNewsLetter: 0,
@@ -24,10 +23,6 @@ angular.module('ciApp').directive('register', ["$timeout", "$state", "appService
       };
       var affiliateAuto = false;
       var affiliateFromCookie = false;
-      setCountryCode(Container.getLang());
-      $scope.$on("langChanged", function(e, t) {
-        setCountryCode(t.lang)
-      });
       $scope.allValid = true;
       $scope.allowCondition = false;
       $scope.showWelcome = false;
@@ -140,7 +135,6 @@ angular.module('ciApp').directive('register', ["$timeout", "$state", "appService
           this.autoSet = false;
         }
       };
-      $scope.symbol = "¥";
       $scope.bonusList = {
         name: 0,
         mobile: 0,
@@ -182,7 +176,6 @@ angular.module('ciApp').directive('register', ["$timeout", "$state", "appService
           submitData.username = $scope.userName.value;
           submitData.password = md5.createHash($scope.password.value);
           submitData.confirm_password = submitData.password;
-          submitData.strAreaCode = $scope.countryCode;
           submitData.phone = $scope.phone.value;
           submitData.intPromotionType = $scope.agent.type;
           submitData.agent_code = $scope.agent.value;
@@ -263,25 +256,6 @@ angular.module('ciApp').directive('register', ["$timeout", "$state", "appService
           $(this).hide();
       });
 
-      // m()
-      function setCountryCode(lang) {
-        switch (lang) {
-          case "vi-vn":
-            $scope.flag = "vn";
-            $scope.trans = "header_register@vi_vn";
-            $scope.countryCode = "84";
-            break;
-          case "th-th":
-            $scope.flag = "thai";
-            $scope.trans = "header_register@th_th";
-            $scope.countryCode = "66";
-            break;
-          default:
-            $scope.flag = "cn";
-            $scope.trans = "header_register@zh_cn";
-            $scope.countryCode = "86"
-        }
-      }
       // h()
       function autoLogin() {
         var parser = new UAParser();

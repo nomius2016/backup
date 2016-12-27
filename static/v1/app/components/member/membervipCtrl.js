@@ -2,7 +2,7 @@ angular.module('ciApp').controller('membervipCtrl', ['$scope', '$stateParams', '
   $scope.method = $stateParams.method;
   $scope.Symbol = Container.getCurrencySymbol();
   $scope.vip_values = {};
-  AccountService.call('MainAccount_Logininfo_Get', {}, function(result) {
+  AccountService.call('MainAccount_Basicinfo_Get', {}, function(result) {
     $scope.vip_values.LevelTypeID_now = result.Result[0].LevelTypeID;
     AccountService.call('MainAccount_VIPBonus_Setting_Get', {
       intLevelTypeID: $scope.vip_values.LevelTypeID_now

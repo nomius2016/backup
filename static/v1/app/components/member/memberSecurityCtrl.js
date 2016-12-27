@@ -184,7 +184,7 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
         }))
       }) : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@code_format_error')) : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@mobile_format_error'))
     }, g.ModifySecurityMobile = function() {
-      AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
+      AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
         g.mobile.areacode = e.Result[0].AreaCode, g.mobile.value = d.maskMobile(e.Result[0].ContactNumber)
       }), g.security_status.mobile = !1, g.mobile.modify = !0, g.mobile.readonly = !0, g.mobile.valid = !0
     }) : 'email' == h.method ? (g.email = {
@@ -222,11 +222,11 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
         }))
       }) : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@code_format_error')) : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@email_format_error'))
     }, g.ModifySecurityEmail = function() {
-      AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
+      AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
         g.email.value = d.maskEmail(e.Result[0].EMail)
       }), g.security_status.email = !1, g.email.modify = !0, g.email.readonly = !0, g.email.valid = !0
     }) : 'withdraw' == h.method ? (g.withdraw = {}, g.mobile = {}, g.withdraw.modify = !1, g.withdraw.flow = 'withdraw', g.WithdrawUI_Change = function(e) {
-      g.withdraw.flow = e, sec = 0, AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
+      g.withdraw.flow = e, sec = 0, AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
         g.mobile.value = d.maskMobile(e.Result[0].ContactNumber), g.mobile.areacode = e.Result[0].AreaCode, g.mobile.readonly = !0
       })
     }, g.CreateSecurityWithdraw = function(e) {
@@ -247,7 +247,7 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
         return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : (g.security_status.withdraw = !1, void('withdraw' == g.withdraw.flow))
       })
     }) : 'question' == h.method ? (g.email = {}, g.mobile = {}, g.question = {}, g.question.modify = !1, g.question.flow = 'question', g.QuestionUI_Change = function(e) {
-      sec = 0, g.question.flow = e, AccountService.call('MainAccount_Logininfo_Get', {}, function(e) {
+      sec = 0, g.question.flow = e, AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
         g.mobile.value = d.maskMobile(e.Result[0].ContactNumber), g.mobile.areacode = e.Result[0].AreaCode, g.email.value = d.maskEmail(e.Result[0].EMail)
       }), 'mobile' == e ? g.mobile.readonly = !0 : 'email' == e && (g.email.readonly = !0)
     }, g.getQuestionList = function() {

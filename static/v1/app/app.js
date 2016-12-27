@@ -187,7 +187,7 @@ angular.module('ciApp', ['ui.router',
         AccountService.call("MainAccount_Logout", {}, function(e) {});
       }
       Storage.putCookie(App.token, '');
-      Container.setAuthStatus(!1);
+      Container.setAuthStatus(false);
       Container.setCurrencyID(-1);
       appServices.basicInfoUpdated()
       $scope.$broadcast("closeSidebar");

@@ -38,7 +38,7 @@ angular.module('ciApp').controller('memberProfileCtrl', ['$scope', '$state', 'Co
       $scope.data.member.emailValid = true;
     }
   });
-  AccountService.call('MainAccount_Logininfo_Get', {}, function(result) {
+  AccountService.call('MainAccount_Basicinfo_Get', {}, function(result) {
     $scope.profilt_userdata.CreateTime = moment(result.Result[0].CreateTime).format('YYYY/MM/DD HH:mm:ss');
     $scope.profilt_userdata.LastLoginTime = moment(result.Result[0].LastLoginTime).format('YYYY/MM/DD HH:mm:ss');
     $scope.data.member.mobile = result.Result[0].ContactNumber;

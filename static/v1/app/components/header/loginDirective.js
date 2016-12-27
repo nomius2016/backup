@@ -7,8 +7,8 @@ angular.module('ciApp').directive('login', ['$state', 'appServices', 'App', 'Sto
       function getBasicinfo(reload, page) {
         AccountService.call('MainAccount_Basicinfo_Get', {}, function(result) {
           if (result.Success) {
-            Storage.putCookie(App.currencyID, result.Result[0].CurrencyID);
-            Container.setCurrencyID(result.Result[0].CurrencyID);
+            Storage.putCookie(App.currencyID, 2);
+            Container.setCurrencyID(2);
             Container.setPromotionID(result.Result[0].PromotionID);
             $scope.$emit('loginSuccess', {
               userName: $scope.accountName.value,

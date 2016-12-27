@@ -12,7 +12,7 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
       e.Success && null != e.Result[0].IDVerifiedTime && ($scope.security_status.name = !0)
     })
   };
-  o.call("MainAccount_Logininfo_Get", {}, function(e) {
+  o.call("MainAccount_Basicinfo_Get", {}, function(e) {
     n.userdata.FirstName = e.Result[0].FirstName;
     n.userdata.MiddleName = e.Result[0].MiddleName;
     n.userdata.HandicapID = e.Result[0].HandicapID;

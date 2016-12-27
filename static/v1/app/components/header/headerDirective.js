@@ -299,15 +299,15 @@ angular.module('ciApp').directive('header', ['$state', '$translate', '$interval'
           $scope.$broadcast("updateUserName", {
               name: $scope.userName
           });
-          Container.setAuthStatus(!0);
+          Container.setAuthStatus(true);
           Container.setUserName($scope.userName);
           u();
-          if(a.reload !== !1) {
+          if(a.reload !== false) {
             appServices.reloadPage();
           }
       });
       $scope.$on("basicInfoUpdated", function() {
-          f(!1);
+          f(false);
       });
 
       $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {

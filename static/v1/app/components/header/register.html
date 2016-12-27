@@ -87,31 +87,6 @@
 
             <div class="clear mgbt10"></div>
 
-            <div class="ui-select" id="area_select" code=countryCode>
-                <span class="select-icon-flag" ng-class="flag"></span>
-                <span class="select-text">{{trans | translate}}</span>
-                <span class="select-icon-right icon-arrow-down"></span>
-                <div class="select-choice">
-                    <ul>
-                        <li class="li_country" countryid="2" code="86">
-                            <span class="icon-flag cn"></span>
-                            <span class="select-text">{{'header_register@zh_cn' | translate}}</span>
-                        </li>
-                        <li class="li_country" countryid="618" code="84">
-                            <span class="icon-flag vn"></span>
-                            <span class="select-text">{{'header_register@vi_vn' | translate}}</span>
-                        </li>
-                        <li class="li_country" countryid="602" code="66">
-                            <span class="icon-flag thai"></span>
-                            <span class="select-text">{{'header_register@th_th' | translate}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="select-choice-area"></div>
-            </div>
-
-            <div class="clear mgbt10"></div>
-
             <div class="ui-input-text" ng-class="{'ui-input-text-wrong': phone.focus}">
                 <span class="icon icon-mobile-1"></span>
                 <input type="text" id="tb_contact" placeholder="{{'header_register@mobile' | translate}}"
