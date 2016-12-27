@@ -41,8 +41,8 @@ class User extends Basecontroller {
 
 		$this->load->model('users');
 		$userinfo = $this->users->getLoginInfo();
-
-		if(!$userinfo['fund_password']){
+		$current_info = $this->users->getUserInfo($userinfo['user_id']);
+		if(!$current_info['fund_password']){
 			$fund_password_seted = false;
 		}else{
 			$fund_password_seted = true;
