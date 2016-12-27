@@ -50,6 +50,7 @@
   "id_checked": false,  //身份是否验证
   "phone_checked": false, //手机是否验证
   "profile_percent": 60 //资料完善度
+  "fund_password_seted":true// 是否设置资金密码
 }]  
 ```
 
