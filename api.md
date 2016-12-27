@@ -149,39 +149,22 @@
 }
 ```
 
-> * 12 获取主钱包余额 和 锁定金额
 
-    URL:/api/user/balance
-
-```json
-{ from:'blance',to:'AG', amount:?} //from 从哪里留出，to 转账到哪里，amount 金额
-{
-  "Success": true,
-  "Code": 1,
-  "Message": "\u83b7\u53d6\u6210\u529f",
-  "Result": [{
-    "balance": "0", //余额
-    "relation_balance": "0" // 相关操作的平台余额
-  }]
-}
-```
-
-
-> * 13 检查用户名是否存在
+> * 12 检查用户名是否存在
 
     URL:api/user/check_username
 
 `username` 用户名
 
 
-> * 14 检查已登录用户资金密码
+> * 13 检查已登录用户资金密码
 
     URL:api/user/check_fundpassword
 
 `fund_password`用户资金密码需要MD5之后传输
 
 
-> * 15 获取充值用的银行卡
+> * 14 获取充值用的银行卡
 
     URL:/api/deposit/get_online_bank
 
@@ -198,7 +181,7 @@
 ]
 ```
 
-> * 16 获取用户提款银行卡
+> * 15 获取用户提款银行卡
 
     URL: api/withdraw/getUserWithdrawalCards
 
@@ -217,7 +200,7 @@
 }]
 ```
 
-> * 17 获取消息或公告接口
+> * 16 获取消息或公告接口
 
     URL: api/message/get
 `type`消息类型 `0`公告，`type=1`私人的消息
@@ -248,7 +231,7 @@
 }
 ```
 
-> * 18 获取消息或公告接口
+> * 17 获取消息或公告接口
 
     URL: api/message/detail
 
@@ -272,7 +255,7 @@
 }
 ```
 
-> * 19 转账接口
+> * 18 转账接口
 
     URL: api/transfer/index
 
@@ -283,7 +266,7 @@
 `gaming_id`代表游戏平台ID
 
 
-> * 20 获取平台信息
+> * 19 获取平台信息
 
     URL: api/publicapi/getmaingames
 
