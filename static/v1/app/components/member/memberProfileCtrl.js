@@ -21,31 +21,17 @@ angular.module('ciApp').controller('memberProfileCtrl', ['$scope', '$state', 'Co
   AccountService.call('MainAccount_Basicinfo_Get', {}, function(result) {
     $scope.data.member.birthday = result.Result[0].Birthday;
     $scope.data.member.email = result.Result[0].EMail;
-    if (result.Result[0].FirstName !== '') {
+    if (result.Result[0].real_name !== '') {
       $scope.data.member.nameValid = true;
-      $scope.data.member.name = result.Result[0].FirstName;
-      if (result.Result[0].MiddleName !== '') {
-        $scope.data.member.name += result.Result[0].MiddleName;
-      }
       $scope.data.member.name = maskService.maskRealName($scope.data.member.name);
     }
-    if (result.Result[0].Birthday !== undefined) {
-      $scope.data.member.birthday = moment(result.Result[0].Birthday).format('YYYY/MM/DD');
-      $scope.data.member.birthdayValid = true;
-    }
-    if (result.Result[0].EMail !== '' && result.Result[0].EMail !== null) {
-      $scope.data.member.email = maskService.maskEmail(result.Result[0].EMail);
-      $scope.data.member.emailValid = true;
-    }
-  });
-  AccountService.call('MainAccount_Basicinfo_Get', {}, function(result) {
-    $scope.profilt_userdata.CreateTime = moment(result.Result[0].CreateTime).format('YYYY/MM/DD HH:mm:ss');
-    $scope.profilt_userdata.LastLoginTime = moment(result.Result[0].LastLoginTime).format('YYYY/MM/DD HH:mm:ss');
-    $scope.data.member.mobile = result.Result[0].ContactNumber;
-    if ($scope.data.member.mobile !== '') {
-      $scope.data.member.mobile = maskService.maskMobile(result.Result[0].ContactNumber);
-      $scope.data.member.mobileValid = true;
-    }
+    // $scope.profilt_userdata.CreateTime = moment(result.Result[0].CreateTime).format('YYYY/MM/DD HH:mm:ss');
+    $scope.profilt_userdata.LastLoginTime = result.Result[0].last_login_time;
+    // $scope.data.member.mobile = result.Result[0].ContactNumber;
+    // if ($scope.data.member.mobile !== '') {
+    //   $scope.data.member.mobile = maskService.maskMobile(result.Result[0].ContactNumber);
+    //   $scope.data.member.mobileValid = true;
+    // }
   });
   
   $scope.getMessageList = function() {

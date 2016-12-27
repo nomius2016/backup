@@ -9,49 +9,35 @@
                 <div class="vw-bar-tab-tip" style="right: 70px; opacity: 0; display: none;">{{'sidebar@privilege' | translate}}</div>
             </div>
             <div id="sidebarFunds" class="mui-mbar-tab-asset vw-bar-tab" page="Bank" ng-click="selectPage(1)">
-                <div class="vw-bar-tab-logo iconbar icon-uniE617" ng-if="currencyID === -1"></div>
-                <div class="vw-bar-tab-logo iconbar icon-uniE617" ng-if="currencyID === 2"></div>
-                <div class="vw-bar-tab-logo iconbar icon-uniE901" ng-if="currencyID === 16"></div>
-                <div class="vw-bar-tab-logo iconbar icon-thai_money" ng-if="currencyID === 18"></div>
+                <div class="vw-bar-tab-logo iconbar icon-uniE617"></div>
                 <div class="vw-bar-tab-arrow"></div>
                 <div class="vw-bar-tab-tip" style="right: 70px; opacity: 0; display: none;">{{'sidebar@funds' | translate}}</div>
-            </div>
-            <div class="mui-mbar-tab-hl vw-bar-tab" page="Bonus" ng-click="selectPage(2)">
-                <div class="vw-bar-tab-logo iconbar icon-uniE60F"></div>
-                <div class="vw-bar-tab-arrow"></div>
-                <div class="vw-bar-tab-tip" style="right: 70px; opacity: 0; display: none;">{{'sidebar@bonus' | translate}}</div>
             </div>
             <div class="mui-mbar-tab-msg vw-bar-tab" page="MessageBox" ng-click="selectPage(3)">
                 <div class="vw-bar-tab-logo iconbar  icon-uniE612"></div>
                 <div class="vw-bar-tab-arrow"></div>
                 <div class="vw-bar-tab-tip" style="right: 35px; opacity: 1; display: none;">{{'sidebar@message' | translate}}</div>
             </div>
-            <!-- 160921 vwinbaby 開始 -->
-            <div id="vwinbaby_format" class="vwinbaby_format" style="background-image:url('/static/v1/images/vwinbaby/vwinbaby_bg.png')" ng-click="toBaby()" title="台历申请" ng-if="lang != 'vi-vn' && chkVwinVabyShow">
-            </div>
-            <div id="vwinbaby_format_vn" class="vwinbaby_format" style="background-image:url('/static/v1/images/vwinbaby/vwinbaby_bg_vn.png')" ng-click="toProm()" ng-if="lang == 'vi-vn' && chkVwinVabyShow">
-            </div>
-            <!-- 160921 vwinbaby 結束 -->
         </div>
 
         <div class="vw-bar-tab-bottom">
-            <div class="mui-mbar-tab-qrcode vw-bar-tab">
+            <!-- <div class="mui-mbar-tab-qrcode vw-bar-tab">
                 <div class="vw-bar-tab-logo iconbar  icon-uniE60D"></div>
                 <div class="vw-bar-tab-arrow"></div>
                 <div class="vw-bar-tab-tip" style="right: 35px; opacity: 1; display: none;">
                     <img ng-src="/static/v1/images/qrcode.png">
                 </div>
-            </div>
+            </div> -->
             <div class="mui-mbar-tab-gotop vw-bar-tab">
                 <div class="vw-bar-tab-logo iconbar icon-uniE60E"></div>
                 <div class="vw-bar-tab-arrow"></div>
                 <div class="vw-bar-tab-tip">{{'sidebar@to_top' | translate}}</div>
             </div>
-            <!--<div class="mui-mbar-tab-blank vw-bar-tab">
+            <!-- <div class="mui-mbar-tab-blank vw-bar-tab">
                 <div class="vw-bar-tab-logo iconbar"></div>
                 <div class="vw-bar-tab-arrow"></div>
                 <div class="vw-bar-tab-tip"></div>
-            </div>-->
+            </div> -->
         </div>
     </div>
     <div class="vw-bar-plugins" id="vw-bar-plugins">
@@ -74,25 +60,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="vw-bar-meta" style="width:107px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-left:88px;">
+                        <div class="vw-bar-meta" style="width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-left:100px;">
                             <em>{{userName}}</em>
-                            <p class="vipDesc">{{'sidebar@you_are' | translate}}{{vipValues.VIPName | translate}}{{'sidebar@member' | translate}}</p>
+                            <p class="vipDesc">{{'sidebar@you_are' | translate}}普通{{'sidebar@member' | translate}}</p>
                             <p ng-if="bonusAllGet === false">
-                                <!--<a ng-if="bonusVerifyAllPass === false" class="nameAuth" href="javascript://" ui-sref="member.security">{{'sidebar@complete_info_get_bonus' | translate}}</a>-->
                                 <a class="nameAuth" href="javascript://" ui-sref="member.bonus" translate="member@security_msg_4" translate-values="{money : bonusAll}"></a>
                             </p>
                         </div>
                     </div>
                     <div class="vw-bar-prof-jf">
-                        <div class="vw-bar-prof-jf-tit">
-                            <p>{{'sidebar@month_points' | translate}}： <em>{{vipValues.TotalPoints / 100 | number:2}}</em></p>
-                            <p class="nextDesc"></p>
-                        </div>
-                        <div class="vw-bar-prof-jf-meta">
-                            <span class="jf-icon">{{vipValues.NextLevelVIPName}}</span>
-                            <span class="jf-text">{{'sidebar@member_upgrade_bonus' | translate}}</span>
-                            <span class="jf-money"><span class="vw-bar-yen">{{currencySymbol}}</span>{{vipValues.NextLevelUpBonus}}</span>
-                        </div>
                         <div class="vw-bar-prof-safe">
                             <h4>{{'sidebar@security_center' | translate}}</h4>
                             <ul>
@@ -118,35 +94,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="vw-bar-prof-item">
-                            <h4>{{'sidebar@privilege' | translate}}</h4>
-                            <ul>
-                                <li class="vw-var-sIcon1">
-                                    <a href=""></a>
-                                    <i style="display: none;" id="bonusLevelUp">{{vipValues.LevelUpBonus|number:2}}</i>
-                                </li>
-                                <li class="vw-var-sIcon2">
-                                    <a href=""></a>
-                                    <i style="margin-left: -21px; left: 50%; display: none;" id="bonusBirthday">{{vipValues.BirthdayBonus|number:2}}</i>
-                                </li>
-                                <li class="vw-var-sIcon3">
-                                    <a href=""></a>
-                                    <i style="right: 0px; display: none;" id="bonusDeposit">{{vipValues.DP_MaxLimit|number:2}}</i>
-                                </li>
-                                <li class="vw-var-sIcon4">
-                                    <a href=""></a>
-                                    <i style="display: none;" id="bonusSport">{{vipValues.SportsBonus|number:2}}</i>
-                                </li>
-                                <li class="vw-var-sIcon5">
-                                    <a href=""></a>
-                                    <i style="margin-left: -21px; left: 50%; display: none;" id="bonusCasino">{{vipValues.CasinoBonus|number:2}}</i>
-                                </li>
-                                <li class="vw-var-sIcon6">
-                                    <a href=""></a>
-                                    <i style="right: 0px; display: none;" id="bonusHelp">{{vipValues.VIPHelpBonusLimit|number:2}}</i>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -165,7 +112,7 @@
                             <p><span class="vw-bar-yen">{{currencySymbol}}</span>{{totalWithdrawal|number:2}}</p>
                         </div>
                     </div>
-                    <div class="vw-asset-table platformWallet" style="max-height: 53px;">
+                    <div class="vw-asset-table platformWallet" style="max-height: 30px;">
                         <ul ng-repeat="platform in platforms">
                             <li ng-if="!platform.vwallet || platform.code === '10001'">
                                 <span class="tit">{{platform.name}}</span>
@@ -212,46 +159,6 @@
             </div>
         </div>
         <input type="hidden" id="walletComplete" name="walletComplete" value="0" style="z-index: 99997;">
-        <!--領取紅利-->
-        <div class="vw-bar-plugin-prof vw-bar-plugin vw-bar-plugin-scaleDown" style="z-index: 99997; visibility: visible;">
-            <div class="vw-bar-plugin-bd">
-                <div partial-loading show="showBonusLoading" top="40%"></div>
-                <div ng-if="bonus.length === 0">
-                    <div class="clear mgbt20">
-                    </div>
-                    <p class="tactr">{{'sidebar@no_bonus'| translate}}</p>
-                </div>
-                <div class="vw-bar-hl-wrap" ng-if="bonus.length > 0">
-                    <div class="vw-bar-hl" ng-repeat="item in bonus | limitTo: messageCount">
-                        <div class="vw-hl-meta">
-                            <div class="vw-hl-tit">
-                                <h5>{{item.Name}}</h5>
-                                <p>{{item.CreateTime | date:"yyyy/MM/dd"}}</p>
-                            </div>
-                            <div class="vw-hl-btn btnAccept" bonuscategoryid="5" bonuscategorytypeid="17" bonuslog_guid="42158"><a href="javascript://" ng-click="claimBonus(item)">{{'sidebar@get_points' | translate}}</a></div>
-                        </div>
-                        <div class="vw-hl-money">
-                            <p><span class="vw-bar-yen">{{currencySymbol}}</span>{{item.BonusAmount}}</p>
-                        </div>
-                        <div class="vw-hl-time">
-                            <div class="vw-hl-line clearfix">
-                                <span class="left">{{'sidebar@effective_turnover' | translate}}</span>
-                                <div class="vw-hl-line-num left">
-                                    <div class="vw-hl-line-num-v5" style="width: 100%;">
-                                        <p>{{item.RealTurnoverAmount}} / {{item.TurnoverAmount}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="vw-zz-cnt">
-                    <a href="javascript://" class="vw-button vw-btn2" ng-click="openMore('bonus')">{{'sidebar@more' | translate}}</a>
-                    <div class="clear mgbt20">
-                    </div>
-                </div>
-            </div>
-        </div>
         <!--消息盒子-->
         <div class="vw-bar-plugin-prof vw-bar-plugin vw-bar-plugin-scaleDown" style="z-index: 99997; visibility: visible;">
             <div class="vw-bar-plugin-bd">
@@ -267,12 +174,12 @@
                             <li class="hot message_detail" ng-click="openMessagePage($index)">
                                 <h5>
                                     <span style="margin-right:10px;">
-                                        {{ message.Subject }}
+                                        {{ message.title }}
                                     </span>
-                                    {{ message.CreateTime | date: 'yy/M/d' }}
+                                    {{ message.create_time | date: 'yy/M/d' }}
                                 </h5>
                                 <p class="messageContent">
-                                    {{ message.ContentDetail }}
+                                    {{ message.content }}
                                 </p>
                             </li>
                         </ul>

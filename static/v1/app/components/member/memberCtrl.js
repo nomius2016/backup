@@ -1,4 +1,4 @@
-angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container', 'MessageService', 'AccountService', 'SecurityService', 'Config', 'BonusService', 'appServices', function($scope, $state, Container, MessageService, AccountService, SecurityService, Config, BonusService, appServices) {
+angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container', 'PlatformService', 'AccountService', 'SecurityService', 'Config', 'BonusService', 'appServices', function($scope, $state, Container, PlatformService, AccountService, SecurityService, Config, BonusService, appServices) {
   function u() {
     var date = new Date();
     var day = date.getDate();
@@ -27,7 +27,8 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
   $scope.info.UserName = Container.getUserName();
   $scope.bonusAllGet = !0;
   $scope.page_flow = 1;
-  if (Container.getIE8()) {
+  $scope.platforms = [];
+  if (!Container.getIE8()) {
     $('#kb3').knob({
       width: 83,
       min: 0,
@@ -43,39 +44,27 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
   var d = false;
   var m = false;
   var p = false;
-  // AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
-  //   $scope.userdata.FirstName = e.Result[0].FirstName;
-  //   $scope.userdata.HandicapID = e.Result[0].HandicapID;
-  //   $scope.userdata.gender = e.Result[0].Gender;
-  //   $scope.userdata.AreaCode = e.Result[0].AreaCode;
-  //   $scope.userdata.city = e.Result[0].City;
-  //   $scope.userdata.region = e.Result[0].Region;
-  //   $scope.userdata.zipcode = e.Result[0].ZipCode;
-  //   $scope.userdata.address = e.Result[0].Address;
-  //   $scope.userdata.birthday = moment(e.Result[0].Birthday).format('YYYY/MM/DD');
-  // });
-  var res1 = {"Success":true,"Code":"1.0","Message":"成功","Result":[{"MainAccountSN":"d3c1ec19-2748-4a03-9f68-7e5379d46007","LanguageCode":"zh-cn","CurrencyID":2,"HandicapID":2,"FirstName":"","MiddleName":"","LastName":"","IDVerifiedNumber":null,"Birthday":null,"Gender":null,"EMail":null,"AreaCode":"86","ContactNumber":"3snd5EsUzaVOqehdl4IUkQ==","CountryID":2,"City":null,"Region":null,"ZipCode":null,"Address":null,"SecurityQuestionID":null,"SecurityAnswer":null,"NewsLetter":1,"Image":null,"PromotionType":1,"PromotionCode":"308","QQAccount":null,"SkypeAccount":null,"PromotionChannel":null,"PromotionExperience":null,"URL":null,"URL_Previous":null,"PromotionID":134496,"Audittype":0,"IsApply":1}]};
-  $scope.userdata.FirstName = res1.Result[0].FirstName;
-  $scope.userdata.HandicapID = res1.Result[0].HandicapID;
-  $scope.userdata.gender = res1.Result[0].Gender;
-  $scope.userdata.AreaCode = res1.Result[0].AreaCode;
-  $scope.userdata.city = res1.Result[0].City;
-  $scope.userdata.region = res1.Result[0].Region;
-  $scope.userdata.zipcode = res1.Result[0].ZipCode;
-  $scope.userdata.address = res1.Result[0].Address;
-  $scope.userdata.birthday = moment(res1.Result[0].Birthday).format('YYYY/MM/DD');
-  var _ = new Date();
-  var v = _.getTimezoneOffset() / -60;
+
   AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
-    if (e.Result[0].LastLoginTime !== undefined) {
-      $scope.userdata.LastLoginTime = moment(e.Result[0].LastLoginTime).add(v - -4, 'hour').format('YYYY/MM/DD HH:mm:ss') + ' ' + appServices.getGMTStr();
+    $scope.total = e.Result[0].total_balance;
+    $scope.withdrawLimit = e.Result[0].can_withdrawal;
+    if (e.Result[0].last_login_time !== undefined) {
+      $scope.userdata.LastLoginTime = e.Result[0].last_login_time;
     } else {
       $scope.userdata.LastLoginTime = '-';
     }
-    if (e.Result[0].LastLoginIP !== undefined) {
-      $scope.userdata.LastLoginIP = e.Result[0].LastLoginIP;
+    if (e.Result[0].last_login_ip !== undefined) {
+      $scope.userdata.LastLoginIP = e.Result[0].last_login_ip;
     } else {
       $scope.userdata.LastLoginIP = '-';
+    }
+    $('#kb3').val(e.Result[0].profile_percent).trigger('change');
+    $('.pieFont').text(e.Result[0].profile_percent);
+  });
+
+  PlatformService.call('PlatformList_Get', {}, function(res) {
+    if (res.Success) {
+      $scope.platforms = res.Result;
     }
   });
 
@@ -149,8 +138,6 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
     if ($scope.security_status.name && $scope.security_status.email && $scope.security_status.mobile) {
       $scope.page_flow = 2;
     }
-    $('#kb3').val(t).trigger('change');
-    $('.pieFont').text(t);
   };
 
   $scope.$on('$stateChangeSuccess', function(e, t, i, a, s) {
@@ -158,5 +145,5 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
       $scope.getSecurityStatus();
     }
   });
-  // $scope.getSecurityStatus();
+  $scope.getSecurityStatus();
 }]);

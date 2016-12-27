@@ -481,6 +481,12 @@
     padding: 20px 3%
 }
 
+.vw-account .platforms li {
+    display: inline-block;
+    width: 110px;
+    padding-bottom: 25px;
+}
+
 .vw-money {
     font-size: 32px
 }

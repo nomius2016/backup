@@ -19,6 +19,10 @@ angular.module('requesterModule').factory('PlatformService', ['ZeusService', fun
     call: function(action, data, callback) {
       if (actionMap[action] !== undefined) {
         var route = actionMap[action];
+        if (action == 'PlatformList_Get') {
+          route = 'publicapi'
+          action = 'getmaingames'
+        }
         return ZeusService.call([route, action], data, callback);
       } else {
         console.log('PlatformService', action + ' is not defined...');

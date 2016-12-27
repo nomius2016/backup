@@ -54,8 +54,11 @@
           </div>
           <div class="vw-tq-fixed fltlft last">
             <div class="vw-pad25-fixed cl">
-              <div class="vw-tit">2</div>
-              <div class="vw-info cl">2</div>
+              <ul class="platforms">
+                <li ng-repeat="p in platforms">
+                  <span>{{p.name}}</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

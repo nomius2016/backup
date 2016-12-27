@@ -1,9 +1,9 @@
 angular.module('requesterModule').factory('MessageService', ['ZeusService', function(ZeusService) {
-  var route = 'SP';
+  var route = 'Message';
   var actionMap = {
     CreateMessage: 'Complaint_Create',
     CreateMessageReply: 'Complaint_Reply_Create',
-    GetMessageList: 'MessageList_Get',
+    GetMessageList: 'Get',
     GetMessageReplyList: 'Complaint_ReplyList_Get',
     GetMessageTypeList: 'Thesaurus_GetByLanguageCode',
     DeleteMessage: 'Message_TrashStatus_Update',

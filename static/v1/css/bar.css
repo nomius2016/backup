@@ -775,14 +775,14 @@ body {
     }
 
 .vw-asset-table {
-    max-height: 53px;
+    max-height: 30px;
     overflow: hidden;
 }
 
     .vw-asset-table li {
         overflow: hidden;
-        height: 52px;
-        line-height: 52px;
+        padding: 5px;
+        line-height: 20px;
         border-bottom: 1px dotted #cacaca;
     }
 
@@ -1455,23 +1455,6 @@ body {
     content: "\e900";
 }
 
-/* 0921 Johnson 新增Vwinbaby彈跳視窗 */
-.vwinbaby_format{
-    position: absolute;
-    width: 195px;
-    height: 147px;
-    right: 0;
-    top: 190px;
-    z-index: 10;
-    text-align: right;
-    background-image: url(../images/vwinbaby/vwinbaby_bg.png);
-    animation: play 3s steps(2) infinite;
-    cursor: pointer;
-}
-.vwinbaby_format a{
-    display: block;
-    height: 100%;
-}
 @keyframes play{
     100%{background-position: 390px;}
 }
