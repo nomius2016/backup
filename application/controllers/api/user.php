@@ -236,6 +236,27 @@ class User extends Basecontroller {
 
 		$this->teamapi($ret);
 	}
+	
+	/**
+	 * 
+	 */
+	public function update_profile() {
+	    $aRS = array();
+	    $ret = array();
+	    if ($this->user_id>0){
+	        $this->load->model('user_profile');
+	        
+	        $ret['status'] = true;
+	        $ret['code'] = 1;
+	        $ret['msg'] = '更新成功';
+	        $ret['result'] = $this->user_profile->set($this->input->post());
+	    } else {
+	        $ret['status'] = false;
+	        $ret['code']   = -1;
+	        $ret['msg']    = '登录状态丢失!';
+	    }
+	    $this->teamapi($ret);
+	}
 
 }
 

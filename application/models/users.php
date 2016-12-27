@@ -135,7 +135,7 @@ class Users extends Base_Model{
 	}
 	
 	public function set_restrict(int $userid, array $field) {
-	    $this->db->update ('user_restrict', $field, array('user_id' => $userid) );
+	    $affected_rows = $this->db->update ('user_restrict', $field, array('user_id' => $userid) );
 	    return $affected_rows;
 	}
 	
