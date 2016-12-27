@@ -16,7 +16,7 @@ class User_Profile extends Base_Model{
 	}
 	
 	public function set(array $aFields) {
-	    $aFileds_allow = array('name', 'sex', 'phone', 'email');
+	    $aFileds_allow = array('name', 'sex', 'phone', 'email', 'birthday');
 	    foreach ($aFields AS $f) {
 	        if (!in_array($f, $aFileds_allow)) {
 	            unset($aFields[$f]);

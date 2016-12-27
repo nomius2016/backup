@@ -286,7 +286,7 @@
 > * 20 该用户资料，
 
     URL: api/user/update_profile
-	{field: ?,field: ?}  field是个变量，支持：'real_name', 'sex', 'phone', 'email'  可以多个一起提交也可以只提交一个
+	{field: ?,field: ?}  field是个变量，支持：'real_name', 'sex', 'phone', 'email' , 'birthday' 可以多个一起提交也可以只提交一个
 ```json
 "Result": [
   {

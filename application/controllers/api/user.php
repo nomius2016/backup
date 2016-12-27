@@ -60,7 +60,8 @@ class User extends Basecontroller {
 				'phone_checked'       => false,
 				'profile_percent'     => 60,  //资料完善度
 				'fund_password_seted' => $fund_password_seted,
-		        'real_name'           => $profile['name']
+		        'real_name'           => $profile['name'],
+		        'birthday'            => $profile['birthday'],
 			);
 
 		$ret = array(
