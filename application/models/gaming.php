@@ -10,5 +10,10 @@ class gaming extends Base_Model{
 		$this->setTableName("gaming");
 		parent::__construct ();
 	}
+	
+	
+	public function gamingList() {
+	    return $this->selectAll();
+	}
 
 }

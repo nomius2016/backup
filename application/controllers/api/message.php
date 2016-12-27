@@ -31,7 +31,6 @@ class Message extends Basecontroller {
 	    $ret = array();
 	    if ($this->user_id>0){
 	        $aMSG = $this->user_messages->detail(intval($this->input->get('id')));
-	        $aRestrict = $this->users->restrict($this->user_id,'extra');
 	        if ($aMSG['id']<1) {
 	            $aRS = array('msg' => '记录不存在');
 	        } else if (0 && $aMSG['user_id']!=$this->user_id) {
