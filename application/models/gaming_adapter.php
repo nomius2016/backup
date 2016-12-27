@@ -40,5 +40,11 @@ class gaming_adapter extends Base_Model{
 		$this->gaming_api = $this->$file;
 	}
 
+	public function getGameUrl($user_id,$gaming_id){
+		$this->gaming_id = $gaming_id;
+		$this->init();
+		return $this->gaming_api->getUrl($user_id);
+	}
+
 
 }
