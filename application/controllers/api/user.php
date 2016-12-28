@@ -249,7 +249,7 @@ class User extends Basecontroller {
 	        $ret['status'] = true;
 	        $ret['code'] = 1;
 	        $ret['msg'] = '更新成功';
-	        $ret['result'] = $this->user_profile->set($this->input->post());
+	        $ret['result'] = $this->user_profile->set( $this->getApiParams());
 	    } else {
 	        $ret['status'] = false;
 	        $ret['code']   = -1;

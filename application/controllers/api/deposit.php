@@ -35,7 +35,7 @@ class Deposit extends Basecontroller {
 	    $aCond = array();
 	    $aCond['user_id'] = $this->user_id; 
 	    
-	    $params = $this->input->get();
+	    $params = $this->getApiParams();
 	   
 	    $ret = array();
 	    if ($this->user_id>0){

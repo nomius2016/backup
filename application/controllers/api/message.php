@@ -13,7 +13,7 @@ class Message extends Basecontroller {
 	    $ret['code'] = 1;
 	    $ret['msg'] = '获取成功';
 	    
-	    $g = $this->input->get();
+	    $g =  $this->getApiParams();
 	    
 	    if (intval($g['type'])==0) {
 	        $params['user_id'] = $this->user_id;
@@ -30,7 +30,8 @@ class Message extends Basecontroller {
 	    $aRS = array();
 	    $ret = array();
 	    if ($this->user_id>0){
-	        $aMSG = $this->user_messages->detail(intval($this->input->get('id')));
+	        $p = $this->getApiParams();
+	        $aMSG = $this->user_messages->detail(intval($p['id']));
 	        if ($aMSG['id']<1) {
 	            $aRS = array('msg' => '记录不存在');
 	        } else if (0 && $aMSG['user_id']!=$this->user_id) {

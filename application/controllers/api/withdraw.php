@@ -11,7 +11,7 @@ class Withdraw extends Basecontroller {
 	    $aRS = array();
 	    $ret = array();
 	    if ($this->user_id>0){
-	        $p = $this->input->get();
+	        $p = $this->getApiParams();
 	        $aRestrict = $this->users->restrict($this->user_id);
 	        $aUser     = $this->users->getUserInfo($this->user_id);
 	        if ($aUser['user_id']<1) {
@@ -72,7 +72,7 @@ class Withdraw extends Basecontroller {
 	    $aCond = array();
 	    $aCond['user_id'] = $this->user_id; 
 	    
-	    $params = $this->input->get();
+	    $params = $this->getApiParams();
 	   
 	    $ret = array();
 	    if ($this->user_id>0){

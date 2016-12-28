@@ -10,7 +10,7 @@ class Fund extends Basecontroller {
         $aCond = array();
         $aCond['user_id'] = $this->user_id;
          
-        $params = $this->input->get();
+        $params = $this->getApiParams();
         
         $ret = array();
         if ($this->user_id>0){
@@ -20,7 +20,7 @@ class Fund extends Basecontroller {
             $this->load->model('fund_transfer_type');
             
             $aType = $this->fund_transfer_type->getType();
-            $params = $this->input->get();
+
             $aList = $this->fund->getList($aCond);
             foreach ($aList['rows'] AS $k => &$v) {
                 $v['op_user_name']       = $v['user_id']>0 ? $this->getAdminName($v['user_id']) : '自己';
@@ -49,7 +49,7 @@ class Fund extends Basecontroller {
         $aCond = array();
         $aCond['user_id'] = $this->user_id;
          
-        $params = $this->input->get();
+        $params = $this->getApiParams();
         
         $ret = array();
         if ($this->user_id>0){
