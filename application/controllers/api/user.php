@@ -258,5 +258,50 @@ class User extends Basecontroller {
 	    $this->teamapi($ret);
 	}
 
+	/**
+	 * [fundpassword_set 设置资金密码]
+	 * @return [type] [description]
+	 */
+	public function  fundpassword_set(){
+		$ret = array('status'=>false,'code'=>-1);
+		if(!$this->islogin){
+			$ret['msg'] = '用户未登录';
+			$this->teamapi($ret);
+		}
+
+		$params = $this->getApiParams();
+
+		if(!(strlen($params['password'])==32 && strlen($params['fund_password'])==32)){
+			$ret['msg'] = '密码格式不对';
+			$this->teamapi($ret);
+		}
+
+		$this->load->model('users');
+		$user = $this->users->getUserInfo($this->user_id);
+
+		if($params['password'] != $user['password']){
+			$ret['msg'] = '登录密码错误';
+			$this->teamapi($ret);
+		}
+
+		if($user['fund_password']){
+			$ret['msg'] = '资金密码已经存在';
+			$this->teamapi($ret);
+		}
+
+		$row = $this->users->update(array('user_id'=>$this->user_id),array('fund_password'=>$params['fund_password'],'last_update_time'=>date('Y-m-d H:i:s')));
+
+		if(!$row){
+			$ret['msg'] = '更新失败';
+			$this->teamapi($ret);
+		}else{
+			$ret['status'] = true;
+			$ret['code'] = 1;
+			$ret['msg'] = '更新成功';
+			$this->teamapi($ret);
+		}
+
+	}
+
 }
 

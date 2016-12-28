@@ -298,3 +298,8 @@
   ...
 ]
 ```
+
+> * 21 设置用户资金密码
+    URL:api/user/fundpassword_set
+    参数: passwod,fund_password   MD5传输
+    返回值:默认返回值
