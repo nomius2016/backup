@@ -11,12 +11,12 @@ class gaming_sb extends base_gaming{
 	
 	public function __construct() {
 		parent::__construct ();
-		$this->_gaming_id = 101;
+		$this->_gaming_id = SB_GAMING_ID;
 
 	}
 
 	/*获取登录连接*/
-	public function getUrl($userid){
+	public function getUrl($userid,$params=array()){
 		
 		$this->load->model('user_gaming_account');
 		$account_exist = $this->user_gaming_account->isexist($this->_gaming_id,$userid);
@@ -79,13 +79,14 @@ class gaming_sb extends base_gaming{
 	}
 
 	/*中心钱包转账到平台*/
-	public function ctp($userid,$amount){
-			
+	public function ctp($userid,$amount,$orderNo){
+		
 		$data = array();
 		$data['agentId']  = SB_MERCHANT_ID;
 		$data['userId']   = SB_MERCHANT_ID.$userid;
 		$data['hash']     = md5(SB_MERCHANT_KEY."agentid=".SB_MERCHANT_ID."&userid={$data['userId']}");
 		$data['amount'] = $amount;
+		$data['serialNo'] = $orderNo;
 		$ret = $this->send_request("api/SportMember/{$data['userId']}/TransferFund",$data);
 		if($ret['status'] == 'success'){
 			return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
@@ -96,12 +97,13 @@ class gaming_sb extends base_gaming{
 	}
 
 	/*平台转账到中心钱包*/
-	public function ptc($userid,$amount){
+	public function ptc($userid,$amount,$orderNo){
 		$data = array();
 		$data['agentId']  = SB_MERCHANT_ID;
 		$data['userId']   = SB_MERCHANT_ID.$userid;
 		$data['hash']     = md5(SB_MERCHANT_KEY."agentid=".SB_MERCHANT_ID."&userid={$data['userId']}");
 		$data['amount'] = 0 - $amount;
+		$data['serialNo'] = $orderNo;
 		$ret = $this->send_request("api/SportMember/{$data['userId']}/TransferFund",$data);
 		if($ret['status'] == 'success'){
 			return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
@@ -113,7 +115,22 @@ class gaming_sb extends base_gaming{
 	public function getBetLog($params = array()){}
 
 	/*获取投注获取转账状态*/
-	public function getTransterStatus($params = array()){}
+	public function getTransterStatus($params = array()){
+		
+		return array('status'=>false,'code'=>-1,'msg'=>'接口目前未开放');
+		// $orderNo = $params['orderNo'];
+		// $data = array();
+		// $data['hash']    = md5(SB_MERCHANT_KEY."agentid=".SB_MERCHANT_ID);
+		// $data['lang']    = 'zh-cn';
+		// $ret = $this->send_request("api/SportAgent/".SB_MERCHANT_ID."/Parlay/{$orderNo}",$data,'GET');
+		// if($ret['status'] == 'success'){
+		// 	return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+		// }else{
+		// 	return array('status'=>false,'code'=>1,'msg'=>'转账失败!');
+		// }
+
+
+	}
 	/*发送请求*/
 	public function send_request($url,$data,$method='POST'){
 		

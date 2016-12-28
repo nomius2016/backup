@@ -16,7 +16,7 @@ abstract class base_gaming extends Base_Model {
 	
 
 	/*获取登录连接*/
-	abstract public function getUrl($userid);
+	abstract public function getUrl($userid,$params = array());
 
 	/*获取平台余额*/
 	abstract public function getBalance($userid);
@@ -25,10 +25,10 @@ abstract class base_gaming extends Base_Model {
 	abstract public function createAccount($userid);
 
 	/*中心钱包转账到平台*/
-	abstract public function ctp($userid,$amount);
+	abstract public function ctp($userid,$amount,$orderNo);
 
 	/*平台转账到中心钱包*/
-	abstract public function ptc($userid,$amount);
+	abstract public function ptc($userid,$amount,$orderNo);
 
 	/*获取投注记录*/
 	abstract public function getBetLog($params = array());

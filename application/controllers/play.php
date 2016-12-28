@@ -11,18 +11,19 @@ class Play extends Basecontroller {
 		
 		if($this->islogin){
 			$this->load->model('gaming_adapter');
-			$ret = $this->gaming_adapter->getGameUrl($this->user_id,101);
+			$ret = $this->gaming_adapter->getGameUrl($this->user_id,SB_GAMING_ID);
 			header('Location: '.$ret['url']);
 		}else{
 			exit('请登录!'); 
 		}
 	}
 
-	// public function test(){
-	// 	$this->load->model('gaming_adapter');
-	// 	$ret = $this->gaming_adapter->getGameBanlance($this->user_id,101);
-	// 	print_r($ret);exit;
-	// }
+	public function test(){
+		$this->load->model('gaming_adapter');
+		// $ret = $this->gaming_adapter->getTransferStatus('2016122811264253417',SB_GAMING_ID);
+		$ret = $this->gaming_adapter->getGameBanlance($this->user_id,SB_GAMING_ID);
+		print_r($ret);exit;
+	}
 	
 
 }

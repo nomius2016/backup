@@ -59,5 +59,8 @@ define("EMAIL_SHOW","HPLUS CENTER");
 define('PTC',1);  //平台到中心钱包
 define('CTP',0); //中心钱包到平台
 
+//定义平台ID
+define('SB_GAMING_ID',101);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

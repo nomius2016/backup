@@ -105,7 +105,7 @@ class user_transfer_log extends Base_Model{
 		}
 
 		//开始转账
-		$orderNo = $this->getTradeNo($user_id);
+		$orderNo = $this->getTradeNo($user_id,$gaming_id);
 		$this->load->model('gaming_adapter');
 		try {
 			$this->gaming_adapter->trans_begin();
@@ -194,15 +194,22 @@ class user_transfer_log extends Base_Model{
 	/**
 	 * 生成订单号
 	 */
-	public function getTradeNo($account_id){
-		$dt = new DateTime('NOW');
-		$time8 = dechex($dt->format('U'));// 8bit
-		$user6 = sprintf("%08s", substr(dechex($account_id), 0,8)); // 8bit
-		$fs = explode('.', microtime(true));
-		$fsend = end($fs);
-		$haomiao4 =sprintf("%04d", $fsend);// 4bit
+	public function getTradeNo($account_id,$gaming_id){
+		if($gaming_id == SB_GAMING_ID){
+			$orderNo = date('YmdHis').rand(10000,99999);
+		}else{
+			$dt = new DateTime('NOW');
+			$time8 = dechex($dt->format('U'));// 8bit
+			$user6 = sprintf("%08s", substr(dechex($account_id), 0,8)); // 8bit
+			$fs = explode('.', microtime(true));
+			$fsend = end($fs);
+			$haomiao4 =sprintf("%04d", $fsend);// 4bit
+			$orderNo = substr($user6.$time8.$haomiao4, 0, 20);
+		}
 
-		return substr($user6.$time8.$haomiao4, 0, 20);//BM平台 订单号生成规则
+		return $orderNo;
+
+		
 	}
 
 }
