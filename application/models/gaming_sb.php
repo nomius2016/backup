@@ -157,43 +157,5 @@ class gaming_sb extends base_gaming{
 		}
 	}
 
-// 	$agent_id = 'WWSSAP1C';
-// $s_key = 'GseJwxiQ9LY8f9HKeEhg';
-// $user_id = $agent_id.'dick';
-// $password = '123qwert';
-// $hash = md5("{$s_key}agentid={$agent_id}&userid={$user_id}");
-// $lang = "zh-cn";
-// $login_url = "http://s.pi.spr.ww365.club/api/SportMember/{$user_id}/Login?agentId=$agent_id&hash=$hash&lang=$lang";
-// // echo $login_url;exit;
-// $data = array();
-// $data['hash'] = $hash;
-// $data['agentId'] = $agent_id;
-// $data['userId'] = $user_id;
-// // $data['password'] = $password;
-// $data['amount'] = 10;
-// $data['serialNo'] = date('YmdHis');;
-// // $url = 'http://s.pi.spr.ww365.club/api/SportMember/'.$user_id;
-// $url = 'http://s.pi.spr.ww365.club/api/SportMember/'.$user_id.'/TransferFund';
-
-// $post_data = json_encode($data);
-// // echo $post_data;
-// $ch = curl_init();
-// curl_setopt($ch,CURLOPT_URL,$url);
-// curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-// curl_setopt($ch,CURLOPT_HTTPHEADER,array(
-// 		'Content-Type: application/json;charset=utf-8'
-// 	));
-// curl_setopt($ch,CURLOPT_POST,TRUE);
-// curl_setopt($ch,CURLOPT_POSTFIELDS,$post_data);
-// curl_setopt($ch,CURLOPT_TIMEOUT,50);
-// $exec = curl_exec($ch);
-// $info = curl_getinfo($ch);
-// curl_close($ch);
-// echo $exec;
-// exit;
-
-
-
-
 }
 ?>

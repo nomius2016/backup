@@ -98,7 +98,6 @@ class User extends Basecontroller {
 	public function balance(){
 		$this->load->model('users');
 		$sessions = $this->session->all_userdata();
-		// print_r($sessions);exit;
 		$ret = array();
 		$ret['status'] = false;
 		$ret['code']   = -1;
