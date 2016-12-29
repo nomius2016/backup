@@ -116,7 +116,7 @@
                         <ul ng-repeat="platform in platforms">
                             <li ng-if="!platform.vwallet || platform.code === '10001'">
                                 <span class="tit">{{platform.name}}</span>
-                                <p class="money" ng-if="!platform.isMaintain">{{currencySymbol}}{{platform.amount|number:2}}</p>
+                                <p class="money" ng-if="!platform.isMaintain">{{currencySymbol}}{{platform.balance|number:2}}</p>
                                 <p ng-if="platform.isMaintain">{{'sidebar@under_maintenance' | translate}}</p>
                             </li>
                         </ul>

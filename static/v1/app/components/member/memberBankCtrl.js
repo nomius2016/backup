@@ -5,18 +5,6 @@ angular.module('ciApp')
         if ($scope.deposit.bankList[a].GUID === e) return $scope.deposit.bankList[a]
     }
 
-    function g() {
-      var way = "online";
-      if(2 == Container.getCurrencyID()) {
-        way = Config.DepositPaymentDefaultCN;
-      } else if(16 == Container.getCurrencyID()) {
-        way = Config.DepositPaymentDefaultVND;
-      } else if(18 == Container.getCurrencyID()) {
-        way = Config.DepositPaymentDefaultTHB;
-      }
-      return way;
-    }
-
     function y() {
       var e = "online";
       if(2 == Container.getCurrencyID()) {
@@ -44,7 +32,7 @@ angular.module('ciApp')
     }
     var timer;
     $scope.method = $stateParams.method;
-    $scope.way = $stateParams.way ? $stateParams.way : g();
+    $scope.way = $stateParams.way ? $stateParams.way :'online';
     var C = {
         1: "online",
         2: "transfer",
@@ -117,42 +105,27 @@ angular.module('ciApp')
         $scope.stateResult = !1;
         $scope.deposit.isMore = !1;
         $scope.deposit.moreStyle = {};
-        $scope.showLoading = !0;
-        CashFlowService.call("GetDepositCardFlag", {}, function(result) {
-          $scope.showLoading = !1;
-          $scope.deposit.cardLock = !result.Success;
-          $scope.deposit.check();
-        });
+        // $scope.showLoading = !0;
+        // CashFlowService.call("GetDepositCardFlag", {}, function(result) {
+        //   $scope.showLoading = !1;
+        //   $scope.deposit.cardLock = !result.Success;
+        //   $scope.deposit.check();
+        // });
+        $scope.deposit.check();
       },
       check: function() {
-        $scope.showLoading = !0;
-        AccountService.call("MainAccount_ReAccountName_Check", {}, function(result) {
+        $scope.showLoading = true;
+        AccountService.call("MainAccount_Basicinfo_Get", {}, function(result) {
           if (result.Success) {
-            $scope.nameValid = !1;
-            delete $scope.firstName;
-            delete $scope.middleName;
-            delete $scope.lastName;
-            switch ($scope.currencyID) {
-              case 2:
-                $scope.middleName = "";
-                $scope.lastName = "";
-                break;
-              case 15:
-                $scope.middleName = "";
-                break;
-              default:
-                break;
-            }
-            $scope.stateEmpty = !1;
-            $scope.stateCheck = !0;
-          } else {
-            $scope.nameValid = !0;
+            if(result.Result[0].real_name) {
+              $scope.nameValid = true;
+            } else {
+              $scope.nameValid = false;
+              $scope.stateEmpty = false;
+              $scope.stateCheck = true;
+            }            
           }
-          if(2 === $scope.currencyID) {
-            $scope.deposit.getUncompleteOrder();
-          } else {
-            $scope.deposit.getUncompleteOrder();
-          }
+          $scope.deposit.getUncompleteOrder();
           $scope.showLoading = !1;
         });
       },
@@ -756,15 +729,11 @@ angular.module('ciApp')
         }
       }
     };
-    $scope.setRealName = function(first, middle, last) {
+    $scope.setRealName = function(realname) {
       if (!$scope.nameValid) {
-        var realName = {
-          strNewFirstName: fist,
-          strNewMiddleName: middle || '',
-          strNewLastName: last,
-          strMemo: ''
-        };
-        AccountService.call("MainAccount_ReAccountName", realName, function(result) {
+        AccountService.call("MainAccount_UpdateBasicInfo", {
+          real_name: realname
+        }, function(result) {
           if (result.Success) {
             $scope[$scope.method].init();
           }
@@ -818,66 +787,73 @@ angular.module('ciApp')
       }
     };
     $scope.getAmountLimit = function() {
-      CashFlowService.call("GetWebsiteSetting", {
-        IsBackEnd: 0
-      }, function(result) {
-        if (result.Success) {
-          angular.forEach(result.Result, function(item) {
-            var min = item.MinValue;
-            var max = item.MaxValue;
-            switch (item.Name) {
-              case "DepositAmountAlipay":
-                $scope.deposit.min.bao = min;
-                $scope.deposit.max.bao = max;
-                break;
-              case "DepositAmountUnionPay":
-                $scope.deposit.min.quick = min;
-                $scope.deposit.max.quick = max;
-                break;
-              case "DepositAmountOnLine":
-                $scope.deposit.min.online = min;
-                $scope.deposit.max.online = max;
-                break;
-              case "DepositAmountWeixin":
-                $scope.deposit.min.wechat = min;
-                $scope.deposit.max.wechat = max;
-                break;
-              case "DepositAmountUnLine":
-                $scope.deposit.min.transfer = min;
-                $scope.deposit.max.transfer = max;
-                $scope.deposit.min.cash = min;
-                $scope.deposit.max.cash = max;
-                $scope.deposit.min.xpay = min;
-                $scope.deposit.max.xpay = max;
-                break;
-              case "WithdrawAmount":
-                $scope.withdraw.minValue = min;
-                $scope.withdraw.maxValue = max;
-                $scope.withdraw.min.notmoneypay = min;
-                $scope.withdraw.max.notmoneypay = max;
-                break;
-              case "DailyMaxWithdrawalAmount":
-                $scope.withdraw.dailyLimit = max;
-                break;
-              case "MoneyPayDepositMYR":
-              case "MoneyPayDepositVND":
-              case "MoneyPayDepositTHB":
-                $scope.deposit.min.moneypay = min;
-                $scope.deposit.max.moneypay = max;
-                break;
-              case "MoneyPayWithdrawalTHB":
-              case "MoneyPayWithdrawalVND":
-                $scope.withdraw.min.moneypay = min;
-                $scope.withdraw.max.moneypay = max;
-            }
-          });
-          if ("deposit" === $scope.method && null != $scope.way) {
-            $scope.deposit.setMethod($scope.way);
-          } else {
-            $scope[$scope.method].init();
-          }
-        }
-      });
+      // CashFlowService.call("GetWebsiteSetting", {
+      //   IsBackEnd: 0
+      // }, function(result) {
+      //   if (result.Success) {
+      //     angular.forEach(result.Result, function(item) {
+      //       var min = item.MinValue;
+      //       var max = item.MaxValue;
+      //       switch (item.Name) {
+      //         case "DepositAmountAlipay":
+      //           $scope.deposit.min.bao = min;
+      //           $scope.deposit.max.bao = max;
+      //           break;
+      //         case "DepositAmountUnionPay":
+      //           $scope.deposit.min.quick = min;
+      //           $scope.deposit.max.quick = max;
+      //           break;
+      //         case "DepositAmountOnLine":
+      //           $scope.deposit.min.online = min;
+      //           $scope.deposit.max.online = max;
+      //           break;
+      //         case "DepositAmountWeixin":
+      //           $scope.deposit.min.wechat = min;
+      //           $scope.deposit.max.wechat = max;
+      //           break;
+      //         case "DepositAmountUnLine":
+      //           $scope.deposit.min.transfer = min;
+      //           $scope.deposit.max.transfer = max;
+      //           $scope.deposit.min.cash = min;
+      //           $scope.deposit.max.cash = max;
+      //           $scope.deposit.min.xpay = min;
+      //           $scope.deposit.max.xpay = max;
+      //           break;
+      //         case "WithdrawAmount":
+      //           $scope.withdraw.minValue = min;
+      //           $scope.withdraw.maxValue = max;
+      //           $scope.withdraw.min.notmoneypay = min;
+      //           $scope.withdraw.max.notmoneypay = max;
+      //           break;
+      //         case "DailyMaxWithdrawalAmount":
+      //           $scope.withdraw.dailyLimit = max;
+      //           break;
+      //         case "MoneyPayDepositMYR":
+      //         case "MoneyPayDepositVND":
+      //         case "MoneyPayDepositTHB":
+      //           $scope.deposit.min.moneypay = min;
+      //           $scope.deposit.max.moneypay = max;
+      //           break;
+      //         case "MoneyPayWithdrawalTHB":
+      //         case "MoneyPayWithdrawalVND":
+      //           $scope.withdraw.min.moneypay = min;
+      //           $scope.withdraw.max.moneypay = max;
+      //       }
+      //     });
+      //     if ("deposit" === $scope.method && null != $scope.way) {
+      //       $scope.deposit.setMethod($scope.way);
+      //     } else {
+      //       $scope[$scope.method].init();
+      //     }
+      //   }
+      // });
+      $scope.withdraw.min.moneypay = 100;
+      $scope.withdraw.max.moneypay = 50000;
+      if ("deposit" === $scope.method && null != $scope.way) {
+        $scope.deposit.setMethod($scope.way);
+      } else {
+        $scope[$scope.method].init();
+      }
     };
     $scope.copySuccess = function() {
       appServices.showAlertMsg("popup_alert@title_dear_user", "popup_alert@content_copy_success");

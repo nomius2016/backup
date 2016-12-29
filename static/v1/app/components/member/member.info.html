@@ -58,7 +58,7 @@
                             </li>
                             <li class="vw-fItem">
                                 <a class="btn-1" ng-class="{'btn-disable': !userdata.birthday || !userdata.gender || !userdata.realname }"
-                                   btn-process callback="CreateInfo(userdata.gender, userdata.realname)">{{'member_info@submit' | translate}}</a>
+                                   btn-process callback="CreateInfo(userdata.realname, userdata.birthday, userdata.gender)">{{'member_info@submit' | translate}}</a>
                             </li>
                         </ul>
                     </form>

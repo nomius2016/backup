@@ -21,16 +21,19 @@ angular.module('ciApp').controller('memberProfileCtrl', ['$scope', '$state', 'Co
   $scope.profilt_userdata = {};
   AccountService.call('MainAccount_Basicinfo_Get', {}, function(result) {
     $scope.data.member.username = result.Result[0].username;
-    $scope.data.member.birthday = result.Result[0].Birthday || 'undefined';
     $scope.data.member.email = result.Result[0].EMail;
     if (result.Result[0].real_name) {
       $scope.data.member.nameValid = true;
       $scope.data.member.realname = maskService.maskRealName(result.Result[0].real_name);
     }
+    $scope.data.member.birthday = result.Result[0].birthday;
+    if ($scope.data.member.birthday) {
+      $scope.data.member.birthdayValid = true;
+    }
     // $scope.profilt_userdata.CreateTime = moment(result.Result[0].CreateTime).format('YYYY/MM/DD HH:mm:ss');
-    $scope.profilt_userdata.CreateTime = 'undefined';
+    $scope.profilt_userdata.CreateTime = result.Result[0].register_time;
     $scope.profilt_userdata.LastLoginTime = result.Result[0].last_login_time;
-    $scope.data.member.mobile = '13588888888';
+    $scope.data.member.mobile = result.Result[0].phone;;
     if ($scope.data.member.mobile !== '') {
       $scope.data.member.mobile = maskService.maskMobile($scope.data.member.mobile);
       $scope.data.member.mobileValid = true;

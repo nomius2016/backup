@@ -29,7 +29,10 @@ angular.module('requesterModule').factory('CashFlowService', ['ZeusService', fun
     call: function(action, data, callback) {
       var route = routeMap[action];
       if (route !== undefined) {
-        return ZeusService.call([action, action], data, callback);
+        if(action == 'Get_Online_Bank') {
+          route = 'deposit';
+        }
+        return ZeusService.call([route, action], data, callback);
       }
       console.log(route, action + ' is not defined...');
     }

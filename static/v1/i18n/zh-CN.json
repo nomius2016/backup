@@ -771,6 +771,7 @@
     "member_profile@username": "用户名",
     "member_profile@realname": "姓名",
     "member_profile@register_time": "注册时间",
+    "member_profile@update_info": "完善资料",
     "member_profile@title": "个人资料",
     "member_security@code_format_error": "请输入正确的验证码。",
     "member_security@email": "邮箱验证",

@@ -470,7 +470,39 @@ angular.module('ciApp', ['ui.router',
         });
       }
     };
-  }).run(['$rootScope', '$state', 'App', 'Container', 'Config', 'Storage', 'appServices', 'ZeusService', 'UtilityService', function($rootScope, $state, App, Container, Config, Storage, appServices, ZeusService, UtilityService) {
+  })
+  .directive("btnProcess", function() {
+    return {
+        restrict: "A",
+        scope: {
+            callback: "&"
+        },
+        template: "",
+        link: function($scope, elem) {
+          elem.on("click", function() {
+            elem.hasClass("btn-disable") || $scope.callback()
+          });
+        }
+    };
+  })
+  .directive("partialLoading", function() {
+    return {
+      restrict: "A",
+      scope: {
+        show: "="
+      },
+      replace: true,
+      template: "<div ng-show='show'><div style='width:100%; height:100%; background-color: rgba(0,0,0,0); position: absolute; z-index:1;'></div><div style='position:absolute; z-index:1;' ng-style='customStyle'><span class='icon-loading-1'></span></div></div>",
+      link: function(e, t, n) {
+        e.customStyle = {};
+        n.top ? e.customStyle.top = n.top : (e.customStyle.top = "50%",
+        e.customStyle["margin-top"] = "-10px"),
+        n.right ? e.customStyle.right = n.right : (e.customStyle.right = "50%",
+        e.customStyle["margin-right"] = "-10px")
+      }
+    }
+  })
+  .run(['$rootScope', '$state', 'App', 'Container', 'Config', 'Storage', 'appServices', 'ZeusService', 'UtilityService', function($rootScope, $state, App, Container, Config, Storage, appServices, ZeusService, UtilityService) {
     var token = Storage.getCookie(App.token);
     var userName = Storage.getCookie(App.account);
     var currencyID = Storage.getCookie(App.currencyID);

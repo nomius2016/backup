@@ -40,6 +40,7 @@
                             <li>
                                 <span class="t">{{'member_profile@birthday' | translate}}：</span>
                                 <span class="default">{{data.member.birthday}}</span>
+                                <a ng-if="!data.member.birthdayValid" ui-sref="member.info">{{'member_profile@update_info' | translate}}</a>
                             </li>
                             <li>
                                 <span class="t">{{'member_profile@mobile' | translate}}：</span>

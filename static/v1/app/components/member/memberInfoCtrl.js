@@ -13,38 +13,29 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
     })
   };
   o.call("MainAccount_Basicinfo_Get", {}, function(e) {
-    $scope.userdata.FirstName = e.Result[0].FirstName;
-    $scope.userdata.MiddleName = e.Result[0].MiddleName;
-    $scope.userdata.HandicapID = e.Result[0].HandicapID;
-    $scope.userdata.gender = e.Result[0].Gender;
-    $scope.userdata.CountryID = e.Result[0].CountryID;
-    if(e.Result[0].Birthday !== undefined) {
-      $scope.userdata.birthday = moment(e.Result[0].Birthday).format("YYYY/MM/DD")
+    $scope.userdata.realname = e.Result[0].real_name;
+    $scope.userdata.gender = e.Result[0].gender;
+    if(e.Result[0].birthday) {
+      $scope.userdata.birthday = moment(e.Result[0].birthday).format("YYYY/MM/DD")
     }
     if($scope.security_status.name) {
       $scope.birthday_readonly = !0;
       $scope.gender_readonly = !0;
     }
-    $("#info_country_select li:contains(" + $scope.userdata.CountryID + ")").click();
   });
-  $scope.CreateInfo = function(gender, realname) {
-    return r.checkZipCodeFormat(l) ? void o.call("MainAccount_UpdateBasicInfo", {
-      strLanguageCode: e.userLang,
-      intCurrencyID: 2,
-      intHandicapID: $scope.userdata.HandicapID,
-      strFirstName: $scope.userdata.FirstName,
-      strMiddleName: $scope.userdata.MiddleName,
-      strLastName: "",
-      dateBirthday: $scope.userdata.birthday,
-      intGender: t,
-      strRealName: realname,
-      bitNewsLetter: !1,
-      strIPAddress: a.getIPAddress(),
-      strMemo: "",
-      strCreator: "Hwin.com"
+  $scope.CreateInfo = function(realname, birthday, gender) {
+    o.call("MainAccount_UpdateBasicInfo", {
+      real_name: realname,
+      birthday: birthday,
+      sex: gender,
     }, function(e) {
-      return e.Success === !1 ? void s.showAlertMsg("popup_alert@title_fail", e.Message) : (s.showAlertMsg("popup_alert@title_success", e.Message), void i.go("member.profile"))
-    }) : void s.showAlertMsg("popup_alert@title_fail", "郵政編碼格式錯誤")
+      if(e.Success) {
+        s.showAlertMsg("popup_alert@title_fail", e.Message);
+      } else {
+        s.showAlertMsg("popup_alert@title_success", e.Message);
+        i.go("member.profile");
+      }
+    });
   };
   $("#datepicker_birthday").datepicker({
     defaultDate: moment(new Date).subtract(18, "year").format("YYYY/MM/DD"),

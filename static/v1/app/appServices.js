@@ -528,7 +528,7 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
   var r = {};
   var i = {};
   var s = {};
-  var c = false;
+  var isComplete = false;
   var l = {};
   var u = {};
   var payMethod = ["withdraw", "online", "transfer", "cash", "deposit"];
@@ -537,30 +537,13 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
   });
   var d = [];
   e.call("Get_Online_Bank", {}, function(t) {
-    if(res.Success) {
+    if(t.Success) {
       angular.forEach(t.Result, function(e) {
-        var t = {
-          BankName: e.BankName,
-          cash: e.CashDeposit,
-          deposit: e.Deposit,
-          GUID: e.GUID,
-          ImageName: e.ImageName,
-          online: e.OnlinePayment,
-          PaymentAgentID: e.PaymentAgentID,
-          PaymentGUID: e.PaymentGUID,
-          Priority: e.Priority,
-          transfer: e.Transfer,
-          withdraw: e.Withdrawal,
-          duplicate: !1
-        };
-        a[t.GUID] = t;
-        r[t.BankName] = t.GUID;
-        angular.forEach(m, function(e) {
-          "withdraw" === e ? t[e] && (void 0 === s[e][t.PaymentAgentID] && (s[e][t.PaymentAgentID] = []), s[e][t.PaymentAgentID].push(t)) : t[e] && t.deposit && (void 0 === s[e][t.PaymentAgentID] && (s[e][t.PaymentAgentID] = []), s[e][t.PaymentAgentID].push(t))
-        })
-      })
+        a[e.payment_method_id] = e;
+        r[e.BankName] = e.bank_name;
+      });
     }
-    c = true;
+    isComplete = true;
   });
 
   return {
@@ -589,7 +572,7 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
       return a
     },
     isComplete: function() {
-      return c
+      return isComplete;
     }
   }
 }]);

@@ -55,6 +55,10 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
       }
 
       function I() {
+        o.call('MainAccount_Basicinfo_Get', {}, function(res) {
+          $scope.total =  res.Result[0].total_balance;
+          $scope.totalWithdrawal =  res.Result[0].can_withdrawal;
+        });
         PlatformService.call("PlatformList_Get", {}, function(res) {
           if(res.Success) {
             $scope.platformsAll = res.Result;
@@ -67,13 +71,15 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
       function A(e, t, a) {
         for (var n = 0; n < $scope.platforms.length; n++)
           if ($scope.platforms[n].code === e) {
-            $scope.platforms[n].amount = t, $scope.platforms[n].isMaintain = a, $scope.total = Number($scope.total) + Number(t);
+            $scope.platforms[n].amount = t;
+            $scope.platforms[n].isMaintain = a;
+            // $scope.total = Number($scope.total) + Number(t);
             break
           }
       }
 
       function D() {
-        $scope.total = 0;
+        // $scope.total = 0;
         for (var e = 0; e < $scope.platforms.length; e++) $scope.platforms[e].vwallet && "10001" !== $scope.platforms[e].code || k($scope.platforms[e].code)
       }
 
@@ -197,7 +203,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
         }
       };
       $scope.$on("sidebarWalletUpdate", function(e, t) {
-        $scope.total = $scope.total + t.amount
+        // $scope.total = $scope.total + t.amount
       });
       $scope.$on("closeSidebar", function(e, t) {
         d()

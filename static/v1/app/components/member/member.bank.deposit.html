@@ -17,20 +17,7 @@
               <div class="vw-ui-input" ng-if="currencyID === 2">
                 <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@first_name' | translate}}" style="width:274px;" ng-model="$parent.firstName" ng-pattern="/^([\u4d00-\ue863]+[\u002E\u3002\u00B7\u2022]?[\u4d00-\ue863]+|[a-zA-Z]{4,50})$/">
               </div>
-              <!-- 外幣市場輸入 -->
-              <div class="vw-ui-input" ng-if="currencyID !== 2">
-                <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@first_name' | translate}}" style="width:274px;" ng-model="$parent.firstName" />
-              </div>
-              <div class="vw-ui-input" ng-if="currencyID !== 2">
-                <input type=" text" class="mn-ipt" placeholder="{{'member_bank_deposit@middle_name' | translate}}" style="width:274px;" ng-model="$parent.middleName" />
-              </div>
-              <div class="vw-ui-input" ng-if="currencyID !== 2">
-                <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@last_name' | translate}}" style="width:274px;" ng-model="$parent.lastName" />
-              </div>
-              <a class="btn-1 btn-next mt25" callback="setRealName(firstName,middleName,lastName)" ng-class="{'btn-disable':!firstName}" btn-process ng-if="currencyID === 2">
-                                {{'member_bank_deposit@submit' | translate}}
-                            </a>
-              <a class="btn-1 btn-next mt25" callback="setRealName(firstName,middleName,lastName)" ng-class="{'btn-disable':!firstName || !lastName}" btn-process ng-if="currencyID !== 2">
+              <a class="btn-1 btn-next mt25" callback="setRealName(firstName)" ng-class="{'btn-disable':!firstName}" btn-process>
                                 {{'member_bank_deposit@submit' | translate}}
                             </a>
             </div>
