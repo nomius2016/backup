@@ -63,6 +63,7 @@ class User extends Basecontroller {
 		        'real_name'           => $profile['name'],
 		        'birthday'            => $profile['birthday'],
 		        'email'               => $profile['email'],
+		        'phone'               => $profile['phone'],
 			);
 
 		$ret = array(
