@@ -17,13 +17,14 @@ class User_Profile extends Base_Model{
 	
 	public function set(array $aFields) {
 	    $aFileds_allow = array('name', 'sex', 'phone', 'email', 'birthday');
-	    foreach ($aFields AS $f) {
-	        if (!in_array($f, $aFileds_allow)) {
-	            unset($aFields[$f]);
+	    $aFields2 = array();
+	    foreach ($aFields AS $k => $v) {
+	        if (in_array($k, $aFileds_allow)) {
+	            $aFields2[$k] = $v;
 	        }
 	    }
 	    
-	    return $this->update_field_by_exp(array('user_id' => $this->user_id), $aFields);
+	    return $this->update(array('user_id' => $this->user_id), $aFields2);
 	}
 
 }
