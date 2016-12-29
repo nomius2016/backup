@@ -560,7 +560,6 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
         })
       })
     }
-    t.Success && ;
     c = true;
   });
 
