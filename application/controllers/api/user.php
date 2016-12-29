@@ -62,6 +62,7 @@ class User extends Basecontroller {
 				'fund_password_seted' => $fund_password_seted,
 		        'real_name'           => $profile['name'],
 		        'birthday'            => $profile['birthday'],
+		        'email'               => $profile['email'],
 			);
 
 		$ret = array(
