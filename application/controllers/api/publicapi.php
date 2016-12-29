@@ -16,13 +16,17 @@ class publicapi extends Basecontroller {
 		$ret['status'] = true;
 		$ret['code'] = 1;
 		$ret['msg'] = '返回成功';
-		if($tmp_data){
+		if($tmp_data && 0){
 			$ret['result'] = json_decode($tmp_data,true);
-		}else{
+		} else {
 			$this->load->model('users');
 			$games = $this->users->getGames();
+			
+			$aBalance = $this->users->balance($this->user_id);
+			
 			$data = array();
 			foreach ($games as $game) {
+			    $game['balance'] = $this->f(intval($aBalance[$game['gaming_id']]));
 				$data[] = $game;
 			}
 			$ret['result'] = $data;
