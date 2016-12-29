@@ -257,6 +257,53 @@ class User extends Basecontroller {
 	    }
 	    $this->teamapi($ret);
 	}
+	
+	/**
+	 *
+	 */
+	public function update_password() {
+	    $aRS = array();
+	    $ret = array();
+	    if ($this->user_id>0){
+	        $this->load->model('users');
+	        $aUser = $this->users->getUserInfo($this->user_id);
+	        
+	        $p = $this->getApiParams();
+	        if ($p['curr_password'] == "") {
+	            $ret['status'] = false;
+	            $ret['code'] = -1;
+	            $ret['msg'] = '当前密码不能为空';
+	        } else if ($p['curr_password'] != $aUser['password']) {
+	            $ret['status'] = false;
+	            $ret['code'] = -1;
+	            $ret['msg'] = '当前密码不正确';
+	        } else if ($p['new_password'] == $aUser['password']) {
+                $ret['status'] = false;
+                $ret['code'] = -1;
+                $ret['msg'] = '新密码不能和当前密码相同';
+	        } else if ($p['new_password'] != "" ) {
+	            $ret['status'] = false;
+	            $ret['code'] = -1;
+	            $ret['msg'] = '密码不能为空';
+	        } else {
+	            $status = $this->users->update(array('user_id' => $this->user_id),array('password' => md5($p['new_password'])));
+	            if ($status!=1) {
+	                $ret['status'] = false;
+	                $ret['code'] = -1;
+	                $ret['msg'] = '修改失败密码失败';
+	            } else {
+	                $ret['status'] = true;
+	                $ret['code'] = 1;
+	                $ret['msg'] = '修改密码成功';
+	            }
+	        }
+	    } else {
+	        $ret['status'] = false;
+	        $ret['code']   = -1;
+	        $ret['msg']    = '登录状态丢失!';
+	    }
+	    $this->teamapi($ret);
+	}
 
 	/**
 	 * [fundpassword_set 设置资金密码]

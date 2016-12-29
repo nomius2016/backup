@@ -303,3 +303,21 @@
     URL:api/user/fundpassword_set
     参数: passwod,fund_password   MD5传输
     返回值:默认返回值
+    
+    
+    
+ > * 22 修改密码，
+
+    URL: api/user/update_password
+	{curr_password: ?,new_password: ?} //curr_password当前密码，new_password新密码
+```json
+"Result": [
+  {
+    "msg": "更新成功",
+    "code": 1, 
+    "status": true,
+    "result": 1 
+  }
+  ...
+]
+```
