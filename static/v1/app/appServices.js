@@ -507,18 +507,14 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
       for (var t = e.split(""), n = t.length, o = n - 1; o > 0; o--) t[o] = "*";
       return e = t.join("")
     },
-    maskFriendID: function(e) {
-      var t = e.split(""),
-        n = t.length;
-      return t[n - 1] = "*", t[n - 2] = "*", t[n - 3] = "*", t[n - 4] = "*", e = t.join("")
-    },
     maskMobile: function(e) {
       if (null != e) {
-        var t = e.split(""),
-          n = t.length;
-        t[n - 3] = "*", t[n - 4] = "*", t[n - 5] = "*", t[n - 6] = "*", e = t.join("")
+        var t = e.split("");
+        var n = t.length;
+        t[n - 3] = "*", t[n - 4] = "*", t[n - 5] = "*", t[n - 6] = "*";
+        e = t.join("")
       }
-      return e
+      return e;
     },
     maskEmail: function(e) {
       var t = e.split("@"),
@@ -532,80 +528,43 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
   var r = {};
   var i = {};
   var s = {};
-  var c = !1;
+  var c = false;
   var l = {};
   var u = {};
   var payMethod = ["withdraw", "online", "transfer", "cash", "deposit"];
   angular.forEach(payMethod, function(e) {
     s[e] = {};
   });
-  var d = [e.call("BankList_Get", {}), e.call("XPayBankList_Get", {}), e.call("BankPrefixList_Get", {})];
-  var f = o.MoneyPayActive;
-  return f && d.push(e.call("BankListbyPaymentAgentID_Get", {
-    intBrandID: 2,
-    strPaymentAgentID: "PA00004"
-  })), t.all(d).then(function(e) {
-    var t = e[0].data,
-      n = e[1].data,
-      o = e[2].data,
-      d = f ? e[3].data : void 0;
-    t.Success && angular.forEach(t.Result, function(e) {
-      var t = {
-        BankName: e.BankName,
-        cash: e.CashDeposit,
-        deposit: e.Deposit,
-        GUID: e.GUID,
-        ImageName: e.ImageName,
-        online: e.OnlinePayment,
-        PaymentAgentID: e.PaymentAgentID,
-        PaymentGUID: e.PaymentGUID,
-        Priority: e.Priority,
-        transfer: e.Transfer,
-        withdraw: e.Withdrawal,
-        duplicate: !1
-      };
-      a[t.GUID] = t, r[t.BankName] = t.GUID, angular.forEach(m, function(e) {
-        "withdraw" === e ? t[e] && (void 0 === s[e][t.PaymentAgentID] && (s[e][t.PaymentAgentID] = []), s[e][t.PaymentAgentID].push(t)) : t[e] && t.deposit && (void 0 === s[e][t.PaymentAgentID] && (s[e][t.PaymentAgentID] = []), s[e][t.PaymentAgentID].push(t))
+  var d = [];
+  e.call("Get_Online_Bank", {}, function(t) {
+    if(res.Success) {
+      angular.forEach(t.Result, function(e) {
+        var t = {
+          BankName: e.BankName,
+          cash: e.CashDeposit,
+          deposit: e.Deposit,
+          GUID: e.GUID,
+          ImageName: e.ImageName,
+          online: e.OnlinePayment,
+          PaymentAgentID: e.PaymentAgentID,
+          PaymentGUID: e.PaymentGUID,
+          Priority: e.Priority,
+          transfer: e.Transfer,
+          withdraw: e.Withdrawal,
+          duplicate: !1
+        };
+        a[t.GUID] = t;
+        r[t.BankName] = t.GUID;
+        angular.forEach(m, function(e) {
+          "withdraw" === e ? t[e] && (void 0 === s[e][t.PaymentAgentID] && (s[e][t.PaymentAgentID] = []), s[e][t.PaymentAgentID].push(t)) : t[e] && t.deposit && (void 0 === s[e][t.PaymentAgentID] && (s[e][t.PaymentAgentID] = []), s[e][t.PaymentAgentID].push(t))
+        })
       })
-    }), n.Success && angular.forEach(n.Result, function(e) {
-      var t = {
-        Currency: e.Currency,
-        BankName: e.CashBankID,
-        Desc: e.CashBankDesc
-      };
-      switch (void 0 === l[t.Currency] && (l[t.Currency] = {
-        withdraw: [],
-        deposit: []
-      }), e.BankInfoType) {
-        case "W":
-          l[t.Currency].withdraw.push(t);
-          break;
-        case "D":
-          l[t.Currency].deposit.push(t)
-      }
-    }), o.Success && angular.forEach(o.Result, function(e) {
-      i[e.BINCode] = e.ImageName
-    }), void 0 !== d && d.Success && angular.forEach(d.Result, function(e) {
-      var t = {
-        Currency: e.Currency,
-        BankName: e.CashBankID,
-        Desc: e.CashBankDesc,
-        ImageName: e.ImageName,
-        GUID: e.CashBankIDGuid,
-        duplicate: !1
-      };
-      switch (void 0 === u[t.Currency] && (u[t.Currency] = {
-        withdraw: [],
-        deposit: []
-      }), e.BankInfoType) {
-        case "W":
-          u[t.Currency].withdraw.push(t);
-          break;
-        case "D":
-          u[t.Currency].deposit.push(t)
-      }
-    }), c = !0
-  }), {
+    }
+    t.Success && ;
+    c = true;
+  });
+
+  return {
     getImage: function(e) {
       var t = null;
       for (var n in i)

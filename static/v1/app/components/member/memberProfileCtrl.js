@@ -1,7 +1,8 @@
 angular.module('ciApp').controller('memberProfileCtrl', ['$scope', '$state', 'Container', 'GameService', 'MessageService', 'appServices', 'AccountService', 'maskService', function($scope, $state, Container, GameService, MessageService, appServices, AccountService, maskService) {
   $scope.data = {
     member: {
-      name: '',
+      username: '',
+      realname: '',
       email: '',
       mobile: '',
       birthday: '',
@@ -19,19 +20,21 @@ angular.module('ciApp').controller('memberProfileCtrl', ['$scope', '$state', 'Co
   $scope.messages = [];
   $scope.profilt_userdata = {};
   AccountService.call('MainAccount_Basicinfo_Get', {}, function(result) {
-    $scope.data.member.birthday = result.Result[0].Birthday;
+    $scope.data.member.username = result.Result[0].username;
+    $scope.data.member.birthday = result.Result[0].Birthday || 'undefined';
     $scope.data.member.email = result.Result[0].EMail;
-    if (result.Result[0].real_name !== '') {
+    if (result.Result[0].real_name) {
       $scope.data.member.nameValid = true;
-      $scope.data.member.name = maskService.maskRealName($scope.data.member.name);
+      $scope.data.member.realname = maskService.maskRealName(result.Result[0].real_name);
     }
     // $scope.profilt_userdata.CreateTime = moment(result.Result[0].CreateTime).format('YYYY/MM/DD HH:mm:ss');
+    $scope.profilt_userdata.CreateTime = 'undefined';
     $scope.profilt_userdata.LastLoginTime = result.Result[0].last_login_time;
-    // $scope.data.member.mobile = result.Result[0].ContactNumber;
-    // if ($scope.data.member.mobile !== '') {
-    //   $scope.data.member.mobile = maskService.maskMobile(result.Result[0].ContactNumber);
-    //   $scope.data.member.mobileValid = true;
-    // }
+    $scope.data.member.mobile = '13588888888';
+    if ($scope.data.member.mobile !== '') {
+      $scope.data.member.mobile = maskService.maskMobile($scope.data.member.mobile);
+      $scope.data.member.mobileValid = true;
+    }
   });
   
   $scope.getMessageList = function() {

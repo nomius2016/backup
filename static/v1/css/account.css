@@ -3940,7 +3940,8 @@ dl.view .vw-mbox-hd {
 .thema-a .ui-checkbox .tos {
     position: relative;
     padding-left: 30px;
-    margin-right: 65px
+    margin-right: 65px;
+    line-height: 45px;
 }
 
 .thema-a .ui-checkbox {

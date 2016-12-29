@@ -23,10 +23,14 @@
                     <div class="vw-user-grzl">
                         <ul>
                             <li>
-                                <span class="t">{{'member_profile@name' | translate}}：</span>
+                                <span class="t">{{'member_profile@username' | translate}}：</span>
+                                <span class="default">{{data.member.username}}</span>
+                            </li>
+                            <li>
+                                <span class="t">{{'member_profile@realname' | translate}}：</span>
                                 <span class="default">
-                                    {{data.member.name}}
-                                    <a ng-if="!data.member.nameValid" ui-sref="member.security({method: 'name'})">{{'member_security@name' | translate}}</a>
+                                    {{data.member.realname}}
+                                    <a ng-if="!data.member.nameValid" ui-sref="member.info">{{'member_security@name' | translate}}</a>
                                 </span>
                             </li>
                             <li>
@@ -35,10 +39,7 @@
                             </li>
                             <li>
                                 <span class="t">{{'member_profile@birthday' | translate}}：</span>
-                                <span class="default">
-                                    {{data.member.birthday}}
-                                    <a ng-if="!data.member.birthdayValid" ui-sref="member.security({method: 'name'})">{{'member_security@name' | translate}}</a>
-                                </span>
+                                <span class="default">{{data.member.birthday}}</span>
                             </li>
                             <li>
                                 <span class="t">{{'member_profile@mobile' | translate}}：</span>

@@ -5,10 +5,7 @@ angular.module('requesterModule').factory('CashFlowService', ['ZeusService', fun
   var routeXPay = 'Mercury/CashFlow/XPay';
   var payBank = 'Mercury/CashFlow';
   var routeMap = {
-    BankList_Get: route,
-    BankPrefixList_Get: route,
-    XPayBankList_Get: route,
-    BankListbyPaymentAgentID_Get: route,
+    Get_Online_Bank: route,
     GetLastDepositOrder: routeMain,
     GetFavoritesBankList: routeMain,
     GetDepositCardFlag: routeMain,

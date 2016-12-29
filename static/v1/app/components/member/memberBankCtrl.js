@@ -17,20 +17,6 @@ angular.module('ciApp')
       return way;
     }
 
-    function f() {
-      var e = !1;
-      if(Config.MoneyPayActive) {
-        if(16 == Container.getCurrencyID()) {
-          e = Config.MoneyPayDepositCurrencyVND;
-        } else if(18 == Container.getCurrencyID()) {
-          e = Config.MoneyPayDepositCurrencyTHB
-        }
-      } else {
-        e = !1;
-      }
-      return e;
-    }
-
     function y() {
       var e = "online";
       if(2 == Container.getCurrencyID()) {
@@ -91,17 +77,15 @@ angular.module('ciApp')
       $scope[$scope.method].init();
     };
     $scope.deposit = {
-      XPayActive: Config.XPayActive,
-      MoneyPayActive: f(),
+      MoneyPayActive: true,
       QuickActive: Config.QuickActive,
       AlipayActive: Config.AlipayActive,
       WechatActive: Config.WechatActive,
-      PointActive: Config.PointActive,
       minValue: 0,
       maxValue: 0,
       min: {},
       max: {},
-      methods: ["online", "bao", "transfer", "cash", "quick", "dcard"],
+      methods: ["online", "bao", "transfer", "cash"],
       method: $scope.way,
       cardNumber: "",
       cardLock: !0,

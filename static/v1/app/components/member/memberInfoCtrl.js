@@ -13,29 +13,29 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
     })
   };
   o.call("MainAccount_Basicinfo_Get", {}, function(e) {
-    n.userdata.FirstName = e.Result[0].FirstName;
-    n.userdata.MiddleName = e.Result[0].MiddleName;
-    n.userdata.HandicapID = e.Result[0].HandicapID;
-    n.userdata.gender = e.Result[0].Gender;
-    n.userdata.CountryID = e.Result[0].CountryID;
+    $scope.userdata.FirstName = e.Result[0].FirstName;
+    $scope.userdata.MiddleName = e.Result[0].MiddleName;
+    $scope.userdata.HandicapID = e.Result[0].HandicapID;
+    $scope.userdata.gender = e.Result[0].Gender;
+    $scope.userdata.CountryID = e.Result[0].CountryID;
     if(e.Result[0].Birthday !== undefined) {
-      n.userdata.birthday = moment(e.Result[0].Birthday).format("YYYY/MM/DD")
+      $scope.userdata.birthday = moment(e.Result[0].Birthday).format("YYYY/MM/DD")
     }
-    if(n.security_status.name) {
-      n.birthday_readonly = !0;
-      n.gender_readonly = !0;
+    if($scope.security_status.name) {
+      $scope.birthday_readonly = !0;
+      $scope.gender_readonly = !0;
     }
-    $("#info_country_select li:contains(" + n.userdata.CountryID + ")").click();
+    $("#info_country_select li:contains(" + $scope.userdata.CountryID + ")").click();
   });
-  n.CreateInfo = function(gender, realname) {
+  $scope.CreateInfo = function(gender, realname) {
     return r.checkZipCodeFormat(l) ? void o.call("MainAccount_UpdateBasicInfo", {
       strLanguageCode: e.userLang,
       intCurrencyID: 2,
-      intHandicapID: n.userdata.HandicapID,
-      strFirstName: n.userdata.FirstName,
-      strMiddleName: n.userdata.MiddleName,
+      intHandicapID: $scope.userdata.HandicapID,
+      strFirstName: $scope.userdata.FirstName,
+      strMiddleName: $scope.userdata.MiddleName,
       strLastName: "",
-      dateBirthday: n.userdata.birthday,
+      dateBirthday: $scope.userdata.birthday,
       intGender: t,
       strRealName: realname,
       bitNewsLetter: !1,
@@ -54,7 +54,7 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
     changeYear: !0,
     onClose: function(e) {
       var t = $("#datepicker_birthday").datepicker("getDate");
-      n.userdata.birthday = moment(t).format("YYYY/MM/DD")
+      $scope.userdata.birthday = moment(t).format("YYYY/MM/DD")
     }
   });
   $("#info_country_select").click(function() {

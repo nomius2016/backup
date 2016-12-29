@@ -20,6 +20,12 @@
                     <form action="">
                         <ul class="thema-a">
                             <li class="vw-fItem">
+                                <label class="grey5" for="">{{'member_info@realname' | translate}}：</label>
+                                <div class="vw-ui-input">
+                                    <input type="text" placeholder="{{'member_info@realname_placeholder' | translate}}" ng-model="userdata.realname"/>
+                                </div>
+                            </li>
+                            <li class="vw-fItem">
                                 <label class="grey5" for="">{{'member_info@birthday' | translate}}：</label>
                                 <div class="vw-sel3 cl">
                                     <div class="vw-ui-input fltlft">
@@ -48,12 +54,6 @@
                                     <div class="ui-checkbox fltlft">
                                         <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '0'}"></span>{{ 'member_security_name@sex_2' | translate }}</p>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="vw-fItem">
-                                <label class="grey5" for="">{{'member_info@realname' | translate}}：</label>
-                                <div class="vw-ui-input">
-                                    <input type="text" placeholder="{{'member_info@realname_placeholder' | translate}}" ng-model="userdata.realname"/>
                                 </div>
                             </li>
                             <li class="vw-fItem">
