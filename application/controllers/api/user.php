@@ -64,6 +64,7 @@ class User extends Basecontroller {
 		        'birthday'            => $profile['birthday'],
 		        'email'               => $profile['email'],
 		        'phone'               => $profile['phone'],
+		        'register_time'       => $userinfo['register_time'],
 			);
 
 		$ret = array(
