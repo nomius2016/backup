@@ -361,9 +361,7 @@
     "result": [
     	{"question_id":"1","question":"\u6700\u559c\u6b22\u7684\u52a8\u7269\uff1f"},
     	{"question_id":"2","question":"\u60a8\u7684\u5ba0\u7269\u540d\u5b57\uff1f"}
-  		...
 	]
-}
 }
 ```
 
@@ -393,5 +391,5 @@
     "status": true,
     "result": true
 	}
-}]
+]
 ```
