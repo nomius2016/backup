@@ -43,6 +43,9 @@ class User extends Basecontroller {
 		$userinfo = $this->users->getLoginInfo();
 		$current_info = $this->users->getUserInfo($userinfo['user_id']);
 		$profile  = $this->users->profile($this->user_id);
+		if ($profile['user_id']<1) {
+		    $this->users->create_profile($this->user_id);
+		}
 		if(!$current_info['fund_password']){
 			$fund_password_seted = false;
 		}else{
@@ -60,7 +63,7 @@ class User extends Basecontroller {
 				'phone_checked'       => false,
 				'profile_percent'     => 60,  //资料完善度
 				'fund_password_seted' => $fund_password_seted,
-		        'real_name'           => $profile['name'],
+		        'real_name'           => $profile['real_name'],
 		        'birthday'            => $profile['birthday'],
 		        'email'               => $profile['email'],
 		        'phone'               => $profile['phone'],

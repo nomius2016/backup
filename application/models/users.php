@@ -119,6 +119,10 @@ class Users extends Base_Model{
 	public function profile(int $userid) {
 	    return $this->db->from('user_profile')->where('user_id', $userid)->get()->row_array();
 	}
+	
+	public function create_profile(int $userid) {
+	    return $this->db->from('user_profile')->set('user_id',$userid)->insert();
+	}
 
 	/**
 	 * @desc 用户转账提款等限制
