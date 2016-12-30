@@ -379,7 +379,7 @@
 }
 ```
 
-> * 25 用户安全问题选题模板
+> * 25 用户安全问题校验
 
     URL: api/user/security_question_check
 	参数：{security_answer:?} // 问题的答案
