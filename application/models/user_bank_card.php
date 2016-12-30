@@ -104,6 +104,14 @@ class user_bank_card extends Base_Model{
 		$where = array('user_id'=>$user_id,'status'=>1);
 		return $this->selectByWhere($where,'*');
 	}
+	
+	/**
+	 * @desc 用户绑定银行卡数量
+	 * @param int $userid
+	 */
+	public function bindedCardCount(int $userid) {
+	    return $this->count(array('user_id' => $userid));
+	}
 
 
 }

@@ -50,7 +50,14 @@
   "id_checked": false,  //身份是否验证
   "phone_checked": false, //手机是否验证
   "profile_percent": 60 //资料完善度
-  "fund_password_seted":true// 是否设置资金密码
+  "fund_password_seted":true ,// 是否设置资金密码
+  "real_name": "张三", // 真实姓名
+  "birthday" : "2000-01-01",  // 生日
+  "email" : "abc@gmail.com", // 邮箱
+  "phone"   "13988888888",  //电话
+  "register_time": "2000-01-01 18:35:19", // 注册时间
+  "gender" : 1  // 性别
+  "binded_card_count": 1 //  绑定银行卡数量
 }]  
 ```
 
@@ -321,4 +328,70 @@
   }
   ...
 ]
+```
+
+ > * 23 用户安全问题选题模板
+
+    URL: api/user/update_password
+	参数：无
+```json
+"Result": [
+  {
+    "msg": "更新成功",
+    "code": 1, 
+    "status": true,
+    "result": [
+    	{"question_id":"1","question":"\u6700\u559c\u6b22\u7684\u52a8\u7269\uff1f"},
+    	{"question_id":"2","question":"\u60a8\u7684\u5ba0\u7269\u540d\u5b57\uff1f"}
+  		...
+	]
+}
+```
+
+> * 23 用户安全问题选题模板
+
+    URL: api/user/security_question_list
+	参数：无
+```json
+"Result": [
+  {
+    "msg": "更新成功",
+    "code": 1, 
+    "status": true,
+    "result": [
+    	{"question_id":"1","question":"\u6700\u559c\u6b22\u7684\u52a8\u7269\uff1f"},
+    	{"question_id":"2","question":"\u60a8\u7684\u5ba0\u7269\u540d\u5b57\uff1f"}
+  		...
+	]
+}
+}
+```
+
+> * 24 设置用户安全问题和答案
+
+    URL: api/user/security_question_set
+	参数：{security_question_id: ?, security_answer:?}
+```json
+"Result": [
+  {
+    "msg": "设置成功",
+    "code": 1, 
+    "status": true,
+    "result":true
+}
+```
+
+> * 25 用户安全问题选题模板
+
+    URL: api/user/security_question_check
+	参数：{security_answer:?} // 问题的答案
+```json
+"Result": [
+  {
+    "msg": "答案正确",
+    "code": 1, 
+    "status": true,
+    "result": true
+	}
+}]
 ```

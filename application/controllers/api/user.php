@@ -40,6 +40,8 @@ class User extends Basecontroller {
 		}
 
 		$this->load->model('users');
+		$this->load->model('user_bank_card');
+		
 		$userinfo = $this->users->getLoginInfo();
 		$current_info = $this->users->getUserInfo($userinfo['user_id']);
 		$profile  = $this->users->profile($this->user_id);
@@ -69,6 +71,7 @@ class User extends Basecontroller {
 		        'phone'               => $profile['phone'],
 		        'register_time'       => $userinfo['register_time'],
 		        'gender'              => $profile['sex'],
+		        'binded_card_count'   => intval($this->user_bank_card->bindedCardCount($this->user_id)),
 			);
 
 		$ret = array(
@@ -355,6 +358,75 @@ class User extends Basecontroller {
 			$this->teamapi($ret);
 		}
 
+	}
+	
+	/**
+	 * @desc 用户安全问题选题模板
+	 */
+	public function security_question_list() {
+	    $aRS = array();
+	    $ret = array();
+	    if ($this->user_id>0){
+	        $this->load->model('security_question');
+	        $ret['status'] = true;
+	        $ret['code']   = 1;
+	        $ret['msg']    = '拉取成功';
+	        $ret['result'] = $this->security_question->getList();
+	    } else {
+	        $ret['status'] = false;
+	        $ret['code']   = -1;
+	        $ret['msg']    = '登录状态丢失!';
+	    }
+	    $this->teamapi($ret);
+	}
+	
+	/**
+	 * @desc 设置用户安全问题和答案
+	 */
+	public function security_question_set() {
+	    $aRS = array();
+	    $ret = array();
+	    if ($this->user_id>0){
+	        $this->load->model('security_question');
+	        $ret['status'] = true;
+	        $ret['code']   = 1;
+	        $ret['msg']    = '设置成功';
+	        $ret['result'] = $this->user_profile->set( $this->getApiParams());
+	    } else {
+	        $ret['status'] = false;
+	        $ret['code']   = -1;
+	        $ret['msg']    = '登录状态丢失!';
+	    }
+	    $this->teamapi($ret);
+	}
+	
+	/**
+	 * @desc 判断用户安全问题是否正确
+	 * @return json
+	 */
+	public function security_question_check() {
+	    $aRS = array();
+	    $ret = array();
+	    if ($this->user_id>0){
+	        $p = $this->getApiParams();
+	        $aProfile = $this->users->profile($this->user_id);
+	        if ($p['security_answer']==$aProfile['security_answer']) {
+    	        $ret['status'] = true;
+    	        $ret['code']   = 1;
+    	        $ret['msg']    = '答案正确';
+    	        $ret['result'] = true;
+	        } else {
+	            $ret['status'] = false;
+    	        $ret['code']   = -11;
+    	        $ret['msg']    = '答案错误';
+    	        $ret['result'] = false;
+	        }
+	    } else {
+	        $ret['status'] = false;
+	        $ret['code']   = -1;
+	        $ret['msg']    = '登录状态丢失!';
+	    }
+	    $this->teamapi($ret);
 	}
 
 }
