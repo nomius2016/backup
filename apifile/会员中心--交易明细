@@ -1,0 +1,22 @@
+TAB页  帐变记录  充值记录  提款记录
+
+帐变明细
+	URL     :/api/fund/log
+	参数     :page start_date  end_date 
+	显示字段 : ID 类型   帐变前金额    变动金额     帐变后金额  备注 时间
+
+充值明细  
+	URL   : /api/deposit/history
+	参数   : page start_date  end_date 
+  显示字段 : 
+
+提款明细
+	URL: /api/deposit/history
+	参数: page start_date  end_date
+显示字段 :ID 提款银行   金额  备注   状态  时间 
+
+备注 :  以前的平台查询条件删除, 交易明细下面增加tab 页切换,每一个tab页下面 请求不同的URL 获取对应的数据
+
+
+
+

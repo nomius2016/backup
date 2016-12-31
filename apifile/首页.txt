@@ -1,0 +1,10 @@
+联系我们
+      请求 
+        URL:   api/publicapi/setting   
+        参数:  {page:"index"}
+        返回   {
+        			banner 地址 和对应 的 链接 
+                    滚动公告
+                    线上客服地址
+        		}
+

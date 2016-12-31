@@ -1,0 +1,14 @@
+联系我们
+      请求 
+        URL:   api/publicapi/setting   
+        参数:  {page:"about_contact"}
+
+     
+      提交 
+        URL: api/publicapi/issue 
+        参数: 
+            name -->姓名
+            email
+            type   -->  技术,财务,市场,产品
+            content-->信息
+        后台额外需求: 同IP 每个小时只能提交一次

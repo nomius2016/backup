@@ -1,0 +1,6 @@
+
+URL: api/user/update_profile
+
+参数: real_name sex phone email  birthday
+
+新增加了  手机(phone) 和 邮箱(email)  
