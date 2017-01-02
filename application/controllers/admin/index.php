@@ -53,5 +53,8 @@ class Index extends Basecontroller {
 		return;
 	}
 
+	public function test(){
+		echo 1111;exit;
+	}
 }
 
