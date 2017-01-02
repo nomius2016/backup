@@ -1,0 +1,125 @@
+<div class="">
+    <div class="cl">
+        <div class="col-12">
+            <div class="vw-p-hd">
+                <h3>{{ 'member_security@bindcard' | translate }}</h3>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="pwdPanel" class="yzPanel cl">
+    <div class="vw-part" ng-if="!security_status.withdraw">
+        <!--  -->
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-p-bd pb30 pt30">
+                    <p>{{'member_security_withdraw@notice' | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- withdraw start -->
+    <div class="mya_result vw-form mt20" ng-if="!security_status.withdraw">
+        <form action="tk_pwd2.html" id="editPwd" class="pt30">
+            <ul>
+                <li class="vw-fItem">
+                    <label class="grey5" for="">{{'member_security_withdraw@withdraw' | translate}}：</label>
+                    <div class="vw-rItem">
+                        <div class="vw-ui-input cl">
+                            <span class="icon icon-lock"></span>
+                            <input type="password" name="pwd" placeholder="{{'member_security_withdraw@withdraw_placeholder' | translate}}" ng-model="withdraw.value">
+                        </div>
+                    </div>
+                </li>
+                <li class="vw-fItem mya_decheck noTry">
+                    <label class="grey5" for="">{{'member_security_withdraw@check_withdraw' | translate}}：</label>
+                    <div class="vw-rItem">
+                        <div class="vw-ui-input cl">
+                            <span class="icon icon-lock"></span>
+                            <input type="password" name="notpwd" placeholder="{{'member_security_withdraw@check_withdraw_placeholder' | translate}}" ng-model="withdraw.check">
+                        </div>
+                        <div class="">
+                            <p>　</p>
+                            <p class="min_tip">{{'member_bank_withdraw@password_tip' | translate}}</p>
+                            <div class="min-input">
+                                <input type="text" class="item-input" disabled />
+                                <input type="text" class="item-input red" value="A" />
+                                <input type="text" class="item-input" disabled />
+                                <input type="text" class="item-input red" disabled />
+                                <input type="text" class="item-input red" value="W" />
+                                <span class="item-input">...</span>
+                                <input type="text" class="item-input" disabled />
+                                <input type="text" class="item-input red" value="8" />
+                            </div>
+                            <div class="min-label" style="text-align:center;">
+                                <span class="item1">{{'member_bank_withdraw@digit_1' | translate}}</span>
+                                <span class="item2 show">{{'member_bank_withdraw@digit_2' | translate}}</span>
+                                <span class="item3">{{'member_bank_withdraw@digit_3' | translate}}</span>
+                                <span class="item4">{{'member_bank_withdraw@digit_4' | translate}}</span>
+                                <span class="item5 show">{{'member_bank_withdraw@digit_5' | translate}}</span>
+                                <span class="blank"></span>
+                                <span class="item6">{{'member_bank_withdraw@digit_last2' | translate}}</span>
+                                <span class="item7 show">{{'member_bank_withdraw@digit_last' | translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="vw-fItem">
+                    <div class="vw-rItem">
+                        <a class="btn-1 check-pwd" ng-class="{'btn-disable': !withdraw || !withdraw.check }" btn-process callback="CreateSecurityWithdraw(withdraw)">{{'member_security_withdraw@submit' | translate}}</a>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <!-- withdraw end -->
+    <!-- mobile start -->
+    <div class="mya_result vw-form mt20" ng-if="(security_status.withdraw && withdraw.flow == 'mobile')">
+        <form id="checkPhone" class="pt30">
+            <ul class="thema-a">
+                <li class="vw-fItem">
+                    <label class="grey5" for="">{{'member_security_mobile@mobile' | translate}}：</label>
+                    <div class="vw-ui-input cl">
+                        <div class="cols6 mgrt0">
+                            <input ng-if="mobile.readonly" ng-model="mobile.areacode" readonly="readonly" />
+                        </div>
+                        <div class="vw-ui-input cols5 mglft20">
+                            <input type="text" name="phone" placeholder="{{'member_security_mobile@mobile_placeholder' | translate}}"
+                                   ng-model="mobile.value" ng-change="mobile.checkValid()" ng-readonly="mobile.readonly">
+                        </div>
+                    </div>
+                </li>
+                <li class="vw-fItem" style="height:auto;">
+                    <label class="grey5" for="">{{'member_security_mobile@code' | translate}}：</label>
+                    <div class="vw-ui-input cl">
+                        <div class="vw-ui-input cols7 mgrt0">
+                            <input type="text" name="code" placeholder="{{'member_security_mobile@code_placeholder' | translate}}" ng-model="mobile.code">
+                            <p class="mgtp8">{{'member_security_mobile@code_notice' | translate}}</p>
+                        </div>
+                        <div style="cursor: pointer" class="min call-box label_box gray fs14 col-3" id="bt_SendCode" ng-click="SendSMSVerifyCode(mobile);">{{'member_security_mobile@get_code' | translate}}</div>
+                    </div>
+                </li>
+
+                <li class="vw-fItem">
+                    <a class="btn-1" ng-class="{'btn-disable': !mobile.value || !mobile.code }" btn-process callback="CreateSecurityMobile(mobile)">{{'member_security_mobile@submit' | translate}}</a>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <!-- mobile end -->
+
+    <div class="mya_result cl" ng-if="(security_status.withdraw  && withdraw.flow == 'withdraw')">
+        <div class="mya_wrap yellowBg">
+            <div class="result_tit"><i class="icon_yes"></i>{{'member_security_withdraw@notice_title_2' | translate}}</div>
+            <div class="result_cnt"><p>{{'member_security_withdraw@notice_message_2' | translate}}</p></div>
+        </div>
+        <div class="mya_help">
+            <h5><b>{{'member_security_withdraw@notice_title_3' | translate}}</b></h5>
+            <p style="line-height:30px;">{{'member_security_withdraw@notice_message_3_1' | translate}}<a ui-sref="about({menuItem:'contact'})">{{'member_security_withdraw@notice_page_3_1' | translate}}</a>，{{'member_security_withdraw@notice_message_3_2' | translate}}<a ng-click="openLiveChat()">{{'member_security_withdraw@notice_page_3_2' | translate}}</a>{{'member_security_withdraw@notice_message_3_3' | translate}}</p>
+            <a class="btn-1 white" ng-show="security_status.mobile" ng-click="WithdrawUI_Change('mobile');">{{'member_security_withdraw@submit_mobile' | translate}}</a>
+            <a class="btn-1 white" ng-show="!security_status.mobile" ui-sref="member.security({method: 'mobile'})">{{'member_security_withdraw@submit_mobile' | translate}}</a>
+        </div>
+    </div>
+    <div class="vw-rtn-back"><a ui-sref="member.security({method: 'index'})">BACK</a></div>
+</div>

@@ -77,13 +77,10 @@
             <div class="fltlft info">
               <p ng-if="page_flow == 1">
                 {{'member@security_msg_1' | translate}}
-                <a ui-sref="member.security({method: 'email'})">{{'member_security@email' | translate}}</a>{{'member@security_msg_2' | translate}}
-                <a ui-sref="member.info">{{'member_security@name' | translate}}</a>{{'member@security_msg_3' | translate}}
-                <a ng-if="!bonusAllGet" ui-sref="member.bonus" translate="member@security_msg_4" translate-values="{money : bonus.all}"></a>
+                <a ui-sref="member.info">{{'member_profile@update_info' | translate}}</a> {{'member@security_msg_2' | translate}}
               </p>
               <p ng-if="page_flow == 2">
                 {{'member@security_msg_2_1' | translate}}
-                <a ng-if="!bonusAllGet" ui-sref="member.bonus" translate="member@security_msg_2_2" translate-values="{money : bonus.all}"></a>
               </p>
               <p ng-if="page_flow == 3">
                 {{'member@security_msg_2_1' | translate}}

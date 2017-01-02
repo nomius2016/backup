@@ -11,52 +11,18 @@
     <li class="col-6">
         <div class="vw-option" ng-class="{'active':security_status.name}">
             <h3>
-                {{'member_security@name' | translate}}
-                <i class="icon-warning" ng-if="!security_status.name">!</i>
+                {{'member_security@bindcard' | translate}}
+                <i class="icon-warning" ng-if="!security_status.bindcard">!</i>
             </h3>
-            <a class="btn-1" ui-sref-active="active" ui-sref="member.info" ng-if="!security_status.name">
-                {{'member_security@yan_zheng' | translate}}
+            <a class="btn-1" ui-sref-active="active" ui-sref="member.security({method: 'bindcard'})" ng-if="!security_status.bindcard">
+                {{'member_security@she_zhi' | translate}}
             </a>
 
-            <div class="vw-move" ng-if="security_status.name">
-                <p>{{'member_security@she_zhi' | translate}}</p>
+            <div class="vw-move" ng-if="security_status.bindcard">
+                <p>{{'member_security@yi_she_zhi' | translate}}</p>
             </div>
 
             <img src="/static/v1/images/vl1.png" alt="" class="vw-slogo" />
-        </div>
-    </li>
-    <li class="col-6">
-        <div class="vw-option" ng-class="{'active':security_status.mobile}">
-            <h3>
-                {{'member_security@mobile' | translate}}
-                <i class="icon-warning" ng-if="!security_status.mobile">!</i>
-            </h3>
-            <a class="btn-1" ui-sref-active="active" ui-sref="member.security({method: 'mobile'})" ng-if="!security_status.mobile">{{'member_security@yan_zheng' | translate}}</a>
-
-            <div class="vw-move" ng-if="security_status.mobile">
-                <a class="btn-1" ui-sref="member.security({method: 'mobile'})">
-                    {{'member_security@xiu_gai' | translate}}
-                </a>
-            </div>
-
-            <img src="/static/v1/images/vl2.png" alt="" class="vw-slogo" />
-        </div>
-    </li>
-    <li class="col-6">
-        <div class="vw-option" ng-class="{'active':security_status.email}">
-            <h3>
-                {{'member_security@email' | translate}}
-                <i class="icon-warning" ng-if="!security_status.email">!</i>
-            </h3>
-            <a class="btn-1" ui-sref-active="active" ui-sref="member.security({method: 'email'})" ng-if="!security_status.email">{{'member_security@yan_zheng' | translate}}</a>
-
-            <div class="vw-move" ng-if="security_status.email">
-                <a class="btn-1" ui-sref="member.security({method: 'email'})">
-                    {{'member_security@xiu_gai' | translate}}
-                </a>
-            </div>
-
-            <img src="/static/v1/images/vl3.png" alt="" class="vw-slogo" />
         </div>
     </li>
     <li class="col-6">
@@ -65,7 +31,7 @@
                 {{'member_security@withdraw' | translate}}
                 <i class="icon-warning" ng-if="!security_status.withdraw">!</i>
             </h3>
-            <a class="btn-1" ui-sref-active="active" ui-sref="member.security({method: 'withdraw'})" ng-if="!security_status.withdraw">{{'member_security@yan_zheng' | translate}}</a>
+            <a class="btn-1" ui-sref-active="active" ui-sref="member.security({method: 'withdraw'})" ng-if="!security_status.withdraw">{{'member_security@she_zhi' | translate}}</a>
 
             <div class="vw-move" ng-if="security_status.withdraw">
                 <a class="btn-1" ui-sref="member.security({method: 'withdraw'})">{{'member_security@xiu_gai' | translate}}</a>
@@ -80,7 +46,7 @@
                 {{'member_security@question' | translate}}
                 <i class="icon-warning" ng-if="!security_status.question">!</i>
             </h3>
-            <a class="btn-1" ui-sref-active="active" ui-sref="member.security({method: 'question'})" ng-if="!security_status.question">{{'member_security@yan_zheng' | translate}}</a>
+            <a class="btn-1" ui-sref-active="active" ui-sref="member.security({method: 'question'})" ng-if="!security_status.question">{{'member_security@she_zhi' | translate}}</a>
 
             <div class="vw-move" ng-if="security_status.question">
                 <a class="btn-1" ui-sref="member.security({method: 'question'})">{{'member_security@xiu_gai' | translate}}</a>
@@ -95,13 +61,9 @@
                 {{'member_security@password' | translate}}
                 <i class="icon-warning" ng-if="!security_status.password">!</i>
             </h3>
-            <a class="btn-1" ui-sref-active="active" ui-sref="member.security({method: 'password'})" ng-if="!security_status.password">{{'member_security@yan_zheng' | translate}}</a>
-
-            <div class="vw-move" ng-if="security_status.password">
-                <a class="btn-1" ui-sref="member.security({method: 'password'})">
-                    {{'member_security@xiu_gai' | translate}}
-                </a>
-            </div>
+            <a class="btn-1" ui-sref="member.security({method: 'password'})">
+                {{'member_security@xiu_gai' | translate}}
+            </a>
 
             <img src="/static/v1/images/vl6.png" alt="" class="vw-slogo" />
         </div>

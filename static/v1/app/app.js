@@ -115,14 +115,8 @@ angular.module('ciApp', ['ui.router',
         'index@member.security': {
           templateUrl: '/static/v1/app/components/member/member.security.index.html'
         },
-        'name@member.security': {
-          templateUrl: '/static/v1/app/components/member/member.security.name.html'
-        },
-        'mobile@member.security': {
-          templateUrl: '/static/v1/app/components/member/member.security.mobile.html'
-        },
-        'email@member.security': {
-          templateUrl: '/static/v1/app/components/member/member.security.email.html'
+        'bindcard@member.security': {
+          templateUrl: '/static/v1/app/components/member/member.security.bindcard.html'
         },
         'withdraw@member.security': {
           templateUrl: '/static/v1/app/components/member/member.security.withdraw.html'
@@ -198,7 +192,7 @@ angular.module('ciApp', ['ui.router',
     function showAlertMsg(title, content) {
       $scope.alertTitle = title;
       $scope.alertContent = content;
-      $scope.showAlert = !0
+      $scope.showAlert = true;
     }
 
     function f(e, t) {

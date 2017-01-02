@@ -1,4 +1,4 @@
-angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '$stateParams', '$state', 'Container', 'appServices', 'SecurityService', 'verifyService', 'BonusService', 'BRAND_ID', 'AccountService', 'maskService', '$timeout', function($filter, $scope, $stateParams, $state, Container, appServices, SecurityService, verifyService, BonusService, BRAND_ID, AccountService, maskService, $timeout) {
+angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '$stateParams', '$state', 'Container', 'appServices', 'SecurityService', 'verifyService', 'BonusService', 'BRAND_ID', 'AccountService', 'maskService', '$timeout', 'md5', function($filter, $scope, $stateParams, $state, Container, appServices, SecurityService, verifyService, BonusService, BRAND_ID, AccountService, maskService, $timeout, md5) {
   // e, t, i, a, s, o, r, n, l, u, c, d, m
   function p(e, t) {
     if(!g.Send_Now !== 0) {
@@ -52,50 +52,35 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
     }
   }
   $scope.method = $stateParams.method;
-  $scope.countryCode = '86';
-  $scope.Send_Now = !1;
   $scope.openLiveChat = function() {
     appServices.openLiveChat();
   };
   $scope.getSecurityStatus = function() {
     $scope.security_status = {};
-    $scope.security_status.name = !1;
-    $scope.security_status.mobile = !1;
-    $scope.security_status.email = !1;
-    $scope.security_status.withdraw = !1;
-    $scope.security_status.question = !1;
-    $scope.security_status.password = !1;
-    SecurityService.call('MainAccount_Auth_Get', {}, function(e) {
+    $scope.security_status.bindcard = false;
+    $scope.security_status.withdraw = false;
+    $scope.security_status.question = false;
+    $scope.security_status.password = true;
+    AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
       if(e.Success) {
-        if(null != e.Result[0].IDVerifiedTime) {
-          $scope.security_status.name = true;
+        if(e.Result[0].binded_card_count > 2) {
+          $scope.security_status.bindcard = true;
         }
-        if(null != e.Result[0].ContactNumberVerifiedTime) {
-          $scope.security_status.mobile = true;
-        }
-        if(null != e.Result[0].EMailVerifiedTime) {
-          $scope.security_status.email = true;
-        }
-        if(null != e.Result[0].WithdrawalPassword) {
+        if(e.Result[0].fund_password_setted) {
           $scope.security_status.withdraw = true;
         }
-        if(null != e.Result[0].SecurityQuestionID) {
+        if(e.Result[0].question_setted) {
           $scope.security_status.question = true;
         }
-        if(null != e.Result[0].MainAccountPassword) {
-          $scope.security_status.password = true;
-        }
-        if(null != e.Result[0].MainAccountPassword) {
-          $scope.security_status.PTPassword = true;
-        }
       }
-      Container.setSecurity_status($scope.security_status);
+      Container.setSecurityStatus($scope.security_status);
     });
   };
   $scope.$on('$stateChangeSuccess', function(i, v, h, f, y) {
-    if ('name' == h.method) {
-      $scope.currencyID = s.getCurrencyID(), $scope.lockBtn = !1, $scope.counter = 30;
-      if (Container.getSecurity_status().name) {
+    if ('bindcard' == h.method) {
+      $scope.lockBtn = false;
+      $scope.counter = 30;
+      if (Container.getSecurityStatus().bindcard) {
         return $state.go('member.security', {
           method: 'index'
         });
@@ -106,213 +91,178 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
         code: '',
         BonusAmount: 0
       };
-      BonusService.call('Bonus_VerifyList_Get', {
-        intCurrencyID: Container.getCurrencyID()
-      }, function(e) {
-        if(e.Success) {
-          $scope.name.BonusAmount = e.Result[0].BonusAmount;
+      
+    } else if('withdraw' == h.method) {
+      $scope.withdraw = {};
+      $scope.withdraw.modify = false;
+      $scope.withdraw.flow = 'withdraw';
+      $scope.CreateSecurityWithdraw = function(e) {
+        if(!verifyService.checkWithdrawLength(e.password)) {
+          appServices.showAlertMsg('popup_alert@title_tip', 'member_security@password_length_error');
+          return false;
         }
-      });
-      AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
-        if('' != e.Result[0].FirstName) {
-          $scope.name.valid = !0;
-          $scope.name.value = e.Result[0].FirstName;
-          if(2 != $scope.currencyID) {
-            $scope.name.middleName = e.Result[0].MiddleName;
-            $scope.name.lastName = e.Result[0].LastName;
+        if(!verifyService.checkWithdrawFormat(e.password)) {
+          appServices.showAlertMsg('popup_alert@title_tip', 'member_security@withdraw_format_error');
+          return false;
+        }
+        if(!verifyService.checkWithdrawLength(e.value)) {
+          appServices.showAlertMsg('popup_alert@title_tip', 'member_security@withdraw_length_error');
+          return false;
+        }
+        if(!verifyService.checkWithdrawFormat(e.value)) {
+          appServices.showAlertMsg('popup_alert@title_tip', 'member_security@withdraw_format_error');
+          return false;
+        }
+        if(e.value != e.check) {
+          void appServices.showAlertMsg('popup_alert@title_tip', 'member_security@withdraw_twice_error');
+          return false;
+        }
+
+        SecurityService.call('FundPassword_Set', {
+          password: md5.createHash(e.password),
+          fund_password: md5.createHash(e.value)
+        }, function(e) {
+          if(e.Success) {
+            appServices.showAlertMsg('popup_alert@title_message', e.Message);
+            $state.go('member.security', {
+              method: 'index'
+            });
+          } else {
+            appServices.showAlertMsg('popup_alert@title_fail', e.Message);
           }
-        }
-      });
-      $scope.CreateSecurityName = function(t) {
-        return $scope.lockBtn ? void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security_name@not_push_in_30sec')) : n.checkIDCodeFormat(t.code) ? void SecurityService.call('IDVerify', {
-          BrandID: u,
-          Name: t.value,
-          IdsNumber: t.code
+        }); 
+      };
+      $scope.SendSMSVerifyCode = function(e) {
+        $scope.mobile.ReferralID = 12, p(e, 'withdraw')
+      };
+      $scope.CreateSecurityMobile = function(e) {
+        SecurityService.call('Password_TokenCode_Auth', {
+          intReferralID: 12,
+          strTokenCode: e.code
         }, function(e) {
-          if (e.Success === !0) return void a.go('member.security', {
-            method: 'index'
+          return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : (g.security_status.withdraw = !1, void('withdraw' == g.withdraw.flow))
+        })
+      };
+    } else if('question' == h.method) {
+      $scope.email = {};
+      $scope.mobile = {};
+      $scope.question = {};
+      $scope.question.modify = !1;
+      $scope.question.flow = 'question';
+      $scope.QuestionUI_Change = function(e) {
+        sec = 0;
+        $scope.question.flow = e;
+        AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
+          $scope.mobile.value = d.maskMobile(e.Result[0].ContactNumber);
+          $scope.mobile.areacode = e.Result[0].AreaCode;
+          $scope.email.value = d.maskEmail(e.Result[0].EMail)
+        });
+        if('mobile' == e) {
+          $scope.mobile.readonly = !0;
+        } else if ('email' == e) {
+          $scope.email.readonly = !0;
+        }
+      };
+      $scope.getQuestionList = function() {
+        SecurityService.call('Security_Question_List', {}, function(e) {
+          $scope.question.questionList = e.Result
+        });
+      };
+      $scope.getQuestionList();
+      $scope.CreateSecurityQuestion = function(e, t) {
+        if (!verifyService.checkSecurityAnsFormat(t.ans)) {
+          o.showAlertMsg('popup_alert@title_fail', 'member_security_question@too_long');
+          return false;
+        }
+        if (0 == $scope.question.modify) {
+          SecurityService.call('Security_Question_Set', {
+            security_question_id: e.question_id,
+            security_answer: t.ans
+          }, function(e) {
+            if (e.Success) {
+              appServices.showAlertMsg('popup_alert@title_message', e.Message);
+              $state.go('member.security', {
+                method: 'index'
+              });
+            } else {
+              appServices.showAlertMsg('popup_alert@title_fail', e.Message);
+              return false;
+            }
           });
-          o.showAlertMsg('popup_alert@title_fail', e.Message), g.counter = 30, g.lockBtn = !0;
-          m(g.onTimeout, 1e3)
-        }) : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@ID_Error'))
-      }, g.onTimeout = function() {
-        return g.counter--, t.counter <= 0 ? (g.lockBtn = !1, void m.cancel(mytimeout)) : void(mytimeout = m(g.onTimeout, 1e3))
-      }, g.CreateforeignSecurityName = function(e) {
-        AccountService.call('MainAccount_ReAccountName', {
-          strNewFirstName: e.value,
-          strNewMiddleName: e.middleName,
-          strNewLastName: e.lastName,
-          strMemo: ''
-        }, function(e) {
-          return e.Success === !0 ? (a.go('member.security', {
-            method: 'name'
-          }), void(g.name.valid = !0)) : void o.showAlertMsg('popup_alert@title_fail', e.Message)
-        })
-      }
-    } else 'mobile' == h.method ? (g.mobile = {
-      valid: !1,
-      areacode: '',
-      value: '',
-      code: '',
-      modify: !1,
-      readonly: !1,
-      ReferralID: 2,
-      BonusAmount: 0,
-      checkValid: function() {
-        this.valid = this.value && n.checkPhone(g.countryCode, this.value)
-      },
-      reset: function() {
-        this.value = '', this.valid = !1, this.code = ''
-      }
-    }, sec = 0, BonusService.call('Bonus_VerifyList_Get', {
-      intCurrencyID: s.getCurrencyID()
-    }, function(e) {
-      e.Success && (g.mobile.BonusAmount = e.Result[2].BonusAmount)
-    }), g.ReferralID = function() {
-      s.getSecurity_status().mobile && (1 == g.mobile.modify ? g.mobile.ReferralID = 6 : g.mobile.ReferralID = 7)
-    }, g.SendSMSVerifyCode = function(t) {
-      return g.ReferralID(), g.mobile.valid ? void p(g.mobile, 'mobile') : void o.showAlertMsg('popup_alert@title_fail', e('translate')('header_register@mobile_error'))
-    }, g.CreateSecurityMobile = function(t) {
-      return g.ReferralID(), g.mobile.valid ? n.checkCodesFormat(t.code) ? void SecurityService.call('Password_TokenCode_Auth', {
-        intReferralID: t.ReferralID,
-        strTokenCode: t.code
-      }, function(e) {
-        return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : 0 == g.mobile.modify ? (o.showAlertMsg('popup_alert@title_message', 'popup_alert@title_success'), void a.go('member.security', {
-          method: 'index'
-        })) : (g.mobile.modify = !1, g.mobile.readonly = !1, g.mobile.value = '', g.mobile.code = '', sec = 0, o.showAlertMsg('popup_alert@title_message', 'popup_alert@title_success'), void a.go('member.security', {
-          method: 'mobile'
-        }))
-      }) : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@code_format_error')) : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@mobile_format_error'))
-    }, g.ModifySecurityMobile = function() {
-      AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
-        g.mobile.areacode = e.Result[0].AreaCode, g.mobile.value = d.maskMobile(e.Result[0].ContactNumber)
-      }), g.security_status.mobile = !1, g.mobile.modify = !0, g.mobile.readonly = !0, g.mobile.valid = !0
-    }) : 'email' == h.method ? (g.email = {
-      valid: !1,
-      areacode: '',
-      value: '',
-      code: '',
-      modify: !1,
-      ReferralID: 1,
-      readonly: !1,
-      BonusAmount: 0,
-      checkValid: function() {
-        this.valid = this.value && n.checkEmailFormat(this.value)
-      },
-      reset: function() {
-        this.value = '', this.valid = !1, this.code = ''
-      }
-    }, sec = 0, BonusService.call('Bonus_VerifyList_Get', {
-      intCurrencyID: s.getCurrencyID()
-    }, function(e) {
-      e.Success && (g.email.BonusAmount = e.Result[1].BonusAmount)
-    }), g.ReferralID = function() {
-      s.getSecurity_status().email && (1 == g.email.modify ? g.email.ReferralID = 4 : g.email.ReferralID = 5)
-    }, g.SendEmailVerifyCode = function(t) {
-      return g.ReferralID(), g.email.valid ? void _(t, 'email') : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@email_format_error'))
-    }, g.CreateSecurityEmail = function(t) {
-      return g.ReferralID(), g.email.valid ? n.checkCodesFormat(t.code) ? void SecurityService.call('Password_TokenCode_Auth', {
-        intReferralID: t.ReferralID,
-        strTokenCode: t.code
-      }, function(e) {
-        return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : 0 == g.email.modify ? (o.showAlertMsg('popup_alert@title_message', 'popup_alert@title_success'), void a.go('member.security', {
-          method: 'index'
-        })) : (g.email.modify = !1, g.email.value = '', g.email.readonly = !1, g.email.code = '', sec = 0, o.showAlertMsg('popup_alert@title_message', 'popup_alert@title_success'), void a.go('member.security', {
-          method: 'email'
-        }))
-      }) : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@code_format_error')) : void o.showAlertMsg('popup_alert@title_fail', e('translate')('member_security@email_format_error'))
-    }, g.ModifySecurityEmail = function() {
-      AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
-        g.email.value = d.maskEmail(e.Result[0].EMail)
-      }), g.security_status.email = !1, g.email.modify = !0, g.email.readonly = !0, g.email.valid = !0
-    }) : 'withdraw' == h.method ? (g.withdraw = {}, g.mobile = {}, g.withdraw.modify = !1, g.withdraw.flow = 'withdraw', g.WithdrawUI_Change = function(e) {
-      g.withdraw.flow = e, sec = 0, AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
-        g.mobile.value = d.maskMobile(e.Result[0].ContactNumber), g.mobile.areacode = e.Result[0].AreaCode, g.mobile.readonly = !0
-      })
-    }, g.CreateSecurityWithdraw = function(e) {
-      return n.checkWithdrawLength(e.value) ? n.checkWithdrawFormat(e.value) ? e.value != e.check ? void o.showAlertMsg('popup_alert@title_fail', 'member_security@withdraw_twice_error') : void SecurityService.call('MainAccount_UpdateWithdrawalPassword', {
-        strWithdrawalPassword: e.value
-      }, function(e) {
-        return e.Success === !0 ? (o.showAlertMsg('popup_alert@title_message', 'popup_alert@title_success'), void a.go('member.security', {
-          method: 'index'
-        })) : void o.showAlertMsg('popup_alert@title_fail', e.Message)
-      }) : void o.showAlertMsg('popup_alert@title_fail', 'member_security@withdraw_format_error') : void o.showAlertMsg('popup_alert@title_fail', 'member_security@withdraw_length_error')
-    }, g.SendSMSVerifyCode = function(e) {
-      g.mobile.ReferralID = 12, p(e, 'withdraw')
-    }, g.CreateSecurityMobile = function(e) {
-      SecurityService.call('Password_TokenCode_Auth', {
-        intReferralID: 12,
-        strTokenCode: e.code
-      }, function(e) {
-        return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : (g.security_status.withdraw = !1, void('withdraw' == g.withdraw.flow))
-      })
-    }) : 'question' == h.method ? (g.email = {}, g.mobile = {}, g.question = {}, g.question.modify = !1, g.question.flow = 'question', g.QuestionUI_Change = function(e) {
-      sec = 0, g.question.flow = e, AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
-        g.mobile.value = d.maskMobile(e.Result[0].ContactNumber), g.mobile.areacode = e.Result[0].AreaCode, g.email.value = d.maskEmail(e.Result[0].EMail)
-      }), 'mobile' == e ? g.mobile.readonly = !0 : 'email' == e && (g.email.readonly = !0)
-    }, g.getQuestionList = function() {
-      SecurityService.call('SecurityQuestion_GetByLanguageCode', {
-        strLanguageCode: t.userLang
-      }, function(e) {
-        g.question.questionList = e.Result
-      })
-    }, g.getQuestionList(), g.CreateSecurityQuestion = function(e, t) {
-      if (!n.checkSecurityAnsFormat(t.ans)) return void o.showAlertMsg('popup_alert@title_fail', 'member_security_question@too_long');
-      if (0 == g.question.modify) SecurityService.call('MainAccount_UpdateSecurityQuestion', {
-        intSecurityQuestion: e.SecurityQuestionID,
-        strSecurityAnswer: t.ans
-      }, function(e) {
-        return e.Success === !0 ? (o.showAlertMsg('popup_alert@title_message', 'popup_alert@title_success'), void a.go('member.security', {
-          method: 'index'
-        })) : void o.showAlertMsg('popup_alert@title_fail', e.Message)
-      });
-      else {
-        if (SecurityService.call('MainAccount_Auth_Get', {}, function(e) {
-            g.question.SecurityQuestionAnswer = e.Result[0].SecurityQuestionAnswer
-          }), t.ans != g.question.SecurityQuestionAnswer) return void o.showAlertMsg('popup_alert@title_fail', 'popup_alert@title_fail');
-        g.question.disabled = !1, g.question.modify = !1, g.question_list = '', g.question.ans = '', o.showAlertMsg('popup_alert@title_message', 'popup_alert@title_success'), a.go('member.security', {
-          method: 'question'
-        })
-      }
-    }, g.ModifySecurityQuestion = function() {
-      SecurityService.call('MainAccount_Auth_Get', {}, function(e) {
-        if (e.Success) {
-          g.question.SecurityQuestionAnswer = e.Result[0].SecurityQuestionAnswer, g.question.SecurityQuestionID = e.Result[0].SecurityQuestionID, g.security_status.question = !1, g.question.modify = !0, g.question.disabled = !0;
-          for (var t = 0; t < g.question.questionList.length; t++) g.question.questionList[t].SecurityQuestionID == g.question.SecurityQuestionID && (g.question_list = g.question.questionList[t]);
-          a.go('member.security', {
-            method: 'question'
-          })
+        } else {
+          SecurityService.call('Security_Question_Check', {
+            security_answer: t.ans
+          }, function(e) {
+            if(e.Success) {
+              $scope.question.disabled = false;
+              $scope.question.modify = false;
+              $scope.question_list = '';
+              $scope.question.ans = '';
+              appServices.showAlertMsg('popup_alert@title_message', e.Message);
+              $state.go('member.security', {
+                method: 'question'
+              });
+            } else {
+              appServices.showAlertMsg('popup_alert@title_fail', e.Message);
+              return false;
+            }
+          });
         }
-      })
-    }, g.SendSMSVerifyCode = function(e) {
-      e.ReferralID = 11, p(e, 'question')
-    }, g.CreateSecurityMobile = function(e) {
-      SecurityService.call('Password_TokenCode_Auth', {
-        intReferralID: 11,
-        strTokenCode: e.code
-      }, function(e) {
-        return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : (g.security_status.question = !1, void('question' == g.question.flow))
-      })
-    }, g.SendEmailVerifyCode = function(e) {
-      e.ReferralID = 11, _(e, 'question')
-    }, g.CreateSecurityEmail = function(e) {
-      SecurityService.call('Password_TokenCode_Auth', {
-        intReferralID: 11,
-        strTokenCode: e.code
-      }, function(e) {
-        return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : (g.security_status.question = !1, void('question' == g.question.flow))
-      })
-    }) : 'password' == h.method && (g.UpdatePassword = function(t, i, s) {
-      return n.checkPasswordLength(i) ? n.checkPasswordFormat(i) ? s != i ? void o.showAlertMsg('popup_alert@title_fail', 'member_security@withdraw_twice_error') : s == t ? void o.showAlertMsg('popup_alert@title_fail', 'member_security_password@password_not_same') : void SecurityService.call('MainAccount_UpdatePassword', {
-        strMainAccountPassword: i,
-        strMainAccountOldPassword: t,
-        intPasswordStrength: 0
-      }, function(t) {
-        return t.Success === !0 ? (o.showAlertMsg('popup_alert@title_success', e('translate')('member_security@modify_success')), void a.go('member.security', {
-          method: 'index'
-        })) : void o.showAlertMsg('popup_alert@title_fail', t.Message)
-      }) : void o.showAlertMsg('popup_alert@title_fail', 'find_password@wrong_new_password_char') : void o.showAlertMsg('popup_alert@title_fail', 'find_password@wrong_new_password_width')
-    })
+      };
+      $scope.ModifySecurityQuestion = function() {
+        AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
+          if (e.Success) {
+            $scope.question.SecurityQuestionAnswer = '';
+            $scope.question.SecurityQuestionID = e.Result[0].security_question_id;
+            $scope.security_status.question = false;
+            $scope.question.modify = true;
+            $scope.question.disabled = true;
+            for (var t = 0; t < $scope.question.questionList.length; t++) {
+              if($scope.question.questionList[t].question_id == $scope.question.SecurityQuestionID) {
+                $scope.question_list = $scope.question.questionList[t];
+              }
+            }
+            $state.go('member.security', {
+              method: 'question'
+            });
+          }
+        })
+      };
+      $scope.SendSMSVerifyCode = function(e) {
+        e.ReferralID = 11, p(e, 'question')
+      };
+      $scope.CreateSecurityMobile = function(e) {
+        SecurityService.call('Password_TokenCode_Auth', {
+          intReferralID: 11,
+          strTokenCode: e.code
+        }, function(e) {
+          return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : ($scope.security_status.question = !1, void('question' == $scope.question.flow))
+        })
+      };
+      $scope.SendEmailVerifyCode = function(e) {
+        e.ReferralID = 11, _(e, 'question')
+      };
+      $scope.CreateSecurityEmail = function(e) {
+        SecurityService.call('Password_TokenCode_Auth', {
+          intReferralID: 11,
+          strTokenCode: e.code
+        }, function(e) {
+          return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : ($scope.security_status.question = !1, void('question' == $scope.question.flow))
+        })
+      }
+    } else if('password' == h.method) {
+      $scope.UpdatePassword = function(t, i, s) {
+        return n.checkPasswordLength(i) ? n.checkPasswordFormat(i) ? s != i ? void o.showAlertMsg('popup_alert@title_fail', 'member_security@withdraw_twice_error') : s == t ? void o.showAlertMsg('popup_alert@title_fail', 'member_security_password@password_not_same') : void SecurityService.call('MainAccount_UpdatePassword', {
+          strMainAccountPassword: i,
+          strMainAccountOldPassword: t,
+          intPasswordStrength: 0
+        }, function(t) {
+          return t.Success === !0 ? (o.showAlertMsg('popup_alert@title_success', e('translate')('member_security@modify_success')), void a.go('member.security', {
+            method: 'index'
+          })) : void o.showAlertMsg('popup_alert@title_fail', t.Message)
+        }) : void o.showAlertMsg('popup_alert@title_fail', 'find_password@wrong_new_password_char') : void o.showAlertMsg('popup_alert@title_fail', 'find_password@wrong_new_password_width')
+      }
+    }
   });
   $scope.area_select = function() {
     if($('#security_area_select').children('.select-choice:hidden').length) {

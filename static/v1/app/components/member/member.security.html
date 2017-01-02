@@ -1,9 +1,7 @@
 <div class="vw-content vw-security" ng-controller="memberSecurityCtrl">
     <div ui-view="index" ng-if="method === 'index'"></div>
 
-    <div ui-view="name" ng-if="method === 'name'"></div>
-    <div ui-view="mobile" ng-if="method === 'mobile'"></div>
-    <div ui-view="email" ng-if="method === 'email'"></div>
+    <div ui-view="bindcard" ng-if="method === 'bindcard'"></div>
     <div ui-view="withdraw" ng-if="method === 'withdraw'"></div>
     <div ui-view="question" ng-if="method === 'question'"></div>
     <div ui-view="password" ng-if="method === 'password'"></div>

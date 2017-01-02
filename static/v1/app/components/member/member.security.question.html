@@ -25,7 +25,7 @@
                             <label class="grey5" for="">{{'member_security@question' | translate}}：</label>
                             <div class="vw-ui-input cl">
                                 <div class="cols12 mgrt0">
-                                    <select class="ui-select" ng-model="question_list" ng-options="item as item.SecurityQuestionName for item in question.questionList" required ng-disabled="question.disabled">
+                                    <select class="ui-select" ng-model="question_list" ng-options="item as item.question for item in question.questionList" required ng-disabled="question.disabled">
                                         <option value="" disabled>{{'member_security_question@choise_question' | translate}}</option>
                                     </select>
                                 </div>

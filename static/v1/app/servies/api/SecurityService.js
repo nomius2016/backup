@@ -6,12 +6,12 @@ angular.module('requesterModule').factory('SecurityService', ['ZeusService', fun
     'MobileVerify': 'Utility/Mobile',
     'SendSMSVerifyCode': 'Utility/SMS/SMSServices',
     'MainAccount_UpdatePassword': 'SP',
-    'MainAccount_UpdateWithdrawalPassword': 'SP',
-    'MainAccount_UpdateSecurityQuestion': 'SP',
+    'FundPassword_Set': 'USER',
     'Password_TokenCode_Auth': 'SP',
     'Password_TokenCode_Check': 'SP',
-    'SecurityQuestion_GetByLanguageCode': 'SP',
-    'SecurityQuestion_Check': 'SP'
+    'Security_Question_List': 'USER',
+    'Security_Question_Set': 'USER',
+    'Security_Question_Check': 'USER'
   };
   return {
     call: function(action, data, callback) {

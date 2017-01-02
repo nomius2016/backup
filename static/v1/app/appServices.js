@@ -449,16 +449,6 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
       switch (countryCode) {
         case '86':
           charVerify = /^[1]{1}[34578]{1}[0-9]{9}$/;
-          break;
-        case '84':
-          charVerify = /^[9]{1}[0-9]{8}$|^[1]{1}[0-9]{9}$|^[8]{1}[0-9]{8}$/;
-          break;
-        case '66':
-          charVerify = /^[13689]{1}[0-9]{8}$/;
-          break;
-        case '82':
-          charVerify = /^[0]{1}[0-9]{10}$/;
-          break;
         default:
           return false;
       }
@@ -486,7 +476,7 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
       return value.match(/^[a-zA-Z0-9]+$/);
     },
     checkWithdrawLength: function(value) {
-      return value.length >= 8 && value.length <= 20;
+      return value.length >= 6 && value.length <= 20;
     },
     checkSecurityAnsFormat: function(value) {
       return value.length <= 25;
