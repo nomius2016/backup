@@ -16,7 +16,7 @@ class User_Profile extends Base_Model{
 	}
 	
 	public function set(array $aFields) {
-	    $aFileds_allow = array('real_name', 'sex', 'phone', 'email', 'birthday');
+	    $aFileds_allow = array('real_name', 'sex', 'phone', 'email', 'birthday','security_question_id','security_answer');
 	    $aFields2 = array();
 	    foreach ($aFields AS $k => $v) {
 	        if (in_array($k, $aFileds_allow)) {
