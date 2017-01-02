@@ -342,10 +342,10 @@ class User extends Basecontroller {
 			$this->teamapi($ret);
 		}
 
-		if($user['fund_password']){
-			$ret['msg'] = '资金密码已经存在';
-			$this->teamapi($ret);
-		}
+		// if($user['fund_password']){
+		// 	$ret['msg'] = '资金密码已经存在';
+		// 	$this->teamapi($ret);
+		// }
 
 		$row = $this->users->update(array('user_id'=>$this->user_id),array('fund_password'=>$params['fund_password'],'last_update_time'=>date('Y-m-d H:i:s')));
 
