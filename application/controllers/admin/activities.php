@@ -24,11 +24,10 @@ class Activities extends Basecontroller {
 				'status' => 0,
 				'msg' => '上传失败' 
 		);
-		
 		if (! empty ( $_FILES )) {
-			if ($_FILES ['Filedata'] ['error'] == 0) {
-				$tempFile = $_FILES ['Filedata'] ['tmp_name'];
-				$targetPath = $targetFolder;
+			if ($_FILES ['file'] ['error'] == 0) {
+				$tempFile = $_FILES ['file'] ['tmp_name'];
+				$targetPath = '/data/extdata/boma/' . $targetFolder;
 				// Validate the file type
 				$fileTypes = array (
 						'jpg',
@@ -36,9 +35,7 @@ class Activities extends Basecontroller {
 						'gif',
 						'png' 
 				); // File extensions
-				$fileParts = pathinfo ($_FILES['Filedata']['name'] );
-				print_r($_FILES['Filedata']);exit;
-				echo $fileParts ['extension'];
+				$fileParts = pathinfo($_FILES['file']['name'] );
 				if (in_array ( $fileParts ['extension'], $fileTypes )) {
 					$newFileName =microtime ( true ) . '-' . rand ( 100000, 999999 ) . '.' . $fileParts ['extension'];
 					$targetFile = rtrim ( $targetPath, '/' ) . '/' . $newFileName;
