@@ -36,7 +36,7 @@ class Aop {
 		$no_deny = array(
 				'index' => array('index','login','main','page_403'),
 		        'data'  => array('notify','dashboard','page_403'),
-		        'activities'=> array('saveActivityImg'),
+		        'activities'=> array('saveActivityImg','save','list'),
 			);
 		if (isset($no_deny[$this->controller]) && in_array($this->action,$no_deny[$this->controller])){
 			return ;

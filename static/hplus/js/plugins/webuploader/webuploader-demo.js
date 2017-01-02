@@ -157,7 +157,7 @@ jQuery(function() {
 
             // 成功
             if ( cur === 'error' || cur === 'invalid' ) {
-                console.log( file.statusText );
+                // console.log( file.statusText );
                 showError( file.statusText );
                 percentages[ file.id ][ 1 ] = 1;
             } else if ( cur === 'interrupt' ) {
@@ -263,7 +263,6 @@ jQuery(function() {
 
     function updateStatus() {
         var text = '', stats;
-
         if ( state === 'ready' ) {
             text = '选中' + fileCount + '张图片，共' +
                     WebUploader.formatSize( fileSize ) + '。';
@@ -361,6 +360,11 @@ jQuery(function() {
         percentages[ file.id ][ 1 ] = percentage;
         updateTotalProgress();
     };
+
+
+    uploader.on( 'uploadSuccess', function( file,response ) {
+        $('#img').val(response.img_url);
+    });
 
     uploader.onFileQueued = function( file ) {
         fileCount++;

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <title>添加活动</title>
     <link rel="shortcut icon" href="/favicon.ico"> <link href="/static/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="/static/hplus/css/style.css?v=4.1.0" rel="stylesheet">
     <link href="/static/hplus/css/animate.css" rel="stylesheet">
@@ -17,52 +18,62 @@
         <div class="row">
             <div class="col-sm-12">
                     <div class="ibox-content">
-                        <form method="get" class="form-horizontal">
+                        <form method="post" class="form-horizontal"  action="/admin/activities/save?id=<?php echo $_GET['id'];?>" id="form1">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">活动标题</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control">
+                                    <input type="text" name="main_title" class="form-control" value="<?php echo $main_title; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">副标题</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control">
+                                    <input type="text" name="main_title_desc" class="form-control" value="<?php echo $main_title_desc; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">活动类型</label>
-                                <div class="col-sm-1">
-                                    <select class="form-control m-b" name="account">
-                                        <option>存提款</option>
-                                        <option>体育</option>
-                                        <option>娱乐场</option>
-                                        <option>电子游戏</option>
-                                        <option>彩票</option>
+                                <div class="col-sm-2">
+                                    <select class="form-control m-b" name="type">
+                                        <option <?php if($type==1) echo 'selected'; ?> value='1'>存提款</option>
+                                        <option <?php if($type==2) echo 'selected'; ?> value='2'>体育</option>
+                                        <option <?php if($type==3) echo 'selected'; ?> value='3'>娱乐场</option>
+                                        <option <?php if($type==4) echo 'selected'; ?> value='4'>电子游戏</option>
+                                        <option <?php if($type==5) echo 'selected'; ?> value='5'>彩票</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control m-b" name="status">
+                                        <option value='-1' <?php if($status<0) echo 'selected'; ?> >禁用</option>
+                                        <option value='1'  <?php if($status>0) echo 'selected'; ?> >启用</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">活动金额</label>
                                 <div class="col-sm-1">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="amount" value="<?php echo $amount; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">金额描述</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="amount_desc" value="<?php echo $amount_desc; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">活动时间：</label>
                                 <div class="col-sm-10">
-                                    <input placeholder="开始时间" class="form-control layer-date" id="start">
-                                    <input placeholder="结束时间" class="form-control layer-date" id="end">
+                                    <input placeholder="开始时间" class="form-control layer-date" id="start" name="start_time" value="<?php echo $start_time; ?>">
+                                    <input placeholder="结束时间" class="form-control layer-date" id="end" name="end_time" value="<?php echo $end_time; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">活动图片：</label>
+                                <input type="hidden" name="img" id="img">
                                 <div class="col-sm-3">
                                 <!-- <div class="ibox-content">
                                     <div class="page-container"> -->
@@ -95,17 +106,17 @@
                                         <div class="ibox float-e-margins">
                                             <div class="ibox-content no-padding">
                                                 <div class="summernote">
-
+                                                    <?php  echo $rule;?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                             </div>
+                            <div> <input type="hidden" name="rule" id="rule" /></div>
 
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-primary" type="submit">保存内容</button>
-                                    <button class="btn btn-white" type="submit">取消</button>
+                                    <button class="btn btn-primary" type="submit" onclick="save();return false;">保存内容</button>
                                 </div>
                             </div>
                         </form>
@@ -158,6 +169,11 @@
         
         laydate(start);
         laydate(end);
+
+        function save(){
+            $('#rule').val($('.summernote').code());
+            $('#form1').submit()
+        }
 
     </script>
 

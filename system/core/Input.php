@@ -616,6 +616,7 @@ class CI_Input {
 		{
 			foreach ($_POST as $key => $val)
 			{
+				if($key=='rule') continue;
 				$_POST[$this->_clean_input_keys($key)] = $this->_clean_input_data($val);
 			}
 		}
