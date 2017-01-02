@@ -49,9 +49,9 @@ class User extends Basecontroller {
 		    $this->users->create_profile($this->user_id);
 		}
 		if(!$current_info['fund_password']){
-			$fund_password_seted = false;
+			$fund_password_setted = false;
 		}else{
-			$fund_password_seted = true;
+			$fund_password_setted = true;
 		}
 
 		$data = array(
@@ -64,7 +64,7 @@ class User extends Basecontroller {
 				'id_checked'          => false,
 				'phone_checked'       => false,
 				'profile_percent'     => 60,  //资料完善度
-				'fund_password_seted' => $fund_password_seted,
+				'fund_password_setted' => $fund_password_setted,
 		        'real_name'           => $profile['real_name'],
 		        'birthday'            => $profile['birthday'],
 		        'email'               => $profile['email'],
