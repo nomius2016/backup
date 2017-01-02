@@ -71,6 +71,14 @@
                                     <input placeholder="结束时间" class="form-control layer-date" id="end" name="end_time" value="<?php echo $end_time; ?>">
                                 </div>
                             </div>
+                            <?php if($img){?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">原活动图片：</label>
+                                <div class="col-sm-10">
+                                    <img src="/<?php echo $img?>"  />>
+                                </div>
+                            </div>
+                            <?php }?>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">活动图片：</label>
                                 <input type="hidden" name="img" id="img">

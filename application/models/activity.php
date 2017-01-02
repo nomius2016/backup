@@ -26,7 +26,7 @@ class Activity extends Base_Model{
 		    array('main_title_desc','主标题描述'),
 		    array('amount','活动金额'),
 		    array('amount_desc','活动金额描述'),
-		    array('img','图片地址',false),
+		    array('img','图片地址',false,FALSE,150),
 		    array('start_time','开始时间'),
 		    array('end_time','结束时间'),
 		    array('type','活动类型',TRUE,FALSE,60,'select',$this->_type),
@@ -73,6 +73,7 @@ class Activity extends Base_Model{
 			$value['op'] = "<a href='/admin/activities/index?id=".$value['id']."' class='cof' target='_blank'> 修改</a>";
 			$value['status'] = $this->_status[$value['status']];
 			$value['type'] = $this->_type[$value['type']];
+			$value['img'] = "<img src='/{$value['img']}'>";
 		}
 
 		return array(
