@@ -293,7 +293,7 @@ class User extends Basecontroller {
                 $ret['status'] = false;
                 $ret['code'] = -2;
                 $ret['msg'] = '新密码不能和当前密码相同';
-	        } else if ($p['new_password'] != "" ) {
+	        } else if ($p['new_password'] == "" ) {
 	            $ret['status'] = false;
 	            $ret['code'] = -2;
 	            $ret['msg'] = '密码不能为空';
