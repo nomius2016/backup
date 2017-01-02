@@ -252,15 +252,35 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
       }
     } else if('password' == h.method) {
       $scope.UpdatePassword = function(t, i, s) {
-        return n.checkPasswordLength(i) ? n.checkPasswordFormat(i) ? s != i ? void o.showAlertMsg('popup_alert@title_fail', 'member_security@withdraw_twice_error') : s == t ? void o.showAlertMsg('popup_alert@title_fail', 'member_security_password@password_not_same') : void SecurityService.call('MainAccount_UpdatePassword', {
-          strMainAccountPassword: i,
-          strMainAccountOldPassword: t,
-          intPasswordStrength: 0
+        if(!verifyService.checkPasswordLength(i)) {
+          appServices.showAlertMsg('popup_alert@title_fail', 'find_password@wrong_new_password_width');
+          return false;
+        }
+        if(!verifyService.checkPasswordFormat(i)) {
+          appServices.showAlertMsg('popup_alert@title_fail', 'find_password@wrong_new_password_char');
+          return false;
+        }
+        if(s != i) {
+          appServices.showAlertMsg('popup_alert@title_fail', 'member_security@withdraw_twice_error');
+          return false;
+        }
+        if(s == t) {
+          appServices.showAlertMsg('popup_alert@title_fail', 'member_security_password@password_not_same');
+          return false;
+        }
+        SecurityService.call('Update_Password', {
+          new_password: md5.createHash(i),
+          curr_password: md5.createHash(t)
         }, function(t) {
-          return t.Success === !0 ? (o.showAlertMsg('popup_alert@title_success', e('translate')('member_security@modify_success')), void a.go('member.security', {
-            method: 'index'
-          })) : void o.showAlertMsg('popup_alert@title_fail', t.Message)
-        }) : void o.showAlertMsg('popup_alert@title_fail', 'find_password@wrong_new_password_char') : void o.showAlertMsg('popup_alert@title_fail', 'find_password@wrong_new_password_width')
+          if(t.Success) {
+            appServices.showAlertMsg('popup_alert@title_success', $filter('translate')('member_security@modify_success'));
+            $state.go('member.security', {
+              method: 'index'
+            });
+          } else {
+            appServices.showAlertMsg('popup_alert@title_fail', t.Message)
+          }
+        });
       }
     }
   });

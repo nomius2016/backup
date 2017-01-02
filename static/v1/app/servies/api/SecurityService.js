@@ -5,7 +5,7 @@ angular.module('requesterModule').factory('SecurityService', ['ZeusService', fun
     'EmailVerify': 'Utility/Mail',
     'MobileVerify': 'Utility/Mobile',
     'SendSMSVerifyCode': 'Utility/SMS/SMSServices',
-    'MainAccount_UpdatePassword': 'SP',
+    'Update_Password': 'USER',
     'FundPassword_Set': 'USER',
     'Password_TokenCode_Auth': 'SP',
     'Password_TokenCode_Check': 'SP',
