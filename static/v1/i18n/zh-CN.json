@@ -785,6 +785,7 @@
     "member_security@withdraw_length_error": "提款密码长度格式不符(6~20)",
     "member_security@withdraw_twice_error": "新密码与确认密码不相符",
     "member_security@xiu_gai": "修改",
+    "member_security@email": "填写邮箱",
     "member_security_name@sex": "性别",
     "member_security_name@sex_1": "男",
     "member_security_name@sex_2": "女",

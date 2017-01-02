@@ -271,14 +271,14 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
         SecurityService.call('Update_Password', {
           new_password: md5.createHash(i),
           curr_password: md5.createHash(t)
-        }, function(t) {
-          if(t.Success) {
-            appServices.showAlertMsg('popup_alert@title_success', $filter('translate')('member_security@modify_success'));
+        }, function(res) {
+          if(res.Success) {
+            appServices.showAlertMsg('popup_alert@title_success', res.Message);
             $state.go('member.security', {
               method: 'index'
             });
           } else {
-            appServices.showAlertMsg('popup_alert@title_fail', t.Message)
+            appServices.showAlertMsg('popup_alert@title_fail', res.Message)
           }
         });
       }

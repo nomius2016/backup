@@ -53,7 +53,7 @@
                                 <span class="t">{{'member_profile@email' | translate}}：</span>
                                 <span class="default">
                                     {{data.member.email}}
-                                    <a ng-if="!data.member.emailValid" ui-sref="member.security({method: 'email'})">{{'member_security@email' | translate}}</a>
+                                    <a ng-if="!data.member.emailValid" ui-sref="member.info">{{'member_security@email' | translate}}</a>
                                 </span>
                             </li>
                             <li ng-if="member.introducer">
