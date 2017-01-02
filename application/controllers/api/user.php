@@ -72,7 +72,8 @@ class User extends Basecontroller {
 		        'register_time'       => $userinfo['register_time'],
 		        'gender'              => $profile['sex'],
 		        'binded_card_count'   => intval($this->user_bank_card->bindedCardCount($this->user_id)),
-		        'question_setted'     => ($profile['security_question_id']>0 && $profile['security_answer']!="")
+		        'security_question_id'=> $profile['security_question_id'],
+		        'question_setted'     => ($profile['security_question_id']>0 && $profile['security_answer']!=""),
 			);
 
 		$ret = array(
