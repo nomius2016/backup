@@ -283,25 +283,25 @@ class User extends Basecontroller {
 	        $p = $this->getApiParams();
 	        if ($p['curr_password'] == "") {
 	            $ret['status'] = false;
-	            $ret['code'] = -1;
+	            $ret['code'] = -2;
 	            $ret['msg'] = '当前密码不能为空';
 	        } else if ($p['curr_password'] != $aUser['password']) {
 	            $ret['status'] = false;
-	            $ret['code'] = -1;
+	            $ret['code'] = -2;
 	            $ret['msg'] = '当前密码不正确';
 	        } else if ($p['new_password'] == $aUser['password']) {
                 $ret['status'] = false;
-                $ret['code'] = -1;
+                $ret['code'] = -2;
                 $ret['msg'] = '新密码不能和当前密码相同';
 	        } else if ($p['new_password'] != "" ) {
 	            $ret['status'] = false;
-	            $ret['code'] = -1;
+	            $ret['code'] = -2;
 	            $ret['msg'] = '密码不能为空';
 	        } else {
-	            $status = $this->users->update(array('user_id' => $this->user_id),array('password' => md5($p['new_password'])));
+	            $status = $this->users->update(array('user_id' => $this->user_id),array('password' => $p['new_password']));
 	            if ($status!=1) {
 	                $ret['status'] = false;
-	                $ret['code'] = -1;
+	                $ret['code'] = -2;
 	                $ret['msg'] = '修改失败密码失败';
 	            } else {
 	                $ret['status'] = true;
