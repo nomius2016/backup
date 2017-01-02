@@ -388,7 +388,7 @@ class User extends Basecontroller {
 	    $aRS = array();
 	    $ret = array();
 	    if ($this->user_id>0){
-	        $this->load->model('security_question');
+	        $this->load->model('user_profile');
 	        $ret['status'] = true;
 	        $ret['code']   = 1;
 	        $ret['msg']    = '设置成功';
