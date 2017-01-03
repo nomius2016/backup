@@ -1,0 +1,4 @@
+优惠活动
+      请求 
+        URL:   api/publicapi/getpromotions   
+        参数:  无
