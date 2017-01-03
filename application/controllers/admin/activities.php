@@ -78,38 +78,84 @@ class Activities extends Basecontroller {
 	public function save(){
 		$params = $this->input->post();
 		$data = array();
-		$data['main_title'] = $params['main_title'];
-		$data['main_title_desc'] = $params['main_title_desc'];
-		$data['type'] = $params['type'];
-		$data['status'] = $params['status'];
-		$data['amount'] = $params['amount'];
-		$data['amount_desc'] = $params['amount_desc'];
-		$data['start_time'] = $params['start_time'];
-		$data['end_time'] = $params['end_time'];
-		$data['img'] = $params['img'];
-		$data['rule'] = $params['rule'];
+		$data['main_title'] = trim($params['main_title']);
+		$data['main_title_desc'] = trim($params['main_title_desc']);
+		$data['type'] = intval($params['type']);
+		$data['status'] = intval($params['status']);
+		$data['amount'] = trim($params['amount']);
+		$data['amount_desc'] = trim($params['amount_desc']);
+		$data['start_time'] = trim($params['start_time']);
+		$data['end_time'] = trim($params['end_time']);
+		$data['img'] = trim($params['img']);
+		$data['rule'] = trim($params['rule']);
 		$data['create_time'] = date('Y-m-d H:i:s');
-		if($this->input->get('id')){
-			$id = $this->input->get('id');
-			unset($data['create_time']);
-			if(!$data['img']) unset($data['img']);
-			$ret = $this->activity->update(array('id'=>$id),$data);
-		}else{
-			$ret = $this->activity->insert($data);
+			
+		$continue = true;
+		
+		if(!$data['main_title']){
+			$str = '主标题不能为空!';
+			$continue = false;
 		}
 
-		if($ret){
-				$str = '操作成功!';
-		}else{
-				$str = '操作失败!';
+		if(!$data['main_title_desc']){
+			$str = '副标题不能为空!';
+			$continue = false;
 		}
 
+		if(!$data['type']){
+			$str = '类型不能为空!';
+			$continue = false;
+		}
+
+		if(!$data['status']){
+			$str = '请选择状态!';
+			$continue = false;
+		}
+
+		if(!$data['amount']){
+			$str = '金额不能为空!';
+			$continue = false;
+		}
+
+		if(!$data['amount_desc']){
+			$str = '金额描述不能为空!';
+			$continue = false;
+		}
+
+		if(!$data['start_time']){
+			$str = '开始时间不能为空!';
+			$continue = false;
+		}
+
+		if(!$data['end_time']){
+			$str = '结束时间不能为空!';
+			$continue = false;
+		}
+
+		if(!$data['rule']){
+			$str = '活动规则不能为空!';
+			$continue = false;
+		}
+
+
+		$id = $this->input->get('id');
+		if($continue){
+			if($id){
+				unset($data['create_time']);
+				if(!$data['img']) unset($data['img']);
+				$ret = $this->activity->update(array('id'=>$id),$data);
+			}else{
+				$ret = $this->activity->insert($data);
+			}
+
+			$str = $ret ? '操作成功!' : '操作失败!';
+		}
 
 
 		header("Content-type: text/html; charset=utf-8");
 		$s =  '<script>';
 		$s.= 'alert("'.$str.'");';
-		$s.= 'window.location.href="/admin/activities/index";';
+		$s.= 'window.location.href="/admin/activities/index?id='.$id.'";';
 		$s.= '</script>';
 		exit($s);
 	}
