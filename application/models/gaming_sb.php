@@ -89,9 +89,9 @@ class gaming_sb extends base_gaming{
 		$data['serialNo'] = $orderNo;
 		$ret = $this->send_request("api/SportMember/{$data['userId']}/TransferFund",$data);
 		if($ret['status'] == 'success'){
-			return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+			return array('code'=>-2);
 		}else{
-			return array('status'=>false,'code'=>1,'msg'=>'转账失败!');
+			return array('code'=>1);
 		}
 
 	}
@@ -106,9 +106,9 @@ class gaming_sb extends base_gaming{
 		$data['serialNo'] = $orderNo;
 		$ret = $this->send_request("api/SportMember/{$data['userId']}/TransferFund",$data);
 		if($ret['status'] == 'success'){
-			return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+			return array('code'=>-2);
 		}else{
-			return array('status'=>false,'code'=>1,'msg'=>'转账失败!');
+			return array('code'=>1);
 		}
 	}
 	/*获取投注记录*/

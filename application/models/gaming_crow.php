@@ -21,12 +21,12 @@ class gaming_crow extends base_gaming{
 
 	/*中心钱包转账到平台*/
 	public function ctp($userid,$amount){
-		return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+		return array('code'=>1);
 	}
 
 	/*平台转账到中心钱包*/
 	public function ptc($userid,$amount){
-		return array('status'=>true,'code'=>1,'msg'=>'转账成功!');
+		return array('code'=>1);
 	}
 	/*获取投注记录*/
 	public function getBetLog($params = array()){}

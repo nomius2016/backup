@@ -175,7 +175,7 @@ class Users extends Base_Model{
 		$password = trim($params['password']);
 		$row = $this->selectByWhere(array('account_name'=>$account_name,'password'=>$password));
 		if(!$row){
-			return array('status'=>false,'msg'=>'用户名或密码不正确!','code'=>-1);
+			return array('code'=>-1014);
 		}
 		//更新最新一次登录时间
 		$user = array();
@@ -187,9 +187,7 @@ class Users extends Base_Model{
 		$this->session->set_userdata($row);
 		$sessions = $this->getLoginInfo();
 		return array(
-				'status'=>true,
 				'code'=>1,
-				'msg'=>'登录成功!',
 				'result'=>array(array(
 					'Token'=>$sessions['session_id'],
 					'LoginSuccess'=>1,
@@ -214,27 +212,21 @@ class Users extends Base_Model{
 		if($params['agent_code']) $user['parent_id']     = trim($params['agent_code']);
 		if(!($user['account_name']&&$user['password'])){
 			return array(
-					'status'=>false,
-					'code'=>-1,
-				    'msg'=>'参数不全'
+					'code'=>-1015
 				);
 			;
 		}
 
 		if(strlen($user['password'])!==32){
 			return array(
-					'status'=>false,
-					'code'=>-1,
-				    'msg'=>'密码不对'
+					'code'=>-1002,
 				);
 			;
 		}
 
 		if($this->getUserinfoByAccountName($user['account_name'])){
 			return array(
-					'status'=>false,
-					'code'=>-1,
-				    'msg'=>'用户名已经存在!'
+					'code'=>-1016,
 				);
 			;
 		}
@@ -255,25 +247,19 @@ class Users extends Base_Model{
 				if(!$return_id){
 					$this->trans_rollback();
 					return array(
-							'status'=>false,
-							'code'=>-1,
-						    'msg'=>'DB-ERROR!'
+							'code'=>-3
 						);
 				}
 			}
 
 			$this->trans_commit();
 			return array(
-					'status'=>true,
-					'code'=>1,
-				    'msg'=>'注册成功!'
+					'code'=>1
 				);
 		} catch (Exception $e) {
 			$this->trans_rollback();
 			return array(
-					'status'=>false,
-					'code'=>-1,
-				    'msg'=>'DB-ERROR!'
+					'code'=>-3
 				);
 		}
 
