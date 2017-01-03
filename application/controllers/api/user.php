@@ -33,9 +33,7 @@ class User extends Basecontroller {
 	 */
 	public function basic_info(){
 		if(!$this->islogin){
-			$ret['status'] = false;
-			$ret['code'] = 1;
-			$ret['msg'] = '用户状态丢失';
+			$ret['code'] = -1;
 			$this->teamapi($ret);
 		}
 
@@ -77,8 +75,6 @@ class User extends Basecontroller {
 			);
 
 		$ret = array(
-			'status'=>true,
-			'msg'=>'获取成功', 
 			'code'=>1,
 			'result'=>array($data)
 		);
@@ -94,13 +90,7 @@ class User extends Basecontroller {
 	public function logout(){
 		
 		$this->session->sess_destroy();
-		$ret = array(
-			'status'=>true,
-			'msg'=>'成功登出', 
-			'code'=>1
-		);
-
-		$this->teamapi($ret);
+		header("Location: /index");
 	}
 
 	/**
@@ -111,15 +101,11 @@ class User extends Basecontroller {
 		$this->load->model('users');
 		$sessions = $this->session->all_userdata();
 		$ret = array();
-		$ret['status'] = false;
 		$ret['code']   = -1;
-		$ret['msg']    = '登录状态丢失!';
 
 		if($sessions['account_name']){
 			$user = $this->users->getUserinfoByAccountName($sessions['account_name']);
-			$ret['status'] = true;
 			$ret['code'] = 1;
-			$ret['msg'] = '获取成功';
 			$ret['result'] = array(array(
 						'balance'=> $this->f($user['balance']),
 						'balance_locked'=>$this->f($user['balance_locked']),
@@ -130,76 +116,6 @@ class User extends Basecontroller {
 		
 	}
 
-	/**
-	 * [vippoint VIP 积分相关]
-	 * @return [type] [description]
-	 */
-	// public function vippoint(){
-	// 	$ret = array();
-	// 	$ret['status'] = true;
-	// 	$ret['code'] = 1;
-	// 	$ret['msg'] = '获取成功';
-	// 	$ret['result'] = array(array(
-	// 				'monthPoint'=>0,
-	// 				'yearPoint'=>0,
-	// 				'vipName'=>'VIP1',
-	// 				'LevelUpBonus'=>'168.00',
-	// 		));
-	// 	$this->teamapi($ret);
-	// }
-
-	/**
-	 * [login_info 登录信息]
-	 * @return [type] [description]
-	 */
-	// public function login_info(){
-
-	// 	if ($this->islogin) {
-	// 	    $ret = array('status' => true,'code' => 1,'msg'=>'获取成功');
-	// 		$this->load->model('users');
-	// 		$this->load->model('user_profile');
-	// 		$login_info = $this->users->getLoginInfo();
-	// 		$ext_info = $this->user_profile->getInfoByUserId($login_info['user_id']);
-	// 		$ret['status'] = true;
-	// 		$ret['code'] = 1;
-	// 		$info = array();
-	// 		$info['MainAccountID'] = $login_info['account_name'];   //
-	// 		$info['FirstName']     = $ext_info['name']; 
-	// 		$info['BalanceAmount'] = $login_info['balance']; 
-	// 		$info['ContactNumber'] = $ext_info['phone']; 
-	// 		$info['EMail']         = $ext_info['email']; 
-	// 		$info['Birthday']      = '1990-11-11'; 
-	// 		$info['Gender']        = ($ext_info['sex'] == 1) ? 'male' : (($ext_info['sex'] == 2) ? 'female' : 'secret') ;   //'性别 1男 2女 3保密',
-	// 		$info['CountryID']     = ''; 
-	// 		$info['AreaCode']      = "86";
-	// 		$info['ZipCode']= null;
-	// 		$info['City']= null;
-	// 		$info['Address']= null;
-	// 		$info['CountryName']= "中国";
-	// 		$info['IDVerifiedNumber']= "";
-	// 		$info['CurrencyID']= 2;
-	// 		$info['LanguageCode']= "zh-cn";
-	// 		$info['MiddleName']= "";
-	// 		$info['LastName']= "";
-	// 		$info['HandicapID']= 2;
-	// 		$info['Region']= null;
-	// 		$info['NewsLetter']= 1;
-	// 		$info['LevelTypeID']= "2";
-	// 		$info['MainAccountSN']= "d3c1ec19-2748-4a03-9f68-7e5379d46007";
-	// 		$info['SecurityQuestionID']= null;
-	// 		$info['SecurityAnswer']= null;
-	// 		$info['LastLoginTime'] = $login_info['last_login_time'];
-	// 		$info['LastLoginIP']   = $login_info['last_login_ip'];
-	// 		$info['CreateTime']    = $login_info['register_time'];
-	// 		$info['PromotionID']= 134496;
-	// 		$info['MainAccountType']= 1;
-	// 		$ret['result'] = array($info);
-	// 	} else {
-	// 	    $ret = array('status'=>false,'code'=>-1,'msg'=>'用户未登录');
-	// 	}
-
-	// 	$this->teamapi($ret);
-	// }
 
 	/**
 	 * [check_username 验证用户名是否存在]
@@ -211,9 +127,9 @@ class User extends Basecontroller {
 		$this->load->model('users');
 		$info = $this->users->getUserinfoByAccountName($username);
 		
-		$ret = array('status'=>false,'code'=>-1,'msg'=>'帐号不存在');
+		$ret = array('code'=>-1001);
 		if($info){
-			$ret = array('status'=>true,'code'=>1,'msg'=>'帐号存在');
+			$ret = array('code'=>1);
 		}
 
 		$this->teamapi($ret);
@@ -225,7 +141,7 @@ class User extends Basecontroller {
 	 */
 	public function check_fundpassword(){
 		
-		$ret = array('status'=>false,'code'=>-1,'msg'=>'资金密码格式不对!');
+		$ret = array('code'=>-1002);
 		$fund_password = trim($this->getApiParams('fund_password'));
 		if(!$fund_password){
 			$this->teamapi($ret);
@@ -233,7 +149,7 @@ class User extends Basecontroller {
 
 		
 		if(!$this->islogin){
-			$ret['msg'] = '用户未登录!';
+			$ret['code'] = -1;
 			$this->teamapi($ret);
 		}
 
@@ -241,9 +157,9 @@ class User extends Basecontroller {
 		$this->load->model('users');
 		$user = $this->users->getUserInfo($login_info['user_id']);
 		if($user['fund_password'] === $fund_password){
-			$ret = array('status'=>TRUE,'code'=>1,'msg'=>'资金密码正确!');
+			$ret = array('code'=>1);
 		}else{
-			$ret['msg'] = '资金密码错误!';
+			$ret['code'] = -1003;
 		}
 
 		$this->teamapi($ret);
@@ -258,14 +174,10 @@ class User extends Basecontroller {
 	    if ($this->user_id>0){
 	        $this->load->model('user_profile');
 	        
-	        $ret['status'] = true;
 	        $ret['code'] = 1;
-	        $ret['msg'] = '更新成功';
 	        $ret['result'] = $this->user_profile->set( $this->getApiParams());
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}
@@ -282,37 +194,23 @@ class User extends Basecontroller {
 	        
 	        $p = $this->getApiParams();
 	        if ($p['curr_password'] == "") {
-	            $ret['status'] = false;
-	            $ret['code'] = -2;
-	            $ret['msg'] = '当前密码不能为空';
+	            $ret['code'] = -1004;
 	        } else if ($p['curr_password'] != $aUser['password']) {
-	            $ret['status'] = false;
-	            $ret['code'] = -2;
-	            $ret['msg'] = '当前密码不正确';
+	            $ret['code'] = -1005;
 	        } else if ($p['new_password'] == $aUser['password']) {
-                $ret['status'] = false;
-                $ret['code'] = -2;
-                $ret['msg'] = '新密码不能和当前密码相同';
+                $ret['code'] = -1006;
 	        } else if ($p['new_password'] == "" ) {
-	            $ret['status'] = false;
-	            $ret['code'] = -2;
-	            $ret['msg'] = '密码不能为空';
+	            $ret['code'] = -1007;
 	        } else {
 	            $status = $this->users->update(array('user_id' => $this->user_id),array('password' => $p['new_password']));
 	            if ($status!=1) {
-	                $ret['status'] = false;
 	                $ret['code'] = -2;
-	                $ret['msg'] = '修改失败密码失败';
 	            } else {
-	                $ret['status'] = true;
 	                $ret['code'] = 1;
-	                $ret['msg'] = '修改密码成功';
 	            }
 	        }
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}
@@ -322,16 +220,15 @@ class User extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function  fundpassword_set(){
-		$ret = array('status'=>false,'code'=>-1);
+		$ret = array('code'=>-1);
 		if(!$this->islogin){
-			$ret['msg'] = '用户未登录';
 			$this->teamapi($ret);
 		}
 
 		$params = $this->getApiParams();
 
 		if(!(strlen($params['password'])==32 && strlen($params['fund_password'])==32)){
-			$ret['msg'] = '密码格式不对';
+			$ret['code'] = -1002;
 			$this->teamapi($ret);
 		}
 
@@ -339,7 +236,7 @@ class User extends Basecontroller {
 		$user = $this->users->getUserInfo($this->user_id);
 
 		if($params['password'] != $user['password']){
-			$ret['msg'] = '登录密码错误';
+			$ret['code'] = -1008;
 			$this->teamapi($ret);
 		}
 
@@ -351,12 +248,10 @@ class User extends Basecontroller {
 		$row = $this->users->update(array('user_id'=>$this->user_id),array('fund_password'=>$params['fund_password'],'last_update_time'=>date('Y-m-d H:i:s')));
 
 		if(!$row){
-			$ret['msg'] = '更新失败';
+			$ret['code'] = -2;
 			$this->teamapi($ret);
 		}else{
-			$ret['status'] = true;
 			$ret['code'] = 1;
-			$ret['msg'] = '更新成功';
 			$this->teamapi($ret);
 		}
 
@@ -370,14 +265,10 @@ class User extends Basecontroller {
 	    $ret = array();
 	    if ($this->user_id>0){
 	        $this->load->model('security_question');
-	        $ret['status'] = true;
 	        $ret['code']   = 1;
-	        $ret['msg']    = '拉取成功';
 	        $ret['result'] = $this->security_question->getList();
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}
@@ -390,14 +281,10 @@ class User extends Basecontroller {
 	    $ret = array();
 	    if ($this->user_id>0){
 	        $this->load->model('user_profile');
-	        $ret['status'] = true;
 	        $ret['code']   = 1;
-	        $ret['msg']    = '设置成功';
 	        $ret['result'] = $this->user_profile->set( $this->getApiParams());
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}
@@ -413,20 +300,12 @@ class User extends Basecontroller {
 	        $p = $this->getApiParams();
 	        $aProfile = $this->users->profile($this->user_id);
 	        if ($p['security_answer']==$aProfile['security_answer']) {
-    	        $ret['status'] = true;
-    	        $ret['code']   = 1;
-    	        $ret['msg']    = '答案正确';
-    	        $ret['result'] = true;
+    	        $ret['code']   = 1002;
 	        } else {
-	            $ret['status'] = false;
-    	        $ret['code']   = -11;
-    	        $ret['msg']    = '答案错误';
-    	        $ret['result'] = false;
+    	        $ret['code']   = -1009;
 	        }
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}

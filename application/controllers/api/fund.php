@@ -33,14 +33,10 @@ class Fund extends Basecontroller {
                 $v['after_balance']      = $this->f($v['after_balance']);
             }
              
-            $ret['status'] = true;
             $ret['code'] = 1;
-            $ret['msg'] = '获取成功';
             $ret['result'] = $aList;
         } else {
-            $ret['status'] = false;
             $ret['code']   = -1;
-            $ret['msg']    = '登录状态丢失!';
         }
         $this->teamapi($ret);
     }
@@ -71,14 +67,10 @@ class Fund extends Basecontroller {
                 $aRS['err_msg'] = $e->getMessage();
             }
              
-            $ret['status'] = true;
             $ret['code'] = 1;
-            $ret['msg'] = '获取成功';
             $ret['result'] = $aRS;
         } else {
-            $ret['status'] = false;
             $ret['code']   = -1;
-            $ret['msg']    = '登录状态丢失!';
         }
         $this->teamapi($ret);
     }

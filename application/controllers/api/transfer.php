@@ -11,7 +11,7 @@ class transfer extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function index(){
-		$ret = array('status'=>false,'code'=>-1,'msg'=>'用户未登陆');
+		$ret = array('code'=>-1);
 		if(!$this->islogin){
 			$this->teamapi($ret);
 		}

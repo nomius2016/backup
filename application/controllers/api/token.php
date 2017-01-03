@@ -14,15 +14,11 @@ class Token extends Basecontroller {
 		$params = $this->getApiParams();
 		$sessions = $this->session->all_userdata();
 		$ret = array();
-		$ret['status'] = false;
 		$ret['code']   =-1;
-		$ret['msg'] = '当前未登录!';
 
 		// if(($params['token'] == $sessions['session_id']) && isset($sessions['account_name']) && $sessions['account_name']){
 		if(isset($sessions['account_name']) && $sessions['account_name']){
-			$ret['status'] = true;
 			$ret['code']   = 1;
-			$ret['msg'] = '在线!';
 			$ret['result'] = array(array(
 					'Token'=>$sessions['session_id'],
 					'AccountId'=>$sessions['account_name'],

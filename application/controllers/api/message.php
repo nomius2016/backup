@@ -9,9 +9,7 @@ class Message extends Basecontroller {
 	public function get() {
 	    $aRS = array();
 	    $ret = array();
-	    $ret['status'] = true;
 	    $ret['code'] = 1;
-	    $ret['msg'] = '获取成功';
 	    
 	    $g =  $this->getApiParams();
 	    
@@ -39,13 +37,9 @@ class Message extends Basecontroller {
 	        } else {
 	            $ret['result'] = $aMSG;
 	        }
-	        $ret['status'] = true;
 	        $ret['code'] = 1;
-	        $ret['msg'] = '获取成功';
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}

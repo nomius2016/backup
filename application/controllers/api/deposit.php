@@ -19,14 +19,10 @@ class Deposit extends Basecontroller {
     	    } else {
     	        $aRS = array('msg' => '不允许充值');
     	    }
-	        $ret['status'] = true;
 	        $ret['code'] = 1;
-	        $ret['msg'] = '获取成功';
 	        $ret['result'] = $aRS;
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}
@@ -47,14 +43,10 @@ class Deposit extends Basecontroller {
 	            $v['amount'] = sprintf("%.2f",$v['amount']/1000);
 	        }
 	        
-	        $ret['status'] = true;
 	        $ret['code'] = 1;
-	        $ret['msg'] = '获取成功';
 	        $ret['result'] = $aList;
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}
@@ -83,13 +75,9 @@ class Deposit extends Basecontroller {
 		$banks = $this->payment_method->getOnlineBank();
 		$ret = array();
 		if(!$banks){
-			$ret['status'] = false;
-	        $ret['code'] = -1;
-	        $ret['msg'] = '无可用银行卡';
+	        $ret['code'] = 1001;
 		}else{
-			$ret['status'] = true;
 	        $ret['code'] = 1;
-	        $ret['msg'] = '获取成功';
 	        $ret['result'] = $banks;
 		}
 

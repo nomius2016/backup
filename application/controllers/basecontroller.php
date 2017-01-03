@@ -101,11 +101,9 @@ class BaseController extends CI_Controller {
 	public function teamapi($data){
 		header('Content-Type:application/json; charset=utf-8');
 		$response = array();
-		$response['Success'] = $data['status'] === true ? true : false; 
+		$response['Success'] = $data['code'] >0 ? true : false; 
 		$response['Code']    = isset($data['code']) ? $data['code'] : 'undefined';
-		if(isset($data['msg']) && $data['msg']) $response['Message'] = $data['msg'];
-		if(isset($data['message']) && $data['message']) $response['Message'] = $data['message'];
-
+		$response['Message'] = $this->getMessageByCode($data['code']);
 		if(isset($data['result'])){
 			if(is_array($data['result'])){
 			 	$response['Result'] = $data['result'];
@@ -143,6 +141,42 @@ class BaseController extends CI_Controller {
 		}
 		
 		return $data;
+	}
+
+	/**
+	 * [getMessageByCode 根据code 返回错误对应的值]
+	 * @param  [type] $code [description]
+	 * @return [type]       [description]
+	 */
+	private function getMessageByCode($code){
+		// 0以下 代表失败   0以上代表成功
+
+		$codes = array(
+			'-1013'=>'当日最大提款总额不能大于单日限额',
+			'-1012'=>'提款金额不能小于最小提款额',
+			'-1011'=>'提款金额不能大于最大提款额',
+			'-1010'=>'提款金额不能大于可用余额',
+			'-1009'=>'答案错误',
+			'-1008'=>'登录密码错误',
+			'-1007'=>'新密码不能为空',
+			'-1006'=>'新密码不能和当前密码相同',
+			'-1005'=>'当前密码不正确',
+			'-1004'=>'密码不能为空',
+			'-1003'=>'资金密码错误',
+			'-1002'=>'密码格式不对',
+			'-1001'=>'帐号不存在',
+			'-2'   =>'操作失败',
+			'-1'   =>'用户未登录/登录状态失效!',
+			
+
+			'1'    =>'操作成功',
+			'1001' =>'无数据',
+			'1002' =>'答案正确',
+		);
+
+		return $codes[$code] ? $codes[$code] : '';
+
+
 	}
 
 

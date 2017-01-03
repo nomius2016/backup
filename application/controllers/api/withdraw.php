@@ -8,28 +8,25 @@ class Withdraw extends Basecontroller {
 	}
 	
 	public function apply() {
-	    $aRS = array();
 	    $ret = array();
 	    if ($this->user_id>0){
 	        $p = $this->getApiParams();
 	        $aRestrict = $this->users->restrict($this->user_id);
 	        $aUser     = $this->users->getUserInfo($this->user_id);
 	        if ($aUser['user_id']<1) {
-	            $aRS = array('status' => false, 'msg' => '为非法请求');
+	            $ret = array('code'=>-1);
 	        } else if ($aUser['balance']<$p['amount']) {
-	            $aRS = array('status' => false, 'msg' => '提款金额不能大于可用余额'.$this->f($aRestrict['balance']));
+	            $ret = array('code'=>-1010);
 	        } else if ($p['amount'] < $aRestrict['withdraw_min']) {
-    	        $aRS = array('status' => false, 'msg' => '最小提款不能小于'.$this->f($aRestrict['withdraw_min']));
+	            $ret = array('code'=>-1011);
     	    } else if ($p['amount'] > $aRestrict['withdraw_max']) {
-    	        $aRS = array('status' => false, 'msg' => '单笔最大提款不能大于'.$this->f($aRestrict['withdraw_max']));
+	            $ret = array('code'=>-1012);
     	    } else if ($this->fund_withdraw->todayTotal($this->user_id)>$aRestrict['withdraw_day_max']) {
-    	        $aRS = array('status' => false, 'msg' => '当日最大提款总额不能大于'.$this->f($aRestrict['withdraw_day_max']));
+	            $ret = array('code'=>-1013);
     	    } else if ($aUser['fund_password']!=$p['fund_password']) {
-    	        $aRS = array('status' => false, 'msg' => '资金密码不正确');
+	            $ret = array('code'=>-1003);
     	    } else {
-    	        $aRS = array();
-    	        $aRS['err_no'] = 0;
-    	        $aRS['err_msg'] = '';
+    	        
     	        try {
     	            $this->db->trans_begin();
     	             
@@ -45,25 +42,21 @@ class Withdraw extends Basecontroller {
 	                }
     	             
     	            $aStatus = $this->transation->make($p['user_id'],$p['transfer_type_id'],$p['amount']*1000,0,$iAdminID,$p['remark']);
-    	            $aRS['balance'] = $this->f($aStatus['balance']);
-    	            $aRS['balance_locked'] = $this->f($aStatus['balance_locked']);
+    	            // $aRS['balance'] = $this->f($aStatus['balance']);
+    	            // $aRS['balance_locked'] = $this->f($aStatus['balance_locked']);
     	            //////////////////////////////
     	            $this->db->trans_commit();
     	            
-    	            $ret['result'] = array('status' => true, 'msg' => '申请提现成功');
+    	            $ret = array('code'=>1);
     	        } catch (Exception $e) {
     	            $this->db->trans_rollback();
-    	            $ret['result'] = array('status' => false, 'msg' => $e->getMessage());
+    	            $ret = array('code'=>-2);
     	        }
-    	        $ret['status'] = true;
-    	        $ret['code'] = 1;
-    	        $ret['msg'] = '获取成功';
+    	        
     	    }
 	        
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}
@@ -83,14 +76,10 @@ class Withdraw extends Basecontroller {
 	            $v['amount'] = sprintf("%.2f",$v['amount']/1000);
 	        }
 	        
-	        $ret['status'] = true;
 	        $ret['code'] = 1;
-	        $ret['msg'] = '获取成功';
 	        $ret['result'] = $aList;
 	    } else {
-	        $ret['status'] = false;
 	        $ret['code']   = -1;
-	        $ret['msg']    = '登录状态丢失!';
 	    }
 	    $this->teamapi($ret);
 	}
@@ -116,7 +105,7 @@ class Withdraw extends Basecontroller {
 	 */
 	public function getUserWithdrawalCards(){
 		
-		$ret = array('status'=>false,'code'=>-1,'msg'=>'用户未登陆');
+		$ret = array('code'=>-1);
 		if(!$this->islogin){
 			$this->teamapi($ret);
 		}
@@ -124,14 +113,7 @@ class Withdraw extends Basecontroller {
 		$this->load->model('user_bank_card');
 		$userinfo = $this->users->getLoginInfo();
 		$banks = $this->user_bank_card->getCardsByUserId($userinfo['user_id']);
-		if(!$banks){
-			$ret['msg'] = '用户无可用提款卡!';
-			$this->teamapi($ret);
-		}
-
-		$ret['status'] = true;
-		$ret['code'] = 1;
-		$ret['msg'] = '获取成功';
+		$ret['code'] = $banks ? 1 :1001;
 		$ret['result'] = $banks;
 		$this->teamapi($ret);
 

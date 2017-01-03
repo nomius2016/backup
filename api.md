@@ -7,6 +7,20 @@
 
 ## API接口
 
+##返回规范详细介绍[这里以修改资金密码为范例]
+
+```json
+{
+  "Success": true,     //代表操作是否成功 -- 如果修改成功,则代表修改成功.如果没成功 则返回Success 为false ,以不同的code代表不同的错误
+  "Code": -2,          //Code 代表含义详见 basecontroller.php
+  "Message": "无",     //返回的错误信息 目前会返回  basecontroller.php 里面返回对应code 的值
+  "Result": []         //返回的数据列表
+}
+
+
+
+
+
 > * 1 登录接口
 
     URL:/api/user/login
