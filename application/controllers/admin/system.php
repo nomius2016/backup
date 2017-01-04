@@ -313,55 +313,55 @@ class System extends Basecontroller {
 	 * [menu_auth 菜单操作权限管理]
 	 * @return [type] [description]
 	 */
-	public function menu_auth(){
+	// public function menu_auth(){
 
-		$this->load->model('admin_menu_actions');
-		if(!isset($_GET['getdata'])){
-			$ret = $this->admin_menu_actions->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
-			$this->adminview('hplus_normal',$ret);
-			return;
-		}
+	// 	$this->load->model('admin_menu_actions');
+	// 	if(!isset($_GET['getdata'])){
+	// 		$ret = $this->admin_menu_actions->teamHtml(); //获取菜单用的 js 以及需要生成的查询条件
+	// 		$this->adminview('hplus_normal',$ret);
+	// 		return;
+	// 	}
 		
-		$params = $this->input->get();
-		$ret = $this->admin_menu_actions->getList($params);
-		echo json_encode($ret);
-		exit;
-	}
+	// 	$params = $this->input->get();
+	// 	$ret = $this->admin_menu_actions->getList($params);
+	// 	echo json_encode($ret);
+	// 	exit;
+	// }
 
 	/**
 	 * [menu_auth_op 菜单授权管理 操作权限]
 	 * @return [type] [description]
 	 */
-	public function menu_auth_op(){
-		$op = $_POST['oper'];
-		$this->load->model('admin_menu_actions');
-		switch ($op) {
-			case 'add':  //添加一个组别
-				$data = array('admin_menu_id'=>$_POST['admin_menu_id'],'controller'=>$_POST['controller'],'action'=>$_POST['action'],'desc'=>$_POST['desc']);
-				$status = $this->admin_menu_actions->insert($data);
-				break;
-			case 'edit': //修改组别
-				$status = $this->admin_menu_actions->update(array('id'=>$_POST['id']),
-												array(
-													'admin_menu_id'=>$_POST['admin_menu_id'],
-													'controller'=>$_POST['controller'],
-													'action'=>$_POST['action'],
-													'desc'=>$_POST['desc'],
-												)
-											);
-				break;
-			case 'del':  //删除一个组
-				$status = $this->admin_menu_actions->delete(array('id'=>$_POST['id']));
-				# code...
-				break;
-		}
+	// public function menu_auth_op(){
+	// 	$op = $_POST['oper'];
+	// 	$this->load->model('admin_menu_actions');
+	// 	switch ($op) {
+	// 		case 'add':  //添加一个组别
+	// 			$data = array('admin_menu_id'=>$_POST['admin_menu_id'],'controller'=>$_POST['controller'],'action'=>$_POST['action'],'desc'=>$_POST['desc']);
+	// 			$status = $this->admin_menu_actions->insert($data);
+	// 			break;
+	// 		case 'edit': //修改组别
+	// 			$status = $this->admin_menu_actions->update(array('id'=>$_POST['id']),
+	// 											array(
+	// 												'admin_menu_id'=>$_POST['admin_menu_id'],
+	// 												'controller'=>$_POST['controller'],
+	// 												'action'=>$_POST['action'],
+	// 												'desc'=>$_POST['desc'],
+	// 											)
+	// 										);
+	// 			break;
+	// 		case 'del':  //删除一个组
+	// 			$status = $this->admin_menu_actions->delete(array('id'=>$_POST['id']));
+	// 			# code...
+	// 			break;
+	// 	}
 
-		if($status){
-			exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
-		}else{
-			exit(json_encode(array('status'=>false,'msg'=>'操作失败')));
-		}	
-	}
+	// 	if($status){
+	// 		exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
+	// 	}else{
+	// 		exit(json_encode(array('status'=>false,'msg'=>'操作失败')));
+	// 	}	
+	// }
 
 	/**
 	 * [email 邮箱类型管理]
