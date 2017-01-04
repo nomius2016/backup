@@ -692,7 +692,7 @@ class Base_Model extends CI_Model {
 			$se = '<div role="form" class="form-inline">';
 			$se.=      '<div class="form-group">';
 			foreach ($search as  $value) {
-				if(!in_array($value['1'], array('datetime'))) $middle_js.= "url+= '&{$value['0']}='+\$('#{$value['0']}').val();"."\n";
+				if(!in_array($value['1'], array('datetime','date'))) $middle_js.= "url+= '&{$value['0']}='+\$('#{$value['0']}').val();"."\n";
 				switch ($value['1']) {
 					case 'text':
 						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
@@ -739,7 +739,26 @@ laydate(end);
             
 						";
 						break;
+					case 'single_date':
+						$ID = $value['0'];
+						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+						$se.='<input placeholder="'.$value['2'].'时间" class="form-control layer-date" id="'.$ID.'">';
+						$ext_js = "
+							  laydate({elem: '#{$ID}', event: 'focus' });
+						";
+						break;
 
+					case 'single_datetime':
+						$ID = $value['0'];
+						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+						$se.='<input placeholder="'.$value['2'].'时间" class="form-control layer-date" id="'.$ID.'">';
+						$ext_js = "
+						var start = {elem: '#{$ID}',format: 'YYYY-MM-DD hh:mm:ss',min:'2010-01-01 00:00:00', max:laydate.now(), istime: true,istoday: false,choose: function (datas) {end.min = datas; end.start = datas ;}};
+laydate(start);       
+
+
+						";
+						break;
 					default:
 						$se.='<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="'.$value['1'].'" placeholder="'.$value['2'].'"  class="form-control" id="'.$value['0'].'">';
 						break;
