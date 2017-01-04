@@ -31,11 +31,42 @@
                                     <th>菜单</th>
                                     <th>隐藏</th>
                                     <th>查看</th>
-                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php echo $menu_html;?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>辅助功能 </th>
+                                    <th>操作 </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php  foreach ($ext_menu as  $menu) {  ?>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-long-arrow-down"></i>
+                                        <i class="fa fa-minus"></i>
+                                        <i class="fa fa-minus"></i>
+                                        <i class="fa fa-minus"></i>
+                                        <i class="fa fa-minus"></i>
+                                        <i class="fa fa-minus"></i>
+                                        <?php  echo $menu['title']?>
+                                    </td>
+                                    <td><input type="checkbox" value="2" <?php  echo $menu['checked'];?> name="<?php  echo $menu['id'];?>_auth_op"></td>
+                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

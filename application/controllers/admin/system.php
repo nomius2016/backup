@@ -65,6 +65,7 @@ class System extends Basecontroller {
 												array(
 													'title'=>$_POST['title'],
 													'type'=>$_POST['type'],
+													'parent_id'=>$_POST['parent_id'],
 													'level'=>$_POST['level'],
 													'display_sort'=>$_POST['display_sort'],
 													'controller'=>$_POST['controller'],
@@ -279,12 +280,13 @@ class System extends Basecontroller {
 		//获取多有的菜单
 		$this->load->model('admin_menu');
 		$menu_html = $this->admin_menu->getAuthPageHtml();
+		$ext_menu = $this->admin_menu->getExtPageHtml();
 		//获取所有的组
 		$this->load->model('admin_group');
 		$groups = $this->admin_group->selectAll();
 		$cur_group_id = $this->input->get('group_id') ? $this->input->get('group_id') : 1;
 
-		$this->adminview('admin_auth',array('menu_html'=>$menu_html,'groups'=>$groups,'cur_group_id'=>$cur_group_id));
+		$this->adminview('admin_auth',array('menu_html'=>$menu_html,'groups'=>$groups,'cur_group_id'=>$cur_group_id,'ext_menu'=>$ext_menu));
 		return;
 	}
 

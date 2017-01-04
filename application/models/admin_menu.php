@@ -24,7 +24,8 @@ class Admin_Menu extends Base_Model {
 	 */
 	public function getSystemMenus() {
 		
-		$tmp_menus = $this->selectAll ();
+		$tmp_menus = $this->selectByWhere(array('type'=>1));
+		// $tmp_menus = $this->selectAll();
 		//转换数据结构 将key名改为menu_id (估计是为了后面取值方便)
 		$menus = array ();
 		if(!$this->_getallmenu) $auth_ids = $this->getAuthMenu();
@@ -240,6 +241,30 @@ class Admin_Menu extends Base_Model {
 		return $html;
 	}
 
+	/**
+	 * 获取辅助的列表
+	 */
+	public function getExtPageHtml(){
+		$ext_menus = $this->selectByWhere(array('type'=>2));
+		$this->load->model('admin_menu_authority');
+		$auth = $this->admin_menu_authority->selectByWhere(array('group_id'=>$this->_group_id));
+		$new_auth = array();
+		foreach ($auth as $key => $value) {
+			$new_auth[$value['menu_id']] = $value;
+		}
+		unset($auth);
+		foreach ($ext_menus as $key => &$value) {
+			if(isset($new_auth[$value['id']])){
+				$value['checked'] = "checked=checked";
+			} else{
+				$value['checked'] = "";
+			} 
+		}
+
+		return $ext_menus;
+
+	}
+
 	private function genTr($data,$noradio = false){
 		$name_id = $data['id'].'_auth_op';
 		switch ($data['level']) {
@@ -270,7 +295,6 @@ class Admin_Menu extends Base_Model {
 	                    <td>'.$ext.$data['title'].'</td>
 	                    <td></td>
 	                    <td></td>
-	                    <td></td>
 	                </tr>';
 		}else{
 			$this->load->model('admin_menu_authority');
@@ -285,7 +309,6 @@ class Admin_Menu extends Base_Model {
 	                    <td>'.$ext.$data['title'].'</td>
 	                    <td><input type="radio" '.$check['1'].' value="1" name="'.$name_id.'"></td>
 	                    <td><input type="radio" '.$check['2'].' value="2" name="'.$name_id.'"></td>
-	                    <td><input type="radio" '.$check['3'].' value="3" name="'.$name_id.'"></td>
 	                </tr>';
         }
         return $html;
@@ -338,6 +361,7 @@ class Admin_Menu extends Base_Model {
 		if($params['controller']) $where['controller'] = $params['controller'];
 		if($params['action']) $where['action'] = $params['action'];
 		if($params['level']) $where['level'] = $params['level'];
+		if($params['type']) $where['type'] = $params['type'];
 
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
