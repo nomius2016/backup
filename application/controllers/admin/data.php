@@ -16,10 +16,13 @@ class Data extends Basecontroller {
 	   $aRS = array(
 	       'deposit_total'     => 0, // 存款总数
 	       'deposit_new'       => $this->fund_deposit->total(1), //待审存款
+	       'deposit_new_sec'       => $this->fund_deposit->total(2), //二审存款
 	       'withdraw_total'    => 0,
 	       'withdraw_new'      => $this->fund_withdraw->total(1),
+	       'withdraw_new_sec'      => $this->fund_withdraw->total(2),
 	   );
 	   echo json_encode($aRS);
+	   exit;
 	}
 	
 	public function dashboard() {

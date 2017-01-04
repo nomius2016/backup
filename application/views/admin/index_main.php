@@ -63,6 +63,16 @@
                                 <i class="fa fa-euro">出款待审</i> <span class="label label-primary" id="notify_new_withdraw">0</span>
                             </a>
                         </li>
+                        <li class="dropdown" id="deposit_alert_sec" style="display: none">
+                            <a class="count-info cof" href="/admin/deposit/sec_list" newtitle="存款二审">
+                                <i class="fa fa-cny">存款二审</i> <span class="label label-info" id="notify_new_deposit_sec">0</span>
+                            </a>
+                        </li>
+                        <li class="dropdown" id="withdrawal_alert_sec" style="display: none">
+                            <a class="count-info cof" href="/admin/withdrawal/sec_list" newtitle="提款二审">
+                                <i class="fa fa-euro">提款二审</i> <span class="label label-danger " id="notify_new_withdraw_sec">0</span>
+                            </a>
+                        </li>
                         <li class="dropdown hidden-xs">
                             <a class="right-sidebar-toggle" aria-expanded="false">
                                 <i class="fa fa-tasks"></i> 设置
@@ -109,20 +119,6 @@
         <!--右侧边栏开始-->
         <div id="right-sidebar">
             <div class="sidebar-container">
-
-                <ul class="nav nav-tabs navs-3">
-					<!--
-                    <li class="active">
-                        <a data-toggle="tab" href="/static/hplus/#tab-1">
-                            <i class="fa fa-gear"></i> 主题
-                        </a>
-                    </li>
-                    
-                    <li class=""><a data-toggle="tab" href="/static/hplus/#tab-2">
-                        通知
-                    </a>
-                    </li>-->
-                </ul>
 
                 <div class="tab-content">
                     <div id="tab-1" class="tab-pane active">
@@ -193,6 +189,30 @@
                                     </div>
                                 </div>
                             </div>
+                             <div class="setings-item">
+                                <span>存款二审</span>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="boxed_deposit" class="onoffswitch-checkbox" id="boxed_deposit_sec">
+                                        <label class="onoffswitch-label" for="boxed_deposit_sec">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setings-item">
+                                <span>提款二审</span>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="boxed_withdrawal" class="onoffswitch-checkbox" id="boxed_withdrawal_sec">
+                                        <label class="onoffswitch-label" for="boxed_withdrawal_sec">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="tab-2" class="tab-pane">
@@ -252,7 +272,7 @@
     <script src="/static/hplus/js/plugins/layer/layer.min.js"></script>
 
     <!-- 自定义js -->
-    <script src="/static/hplus/js/hplus.js?v=4.1.1"></script>
+    <script src="/static/hplus/js/hplus.js?v=4.1.2"></script>
     <script type="text/javascript" src="/static/hplus/js/contabs.js"></script>
     <script src="/static/hplus/js/content.js"></script>
     <!-- 第三方插件 -->
@@ -261,8 +281,10 @@
 <script type="text/javascript">
 function get_notify() {
 	$.getJSON('/admin/data/notify',{},function(rs) {
-		$("#notify_new_deposit").html(rs.deposit_new);
-		$("#notify_new_withdraw").html(rs.withdraw_new);
+        $("#notify_new_deposit").html(rs.deposit_new);
+		$("#notify_new_deposit_sec").html(rs.deposit_new_sec);
+        $("#notify_new_withdraw").html(rs.withdraw_new);
+		$("#notify_new_withdraw_sec").html(rs.withdraw_new_sec);
 		setTimeout('get_notify()',2000); 
 	});
 }

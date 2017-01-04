@@ -193,6 +193,17 @@ $(function () {
 
     });
 
+    $('#boxed_withdrawal_sec').click(function(){
+        if($('#boxed_withdrawal_sec').is(':checked')) {
+            localStorage.setItem("withdrawal_alert_sec", 'on');
+            $('#withdrawal_alert_sec').show();
+        }else{
+            localStorage.setItem("withdrawal_alert_sec", 'off');
+            $('#withdrawal_alert_sec').hide();
+        }
+
+    });
+
     $('#boxed_deposit').click(function(){
         if($('#boxed_deposit').is(':checked')) {
             localStorage.setItem("deposit_alert", 'on');
@@ -200,6 +211,17 @@ $(function () {
         }else{
             localStorage.setItem("deposit_alert", 'off');
             $('#deposit_alert').hide();
+        }
+    });
+
+
+    $('#boxed_deposit_sec').click(function(){
+        if($('#boxed_deposit_sec').is(':checked')) {
+            localStorage.setItem("deposit_alert_sec", 'on');
+            $('#deposit_alert_sec').show();
+        }else{
+            localStorage.setItem("deposit_alert_sec", 'off');
+            $('#deposit_alert_sec').hide();
         }
     });
 
@@ -256,7 +278,9 @@ $(function () {
         var fixednavbar = localStorage.getItem("fixednavbar");
         var boxedlayout = localStorage.getItem("boxedlayout");
         var withdrawal_alert = localStorage.getItem("withdrawal_alert");
+        var withdrawal_alert_sec = localStorage.getItem("withdrawal_alert_sec");
         var deposit_alert = localStorage.getItem("deposit_alert");
+        var deposit_alert_sec = localStorage.getItem("deposit_alert_sec");
 
         if (collapse == 'on') {
             $('#collapsemenu').prop('checked', 'checked')
@@ -273,9 +297,19 @@ $(function () {
             $('#withdrawal_alert').show();
         }
 
-         if (deposit_alert == 'on') {
+        if (withdrawal_alert_sec == 'on') {
+            $('#boxed_withdrawal_sec').prop('checked', 'checked');
+            $('#withdrawal_alert_sec').show();
+        }
+
+        if (deposit_alert == 'on') {
             $('#deposit_alert').show();
             $('#boxed_deposit').prop('checked', 'checked')
+        }
+
+        if (deposit_alert_sec == 'on') {
+            $('#deposit_alert_sec').show();
+            $('#boxed_deposit_sec').prop('checked', 'checked');
         }
     }
 
