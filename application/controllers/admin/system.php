@@ -56,7 +56,7 @@ class System extends Basecontroller {
 		$this->load->model('admin_menu');
 		switch ($op) {
 			case 'add':  //添加菜单
-				$data = array('level'=>$_POST['level'],'parent_id'=>$_POST['parent_id'],'title'=>$_POST['title'],
+				$data = array('level'=>$_POST['level'],'parent_id'=>$_POST['parent_id'],'title'=>$_POST['title'],'type'=>$_POST['type'],
 					          'display_sort'=>$_POST['display_sort'],'controller'=>$_POST['controller'],'action'=>$_POST['action']);
 				$status = $this->admin_menu->insert($data);
 				break;
@@ -64,6 +64,7 @@ class System extends Basecontroller {
 				$status = $this->admin_menu->update(array('id'=>$_POST['id']),
 												array(
 													'title'=>$_POST['title'],
+													'type'=>$_POST['type'],
 													'level'=>$_POST['level'],
 													'display_sort'=>$_POST['display_sort'],
 													'controller'=>$_POST['controller'],

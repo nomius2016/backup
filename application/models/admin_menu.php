@@ -13,6 +13,7 @@ class Admin_Menu extends Base_Model {
 		$this->load->model('admins');
 		$admininfo = $this->admins->getLoginInfo();
 		$this->_group_id = isset($admininfo['group_id']) ? $admininfo['group_id'] :0;
+		$this->_type = array('1'=>'菜单','2'=>'辅助功能');
 	}
 	
 	
@@ -301,6 +302,7 @@ class Admin_Menu extends Base_Model {
 			array('id','ID',false),
 			array('title','菜单名称'),
 			array('level','等级',true,false,60,'select',array('1'=>'等级1','2'=>'等级2','3'=>'等级3')),
+			array('type','类型',true,false,60,'select',$this->_type),
 			array('parent_id','父级ID'),
 			array('display_sort','排序'),
 			array('controller','控制器'),
@@ -312,6 +314,7 @@ class Admin_Menu extends Base_Model {
 			array('controller','text','请输入控制器名称'),
 			array('action','text','请输入行为器'),
 			array('level','select',array('全部','等级1','等级2','等级3')),
+			array('type','select',array('全部','菜单','辅助功能')),
 		);
 		$data = array();
 		$data['export'] = true;
@@ -343,6 +346,9 @@ class Admin_Menu extends Base_Model {
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
 		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		foreach ($list as $key => &$value) {
+			$value['type'] = $this->_type[$value['type']];
+		}
 		$count = $this->count($where);
 
 		return array(
