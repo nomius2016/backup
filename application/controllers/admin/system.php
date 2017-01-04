@@ -279,12 +279,13 @@ class System extends Basecontroller {
 	public function admin_auth(){
 		//获取多有的菜单
 		$this->load->model('admin_menu');
+		$cur_group_id = $this->input->get('group_id') ? $this->input->get('group_id') : 1;
+		$this->admin_menu->setGroupId($cur_group_id);
 		$menu_html = $this->admin_menu->getAuthPageHtml();
 		$ext_menu = $this->admin_menu->getExtPageHtml();
 		//获取所有的组
 		$this->load->model('admin_group');
 		$groups = $this->admin_group->selectAll();
-		$cur_group_id = $this->input->get('group_id') ? $this->input->get('group_id') : 1;
 
 		$this->adminview('admin_auth',array('menu_html'=>$menu_html,'groups'=>$groups,'cur_group_id'=>$cur_group_id,'ext_menu'=>$ext_menu));
 		return;

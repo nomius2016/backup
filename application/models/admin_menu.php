@@ -17,6 +17,10 @@ class Admin_Menu extends Base_Model {
 	}
 	
 	
+	public function setGroupId($group_id){
+		$this->_group_id = $group_id;
+	}
+
 	/**
 	 * 获取用户能有权限的菜单
 	 *
