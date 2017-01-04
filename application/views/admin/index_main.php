@@ -53,19 +53,19 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <ul class="nav navbar-top-links navbar-right">
-                        <li class="dropdown">
+                        <li class="dropdown" id="deposit_alert" style="display: none">
                             <a class="count-info cof" href="/admin/deposit/first_list" newtitle="存款初审">
                                 <i class="fa fa-cny">存款待审</i> <span class="label label-warning" id="notify_new_deposit">0</span>
                             </a>
                         </li>
-                        <li class="dropdown">
+                        <li class="dropdown" id="withdrawal_alert" style="display: none">
                             <a class="count-info cof" href="/admin/withdrawal/first_list" newtitle="提款初审">
                                 <i class="fa fa-euro">出款待审</i> <span class="label label-primary" id="notify_new_withdraw">0</span>
                             </a>
                         </li>
                         <li class="dropdown hidden-xs">
                             <a class="right-sidebar-toggle" aria-expanded="false">
-                                <i class="fa fa-tasks"></i> 主题
+                                <i class="fa fa-tasks"></i> 设置
                             </a>
                         </li>
                     </ul>
@@ -158,14 +158,35 @@
                                 </div>
                             </div>
                             <div class="setings-item">
-                                <span>
-                        固定宽度
-                    </span>
-
+                                <span>固定宽度</span>
                                 <div class="switch">
                                     <div class="onoffswitch">
                                         <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
                                         <label class="onoffswitch-label" for="boxedlayout">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setings-item">
+                                <span>存款待审</span>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="boxed_deposit" class="onoffswitch-checkbox" id="boxed_deposit">
+                                        <label class="onoffswitch-label" for="boxed_deposit">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setings-item">
+                                <span>出款待审</span>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="boxed_withdrawal" class="onoffswitch-checkbox" id="boxed_withdrawal">
+                                        <label class="onoffswitch-label" for="boxed_withdrawal">
                                             <span class="onoffswitch-inner"></span>
                                             <span class="onoffswitch-switch"></span>
                                         </label>
@@ -221,100 +242,6 @@
 
             </div>
         </div>
-        <!--右侧边栏结束-->
-        <!--mini聊天窗口开始
-        <div class="small-chat-box fadeInRight animated">
-
-            <div class="heading" draggable="true">
-                <small class="chat-date pull-right">
-                    2015.9.1
-                </small> 与 Beau-zihan 聊天中
-            </div>
-
-            <div class="content">
-
-                <div class="left">
-                    <div class="author-name">
-                        Beau-zihan <small class="chat-date">
-                        10:02
-                    </small>
-                    </div>
-                    <div class="chat-message active">
-                        你好
-                    </div>
-
-                </div>
-                <div class="right">
-                    <div class="author-name">
-                        游客
-                        <small class="chat-date">
-                            11:24
-                        </small>
-                    </div>
-                    <div class="chat-message">
-                        你好，请问H+有帮助文档吗？
-                    </div>
-                </div>
-                <div class="left">
-                    <div class="author-name">
-                        Beau-zihan
-                        <small class="chat-date">
-                            08:45
-                        </small>
-                    </div>
-                    <div class="chat-message active">
-                        有，购买的H+源码包中有帮助文档，位于docs文件夹下
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="author-name">
-                        游客
-                        <small class="chat-date">
-                            11:24
-                        </small>
-                    </div>
-                    <div class="chat-message">
-                        那除了帮助文档还提供什么样的服务？
-                    </div>
-                </div>
-                <div class="left">
-                    <div class="author-name">
-                        Beau-zihan
-                        <small class="chat-date">
-                            08:45
-                        </small>
-                    </div>
-                    <div class="chat-message active">
-                        1.所有源码(未压缩、带注释版本)；
-                        <br> 2.说明文档；
-                        <br> 3.终身免费升级服务；
-                        <br> 4.必要的技术支持；
-                        <br> 5.付费二次开发服务；
-                        <br> 6.授权许可；
-                        <br> ……
-                        <br>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="form-chat">
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control"> <span class="input-group-btn"> <button
-                        class="btn btn-primary" type="button">发送
-                </button> </span>
-                </div>
-            </div>
-
-        </div>
-        <div id="small-chat">
-            <span class="badge badge-warning pull-right">5</span>
-            <a class="open-small-chat">
-                <i class="fa fa-comments"></i>
-
-            </a>
-        </div>
-        mini聊天窗口结束-->
     </div>
 
     <!-- 全局js -->
@@ -325,7 +252,7 @@
     <script src="/static/hplus/js/plugins/layer/layer.min.js"></script>
 
     <!-- 自定义js -->
-    <script src="/static/hplus/js/hplus.js?v=4.1.0"></script>
+    <script src="/static/hplus/js/hplus.js?v=4.1.1"></script>
     <script type="text/javascript" src="/static/hplus/js/contabs.js"></script>
     <script src="/static/hplus/js/content.js"></script>
     <!-- 第三方插件 -->

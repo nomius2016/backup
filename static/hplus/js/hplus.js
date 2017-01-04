@@ -4,7 +4,6 @@
 
 
 $(document).ready(function () {
-
     // MetsiMenu
     $('#side-menu').metisMenu();
 
@@ -183,6 +182,27 @@ $(function () {
         }
     });
 
+    $('#boxed_withdrawal').click(function(){
+        if($('#boxed_withdrawal').is(':checked')) {
+            localStorage.setItem("withdrawal_alert", 'on');
+            $('#withdrawal_alert').show();
+        }else{
+            localStorage.setItem("withdrawal_alert", 'off');
+            $('#withdrawal_alert').hide();
+        }
+
+    });
+
+    $('#boxed_deposit').click(function(){
+        if($('#boxed_deposit').is(':checked')) {
+            localStorage.setItem("deposit_alert", 'on');
+            $('#deposit_alert').show();
+        }else{
+            localStorage.setItem("deposit_alert", 'off');
+            $('#deposit_alert').hide();
+        }
+    });
+
     // 固定宽度
     $('#boxedlayout').click(function () {
         if ($('#boxedlayout').is(':checked')) {
@@ -235,6 +255,8 @@ $(function () {
         var collapse = localStorage.getItem("collapse_menu");
         var fixednavbar = localStorage.getItem("fixednavbar");
         var boxedlayout = localStorage.getItem("boxedlayout");
+        var withdrawal_alert = localStorage.getItem("withdrawal_alert");
+        var deposit_alert = localStorage.getItem("deposit_alert");
 
         if (collapse == 'on') {
             $('#collapsemenu').prop('checked', 'checked')
@@ -244,6 +266,16 @@ $(function () {
         }
         if (boxedlayout == 'on') {
             $('#boxedlayout').prop('checked', 'checked')
+        }
+
+        if (withdrawal_alert == 'on') {
+            $('#boxed_withdrawal').prop('checked', 'checked');
+            $('#withdrawal_alert').show();
+        }
+
+         if (deposit_alert == 'on') {
+            $('#deposit_alert').show();
+            $('#boxed_deposit').prop('checked', 'checked')
         }
     }
 
