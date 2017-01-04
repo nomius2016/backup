@@ -72,8 +72,8 @@
         <div class="mya_help">
             <h5><b>{{'member_security_withdraw@notice_title_3' | translate}}</b></h5>
             <p style="line-height:30px;">{{'member_security_withdraw@notice_message_3_1' | translate}}<a ui-sref="about({menuItem:'contact'})">{{'member_security_withdraw@notice_page_3_1' | translate}}</a>，{{'member_security_withdraw@notice_message_3_2' | translate}}<a ng-click="openLiveChat()">{{'member_security_withdraw@notice_page_3_2' | translate}}</a>{{'member_security_withdraw@notice_message_3_3' | translate}}</p>
-            <a class="btn-1 white" ng-show="security_status.mobile" ng-click="WithdrawUI_Change('mobile');">{{'member_security_withdraw@submit_mobile' | translate}}</a>
-            <a class="btn-1 white" ng-show="!security_status.mobile" ui-sref="member.security({method: 'mobile'})">{{'member_security_withdraw@submit_mobile' | translate}}</a>
+            <a class="btn-1 white" ng-show="security_status.withdraw" ng-click="WithdrawUI_Change('withdraw');">{{'member_security_withdraw@update_withdraw' | translate}}</a>
+            <a class="btn-1 white" ng-show="!security_status.withdraw" ui-sref="member.security({method: 'withdraw'})">{{'member_security_withdraw@update_withdraw' | translate}}</a>
         </div>
     </div>
     <div class="vw-rtn-back"><a ui-sref="member.security({method: 'index'})">BACK</a></div>

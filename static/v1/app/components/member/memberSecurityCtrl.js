@@ -96,6 +96,10 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
       $scope.withdraw = {};
       $scope.withdraw.modify = false;
       $scope.withdraw.flow = 'withdraw';
+      $scope.WithdrawUI_Change = function(e) {
+        $scope.security_status.withdraw = false;
+        $scope.withdraw.flow = e;
+      };
       $scope.CreateSecurityWithdraw = function(e) {
         if(!verifyService.checkWithdrawLength(e.password)) {
           appServices.showAlertMsg('popup_alert@title_tip', 'member_security@password_length_error');
