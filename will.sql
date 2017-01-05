@@ -1,6 +1,5 @@
 /*添加字段*/
-ALTER TABLE `admin_menu`
-ADD COLUMN `type`  tinyint(1) NULL DEFAULT 1 COMMENT '1 菜单  2 辅助功能' AFTER `title`;
+
 
 DELETE FROM admin_menu WHERE  controller = 'system' and action='menu_auth';
 DELETE FROM admin_menu_actions WHERE controller = 'system' and action='menu_auth_op';

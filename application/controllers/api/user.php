@@ -309,6 +309,42 @@ class User extends Basecontroller {
 	    }
 	    $this->teamapi($ret);
 	}
+	
+	public function bind_card() {
+	    $aRS = array();
+	    $ret = array();
+	    if ($this->user_id>0){
+	        $this->load->model('user_bank_card');
+	        
+	        $p = $this->getApiParams();
+	        $profile  = $this->users->profile($this->user_id);
+	        
+	        if (intval($this->user_bank_card->bindedCardCount($this->user_id))>2) {
+	            $ret['code']   = -1017;
+	        } else {
+    	        $aFields = array();
+    	        //银行     bank_code       [下拉选择]  详情见下面
+    	       // 银行卡号  account_no
+    	        //显示名称  display_name
+    	       // 分支名称  branch_name
+    	        $aFields['bank_code']     = $p['bank_code'];
+    	        $aFields['account_no']    = $p['account_no'];
+    	        $aFields['display_name']  = $p['display_name'];
+    	        $aFields['branch_name']   = $p['branch_name'];
+    	        $aFields['name']          = $profile['real_name'];
+    	        
+    	        $_cid = $this->user_bank_card->b_insert($aFields);
+    	        if ($_cid>1) {
+    	            $ret['code']   = 1;
+    	        } else {
+    	            $ret['code']   = -2;
+    	        }
+	        }
+	    } else {
+	        $ret['code']   = -1;
+	    }
+	    $this->teamapi($ret);
+	}
 
 }
 
