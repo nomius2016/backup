@@ -332,6 +332,8 @@ class User extends Basecontroller {
     	        $aFields['display_name']  = $p['display_name'];
     	        $aFields['branch_name']   = $p['branch_name'];
     	        $aFields['name']          = $profile['real_name'];
+    	        $aFields['user_id']       = $this->user_id;
+    	        $aFields['create_time']   = date('Y-m-d H:i:s');
     	        
     	        $_cid = $this->user_bank_card->b_insert($aFields);
     	        if ($_cid>1) {
