@@ -35,30 +35,37 @@
                                 </div>
                             </li>
                             <li class="vw-fItem" ng-show="!gender_readonly">
-                                <label class="grey5" for="">{{'member_security_name@sex' | translate}}：</label>
+                                <label class="grey5" for="">{{'member_info@sex' | translate}}：</label>
                                 <div class="thema-a cl" ng-init="userdata.gender=1">
                                     <div class="ui-checkbox fltlft" ng-click="userdata.gender='1'">
-                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '1'}"></span>{{ 'member_security_name@sex_1' | translate }}</p>
+                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '1'}"></span>{{ 'member_info@sex_1' | translate }}</p>
                                     </div>
                                     <div class="ui-checkbox fltlft" ng-click="userdata.gender='0'">
-                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '0'}"></span>{{ 'member_security_name@sex_2' | translate }}</p>
+                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '0'}"></span>{{ 'member_info@sex_2' | translate }}</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="vw-fItem" ng-show="gender_readonly">
-                                <label class="grey5" for="">{{'member_security_name@sex' | translate}}：</label>
+                                <label class="grey5" for="">{{'member_info@sex' | translate}}：</label>
                                 <div class="thema-a cl" ng-init="userdata.gender=1">
                                     <div class="ui-checkbox fltlft">
-                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '1'}"></span>{{ 'member_security_name@sex_1' | translate }}</p>
+                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '1'}"></span>{{ 'member_info@sex_1' | translate }}</p>
                                     </div>
                                     <div class="ui-checkbox fltlft">
-                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '0'}"></span>{{ 'member_security_name@sex_2' | translate }}</p>
+                                        <p class="tos"><span class="icon-checkbox mgrt5" ng-class="{'icon-checkbox-checked': userdata.gender=== '0'}"></span>{{ 'member_info@sex_2' | translate }}</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="vw-fItem">
-                                <a class="btn-1" ng-class="{'btn-disable': !userdata.birthday || !userdata.gender || !userdata.realname }"
-                                   btn-process callback="CreateInfo(userdata.realname, userdata.birthday, userdata.gender)">{{'member_info@submit' | translate}}</a>
+                                <label class="grey5" for="">{{'member_info@email' | translate}}：</label>
+                                <div class="vw-ui-input">
+                                    <input type="text" placeholder="{{'member_info@email_placeholder' | translate}}" ng-change="emailCheck(userdata.email)" ng-model="userdata.email" ng-show="!email_readonly" />
+                                    <input type="text" readonly="readonly" ng-show="email_readonly" ng-model="userdata.email" />
+                                </div>
+                            </li>
+                            <li class="vw-fItem">
+                                <a class="btn-1" ng-class="{'btn-disable': !userdata.birthday || !userdata.gender || !userdata.realname || !userdata.email || !userdata.emailValid }"
+                                   btn-process callback="CreateInfo(userdata.realname, userdata.birthday, userdata.gender, userdata.email)">{{'member_info@submit' | translate}}</a>
                             </li>
                         </ul>
                     </form>

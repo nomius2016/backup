@@ -78,20 +78,98 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
   };
   $scope.$on('$stateChangeSuccess', function(i, v, h, f, y) {
     if ('bindcard' == h.method) {
-      $scope.lockBtn = false;
-      $scope.counter = 30;
-      if (Container.getSecurityStatus().bindcard) {
-        return $state.go('member.security', {
-          method: 'index'
-        });
-      }
-      $scope.name = {
-        valid: !1,
-        value: '',
-        code: '',
-        BonusAmount: 0
+      $scope.bindcard = {};
+      $scope.bindcard.bankList = [{
+        id: 'ICBC',
+        name: '工商银行'
+      }, {
+        id: 'ABC',
+        name: '农业银行'
+      }, {
+        id: 'CCB',
+        name: '建设银行'
+      }, {
+        id: 'CGB',
+        name: '广发银行'
+      }, {
+        id: 'ECITIC',
+        name: '中信银行'
+      }, {
+        id: 'PINGAN',
+        name: '平安银行'
+      }, {
+        id: 'CMB',
+        name: '招商银行'
+      }, {
+        id: 'CMBC',
+        name: '民生银行'
+      }, {
+        id: 'CIB',
+        name: '兴业银行'
+      }, {
+        id: 'HXB',
+        name: '华夏银行'
+      }, {
+        id: 'BEIJING',
+        name: '北京银行'
+      }, {
+        id: 'COMM',
+        name: '交通银行'
+      }, {
+        id: 'CEB',
+        name: '光大银行'
+      }, {
+        id: 'BOC',
+        name: '中国银行'
+      }, {
+        id: 'PSBC',
+        name: '邮政储蓄'
+      }, {
+        id: 'SPDB',
+        name: '浦发银行'
+      }, {
+        id: 'HKBEA',
+        name: '东亚银行'
+      }, {
+        id: 'SHANGHAI',
+        name: '上海银行'
+      }, {
+        id: 'TCCB',
+        name: '天津银行'
+      }, {
+        id: 'NBCB',
+        name: '宁波银行'
+      }, {
+        id: 'NJCB',
+        name: '南京银行'
+      }];
+      $scope.bindcard.modify = false;
+      $scope.bindcard.flow = 'withdraw';
+      $scope.BindcardUI_Change = function(e) {
+        $scope.security_status.bindcard = false;
+        $scope.bindcard.flow = e;
       };
-      
+      $scope.cardNumChange = function(card) {
+        $scope.cardNumFix = card.replace(/\s/g, "").replace(/(\d{4})/g, "$1 ");
+      };
+      $scope.CreateSecurityBindcard = function(bank_list, bindcard) {
+        console.log(bank_list, bindcard)
+        SecurityService.call('Bind_Card', {
+          bank_code: bank_list.id,
+          branch_name: bindcard.bank_branch,
+          account_no: bindcard.card_num,
+          display_name: bindcard.display_name
+        }, function(e) {
+          if(e.Success) {
+            appServices.showAlertMsg('popup_alert@title_message', e.Message);
+            $state.go('member.security', {
+              method: 'index'
+            });
+          } else {
+            appServices.showAlertMsg('popup_alert@title_fail', e.Message);
+          }
+        }); 
+      };
     } else if('withdraw' == h.method) {
       $scope.withdraw = {};
       $scope.withdraw.modify = false;
@@ -135,17 +213,6 @@ angular.module('ciApp').controller('memberSecurityCtrl', ['$filter', '$scope', '
             appServices.showAlertMsg('popup_alert@title_fail', e.Message);
           }
         }); 
-      };
-      $scope.SendSMSVerifyCode = function(e) {
-        $scope.mobile.ReferralID = 12, p(e, 'withdraw')
-      };
-      $scope.CreateSecurityMobile = function(e) {
-        SecurityService.call('Password_TokenCode_Auth', {
-          intReferralID: 12,
-          strTokenCode: e.code
-        }, function(e) {
-          return e.Success === !1 ? void o.showAlertMsg('popup_alert@title_fail', e.Message) : (g.security_status.withdraw = !1, void('withdraw' == g.withdraw.flow))
-        })
       };
     } else if('question' == h.method) {
       $scope.email = {};

@@ -1,9 +1,11 @@
-angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", "$state", "Container", "appServices", "AccountService", "verifyService", function($scope, t, i, a, s, o, r) {
+angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", "$state", "Container", "appServices", "AccountService", "verifyService", function($scope, t, i, a, s, o, verifyService) {
   $scope.countryCode = 2;
   $scope.method = t.method;
   $scope.userdata = {
     birthday: moment(new Date).subtract(18, "year").format("YYYY/MM/DD"),
-    birthday_readonly: !1
+    birthday_readonly: !1,
+    email_readonly: !1,
+    emailValid: false
   };
   $scope.getSecurityStatus = function() {
     $scope.security_status = {};
@@ -22,12 +24,20 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
       $scope.birthday_readonly = !0;
       $scope.gender_readonly = !0;
     }
+    if(e.Result[0].email) {
+      $scope.userdata.email = e.Result[0].email;
+      $scope.email_readonly = !0;
+    }
   });
-  $scope.CreateInfo = function(realname, birthday, gender) {
+  $scope.emailCheck = function(email) {
+    $scope.userdata.emailValid = verifyService.checkEmailFormat(email);
+  }
+  $scope.CreateInfo = function(realname, birthday, gender, email) {
     o.call("MainAccount_UpdateBasicInfo", {
       real_name: realname,
       birthday: birthday,
       sex: gender,
+      email: email
     }, function(e) {
       if(e.Success) {
         s.showAlertMsg("popup_alert@title_fail", e.Message);
