@@ -11,25 +11,35 @@ class publicapi extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function getmaingames(){
-		$redis_key = 'publicapi_getmaingames';
-		$tmp_data = $this->hredis->get($redis_key);
-		$ret['code'] = 1;
-		if($tmp_data && 0){
-			$ret['result'] = json_decode($tmp_data,true);
-		} else {
-			$this->load->model('users');
-			$games = $this->users->getGames();
-			
-			$aBalance = $this->users->balance($this->user_id);
-			
-			$data = array();
-			foreach ($games as $game) {
-			    $game['balance'] = $this->f(intval($aBalance[$game['gaming_id']]));
-				$data[] = $game;
-			}
-			$ret['result'] = $data;
-			$this->hredis->setex($redis_key,86400,json_encode($data));
+		
+		$ret = array();
+		if(!$this->user_id){
+			$ret['code'] = -1;
+			$this->teamapi($ret);
 		}
+
+		$ret['code'] = 1;
+
+		$this->load->model('users');
+		$games = $this->users->getGames();
+		$aBalance = $this->users->balance($this->user_id);
+		$userInfo = $this->users->getUserInfo($this->user_id);
+
+		$data = array();
+		$data[] = array(
+				'gaming_id'=>0,
+				'code'=>'CENTER',
+				'name'=>'主账户',
+				'status'=>1, 
+				'balance'=>$this->f($userInfo['balance'])
+			);
+		foreach ($games as $game) {
+		    $game['balance'] = $this->f(intval($aBalance[$game['gaming_id']]));
+			$data[] = $game;
+		}
+
+
+		$ret['result'] = $data;
 
 		$this->teamapi($ret);
 	}
