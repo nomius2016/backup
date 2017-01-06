@@ -71,16 +71,48 @@ class Deposit extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function get_online_bank(){
-		$this->load->model('payment_method');
-		$banks = $this->payment_method->getOnlineBank();
-		$ret = array();
-		if(!$banks){
-	        $ret['code'] = 1001;
-		}else{
-	        $ret['code'] = 1;
-	        $ret['result'] = $banks;
-		}
+		// $this->load->model('payment_method');
+		// $banks = $this->payment_method->getOnlineBank();
+		// $ret = array();
+		// if(!$banks){
+	 //        $ret['code'] = 1001;
+		// }else{
+	 //        $ret['code'] = 1;
+	 //        $ret['result'] = $banks;
+		// }
+		// {
+  //   "payment_method_id": "6",
+  //   "bank_name": "工商银行",
+  //   "bank_address": "中国工商一行福建支行",
+  //   "account_no": "6222084402005312444",
+  //   "name": "张三"
+  // }
 
+
+		$data = array();
+		$data['online'] = array(
+				array('payment_method_id'=>1,'title'=>'通汇在线支付'),
+				array('payment_method_id'=>2,'title'=>'顺丰在线支付'),
+			);
+		$data['transfer'] = array(
+				array('payment_method_id'=>3,'bank_name'=>'工商银行','bank_address'=>'中国工商银行福建支行','account_no'=>'6222084402005312441','name'=>'张三'),
+				array('payment_method_id'=>4,'bank_name'=>'招商银行','bank_address'=>'中国招商银行福建支行','account_no'=>'6222084402005312442','name'=>'李四'),
+				array('payment_method_id'=>5,'bank_name'=>'中国银行','bank_address'=>'中国银行福建支行','account_no'=>'6222084402005312443','name'=>'王麻子'),
+				array('payment_method_id'=>6,'bank_name'=>'建设银行','bank_address'=>'中国建设银行福建支行','account_no'=>'6222084402005312444','name'=>'吴广'),
+				
+			);
+		$data['alipay'] = array(
+				array('payment_method_id'=>7,'title'=>'通汇支付宝'),
+				array('payment_method_id'=>8,'title'=>'顺丰支付宝'),
+			);
+
+		$data['wechat'] = array(
+				array('payment_method_id'=>9,'title'=>'通汇微信'),
+				array('payment_method_id'=>10,'title'=>'顺丰微信'),
+			);
+
+		$ret['code'] = 1;
+		$ret['result'] = $data;
 		$this->teamapi($ret);
 	}
 }
