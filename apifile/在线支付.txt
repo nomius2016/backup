@@ -1,0 +1,15 @@
+在线支付
+      获取在线支付 
+        URL:   api/deposit/get_online_bank   
+        参数:  无
+        返回   各种支付方式
+
+      存款调用方式
+
+      	URL : /api/deposit/apply
+      	参数: `amount` 存款金额
+			  `pay_method_id`存款方式
+
+		
+
+
