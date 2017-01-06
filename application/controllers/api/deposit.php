@@ -10,19 +10,26 @@ class Deposit extends Basecontroller {
 	}
 	
 	public function apply() {
-	    $aRS = array();
+	    // $aRS = array();
 	    $ret = array();
-	    if ($this->user_id>0){
-	        $aRestrict = $this->users->restrict($this->user_id,'extra');
-    	    if ($aRestrict['allow_recharge']==1) {
+	    // if ($this->user_id>0){
+	    //     $aRestrict = $this->users->restrict($this->user_id,'extra');
+    	//     if ($aRestrict['allow_recharge']==1) {
     	        
-    	    } else {
-    	        $aRS = array('msg' => '不允许充值');
-    	    }
-	        $ret['code'] = 1;
-	        $ret['result'] = $aRS;
-	    } else {
-	        $ret['code']   = -1;
+    	//     } else {
+    	//         $aRS = array('msg' => '不允许充值');
+    	//     }
+	    //     $ret['code'] = 1;
+	    //     $ret['result'] = $aRS;
+	    // } else {
+	    //     $ret['code']   = -1;
+	    // }
+	    // 
+	    if($this->user_id){
+	    	$ret['code'] = 1;
+	    	$ret['result'] = array(array('url'=>'http://www.baidu.com'));
+	    }else{
+	    	$ret['code'] = -1;
 	    }
 	    $this->teamapi($ret);
 	}
