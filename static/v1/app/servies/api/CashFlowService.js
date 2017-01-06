@@ -6,12 +6,12 @@ angular.module('requesterModule').factory('CashFlowService', ['ZeusService', fun
   var payBank = 'Mercury/CashFlow';
   var routeMap = {
     Get_Online_Bank: route,
+    Apply: route,
     GetLastDepositOrder: routeMain,
     GetFavoritesBankList: routeMain,
     GetDepositCardFlag: routeMain,
     GetWebsiteSetting: routeMain,
     GetCashBankWay: routeAsia,
-    Deposit: routeAsia,
     DepositCancel: routeAsia,
     GetDepositReceive: routeAsia,
     Withdraw: routeAsia,
@@ -29,7 +29,7 @@ angular.module('requesterModule').factory('CashFlowService', ['ZeusService', fun
     call: function(action, data, callback) {
       var route = routeMap[action];
       if (route !== undefined) {
-        if(action == 'Get_Online_Bank') {
+        if(action == 'Get_Online_Bank' || action == 'Apply') {
           route = 'deposit';
         }
         return ZeusService.call([route, action], data, callback);

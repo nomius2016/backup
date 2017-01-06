@@ -71,41 +71,25 @@
                 <!--请选择银行卡-->
                 <div class="mya_decheck" ng-if="deposit.method !== 'bao' && deposit.method !== 'wechat' && deposit.method !== 'quick'  && deposit.method !== 'dcard'">
                   <h4>
-                                        <i>1</i>
-                                        {{'member_bank_deposit@select_bank' | translate}}
-                                    </h4>
-
-                  <div class="mya_dechwrap" ng-mouseover="favoriteHover = true" ng-mouseleave="favoriteHover = false" ng-class="{'yellowBg': favoriteHover}" ng-show="deposit.favoriteShown">
-                    <div class="mya_dechbank">
-                      <div class="mya_dechbankcy">
-                        <h5>
-                                                    {{'member_bank_deposit@favorite_bank' | translate}}
-                                                </h5>
-                        <ul>
-                          <li ng-repeat="item in deposit.favortieList" ng-class="{'active': deposit.bankGUID === item.GUID}" ng-click="deposit.changeBank(item)">
-                            <img class="ibank_icon" ng-src="/styles/images/bank/{{item.ImageName}}.jpg" />
-                            <i></i>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                      <i>1</i>
+                      {{'member_bank_deposit@select_bank' | translate}}
+                  </h4>
 
                   <div class="mya_dechwrap mt20" ng-mouseover="partnerHover = true" ng-mouseleave="partnerHover = false" ng-class="{'yellowBg': partnerHover}">
                     <div class="mya_dechbank">
                       <div class="mya_dechbankcy">
                         <h5>
-                                                    {{'member_bank_deposit@partner_bank' | translate}}
-                                                </h5>
+                            {{'member_bank_deposit@partner_bank' | translate}}
+                        </h5>
                         <ul ng-style="deposit.moreStyle">
-                          <li ng-repeat="item in deposit.bankList | limitTo:deposit.bankListLimit" ng-class="{'active': deposit.bankGUID === item.GUID}" ng-click="deposit.changeBank(item)">
-                            <img class="ibank_icon" ng-src="/styles/images/bank/{{item.ImageName}}.jpg" />
+                          <li ng-repeat="item in deposit.bankList | limitTo:deposit.bankListLimit" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
+                            <img class="ibank_icon" ng-src="/static/v1/images/banks/bank_{{item.payment_method_id}}.jpg" />
                             <i></i>
                           </li>
                           <li ng-if="!deposit.isMore">
                             <span class="ibank_more" ng-if="deposit.method === 'online'" ng-click="deposit.showMore()">
-                                                            {{'member_bank_deposit@more_bank' | translate}}
-                                                        </span>
+                                {{'member_bank_deposit@more_bank' | translate}}
+                            </span>
                           </li>
                         </ul>
                       </div>
@@ -115,9 +99,9 @@
                 <!--选择付款方式-->
                 <div class="mya_decheck" ng-if="deposit.method === 'transfer' || deposit.method === 'cash'" style="min-height:unset;">
                   <h4>
-                                        <i>2</i>
-                                        {{'member_bank_deposit@select_pay_way' | translate}}
-                                    </h4>
+                      <i>2</i>
+                      {{'member_bank_deposit@select_pay_way' | translate}}
+                  </h4>
                   <div class="mya_decz">
                     <div class="ui-check">
                       <ul>
@@ -133,187 +117,50 @@
                 <!--请输入存款金额-->
                 <div class="mya_decheck" ng-if="deposit.method !== 'dcard'">
                   <h4>
-                                        <i ng-if="deposit.method === 'bao' || deposit.method === 'wechat' || deposit.method === 'quick'">1</i>
-                                        <i ng-if="deposit.method === 'online'">2</i>
-                                        <i ng-if="deposit.method === 'transfer' || deposit.method === 'cash'">3</i>
-                                        {{'member_bank_deposit@input_amount' | translate}}
-                                    </h4>
+                      <i ng-if="deposit.method === 'bao' || deposit.method === 'wechat' || deposit.method === 'quick'">1</i>
+                      <i ng-if="deposit.method === 'online'">2</i>
+                      <i ng-if="deposit.method === 'transfer' || deposit.method === 'cash'">3</i>
+                      {{'member_bank_deposit@input_amount' | translate}}
+                  </h4>
                   <div class="fltlft mya_decz">
                     <div class="vw-ui-input">
-                      <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@input_amount' | translate}}
-                                                   style=" width:274px; " ng-model="deposit.amount " min="{{deposit.minValue}} " max="{{deposit.maxValue}} " step="1 "
-                                                   ng-pattern="/^\d+$/ " onkeyup="value=value.replace(/[^-0-9]/g, '') ">
-                                        </div>
-                                        <a class="btn-1 btn-next mt25 " callback="deposit.createOrder() " ng-class="{ 'btn-disable':!deposit.amount || desposit.amount <=0 } " btn-process>
-                                            {{'member_bank_deposit@next' | translate}}
-                                        </a>
-                                    </div>
-                                    <div class="fltlft mya_deczhint ">
-                                        <table class="tp_depositTable ">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        {{'member_bank_deposit@single_limit' | translate}}
-                                                        ：
-                                                        <em>
-                                                            {{deposit.minValue | currencyFix}} - {{deposit.maxValue | currencyFix}}
-                                                        </em>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        {{'member_bank_deposit@daily_limit' | translate}}
-                                                        ：
-                                                        <em ng-if="deposit.method==='quick' ">
-                                                            {{'member_bank_deposit@limit_by_your_bank' | translate}}
-                                                        </em>
-                                                        <em ng-if="deposit.method !=='quick' ">
-                                                            {{'member_bank_deposit@no_limit' | translate}}
-                                                        </em>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="clears "></div>
-                                </div>
-
-                                <!-- 点卡充值 -->
-                                <div class="mya_decheck " ng-if="deposit.method==='dcard' ">
-                                    <div class="vw-part ">
-                                        <div class="cl ">
-                                            <div class="col-12 ">
-                                                <div class="vw-p-bd ">
-                                                    <p class="first_ck_tip ">
-                                                        <!--会员可以使用点卡支付渠道来进行存款，目前Vwin支持17种点卡支付方式，
-                                                        您可以选择任意一种进行充值，充值时请准确填写您的存款面值，以便我们在第一时间核实您的存款金额。-->
-                                                        {{'member_bank_deposit@dcard_desc' | translate}}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mya_deonline tabCont " ng-if="deposit.method==='dcard' ">
-                                    <div class="cl ">
-                                        <div class="vw-p-bd vw-form mt35 first_ck_pb50 ">
-                                            <form autocomplete="off ">
-                                                <ul class="first_ck_mt40 ">
-                                                    <li class="vw-fItem ">
-                                                        <label>
-                                                            <!--点支付渠道-->
-                                                            {{'member_bank_deposit@dcard_payway' | translate}}
-                                                        </label>
-                                                        <div class="thema-a ">
-                                                            <select class="ui-select " required style="width:346px; " ng-model="deposit.dcard "
-                                                                    ng-options="item as item.DCardName for item in deposit.dcards "
-                                                                    ng-change="deposit.onDcardChange() ">
-                                                                <option value=" " disabled>
-                                                                    <!--请选择-->
-                                                                    {{'member_bank_deposit@please_select' | translate}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </li>
-
-                                                    <li class="vw-fItem ">
-                                                        <label>
-                                                            <!--卡面值-->
-                                                            {{'member_bank_deposit@dcard_card_amount' | translate}}
-                                                        </label>
-                                                        <div class="thema-a ">
-                                                            <select class="ui-select " required style="width:346px; " ng-model="deposit.dcardAmount "
-                                                                    ng-options="item as item for item in deposit.dcard.Denominations ">
-                                                                <option value=" " disabled>
-                                                                    <!--请选择-->
-                                                                    {{'member_bank_deposit@please_select' | translate}}
-                                                                </option>
-                                                            </select>
-                                                            <div class="first_ck_cash " ng-if="deposit.dcard && deposit.dcardAmount ">
-                                                                <p>
-                                                                    <!--可得總值-->
-                                                                    {{'member_bank_deposit@dcard_amount_could_get' | translate}}
-                                                                    :<span class="red ">
-                                                                        {{deposit.dcardAmount * (100-deposit.dcard.FeeRate) / 100 | number:2}}
-                                                                    </span>元
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="vw-fItem ">
-                                                        <label>
-                                                            <!--请输入卡号-->
-                                                            {{'member_bank_deposit@dcard_please_enter_card_number' | translate}}
-                                                        </label>
-                                                        <div class="vw-ui-input ">
-                                                            <input type="text " maxlength="20 " autocomplete="off "
-                                                                   placeholder="请输入{{ 'member_bank_deposit@dcard_please_enter_card_number' | translate}} "
-                                                                   ng-pattern="/^[A-Za-z0-9]+$/ "
-                                                                   ng-model="deposit.dcardNumber " />
-                                                        </div>
-                                                    </li>
-                                                    <li class="vw-fItem ">
-                                                        <label>
-                                                            <!--请输入密码-->
-                                                            {{'member_bank_deposit@dcard_please_enter_card_password' | translate}}
-                                                        </label>
-                                                        <div class="vw-ui-input ">
-                                                            <input type="password " maxlength="20 " autocomplete="off "
-                                                                   placeholder="请输入{{ 'member_bank_deposit@dcard_please_enter_card_password' | translate}} "
-                                                                   ng-pattern="/^[A-Za-z0-9]+$/ "
-                                                                   ng-model="deposit.dcardPassword " />
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <ul>
-                                                            <li class="red-warning red ">
-                                                                <!--注意-->
-                                                                {{'member_bank_deposit@dcard_attention' | translate}}
-                                                            </li>
-                                                            <li class="first_ck_warning ">
-                                                                1.
-                                                                <!--您选择的是-->
-                                                                {{'member_bank_deposit@dcard_item_you_selectd_is' | translate}}
-                                                                ：
-                                                                <span style="color:red; ">
-                                                                    {{deposit.dcard.DCardName}}
-                                                                </span>
-                                                            </li>
-                                                            <li class="first_ck_warning ">
-                                                                2.
-                                                                <!--支持面額-->
-                                                                {{'member_bank_deposit@dcard_amount_support' | translate}}
-                                                                ：
-                                                                <span ng-if="deposit.dcard ">
-                                                                    {{deposit.dcard.Denominations.join('元、')}} 元
-                                                                </span>
-                                                            </li>
-                                                            <li class="first_ck_warning ">
-                                                                3.
-                                                                <!--不同点卡所收取的手续费额度不一，具体可于【可得总额】查询-->
-                                                                {{'member_bank_deposit@dcard_note3' | translate}}
-                                                            </li>
-                                                            <li class="first_ck_warning ">
-                                                                4.
-                                                                <!--当您选择的【点卡面额】与您实际支付的点卡面额或余额不符时，【可得总额】为实际点卡面额或余额。-->
-                                                                {{'member_bank_deposit@dcard_note4' | translate}}
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a class="btn-1 first_ck_btn_submit " btn-process ng-class="{ 'btn-disable':!deposit.dcard || !deposit.dcardAmount || !deposit.dcardNumber || !deposit.dcardPassword} "
-                                                           callback="deposit.createDcardOrder() ">
-                                                            <!--提交-->
-                                                            {{'member_bank_deposit@submit' | translate}}
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                      <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@input_amount' | translate}}" style=" width:274px; " ng-model="deposit.amount " min="{{deposit.minValue}} " max="{{deposit.maxValue}} " step="1 "
+                                                   ng-pattern="/^\d+$/ " onkeyup="value=value.replace(/[^-0-9]/g, '') " />
+                    </div>
+                    <a class="btn-1 btn-next mt25 " callback="deposit.createOrder() " ng-class="{ 'btn-disable':!deposit.amount || desposit.amount <=0 } " btn-process>
+                        {{'member_bank_deposit@next' | translate}}
+                    </a>
+                  </div>
+                  <div class="fltlft mya_deczhint ">
+                      <table class="tp_depositTable ">
+                          <tbody>
+                              <tr>
+                                  <td>
+                                      {{'member_bank_deposit@single_limit' | translate}}
+                                      ：
+                                      <em>
+                                          {{deposit.minValue | currencyFix}} - {{deposit.maxValue | currencyFix}}
+                                      </em>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      {{'member_bank_deposit@daily_limit' | translate}}
+                                      ：
+                                      <em ng-if="deposit.method==='quick' ">
+                                          {{'member_bank_deposit@limit_by_your_bank' | translate}}
+                                      </em>
+                                      <em ng-if="deposit.method !=='quick' ">
+                                          {{'member_bank_deposit@no_limit' | translate}}
+                                      </em>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                    </div>
+                    <div class="clears "></div>
+                  </div>
+                </div>
                             <!--訂單頁-->
                             <div class="mya_cnt " ng-if="stateConfirm ">
                                 <div class="mya_success ">

@@ -3809,8 +3809,8 @@ dl.view .vw-mbox-hd {
 .vw-ck .mya_dechbankcy ul li {
     position: relative;
     margin: 0 0 11px 3%;
-    width: 22%;
-    border: none;
+    width: 135px;
+    border: 1px solid #b33234;
     background: #fff
 }
 

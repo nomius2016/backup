@@ -31,6 +31,7 @@ angular.module('ciApp')
       return e;
     }
     var timer;
+    $scope.currencyID = 2;
     $scope.method = $stateParams.method;
     $scope.way = $stateParams.way ? $stateParams.way :'online';
     var C = {
@@ -71,8 +72,12 @@ angular.module('ciApp')
       WechatActive: Config.WechatActive,
       minValue: 0,
       maxValue: 0,
-      min: {},
-      max: {},
+      min: {
+        online: 50
+      },
+      max: {
+        online: 50000
+      },
       methods: ["online", "bao", "transfer", "cash"],
       method: $scope.way,
       cardNumber: "",
@@ -87,6 +92,9 @@ angular.module('ciApp')
       init: function() {
         appServices.scrollAnchor("#vw-ck");
         $scope.deposit.allBank = bankService.getBankList();
+        for (var b in $scope.deposit.allBank) {
+          $scope.deposit.bankList.push($scope.deposit.allBank[b])
+        }
         delete $scope.deposit.bankName;
         delete $scope.deposit.orderSerial;
         delete $scope.deposit.amount;
@@ -135,21 +143,19 @@ angular.module('ciApp')
       },
       createOrder: function() {
         var data = {};
-        data.UserPayAmount = $scope.deposit.amount;
+        data.amount = $scope.deposit.amount;
         if ($scope.currencyID === 2) {
-          data.PaymentMethodID = k[$scope.deposit.method]
           switch ($scope.deposit.method) {
             case "online":
-              data.UserBankID = $scope.deposit.allBank[$scope.deposit.bankGUID].PaymentGUID;
-              data.UserBankName = $scope.deposit.allBank[$scope.deposit.bankGUID].BankName;
-              var t = c.open("", "_blank");
+              data.pay_method_id = $scope.deposit.bankID;
+              var t = $window.open("", "_blank");
               break;
             case "bao":
               break;
             case "wechat":
               break;
             case "quick":
-              var t = c.open("", "_blank");
+              var t = $window.open("", "_blank");
               break;
             case "transfer":
             case "cash":
@@ -162,7 +168,7 @@ angular.module('ciApp')
               break;
           }
           $scope.showLoading = !0;
-          CashFlowService.call("Deposit", data, function(result) {
+          CashFlowService.call("Apply", data, function(result) {
             if (result.Success) {
               if ("online" === $scope.deposit.method || "quick" === $scope.deposit.method) {
                 t.location.href = result.Result[0].ReturnURL;
@@ -270,7 +276,7 @@ angular.module('ciApp')
           $scope.showLoading = !1;
         });
       },
-      isMore: !1,
+      isMore: false,
       showMore: function() {
         $scope.deposit.isMore = !0;
         var e = $scope.deposit.bankList.length;
@@ -280,198 +286,75 @@ angular.module('ciApp')
           height: t.toString() + "px"
         }
       },
-      getFavorite: function() {
-        $scope.deposit.favoriteShown = !1;
-        $scope.deposit.favortieList = [];
-        $scope.showLoading = !0;
-        CashFlowService.call("GetFavoritesBankList", {
-          Counts: 3,
-          PaymentAgentID: $scope.paymentAgentID()
-        }, function(result) {
-          if (result.Success) {
-            var t = result.Result;
-            if(t.length > 0) {
-              if("online" === $scope.deposit.method || "moneypay" == $scope.deposit.method) {
-                angular.forEach(t, function(e) {
-                  var t = w(e.GUID);
-                  void 0 !== t && (t.duplicate = !0);
-                });
-                $scope.deposit.favortieList = t;
-              } else {
-                $scope.deposit.favortieList = t;
-              }
-              $scope.deposit.favoriteShown = !0;
-              $scope.deposit.bankGUID = $scope.deposit.favortieList[0].GUID;
-              $scope.deposit.bankList = r("filter")($scope.deposit.bankList, {
-                duplicate: !1
-              });
-            }
-          }
-          $scope.showLoading = !1;
-        });
-      },
-      onDcardChange: function() {
-        delete $scope.deposit.dcardAmount;
-      },
-      createDcardOrder: function() {
-        $scope.showLoading = !0;
-        var e = {
-          UserPayAmount: $scope.deposit.dcardAmount,
-          UserPaywayID: $scope.deposit.dcard.Way,
-          UserPaywayName: $scope.deposit.dcard.DCardName,
-          PaymentMethodID: k.dcard,
-          DCardNumber: $scope.deposit.dcardNumber,
-          DCardPassWord: $scope.deposit.dcardPassword
-        };
-        CashFlowService.call("Deposit", e, function(result) {
-          if(result.Success) {
-            appServices.showAlertMsg("popup_alert@title_dear_user", "popup_alert@dcard_order_create_success");
-            delete $scope.deposit.dcard;
-            delete $scope.deposit.dcardAmount;
-            delete $scope.deposit.dcardNumber;
-            delete $scope.deposit.dcardPassword;
-          } else {
-            appServices.showAlertMsg("popup_alert@title_fail", result.Message);
-            $scope.showLoading = !1;
-          }
-        });
-      },
-      getDCardInfo: function() {
-        $scope.showLoading = !0;
-        CashFlowService.call("GetDCardInfoInfo", {}, function(result) {
-          $scope.deposit.dcards = result.Result;
-          $scope.showLoading = !1;
-        });
-      },
       getUncompleteOrder: function() {
-        if (2 !== $scope.currencyID) {
-          $scope.showLoading = !0;
-          if ("moneypay" == $scope.deposit.method) {
-            CashFlowService.call("PayBank/DepositOrderLastOne", {
-              Method: "moneypay",
-              PaymentMethodID: "8"
-            }, function(result) {
-              if (result.Success)
-                if (null === result.Data) {
-                  switch ($scope.deposit.method) {
-                    case "moneypay":
-                      $scope.deposit.bankList = bankService.getPayment($scope.paymentAgentID(), "deposit");
-                      if($scope.deposit.bankList.length > 0) {
-                        $scope.deposit.bankGUID = $scope.deposit.bankList[0].GUID;
-                        $scope.deposit.bankName = $scope.deposit.bankList[0].BankName;
-                      }
-                      $scope.deposit.bankListLimit = 3;
-                      $scope.deposit.getFavorite();
-                  }
-                  if("PA00004" === $scope.paymentAgentID()) {
-                    $scope.deposit.minValue = $scope.deposit.min.moneypay;
-                    $scope.deposit.maxValue = $scope.deposit.max.moneypay;
-                    $scope.stateCheck = !1;
-                    $scope.stateOrder = !0;
-                  } else {
-                    $scope.deposit.bankList = bankService.getPayment($scope.paymentAgentID(), "deposit");
-                    $scope.deposit.minValue = $scope.deposit.min.xpay
-                    $scope.deposit.maxValue = $scope.deposit.max.xpay;
-                    $scope.stateEmpty = !1;
-                    $scope.stateOrder = !0;
-                  }
-                } else {
-                  $scope.deposit.method = "moneypay";
-                  $scope.deposit.amount = result.Data.DepositAmount;
-                  $scope.deposit.orderSerial = result.Data.TransactionNumber;
-                  var t = 108e5;
-                  switch ($scope.deposit.method) {
-                    case "moneypay":
-                      t = 36e4;
-                  }
-                  var a = Math.floor((Date.parse(result.Data.StartTransactionTime) + t - Date.parse(result.Data.DBTime)) / 1e3);
-                  $scope.orderValidTime = {
-                    time: a + 1
-                  };
-                  $scope.orderCountingDown();
-                  $scope.stateCheck = !1;
-                  $scope.stateOrder = !1;
-                  $scope.stateConfirm = !0;
-                }
-              $scope.showLoading = !1;
-            });
-          }
-          if($scope.paymentAgentID() !== "PA00004") {
-            $scope.deposit.bankList = bankService.getPayment($scope.paymentAgentID(), "deposit");
-            $scope.deposit.minValue = $scope.deposit.min.xpay;
-            $scope.deposit.maxValue = $scope.deposit.max.xpay;
-            $scope.stateEmpty = !1;
-            $scope.stateOrder = !0;
-          }
-        } else {
-          CashFlowService.call("GetLastDepositOrder", {}, function(result) {
-            if (result.Success) {
-              if (0 === result.Result.length) {
-                switch ($scope.deposit.method) {
-                  case "online":
-                  case "transfer":
-                  case "cash":
-                    $scope.deposit.bankList = bankService.getPayment($scope.paymentAgentID(), $scope.deposit.method);
-                    if($scope.deposit.bankList.length > 0) {
-                      $scope.deposit.bankGUID = $scope.deposit.bankList[0].GUID;
-                    }
-                    if($scope.deposit.method !== 'online') {
-                      $scope.deposit.bankListLimit = $scope.deposit.bankList.length;
-                      $scope.deposit.getDepositPayWay();
-                    } else {
-                      $scope.deposit.bankListLimit = 3;
-                      $scope.deposit.getFavorite();
-                    }
-                    break;
-                  case "dcard":
-                    $scope.deposit.getDCardInfo()
-                }
-                $scope.deposit.minValue = $scope.deposit.min[$scope.deposit.method];
-                $scope.deposit.maxValue = $scope.deposit.max[$scope.deposit.method];
-                $scope.stateCheck = !1;
-                $scope.stateOrder = !0;
-              } else {
-                var t = result.Result[0];
-                $scope.deposit.method = C[t.PaymentMethodID];
-                $scope.deposit.amount = t.SuggestAmount;
-                $scope.deposit.orderSerial = t.TransactionNumber;
-                var a = 108e5;
-                switch ($scope.deposit.method) {
-                  case "online":
-                  case "quick":
-                    a = 12e5;
-                    break;
-                  case "bao":
-                  case "wechat":
-                    $scope.deposit.ReturnURL = t.ReturnURL;
-                    a = 3e5;
-                    break;
-                  case "transfer":
-                  case "cash":
-                    $scope.deposit.cardOwnerName = t.CardUserName;
-                    $scope.deposit.bank = t.UserBankName;
-                    $scope.deposit.bankAccount = t.CardNumber;
-                    $scope.deposit.branchFullName = t.CardPro + t.CardCity + t.BranchBankName
-                }
-                var o = Math.floor((Date.parse(t.CreateTime) + a - Date.parse(t.DBSysTime)) / 1e3);
-                $scope.orderValidTime = {
-                  time: o + 1
-                };
-                $scope.orderCountingDown();
-                $scope.stateCheck = !1;
-                $scope.stateOrder = !1;
-                $scope.stateConfirm = !0
-              }
-              $scope.showLoading = !1;
+        switch ($scope.deposit.method) {
+          case "online":
+          case "transfer":
+          case "cash":
+            if($scope.deposit.bankList.length > 0) {
+              $scope.deposit.bankID = $scope.deposit.bankList[0].payment_method_id;
             }
-          });
+            if($scope.deposit.method !== 'online') {
+              $scope.deposit.bankListLimit = $scope.deposit.bankList.length;
+              $scope.deposit.getDepositPayWay();
+            } else {
+              $scope.deposit.bankListLimit = 3;
+            }
+            break;
         }
+        $scope.deposit.minValue = $scope.deposit.min[$scope.deposit.method];
+        $scope.deposit.maxValue = $scope.deposit.max[$scope.deposit.method];
+        $scope.stateCheck = false;
+        $scope.stateOrder = true;
+
+        $scope.showLoading = false;
+
+        // 以下为存在未完成的存款订单
+        // CashFlowService.call("GetLastDepositOrder", {}, function(result) {
+        //   if (result.Success) {
+        //     if (0 === result.Result.length) {
+        //       // 首次存款
+        //     } else {
+        //       var t = result.Result[0];
+        //       $scope.deposit.method = C[t.PaymentMethodID];
+        //       $scope.deposit.amount = t.SuggestAmount;
+        //       $scope.deposit.orderSerial = t.TransactionNumber;
+        //       var a = 108e5;
+        //       switch ($scope.deposit.method) {
+        //         case "online":
+        //         case "quick":
+        //           a = 12e5;
+        //           break;
+        //         case "bao":
+        //         case "wechat":
+        //           $scope.deposit.ReturnURL = t.ReturnURL;
+        //           a = 3e5;
+        //           break;
+        //         case "transfer":
+        //         case "cash":
+        //           $scope.deposit.cardOwnerName = t.CardUserName;
+        //           $scope.deposit.bank = t.UserBankName;
+        //           $scope.deposit.bankAccount = t.CardNumber;
+        //           $scope.deposit.branchFullName = t.CardPro + t.CardCity + t.BranchBankName
+        //       }
+        //       var o = Math.floor((Date.parse(t.CreateTime) + a - Date.parse(t.DBSysTime)) / 1e3);
+        //       $scope.orderValidTime = {
+        //         time: o + 1
+        //       };
+        //       $scope.orderCountingDown();
+        //       $scope.stateCheck = !1;
+        //       $scope.stateOrder = !1;
+        //       $scope.stateConfirm = !0
+        //     }
+        //     $scope.showLoading = !1;
+        //   }
+        // });
       },
       openReturnUrl: function() {
         $window.open($scope.deposit.ReturnURL, "_blank");
       },
       changeBank: function(e) {
-        $scope.deposit.bankGUID = e.GUID;
+        $scope.deposit.bankID = e.payment_method_id;
         if(!("transfer" !== $scope.deposit.method && "cash" !== $scope.deposit.method)) {
           $scope.deposit.payWayList = [];
           delete $scope.deposit.payWay;
