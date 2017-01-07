@@ -526,10 +526,10 @@ angular.module('ciApp').factory('appServices', ['$state', '$rootScope', 'VERSION
     s[e] = {};
   });
   var d = [];
-  e.call("Get_Online_Bank", {}, function(t) {
-    if(t.Success) {
-      angular.forEach(t.Result, function(e) {
-        a[e.payment_method_id] = e;
+  e.call("Get_Online_Bank", {}, function(res) {
+    if(res.Success) {
+      a = res.Result;
+      angular.forEach(res.Result, function(e) {
         r[e.BankName] = e.bank_name;
       });
     }

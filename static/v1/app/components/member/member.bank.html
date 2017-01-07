@@ -18,12 +18,12 @@
             <div class="col-12">
                 <div class="vw-ck-tab">
                     <ul class="mya_declassul">
-                        <li class="mya_depost tab_nav" ng-class="{'active':method === 'deposit'}" ng-click="clickDeposit()">
+                        <li class="mya_depost tab_nav" ng-class="{'active':method === 'deposit'}" ng-click="clickTab('deposit')">
                             <a>
                                 {{'member_bank@deposit' | translate}}
                             </a>
                         </li>
-                        <li class="mya_dedraw tab_nav" ng-class="{'active':method === 'withdraw'}" ng-click="clickWithdraw()">
+                        <li class="mya_dedraw tab_nav" ng-class="{'active':method === 'withdraw'}" ng-click="clickTab('withdraw')">
                             <a>
                                 {{'member_bank@withdraw' | translate}}
                             </a>

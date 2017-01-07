@@ -3778,15 +3778,6 @@ dl.view .vw-mbox-hd {
     margin-top: -1px
 }
 
-.vw-ck .yellowBg .mya_dechbank {
-    background: #fffcec;
-    border: 1px solid #ffe6b5
-}
-
-.vw-ck .yellowBg .mya_dechbank h5 {
-    color: #b33234
-}
-
 .vw-ck .mya_dechbank {
     padding: 11px 2.8% 0;
     margin-top: -18px;
@@ -3808,20 +3799,26 @@ dl.view .vw-mbox-hd {
 
 .vw-ck .mya_dechbankcy ul li {
     position: relative;
-    margin: 0 0 11px 3%;
+    margin: 0 3% 11px 0;
     width: 135px;
-    border: 1px solid #b33234;
-    background: #fff
 }
 
-.vw-ck .mya_dechbankcy ul li span.ibank_more {
+.vw-ck .mya_dechbankcy span {
+    display: block;
+    width: 133px;
     height: 35px;
     line-height: 35px;
     color: #999;
     font-size: 13px;
     text-align: center;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTZFRUQ1NzE2RDZBMTFFNTg1MDdCMjJGQzdDNTY1MjUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTZFRUQ1NzI2RDZBMTFFNTg1MDdCMjJGQzdDNTY1MjUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5NkVFRDU2RjZENkExMUU1ODUwN0IyMkZDN0M1NjUyNSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5NkVFRDU3MDZENkExMUU1ODUwN0IyMkZDN0M1NjUyNSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PohUo0IAAAAqSURBVHjaYpw5cyYDFvAfSjOiSzAxkAgGoQYWJA/i8zxlNjCOtGAFCDAA1wAF5hcSbq0AAAAASUVORK5CYII=) 15px center no-repeat #e9e9e9!important;
-    border: 1px solid #e2e2e2!important
+    background: #e9e9e9;
+    border: 1px solid #e2e2e2;
+}
+.vw-ck .mya_dechbankcy > span {
+    background: none;
+    float: left;
+    border: none;
+    width: 80px;
 }
 
 .vw-ck .mya_dechbankcy ul li i {
@@ -3832,14 +3829,6 @@ dl.view .vw-mbox-hd {
     width: 17px;
     height: 18px;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAASCAYAAAC9+TVUAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjYxNUUxQ0I2NjhDMTFFNTg2NDU4MUU0QkY2QzYzQzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjYxNUUxQ0M2NjhDMTFFNTg2NDU4MUU0QkY2QzYzQzEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2NjE1RTFDOTY2OEMxMUU1ODY0NTgxRTRCRjZDNjNDMSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2NjE1RTFDQTY2OEMxMUU1ODY0NTgxRTRCRjZDNjNDMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkM8qMkAAAFASURBVHjaYtlsZMJAIfjPRKkBIIKJUgMoMeQ/MoeJUgPIMeQ/NkEmSg0AARZsgj5nT6Pwtxib/sdnOkGX4DKAQ1SUQdTCArdLCBnAJijIYDF9KgOXjAzDyZw83C7BaYCAAIPljGkMPIqKDF8fPmT4fOcOdkNwGcDCw8NgPnUyA6+KCsPne/cZjmdkMfz68AGrIZCkzMrKoFtZwcAhLgY3wAJoAL+GBtAFjxhOZAINeP8ea8DCXaCekc4gHxLMYDl9OgOXtBSD2YQ+BgEdHYavjx8zHM/MZPj55g1cEyNSLkbxAisfH9Dv0xn41NUY/v/5w8DIwsLw7dlzhuOpaQzfX7zAGsUYYfD70yeGE9k54IADGfDj5SuGExmZGAbADMGZkEB+PpGZzfDm5CmG4+kZDN+ePsWqDuSd/5SWSgABBgDA6m14BMOfrQAAAABJRU5ErkJggg==)
-}
-
-.vw-ck .mya_dechbankcy ul li span {
-    display: block;
-    width: auto;
-    border: 1px solid #dfdfdf;
-    background-position: center center!important;
-    background-size: contain!important
 }
 
 .vw-ck .mya_dechbankcy ul li.active i {
