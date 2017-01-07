@@ -144,7 +144,7 @@ class base_pay extends Base_Model{
 	 */
 	public function getOnlinePay($user_id=false){
 		$sql = "SELECT  
-					g.merchant AS title,
+					distinct g.merchant AS title,
 					m.payment_method_id
 					FROM  payment_group AS g 
 					INNER JOIN payment_method AS m 
@@ -161,7 +161,7 @@ class base_pay extends Base_Model{
 	public function getAliPay($user_id=false){
 
 		$sql = "SELECT  
-					g.merchant AS title,
+					distinct g.merchant AS title,
 					m.payment_method_id
 					FROM  payment_group AS g 
 					INNER JOIN payment_method AS m 
@@ -178,7 +178,7 @@ class base_pay extends Base_Model{
 	public function getWechatPay($user_id=false){
 
 		$sql = "SELECT  
-					g.merchant AS title,
+					distinct g.merchant AS title,
 					m.payment_method_id
 					FROM  payment_group AS g 
 					INNER JOIN payment_method AS m 
@@ -196,7 +196,7 @@ class base_pay extends Base_Model{
 	public function getTransferPay($user_id=false){
 		
 		$sql = "SELECT  
-					g.merchant AS title,
+					distinct g.merchant AS title,
 					m.title AS bank_address,
 					m.secret_key AS account_no,
 					m.company_id AS name,
