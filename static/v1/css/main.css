@@ -7586,7 +7586,7 @@ div.fm3 {
 }
 
 .btn-disable,.btn-disable:hover {
-    background: #b1b1b1
+    background: #b1b1b1 !important;
 }
 
 .btn-disable {

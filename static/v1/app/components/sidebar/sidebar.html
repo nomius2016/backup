@@ -132,14 +132,14 @@
                     <div class="vw-zz-cnt">
                         <div class="vw-slt">
                             <div class="thema-a">
-                                <select class="ui-select" ng-model="from" ng-options="item.code as item.name for item in platforms" required>
+                                <select class="ui-select" ng-model="from" ng-options="item.gaming_id as item.name for item in platforms" required ng-change="transferChange()">
                                     <option value="" disabled>{{'sidebar@select_account_from' | translate}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="vw-slt">
                             <div class="thema-a">
-                                <select class="ui-select" ng-model="to" ng-options="item.code as item.name for item in platforms" required>
+                                <select class="ui-select" ng-model="to" ng-options="item.gaming_id as item.name for item in platforms" required ng-change="transferChange()">
                                     <option value="" disabled>{{'sidebar@select_account_to' | translate}}</option>
                                 </select>
                             </div>
@@ -151,8 +151,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="javascript://" class="vw-button vw-btn2 btnTransfer" ng-click="transfer()" ng-class="{'btn-disable': !from || !to || !transferAmount || from == to}">{{'sidebar@transfer' | translate}}</a>
-                        <a href="javascript://" class="vw-button vw-btn2 dropUp" style="display:none;">{{'sidebar@transfer' | translate}}</a>
+                        <a href="javascript:;" class="vw-button vw-btn2 btnTransfer" ng-click="transfer()" ng-class="{'btn-disable': !from || !to || !transferAmount || from == to || !transferValid}">{{'sidebar@transfer' | translate}}</a>
+                        <a href="javascript:;" class="vw-button vw-btn2 dropUp" style="display:none;">{{'sidebar@go_transfer' | translate}}</a>
                         <div class="errormsg errormsgBank" style="display: none;"></div>
                     </div>
                 </div>

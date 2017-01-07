@@ -5,7 +5,7 @@ angular.module('requesterModule').factory('PlatformService', ['ZeusService', fun
     PlayGame: route_Game,
     Balance: route,
     PlatformList_Get: route,
-    Transfer: route_Game,
+    Transfer: 'Transfer',
     Platform_History_Funds_Get: route,
     MainAccount_History_Funds_Get: route,
     History_FundTransferLog_Get: route,
@@ -22,6 +22,9 @@ angular.module('requesterModule').factory('PlatformService', ['ZeusService', fun
         if (action == 'PlatformList_Get') {
           route = 'publicapi'
           action = 'getmaingames'
+        }
+        if(action == 'Transfer') {
+          action = 'index';
         }
         return ZeusService.call([route, action], data, callback);
       } else {

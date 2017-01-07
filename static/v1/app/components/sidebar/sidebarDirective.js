@@ -1,4 +1,4 @@
-angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageService", "appServices", "AccountService", "SecurityService", "PlatformService", "BonusService", "Config", "Storage", "App", function(e, t, a, n, o, s, PlatformService, r, l, u, c) {
+angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageService", "appServices", "AccountService", "SecurityService", "PlatformService", "BonusService", "Config", "Storage", "App", '$filter', function(e, t, a, n, o, s, PlatformService, r, l, u, c, $filter) {
   return {
     templateUrl: "/static/v1/app/components/sidebar/sidebar.html",
     restrict: "A",
@@ -129,6 +129,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
       $scope.from = "";
       $scope.to = "";
       $scope.transferAmount = "";
+      $scope.transferValid = false;
       $scope.total = 0;
       $scope.totalWithdrawal = 0;
       $scope.popMessage = null;
@@ -188,16 +189,30 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
         var a = "member." + t;
         e.go(a)
       };
+      $scope.transferChange = function() {
+        // 第三方钱包之前不可以转账
+        if($scope.from && $scope.to) {
+          if ($scope.from == $scope.to) {
+            $(".errormsgBank").text($filter('translate')('sidebar@transfer_error_1')).show();
+            $scope.transferValid = false;
+          } else if ($scope.from == '10000' || $scope.to == '10000') {
+            $scope.transferValid = true;
+            $(".errormsgBank").text("").hide();
+          } else {
+            $(".errormsgBank").text($filter('translate')('sidebar@transfer_error_2')).show();
+            $scope.transferValid = false;
+          }
+        }
+      };
       $scope.transfer = function() {
         if (!$scope.inProcess && $scope.from && $scope.to && $scope.transferAmount && $scope.from != $scope.to) {
           $scope.inProcess = !0;
-          var e = {
-            PlatformCode: $scope.from,
-            From: $scope.from,
-            To: $scope.to,
-            TransferAmount: parseInt($scope.transferAmount)
+          var data = {
+            gaming_id: $scope.from == '10000' ? $scope.to : $scope.from,
+            io: $scope.from == '10000' ? 0 : 1,
+            amount: parseInt($scope.transferAmount)
           };
-          PlatformService.call("Transfer", e, function(e) {
+          PlatformService.call("Transfer", data, function(e) {
             e.Success ? (n.showAlertMsg("popup_alert@title_dear_user", "popup_alert@title_success"), D()) : n.showAlertMsg("popup_alert@title_fail", e.Message), $scope.inProcess = !1, $scope.from = "", $scope.to = "", $scope.transferAmount = ""
           })
         }
