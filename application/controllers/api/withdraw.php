@@ -8,34 +8,39 @@ class Withdraw extends Basecontroller {
 	}
 	
 	public function apply() {
-	    //先临时返回成功. 下面的逻辑貌似有问题
 	    $ret = array();
 	    //$ret['code'] = 1;
 	    //$this->teamapi($ret);
 
 	    if ($this->user_id>0){
 	        $p = $this->getApiParams();
+	        $p['amount'] *= 1000;
+	        
 	        $aRestrict = $this->users->restrict($this->user_id);
 	        $aUser     = $this->users->getUserInfo($this->user_id);
+
 	        if ($aUser['user_id']<1) {
 	            $ret = array('code'=>-1);
 	        } else if ($aUser['balance']<$p['amount']) {
 	            $ret = array('code'=>-1010);
-	        } else if ($p['amount'] < $aRestrict['withdraw_min']) {
+	        } else if ($p['amount'] < $aRestrict['withdrawal_min']) {
 	            $ret = array('code'=>-1011);
-    	    } else if ($p['amount'] > $aRestrict['withdraw_max']) {
+    	    } else if ($p['amount'] > $aRestrict['withdrawal_max']) {
 	            $ret = array('code'=>-1012);
-    	    } else if ($this->fund_withdraw->todayTotal($this->user_id)>$aRestrict['withdraw_day_max']) {
+    	    } else if ($this->fund_withdraw->todayTotal($this->user_id)>$aRestrict['withdrawal_day_max']) {
 	            $ret = array('code'=>-1013);
     	    } else if ($aUser['fund_password']!=$p['fund_password']) {
 	            $ret = array('code'=>-1003);
     	    } else {
     	        
     	        try {
+    	            $this->load->model('transation');
+    	            
     	            $this->db->trans_begin();
     	             
 	                $aField = array();
 	                $aField['user_id'] = $this->user_id;
+	                $aField['user_card_id'] = $p['user_card_id'];
 	                $aField['amount']  = $p['amount'];
 	                $aField['remark']  = '用户申请提现';
 	                $aField['status']  = 0;
@@ -45,7 +50,7 @@ class Withdraw extends Basecontroller {
 	                    throw new Exception('failed to insert withdraw ',10002);
 	                }
     	             
-    	            $aStatus = $this->transation->make($p['user_id'],$p['transfer_type_id'],$p['amount']*1000,0,$iAdminID,$p['remark']);
+    	            $aStatus = $this->transation->make($this->user_id,2,$p['amount'],0,0,$aField['remark']);
     	            // $aRS['balance'] = $this->f($aStatus['balance']);
     	            // $aRS['balance_locked'] = $this->f($aStatus['balance_locked']);
     	            //////////////////////////////
@@ -53,6 +58,7 @@ class Withdraw extends Basecontroller {
     	            
     	            $ret = array('code'=>1);
     	        } catch (Exception $e) {
+    	            echo $e->getMessage();
     	            $this->db->trans_rollback();
     	            $ret = array('code'=>-2);
     	        }
