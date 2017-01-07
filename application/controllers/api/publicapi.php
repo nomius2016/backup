@@ -27,7 +27,7 @@ class publicapi extends Basecontroller {
 
 		$data = array();
 		$data[] = array(
-				'gaming_id'=>0,
+				'gaming_id'=> 10000,
 				'code'=>'CENTER',
 				'name'=>'主账户',
 				'status'=>1, 

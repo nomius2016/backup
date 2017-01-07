@@ -10,8 +10,8 @@ class Withdraw extends Basecontroller {
 	public function apply() {
 	    //先临时返回成功. 下面的逻辑貌似有问题
 	    $ret = array();
-	    $ret['code'] = 1;
-	    $this->teamapi($ret);
+	    //$ret['code'] = 1;
+	    //$this->teamapi($ret);
 
 	    if ($this->user_id>0){
 	        $p = $this->getApiParams();
@@ -56,7 +56,6 @@ class Withdraw extends Basecontroller {
     	            $this->db->trans_rollback();
     	            $ret = array('code'=>-2);
     	        }
-    	        
     	    }
 	        
 	    } else {
