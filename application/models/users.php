@@ -131,6 +131,9 @@ class Users extends Base_Model{
 	 */
 	public function restrict(int $userid,$field='') {
 	    $aRestrict = $this->db->from('user_restrict')->where('user_id', $userid)->get()->row_array();
+	    if ($aRestrict['user_id']<1) {
+	        $this->db->from('user_restrict')->set('user_id',$userid)->insert();
+	    }
 	    if (!$aRestrict['extra']) {
 	        $aRestrict['extra'] = '[]';
 	    }
