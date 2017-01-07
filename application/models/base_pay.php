@@ -149,7 +149,7 @@ class base_pay extends Base_Model{
 					FROM  payment_group AS g 
 					INNER JOIN payment_method AS m 
 					on g.payment_group_id = m.payment_group_id 
-					WHERE g.type = 1 and g.`status` = 1 and m.`status` = 1 GROUP BY g.merchant";
+					WHERE g.type = 1 and g.`status` = 1 and m.`status` = 1";
 
 		return $this->querySql($sql);
 	}
@@ -166,7 +166,7 @@ class base_pay extends Base_Model{
 					FROM  payment_group AS g 
 					INNER JOIN payment_method AS m 
 					on g.payment_group_id = m.payment_group_id 
-					WHERE g.type = 3 and g.`status` = 1 and m.`status` = 1 GROUP BY g.merchant";
+					WHERE g.type = 3 and g.`status` = 1 and m.`status` = 1";
 
 		return $this->querySql($sql);
 	}
@@ -183,7 +183,7 @@ class base_pay extends Base_Model{
 					FROM  payment_group AS g 
 					INNER JOIN payment_method AS m 
 					on g.payment_group_id = m.payment_group_id 
-					WHERE g.type = 2 and g.`status` = 1 and m.`status` = 1 GROUP BY g.merchant";
+					WHERE g.type = 2 and g.`status` = 1 and m.`status` = 1";
 
 		return $this->querySql($sql);
 	}
@@ -204,7 +204,7 @@ class base_pay extends Base_Model{
 					FROM  payment_group AS g 
 					INNER JOIN payment_method AS m 
 					on g.payment_group_id = m.payment_group_id 
-					WHERE g.type = 4 and g.`status` = 1 and m.`status` = 1 GROUP BY g.merchant";
+					WHERE g.type = 4 and g.`status` = 1 and m.`status` = 1";
 
 		return $this->querySql($sql);
 	}
