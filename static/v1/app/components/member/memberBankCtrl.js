@@ -1,5 +1,5 @@
 angular.module('ciApp')
-  .controller('memberBankCtrl', ['$scope', '$stateParams', '$state', '$timeout', 'appServices', 'Container', 'bankService', '$filter', '$window', 'CashFlowService', 'BRAND_ID', 'SecurityService', 'AccountService', '$q', 'Config', function($scope, $stateParams, $state, $timeout, appServices, Container, bankService, $filter, $window, CashFlowService, BRAND_ID, SecurityService, AccountService, $q, Config) {
+  .controller('memberBankCtrl', ['$scope', '$stateParams', '$state', '$timeout', 'appServices', 'Container', 'bankService', '$filter', '$window', 'CashFlowService', 'BRAND_ID', 'SecurityService', 'AccountService', '$q', 'Config', 'md5', function($scope, $stateParams, $state, $timeout, appServices, Container, bankService, $filter, $window, CashFlowService, BRAND_ID, SecurityService, AccountService, $q, Config, md5) {
     function w(e) {
       for (var t = $scope.deposit.bankList.length, a = 0; a < t; a++)
         if ($scope.deposit.bankList[a].GUID === e) return $scope.deposit.bankList[a]
@@ -93,7 +93,7 @@ angular.module('ciApp')
         data.amount = $scope.deposit.amount;
         data.pay_method_id = $scope.deposit.bankID;
         $scope.showLoading = !0;
-        CashFlowService.call("Apply", data, function(result) {
+        CashFlowService.call("Deposit", data, function(result) {
           if (result.Success) {
             if ("online" === $scope.deposit.method) {
               win.location.href = result.Result[0].url;
@@ -190,7 +190,7 @@ angular.module('ciApp')
       max: {},
       method: y(),
       dailyLimit: 0,
-      favoriteCards: [],
+      bindCards: [],
       needPassword: !0,
       init: function() {
         appServices.scrollAnchor("#vw-ck");
@@ -223,21 +223,14 @@ angular.module('ciApp')
             $scope.withdrawValid = result.Result[0].fund_password_setted;
             if ($scope.nameValid && $scope.withdrawValid) {
               $scope.withdraw.bankList = bankService.getBankList();
-              $scope.withdraw.randomPasswordDigit();
               $scope.stateEmpty = !1;
               $scope.stateCheck = !1;
               $scope.stateOrder = !0;
               $scope.showLoading = !0;
-              CashFlowService.call("GetWithdrawalBindCard", {}, function(e) {
+              CashFlowService.call("GetUserWithdrawalCards", {}, function(e) {
                 if (e.Success) {
                   var t = e.Result;
-                  $scope.withdraw.favoriteCards = t;
-                  if (t.length > 0) {
-                    $scope.withdraw.selectCard = t[0]
-                  } else {
-                    $scope.withdraw.selectCard = "other";
-                  }
-                  $scope.withdraw.changeCard();
+                  $scope.withdraw.bindCards = t;
                 }
                 $scope.showLoading = !1;
               });
@@ -255,89 +248,19 @@ angular.module('ciApp')
         $scope.withdraw.method = method;
         $scope.withdraw.init();
       },
-      generatePaasword: function() {
-        var password = "";
-        angular.forEach($scope.passwordSet, function(item) {
-            if (!item.isEmpty && item.enable) {
-                password = password + item.position + item.value;
-            }
-        });
-        $scope.password = password;
-        $scope.passwordValid = password.length === 6;
+      changeCard: function(selectCard) {
+        console.log(selectCard)
+          $scope.withdraw.cardNumber = selectCard.account_no;
+          $scope.updateCard($scope.withdraw.cardNumber);
       },
-      deleteCard: function(e) {
-        $scope.showLoading = !0;
-        CashFlowService.call("DeleteBankCard", {
-          CashCardNumber: e.CashCardNumber
-        }, function(e) {
-          if(e.Success) {
-            $scope[$scope.method].init();
-          }
-          $scope.showLoading = !1;
-        });
-      },
-      changeCard: function() {
-        if($scope.withdraw.selectCard !== undefined) {
-          if("other" === $scope.withdraw.selectCard) {
-            if($scope.withdraw.favoriteCards.length >= 3) {
-              i.showAlertMsg("popup_alert@title_message", "popup_alert@content_withdraw_card_full");
-              $scope.withdraw.selectCard = $scope.withdraw.favoriteCards[0];
-              $scope.withdraw.changeCard();
-              $scope.withdraw.needPassword = !1;
-            } else {
-              $scope.withdraw.cardNumber = "";
-              $scope.updateCard($scope.withdraw.cardNumber);
-              $scope.withdraw.oldCard = !1;
-              $scope.withdraw.needPassword = !0;
-            }
-          } else {
-            $scope.withdraw.cardNumber = $scope.withdraw.selectCard.CashCardNumber;
-            $scope.updateCard($scope.withdraw.cardNumber);
-            $scope.withdraw.oldCard = !0;
-            $scope.withdraw.needPassword = !1;
-          }
-        }
-      },
-      randomPasswordDigit: function() {
-        $scope.withdraw.passwordSet = [];
-        for (var e = 0; e < 8; e++) {
-          var t = {
-            enable: !1,
-            focus: !1,
-            value: "",
-            isEmpty: !1,
-            position: e + 1
-          };
-          $scope.withdraw.passwordSet.push(t);
-        }
-        $scope.withdraw.passwordSet[0].enable = !0;
-        $scope.withdraw.passwordSet[1].enable = !0;
-        $scope.withdraw.passwordSet[5].isEmpty = !0;
-        $scope.withdraw.passwordSet[5].position = -1;
-        $scope.withdraw.passwordSet[6].position = 6;
-        $scope.withdraw.passwordSet[7].position = 7;
-        for (var e = 0; e < 100; e++) {
-          var a = Math.floor(4 * Math.random());
-          var o = Math.floor(4 * Math.random());
-          if (a != o) {
-            var i = $scope.withdraw.passwordSet[a].enable;
-            $scope.withdraw.passwordSet[a].enable = $scope.withdraw.passwordSet[o].enable;
-            $scope.withdraw.passwordSet[o].enable = i;
-          }
-          $scope.withdraw.passwordSet[6].enable = Math.random() < .5;
-          $scope.withdraw.passwordSet[7].enable = !$scope.withdraw.passwordSet[6].enable;
-        }
-      },
-      createOrder: function(e, t) {
+      createOrder: function(selectCard, fundPassword, amount) {
         if (!$scope.inProcess) {
           $scope.inProcess = !0;
-          var a = {};
-          a.CashCardNumber = e;
-          a.WithdrawAmount = t;
-          if($scope.withdraw.needPassword) {
-            a.WithdrawPwd = $scope.withdraw.password;
-          }
-          CashFlowService.call("Withdraw", a, function(e) {
+          var data = {};
+          data.user_card_id = selectCard.id;
+          data.fund_password = md5.createHash(fundPassword);
+          data.amount = amount;
+          CashFlowService.call("Withdraw", data, function(e) {
             if(e.Success) {
               $scope.stateOrder = !1;
               $scope.stateResult = !0;
@@ -345,54 +268,6 @@ angular.module('ciApp')
             } else {
               appServices.showAlertMsg("popup_alert@title_fail", e.Message);
             }
-            $scope.inProcess = !1;
-          });
-        }
-      },
-      createXOrder: function(e) {
-        if (!$scope.inProcess) {
-          $scope.inProcess = !0;
-          var t = {};
-          t.CashBankName = $scope.withdraw.bankName;
-          t.BankDetail = $scope.withdraw.branch;
-          t.CashBankPro = $scope.withdraw.province;
-          t.CashBankCity = $scope.withdraw.city;
-          t.CashCardNumber = $scope.withdraw.account;
-          t.WithdrawAmount = e;
-          t.WithdrawPwd = $scope.withdraw.password;
-          $scope.showLoading = !0;
-          CashFlowService.call("XWithdraw", t, function(e) {
-            if(e.Success) {
-              $scope.stateOrder = !1;
-              $scope.stateResult = !0;
-              $scope.countingDown(10);
-            } else {
-              appServices.showAlertMsg("popup_alert@title_fail", e.Message);
-            }
-            $scope.showLoading = !1;
-            $scope.inProcess = !1;
-          });
-        }
-      },
-      createMoneyPayOrder: function(e) {
-        if (!$scope.inProcess) {
-          $scope.inProcess = !0;
-          var t = {};
-          t.UserBankName = $scope.withdraw.bankName;
-          t.BankAccountNumber = $scope.withdraw.account;
-          t.WithdrawPwd = $scope.withdraw.password;
-          t.WithdrawAmount = e;
-          t.Method = $scope.withdraw.method;
-          t.PaymentMethodID = k[$scope.withdraw.method];
-          CashFlowService.call("PayBank/Withdrawal", t, function(e) {
-            if(e.Success) {
-              $scope.stateOrder = !1;
-              $scope.stateResult = !0;
-              $scope.countingDown(10);
-            } else {
-              appServices.showAlertMsg("popup_alert@title_fail", e.Message);
-            }
-            $scope.showLoading = !1;
             $scope.inProcess = !1;
           });
         }
@@ -445,7 +320,7 @@ angular.module('ciApp')
       timer = $timeout($scope.orderCountingDown, 1000);
     };
     $scope.updateCard = function(card) {
-      $scope.cardNumberFix = card.replace(/\s/g, "").replace(/(\d{4})/g, "$1 ");
+      $scope.cardNumFix = card.replace(/\s/g, "").replace(/(\d{4})/g, "$1 ");
     };
     $scope.checkComplete = function() {
       if (bankService.isComplete()) {
