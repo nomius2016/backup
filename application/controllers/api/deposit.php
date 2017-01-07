@@ -102,10 +102,10 @@ class Deposit extends Basecontroller {
 				array('payment_method_id'=>2,'title'=>'顺丰在线支付'),
 			);
 		$data['transfer'] = array(
-				array('payment_method_id'=>3,'bank_name'=>'工商银行','bank_address'=>'中国工商银行福建支行','account_no'=>'6222084402005312441','name'=>'张三'),
-				array('payment_method_id'=>4,'bank_name'=>'招商银行','bank_address'=>'中国招商银行福建支行','account_no'=>'6222084402005312442','name'=>'李四'),
-				array('payment_method_id'=>5,'bank_name'=>'中国银行','bank_address'=>'中国银行福建支行','account_no'=>'6222084402005312443','name'=>'王麻子'),
-				array('payment_method_id'=>6,'bank_name'=>'建设银行','bank_address'=>'中国建设银行福建支行','account_no'=>'6222084402005312444','name'=>'吴广'),
+				array('payment_method_id'=>3,'title'=>'工商银行','bank_address'=>'中国工商银行福建支行','account_no'=>'6222084402005312441','name'=>'张三'),
+				array('payment_method_id'=>4,'title'=>'招商银行','bank_address'=>'中国招商银行福建支行','account_no'=>'6222084402005312442','name'=>'李四'),
+				array('payment_method_id'=>5,'title'=>'中国银行','bank_address'=>'中国银行福建支行','account_no'=>'6222084402005312443','name'=>'王麻子'),
+				array('payment_method_id'=>6,'title'=>'建设银行','bank_address'=>'中国建设银行福建支行','account_no'=>'6222084402005312444','name'=>'吴广'),
 				
 			);
 		$data['alipay'] = array(
