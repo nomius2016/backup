@@ -655,7 +655,7 @@
     "member_bank_deposit@single_limit": "单笔限额",
     "member_bank_deposit@submit": "提交",
     "member_bank_deposit@submit_success": "提交成功",
-    "member_bank_deposit@transfer_payment": "网银转帐",
+    "member_bank_deposit@transfer_payment": "银行转帐",
     "member_bank_deposit@wechat_payment": "微信转帐",
     "member_bank_deposit@wechat_wallet_download": "微信支付下载",
     "member_bank_deposit@xpay_payment": "Bank Transfer",
