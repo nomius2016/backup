@@ -184,8 +184,6 @@ angular.module('ciApp')
       }
     };
     $scope.withdraw = {
-      XPayActive: Config.XPayActive,
-      MoneyPayActive: v(),
       minValue: 0,
       maxValue: 0,
       min: {},
@@ -212,32 +210,23 @@ angular.module('ciApp')
         $scope.withdraw.check();
       },
       check: function() {
-        var e = [AccountService.call("MainAccount_ReAccountName_Check", {}), SecurityService.call("MainAccount_Auth_Get", {})];
         $scope.showLoading = !0;
-        $q.all(e).then(function(e) {
-          $scope.showLoading = !1;
-          var t = e[0].data;
-          var a = e[1].data;
-          $scope.nameValid = !t.Success;
-          if (!$scope.nameValid) {
-            delete $scope.withdraw.firstName;
-            delete $scope.withdraw.middleName;
-            delete $scope.withdraw.lastName;
-            if ($scope.currencyID === 2) {
-              $scope.withdraw.middleName = "";
-              $scope.withdraw.lastName = "";
+        AccountService.call("MainAccount_Basicinfo_Get", {}, function(result) {
+          if (result.Success) {
+            if(result.Result[0].real_name) {
+              $scope.nameValid = true;
+            } else {
+              $scope.nameValid = false;
+              $scope.stateEmpty = false;
+              $scope.stateCheck = true;
             }
-          }
-          if (a && a.Result[0].WithdrawalPassword !== null) {
-            $scope.withdrawValid = !0
-          }
-          if ($scope.nameValid && $scope.withdrawValid) {
-            $scope.withdraw.bankList = bankService.getPayment($scope.paymentAgentID(), "withdraw");
-            $scope.withdraw.randomPasswordDigit();
-            $scope.stateEmpty = !1;
-            $scope.stateCheck = !1;
-            $scope.stateOrder = !0;
-            if ($scope.currencyID === 2) {
+            $scope.withdrawValid = result.Result[0].fund_password_setted;
+            if ($scope.nameValid && $scope.withdrawValid) {
+              $scope.withdraw.bankList = bankService.getBankList();
+              $scope.withdraw.randomPasswordDigit();
+              $scope.stateEmpty = !1;
+              $scope.stateCheck = !1;
+              $scope.stateOrder = !0;
               $scope.showLoading = !0;
               CashFlowService.call("GetWithdrawalBindCard", {}, function(e) {
                 if (e.Success) {
@@ -252,19 +241,14 @@ angular.module('ciApp')
                 }
                 $scope.showLoading = !1;
               });
-            }
-            if ("withdraw" === $scope.method && "moneypay" === $scope.withdraw.method) {
-              $scope.withdraw.minValue = $scope.withdraw.min.moneypay;
-              $scope.withdraw.maxValue = $scope.withdraw.max.moneypay;
             } else {
-              $scope.withdraw.minValue = $scope.withdraw.min.notmoneypay;
-              $scope.withdraw.maxValue = $scope.withdraw.max.notmoneypay;
-            }
-          } else {
-            $scope.stateEmpty = !1;
-            $scope.stateCheck = !0;
-            $scope.stateOrder = !1;
+              $scope.stateEmpty = !1;
+              $scope.stateCheck = !0;
+              $scope.stateOrder = !1;
+            }     
           }
+          $scope.deposit.getUncompleteOrder();
+          $scope.showLoading = !1;
         });
       },
       setMethod: function(method) {
@@ -462,7 +446,6 @@ angular.module('ciApp')
     };
     $scope.updateCard = function(card) {
       $scope.cardNumberFix = card.replace(/\s/g, "").replace(/(\d{4})/g, "$1 ");
-      $scope.cardBank = bankService.getImage(card);
     };
     $scope.checkComplete = function() {
       if (bankService.isComplete()) {
@@ -472,66 +455,6 @@ angular.module('ciApp')
       }
     };
     $scope.getAmountLimit = function() {
-      // CashFlowService.call("GetWebsiteSetting", {
-      //   IsBackEnd: 0
-      // }, function(result) {
-      //   if (result.Success) {
-      //     angular.forEach(result.Result, function(item) {
-      //       var min = item.MinValue;
-      //       var max = item.MaxValue;
-      //       switch (item.Name) {
-      //         case "DepositAmountAlipay":
-      //           $scope.deposit.min.bao = min;
-      //           $scope.deposit.max.bao = max;
-      //           break;
-      //         case "DepositAmountUnionPay":
-      //           $scope.deposit.min.quick = min;
-      //           $scope.deposit.max.quick = max;
-      //           break;
-      //         case "DepositAmountOnLine":
-      //           $scope.deposit.min.online = min;
-      //           $scope.deposit.max.online = max;
-      //           break;
-      //         case "DepositAmountWeixin":
-      //           $scope.deposit.min.wechat = min;
-      //           $scope.deposit.max.wechat = max;
-      //           break;
-      //         case "DepositAmountUnLine":
-      //           $scope.deposit.min.transfer = min;
-      //           $scope.deposit.max.transfer = max;
-      //           $scope.deposit.min.cash = min;
-      //           $scope.deposit.max.cash = max;
-      //           $scope.deposit.min.xpay = min;
-      //           $scope.deposit.max.xpay = max;
-      //           break;
-      //         case "WithdrawAmount":
-      //           $scope.withdraw.minValue = min;
-      //           $scope.withdraw.maxValue = max;
-      //           $scope.withdraw.min.notmoneypay = min;
-      //           $scope.withdraw.max.notmoneypay = max;
-      //           break;
-      //         case "DailyMaxWithdrawalAmount":
-      //           $scope.withdraw.dailyLimit = max;
-      //           break;
-      //         case "MoneyPayDepositMYR":
-      //         case "MoneyPayDepositVND":
-      //         case "MoneyPayDepositTHB":
-      //           $scope.deposit.min.moneypay = min;
-      //           $scope.deposit.max.moneypay = max;
-      //           break;
-      //         case "MoneyPayWithdrawalTHB":
-      //         case "MoneyPayWithdrawalVND":
-      //           $scope.withdraw.min.moneypay = min;
-      //           $scope.withdraw.max.moneypay = max;
-      //       }
-      //     });
-      //     if ("deposit" === $scope.method && null != $scope.way) {
-      //       $scope.deposit.setMethod($scope.way);
-      //     } else {
-      //       $scope[$scope.method].init();
-      //     }
-      //   }
-      // });
       $scope.withdraw.min.moneypay = 100;
       $scope.withdraw.max.moneypay = 50000;
       if ("deposit" === $scope.method && null != $scope.way) {

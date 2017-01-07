@@ -25,7 +25,7 @@
             <div class="mya_deonline tabCont">
               <!--資料頁-->
               <div class="mya_cnt" ng-if="stateOrder">
-                <!--请选择银行卡-->
+                <!--选择付款方式-->
                 <div class="mya_decheck">
                   <h4>
                       <i>1</i>
@@ -68,32 +68,10 @@
                     </div>
                   </div>
                 </div>
-                <!--选择付款方式-->
-                <div class="mya_decheck" ng-if="deposit.method === 'transfer' || deposit.method === 'cash'" style="min-height:unset;">
-                  <h4>
-                      <i>2</i>
-                      {{'member_bank_deposit@select_pay_way' | translate}}
-                  </h4>
-                  <div class="mya_decz">
-                    <div class="ui-check">
-                      <ul>
-                        <li ng-repeat="item in deposit.payWayList" ng-class="{'active': deposit.payWay === item}" ng-click="deposit.payWay = item">
-                          <span ng-bind="item.Name"></span>
-                          <i></i>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
 
                 <!--请输入存款金额-->
-                <div class="mya_decheck" ng-if="deposit.method !== 'dcard'">
-                  <h4>
-                      <i ng-if="deposit.method === 'bao' || deposit.method === 'wechat' || deposit.method === 'quick'">1</i>
-                      <i ng-if="deposit.method === 'online'">2</i>
-                      <i ng-if="deposit.method === 'transfer' || deposit.method === 'cash'">3</i>
-                      {{'member_bank_deposit@input_amount' | translate}}
-                  </h4>
+                <div class="mya_decheck">
+                  <h4><i>2</i>{{'member_bank_deposit@input_amount' | translate}}</h4>
                   <div class="fltlft mya_decz">
                     <div class="vw-ui-input">
                       <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@input_amount' | translate}}" style=" width:274px; " ng-model="deposit.amount " min="{{deposit.minValue}} " max="{{deposit.maxValue}} " step="1 "
