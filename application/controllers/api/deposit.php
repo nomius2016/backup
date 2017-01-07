@@ -78,45 +78,16 @@ class Deposit extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function get_online_bank(){
-		// $this->load->model('payment_method');
-		// $banks = $this->payment_method->getOnlineBank();
-		// $ret = array();
-		// if(!$banks){
-	 //        $ret['code'] = 1001;
-		// }else{
-	 //        $ret['code'] = 1;
-	 //        $ret['result'] = $banks;
-		// }
-		// {
-  //   "payment_method_id": "6",
-  //   "bank_name": "工商银行",
-  //   "bank_address": "中国工商一行福建支行",
-  //   "account_no": "6222084402005312444",
-  //   "name": "张三"
-  // }
 
-
-		$data = array();
-		$data['online'] = array(
-				array('payment_method_id'=>1,'title'=>'通汇在线支付'),
-				array('payment_method_id'=>2,'title'=>'顺丰在线支付'),
-			);
-		$data['transfer'] = array(
-				array('payment_method_id'=>3,'title'=>'工商银行','bank_address'=>'中国工商银行福建支行','account_no'=>'6222084402005312441','name'=>'张三'),
-				array('payment_method_id'=>4,'title'=>'招商银行','bank_address'=>'中国招商银行福建支行','account_no'=>'6222084402005312442','name'=>'李四'),
-				array('payment_method_id'=>5,'title'=>'中国银行','bank_address'=>'中国银行福建支行','account_no'=>'6222084402005312443','name'=>'王麻子'),
-				array('payment_method_id'=>6,'title'=>'建设银行','bank_address'=>'中国建设银行福建支行','account_no'=>'6222084402005312444','name'=>'吴广'),
-				
-			);
-		$data['alipay'] = array(
-				array('payment_method_id'=>7,'title'=>'通汇支付宝'),
-				array('payment_method_id'=>8,'title'=>'顺丰支付宝'),
-			);
-
-		$data['wechat'] = array(
-				array('payment_method_id'=>9,'title'=>'通汇微信'),
-				array('payment_method_id'=>10,'title'=>'顺丰微信'),
-			);
+		$this->load->model('base_pay');
+		$online = $this->base_pay->getOnlinePay();  //在线支付
+		$alipay = $this->base_pay->getAliPay();    //支付宝
+		$wechat = $this->base_pay->getWechatPay(); //微信
+		$transfer = $this->base_pay->getTransferPay(); //银行转账
+		if($online) $data['online'] = $online;
+		if($alipay) $data['alipay'] = $alipay;
+		if($wechat) $data['wechat'] = $wechat;
+		if($transfer) $data['transfer'] = $transfer;
 
 		$ret['code'] = 1;
 		$ret['result'] = $data;
