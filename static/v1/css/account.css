@@ -407,8 +407,8 @@
 
 .vw-name-fixed .icon-user {
     position: absolute;
-	bottom:0;
-	right:0;
+	bottom:10px;
+	right:10px;
 }
 
 .vw-account .mc-bottom .icon-user span {
@@ -424,30 +424,30 @@
     color: #c9c9c9
 }
 
-.vw-account .mc-bottom .icon-user span.icon_mobile {
+.vw-name-fixed .icon-user span.icon_mobile {
     background-position: 10px 5px;
     margin-left: -18px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_email {
+.vw-name-fixed .icon-user span.icon_email {
     background-position: -26px 5px;
     margin-left: -10px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_sm {
+.vw-name-fixed .icon-user span.icon_sm {
     background-position: -63px 5px;
     margin-left: -12px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_mobile.icon_gray {
+.vw-name-fixed .icon-user span.icon_mobile.icon_gray {
     background-position: 10px -35px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_email.icon_gray {
+.vw-name-fixed .icon-user span.icon_email.icon_gray {
     background-position: -26px -35px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_sm.icon_gray {
+.vw-name-fixed .icon-user span.icon_sm.icon_gray {
     background-position: -63px -35px
 }
 
