@@ -8,7 +8,6 @@ class Withdraw extends Basecontroller {
 	}
 	
 	public function apply() {
-	    //先临时返回成功. 下面的逻辑貌似有问题
 	    $ret = array();
 	    //$ret['code'] = 1;
 	    //$this->teamapi($ret);
