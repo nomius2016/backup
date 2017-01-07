@@ -301,7 +301,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
           displayPrevious: !0,
           thickness: ".06",
           bgColor: "#e5e5e5",
-          fgColor: "#27ae61",
+          fgColor: "#b33234",
           readOnly: !0
         });
       }

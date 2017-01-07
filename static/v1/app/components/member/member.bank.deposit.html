@@ -32,7 +32,7 @@
                       {{'member_bank_deposit@select_bank' | translate}}
                   </h4>
                   <div class="mya_dechwrap mt20">
-                    <div class="mya_dechbank">
+                    <div class="mya_dechbank" ng-if="deposit.bankList['online']">
                       <div class="mya_dechbankcy">
                         <span>{{'member_bank_deposit@online_payment' | translate}}</span>
                         <ul>
@@ -41,7 +41,7 @@
                           </li>
                         </ul>
                       </div>
-                      <div class="mya_dechbankcy">
+                      <div class="mya_dechbankcy" ng-if="deposit.bankList['transfer']">
                         <span>{{'member_bank_deposit@transfer_payment' | translate}}</span>
                         <ul>
                           <li ng-repeat="item in deposit.bankList['transfer']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
@@ -49,7 +49,7 @@
                           </li>
                         </ul>
                       </div>
-                      <div class="mya_dechbankcy">
+                      <div class="mya_dechbankcy" ng-if="deposit.bankList['alipay']">
                         <span>{{'member_bank_deposit@alipay_payment' | translate}}</span>
                         <ul>
                           <li ng-repeat="item in deposit.bankList['alipay']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
@@ -57,7 +57,7 @@
                           </li>
                         </ul>
                       </div>
-                      <div class="mya_dechbankcy">
+                      <div class="mya_dechbankcy" ng-if="deposit.bankList['wechat']">
                         <span>{{'member_bank_deposit@wechat_payment' | translate}}</span>
                         <ul>
                           <li ng-repeat="item in deposit.bankList['wechat']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">

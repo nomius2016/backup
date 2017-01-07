@@ -334,7 +334,7 @@
 
 .vw-tit {
     font-size: 12px;
-    padding-bottom: 13px;
+    padding-bottom: 8px;
     border-bottom: 1px solid #eef1f2
 }
 
@@ -351,7 +351,7 @@
 }
 
 .vw-info {
-    padding-top: 17px
+    padding-top: 8px
 }
 
 .vw-info span {
@@ -380,14 +380,13 @@
 }
 
 .vw-info span.vw-money {
-    font-size: 32px;
-    color: #333;
-    line-height: 38px
+    font-size: 24px;
+    line-height: 24px
 }
 
 .vw-account .mc-con1 {
-    margin-top: 30px;
-    margin-bottom: 30px
+    margin-top: 25px;
+    margin-bottom: 25px
 }
 
 .vw-account .mc-top {
@@ -406,6 +405,12 @@
     background: 0 0
 }
 
+.vw-name-fixed .icon-user {
+    position: absolute;
+	bottom:10px;
+	right:10px;
+}
+
 .vw-account .mc-bottom .icon-user span {
     display: inline-block;
     width: 32px;
@@ -419,30 +424,30 @@
     color: #c9c9c9
 }
 
-.vw-account .mc-bottom .icon-user span.icon_mobile {
+.vw-name-fixed .icon-user span.icon_mobile {
     background-position: 10px 5px;
     margin-left: -18px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_email {
+.vw-name-fixed .icon-user span.icon_email {
     background-position: -26px 5px;
     margin-left: -10px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_sm {
+.vw-name-fixed .icon-user span.icon_sm {
     background-position: -63px 5px;
     margin-left: -12px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_mobile.icon_gray {
+.vw-name-fixed .icon-user span.icon_mobile.icon_gray {
     background-position: 10px -35px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_email.icon_gray {
+.vw-name-fixed .icon-user span.icon_email.icon_gray {
     background-position: -26px -35px
 }
 
-.vw-account .mc-bottom .icon-user span.icon_sm.icon_gray {
+.vw-name-fixed .icon-user span.icon_sm.icon_gray {
     background-position: -63px -35px
 }
 
@@ -478,7 +483,7 @@
 }
 
 .vw-account .vw-pad25, .vw-account .vw-pad25-fixed {
-    padding: 20px 3%
+    padding: 15px 3%
 }
 
 .vw-account .platforms li {
@@ -488,7 +493,7 @@
 }
 
 .vw-money {
-    font-size: 32px
+    font-size: 24px
 }
 
 .vw-money i {
@@ -571,7 +576,7 @@
     line-height: 83px;
     border-radius: 83px;
     text-align: center;
-    color: #27ae61;
+    color: #b33234;
     background: url(../images/percent.png)
 }
 
@@ -648,7 +653,6 @@
 
 .grzl h6, .grzl h4 {
     font-size: 12px;
-    color: #b0b0b0;
     line-height: 22px;
     line-height: 16px;
     padding-top: 8px;
@@ -656,19 +660,15 @@
 }
 
 .grzl h6 em {
-    color: #000
+
 }
 
 .grzl h4 {
     border-top: none;
     font-weight: normal;
-    font-size: 14px;
-    color: #b33234;
 }
 
 .grzl h4 em {
-    font-size: 16px;
-    color: #b33234
 }
 
 .grzl a {
@@ -678,7 +678,7 @@
 
 .vw-account .mc-top .last {
     border-right: 1px dotted #cacaca;
-    height: 127px;
+    height: 135px;
     border-top: 2px solid #fff
 }
 
@@ -4513,7 +4513,7 @@ p.tip {
 }
 
 .green {
-    color: #27ae61
+    color: #b33234
 }
 
 .red {
@@ -4569,4 +4569,8 @@ p.tip {
         margin-top: 0;
         margin-left: 0
     }
+}
+
+.locked_money,.my_bank_card {
+	line-height:20px;
 }

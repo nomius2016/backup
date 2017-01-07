@@ -15,6 +15,8 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
   $scope.total = 0;
   $scope.withdrawLimit = 0;
   $scope.withdrawLock = 0;
+  $scope.lockedMoney = 0;
+  $scope.myCardCount = 0;
   $scope.symbol = Container.getCurrencySymbol();
   $scope.area = 0;
   $scope.bonus = {
@@ -37,7 +39,7 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
       displayPrevious: !0,
       thickness: '.06',
       bgColor: '#e5e5e5',
-      fgColor: '#27ae61',
+      fgColor: '#b33234',
       readOnly: !0
     });
   };
@@ -48,6 +50,8 @@ angular.module('ciApp').controller('memberCtrl', ['$scope', '$state', 'Container
   AccountService.call('MainAccount_Basicinfo_Get', {}, function(e) {
     $scope.total = e.Result[0].total_balance;
     $scope.withdrawLimit = e.Result[0].can_withdrawal;
+    $scope.lockedMoney = e.Result[0].balance_locked;
+    $scope.myCardCount = e.Result[0].binded_card_count;
     if (e.Result[0].last_login_time !== undefined) {
       $scope.userdata.LastLoginTime = e.Result[0].last_login_time;
     } else {

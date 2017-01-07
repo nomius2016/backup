@@ -1,20 +1,6 @@
-/*添加字段*/
+DELETE FROM payment_group where merchant = '银行转账';
 
+ALTER TABLE `payment_group`
+MODIFY COLUMN `type`  tinyint(4) NULL DEFAULT 1 COMMENT '1 代表在线支付 2 代表支付宝3 代表微信 4代表银行' AFTER `mobile`;
 
-DELETE FROM admin_menu WHERE  controller = 'system' and action='menu_auth';
-DELETE FROM admin_menu_actions WHERE controller = 'system' and action='menu_auth_op';
-
-/*将以前的操作权限换成查看权限*/
-UPDATE admin_menu_authority set op=2 where op=3;
-
-DELETE FROM admin_menu WHERE type=2;
-INSERT INTO admin_menu (`level`,`parent_id`,`title`,`type`,`display_sort`,`controller`,`action`) value(3,0,'活动管理-活动列表-保存权限',2,10,'activities','save');
-/*将以前的操作权限 写入menu 表*/
-INSERT INTO admin_menu (`level`,`parent_id`,`title`,`type`,`display_sort`,`controller`,`action`)
-select '3','0',`desc`,2,id,controller,action from admin_menu_actions;
-
-TRUNCATE admin_menu_auth;
-INSERT INTO admin_menu_auth (`controller`,`action`,`group_id`) select controller,action,1 from admin_menu;
-
-TRUNCATE admin_menu_authority;
-INSERT INTO admin_menu_authority (`group_id`,`menu_id`,`op`) SELECT '1',id,2 FROM admin_menu;
+UPDATE payment_group SET type = 4 WHERE merchant in ('工商银行','招商银行','中国银行','农业银行','建设银行');

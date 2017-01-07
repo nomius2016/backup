@@ -15,7 +15,7 @@ class payment_group extends Base_Model{
 		parent::__construct ();
 
 		$this->_mobile_type = array('1'=>'WEB和手机','2'=>'支持手机','3'=>'支持WEB');
-		$this->_type = array('1'=>'在线支付','2'=>'支付宝','3'=>'微信');
+		$this->_type = array('1'=>'在线支付','2'=>'支付宝','3'=>'微信','4'=>'银行');
 		$this->_status = array('1'=>'禁用','2'=>'启用');
 		$this->_bank_list = array(
 			'ICBC'=>'工商银行',

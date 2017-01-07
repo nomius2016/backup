@@ -57,7 +57,8 @@ class User extends Basecontroller {
 				'last_login_time'=>$userinfo['last_login_time'],
 				'last_login_ip'=>$userinfo['last_login_ip'],
 				'total_balance'=>$this->f($userinfo['balance'] + $userinfo['balance_locked']), //总资金 = 中心 + 冻结
-				'can_withdrawal'=>$this->f($userinfo['balance']), //中心
+				'balance_locked'      => $this->f($userinfo['balance_locked']),
+				'can_withdrawal'      => $this->f($userinfo['balance']), //中心
 				'email_checked'       => false,
 				'id_checked'          => false,
 				'phone_checked'       => false,
