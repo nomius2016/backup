@@ -48,13 +48,11 @@ class transfer extends Basecontroller {
     		            // 对中户中心钱包进行操作，写日志  , 这个方法里面已经回自己抛异常 //
     		            $this->transation->make($this->user_id, $transfer_type_id, $p['amount'], 0, 0, $orderNo);
     		            // 对游戏平台余额进行操作 //
-    		            $trans_ret = $this->gaming_adapter->transfer($this->user_id, abs($p['amount']), $transfer_type_id, $p['io'], $orderNo);
-    		            if ($trans_ret['status'] !== true) {
-    		                throw new Exception('invalid amount value',10200);
-    		            }
+    		            
     		            ////////////////////////////////////////////////////////////////////////////////////////
     		            $this->db->trans_commit();
 		            } catch (Exception $e) {
+		                echo 1111;
 		                $this->db->trans_rollback();
 		                if ($e->getCode()>0) {
 		                    $ret = array('code' => -2, 'f_error' => $e->getMessage() );
