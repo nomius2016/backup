@@ -4,7 +4,6 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
   $scope.userdata = {
     birthday: moment(new Date).subtract(18, "year").format("YYYY/MM/DD"),
     birthday_readonly: !1,
-    email_readonly: !1,
     emailValid: false
   };
   $scope.getSecurityStatus = function() {
@@ -26,7 +25,7 @@ angular.module("ciApp").controller("memberInfoCtrl", ["$scope", "$stateParams", 
     }
     if(e.Result[0].email) {
       $scope.userdata.email = e.Result[0].email;
-      $scope.email_readonly = !0;
+      $scope.userdata.emailValid = true;
     }
   });
   $scope.emailCheck = function(email) {

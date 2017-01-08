@@ -23,14 +23,32 @@
                 <h4>{{'member@last_login_ip' | translate}}：<em ng-bind="userdata.LastLoginIP"></em></h4>
               </div>
             </div>
-             <div class="icon-user">
-                <span ng-if="security_status.mobile" class="iconfont icon_mobile icon_rz"></span>
-                <span ng-if="!security_status.mobile" class="iconfont icon_mobile icon_gray"></span>
-                <span ng-if="security_status.email" class="iconfont icon_email icon_rz"></span>
-                <span ng-if="!security_status.email" class="iconfont icon_email icon_gray"></span>
-                <span ng-if="security_status.name" class="iconfont icon_sm icon_rz"></span>
-                <span ng-if="!security_status.name" class="iconfont icon_sm icon_gray"></span>
-             </div>
+            <div class="mc-bottom">
+              <div class="cl">
+                <div class="fltlft">
+                  <div class="icon-user">
+                    <span ng-if="security_status.mobile" class="iconfont icon_mobile icon_rz"></span>
+                    <span ng-if="!security_status.mobile" class="iconfont icon_mobile icon_gray"></span>
+                    <span ng-if="security_status.email" class="iconfont icon_email icon_rz"></span>
+                    <span ng-if="!security_status.email" class="iconfont icon_email icon_gray"></span>
+                    <span ng-if="security_status.name" class="iconfont icon_sm icon_rz"></span>
+                    <span ng-if="!security_status.name" class="iconfont icon_sm icon_gray"></span>
+                  </div>
+                </div>
+                <div class="fltlft info">
+                  <p ng-if="page_flow == 1">
+                    {{'member@security_msg_1' | translate}}
+                    <a ui-sref="member.info">{{'member_profile@update_info' | translate}}</a> {{'member@security_msg_2' | translate}}
+                  </p>
+                  <p ng-if="page_flow == 2">
+                    {{'member@security_msg_2_1' | translate}}
+                  </p>
+                  <p ng-if="page_flow == 3">
+                    {{'member@security_msg_2_1' | translate}}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="vw-jf-fixed fltlft last">
             <div class="vw-pad25-fixed cl">
@@ -81,34 +99,7 @@
             </div>
           </div>
         </div>
-        <!--
-        <div class="mc-bottom">
-          <div class="cl">
-            <div class="fltlft">
-              <div class="icon-user">
-                <span ng-if="security_status.mobile" class="iconfont icon_mobile icon_rz"></span>
-                <span ng-if="!security_status.mobile" class="iconfont icon_mobile icon_gray"></span>
-                <span ng-if="security_status.email" class="iconfont icon_email icon_rz"></span>
-                <span ng-if="!security_status.email" class="iconfont icon_email icon_gray"></span>
-                <span ng-if="security_status.name" class="iconfont icon_sm icon_rz"></span>
-                <span ng-if="!security_status.name" class="iconfont icon_sm icon_gray"></span>
-              </div>
-            </div>
-            <div class="fltlft info">
-              <p ng-if="page_flow == 1">
-                {{'member@security_msg_1' | translate}}
-                <a ui-sref="member.info">{{'member_profile@update_info' | translate}}</a> {{'member@security_msg_2' | translate}}
-              </p>
-              <p ng-if="page_flow == 2">
-                {{'member@security_msg_2_1' | translate}}
-              </p>
-              <p ng-if="page_flow == 3">
-                {{'member@security_msg_2_1' | translate}}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>  -->
+      </div>
     </div>
   </div>
   <div class="mw">
