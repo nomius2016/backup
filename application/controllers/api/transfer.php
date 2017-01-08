@@ -17,9 +17,7 @@ class transfer extends Basecontroller {
 	    
 		if ($this->user_id>0) {
 		    $p = $this->getApiParams();
-		    echo 222;
 		    if ($p['amount']>0) {
-		        echo 333;
     		    $p['amount'] = intval($p['amount']*1000);
     		    
     		    $transfer_type_id = 0;
@@ -42,7 +40,6 @@ class transfer extends Basecontroller {
     		        $ret = array('code' => -1019 );
     		    } else {
     		        try {
-    		            echo 444;
     		            $this->db->trans_begin();
     		            
     		            ////////////////////////////////////////////////////////////////////////////////////////
@@ -51,14 +48,12 @@ class transfer extends Basecontroller {
     		            // 对中户中心钱包进行操作，写日志  , 这个方法里面已经回自己抛异常 //
     		            $this->transation->make($this->user_id, $transfer_type_id, $p['amount'], 0, 0, $orderNo);
     		            // 对游戏平台余额进行操作 //
-    		            echo 555;
     		            $trans_ret = $this->gaming_adapter->transfer($this->user_id, abs($p['amount']), $transfer_type_id, $p['io'], $orderNo);
-    		            if ($trans_ret['status'] !== true) {
-    		                echo 777;
-    		                throw new Exception('invalid amount value',10200);
+    		            if ($trans_ret['code'] != 1) {
+    		                throw new Exception('第三平台操作失败',10200);
     		            }
-    		            echo 666;
     		            ////////////////////////////////////////////////////////////////////////////////////////
+    		            
     		            $this->db->trans_commit();
     		            $ret = array('code' => 1 );
 		            } catch (Exception $e) {
