@@ -62,5 +62,30 @@ class publicapi extends Basecontroller {
 		$this->teamapi($ret);
 	}
 
+	/**
+	 * [get_system_config 获取后台配置]
+	 * @return [type] [description]
+	 */
+	public function get_system_config(){
+
+		$redis_key = 'publicapi_system_config';;
+		$cache = $this->hredis->get($redis_key);
+		
+		if($cache){
+			$cache = json_decode($cache,TRUE);
+			$ret['code'] = 1;
+			$ret['result'] = $cache;
+			$this->teamapi($ret);
+		}
+
+		$this->load->model('system_setting');
+		$data = $this->system_setting->selectByWhere(array('type'=>-1),'variable,content');
+		$data_json = json_encode($data);
+		$this->hredis->setex($redis_key,86400,$data_json);
+		$ret['code'] = 1;
+		$ret['result'] = $data;
+		$this->teamapi($ret);
+	}
+
 }
 

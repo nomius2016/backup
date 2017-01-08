@@ -5,14 +5,13 @@
  */
 class System_setting extends Base_Model{
 	
-	private $__mobile_type;
 	private $_type;
-	private $_status;
-	private $_bank_list;
+	
 
 	public function __construct() {
 		$this->setTableName('system_setting');
 		parent::__construct ();
+		$this->_type = array('1'=>'私有变量','-1'=>'公共变量');
 	}
 	
 
@@ -26,8 +25,10 @@ class System_setting extends Base_Model{
                 //字段名/显示名称/能否修改/是否显示/宽度/类型/值
 			array('id','id',false),
 			array('variable','变量名'),
+			array('type','变量类型',TRUE,FALSE,60,'select',$this->_type),
 			array('content','值'),
 			array('label','备注'),
+			array('ttl','生存时间'),
 		);
 
 		$search = array(
@@ -61,6 +62,9 @@ class System_setting extends Base_Model{
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
 		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		foreach ($list as $key => &$value) {
+			$value['type'] = $this->_type[$value['type']];
+		}
 
 		$count = $this->count($where);
 

@@ -629,6 +629,8 @@ class System extends Basecontroller {
 	            $data = array(
     	            'variable' => $post['variable'],
     	            'content'    => $post['content'],
+    	            'type'    => $post['type'],
+    	            'ttl'    => $post['ttl'],
     	            'label'    => $post['label']
 	            );
 	            $status = $this->system_setting->insert($data);
@@ -638,14 +640,18 @@ class System extends Basecontroller {
     	            array(
         	            'variable' => $post['variable'],
         	            'content'    => $post['content'],
+        	            'type'    => $post['type'],
+    	            	'ttl'    => $post['ttl'],
         	            'label'    => $post['label']
     	            )
 	            );
 	            $this->system_config->del($post['variable']);
+	            $this->system_config->del('publicapi_system_config');
 	            break;
 	        case 'del':  //删除一个配置
 	            $status = $this->system_setting->delete(array('id' => $post['id']));
 	            $this->system_config->del($post['variable']);
+	            $this->system_config->del('publicapi_system_config');
 	            break;
 	    }
 	    exit(json_encode(array('status'=>true,'msg'=>'操作成功')));

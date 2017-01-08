@@ -407,3 +407,8 @@
 	}
 ]
 ```
+
+> * 26 获取后台系统配置
+
+    URL: api/publicapi/get_system_config
+    参数：无
