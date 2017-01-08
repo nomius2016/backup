@@ -10,28 +10,20 @@ class Deposit extends Basecontroller {
 	}
 	
 	public function apply() {
-	    // $aRS = array();
 	    $ret = array();
-	    // if ($this->user_id>0){
-	    //     $aRestrict = $this->users->restrict($this->user_id,'extra');
-    	//     if ($aRestrict['allow_recharge']==1) {
-    	        
-    	//     } else {
-    	//         $aRS = array('msg' => '不允许充值');
-    	//     }
-	    //     $ret['code'] = 1;
-	    //     $ret['result'] = $aRS;
-	    // } else {
-	    //     $ret['code']   = -1;
-	    // }
-	    // 
-	    if($this->user_id){
-	    	$ret['code'] = 1;
-	    	$ret['result'] = array(array('url'=>'http://www.baidu.com'));
-	    }else{
-	    	$ret['code'] = -1;
-	    }
-	    $this->teamapi($ret);
+		if(!$this->user_id){
+			$ret['code']   = -1;
+	        $this->teamapi($ret);
+		}
+		$params = $this->getApiParams();
+		$payment_method_id = intval($params['pay_method_id']);
+		$amount = $params['amount'];
+		$amount = sprintf("%01.2f", $amount);
+
+		$this->load->model('pay_adapter');
+		$ret = $this->pay_adapter->deposit($payment_method_id,$this->user_id,$amount);
+		$this->teamapi($ret);
+	    
 	}
 	
 	public function history() {

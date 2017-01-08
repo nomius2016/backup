@@ -133,7 +133,7 @@ class fund_deposit extends Base_Model{
 						'status'=>$status
 					);
 				$this->update(array('id'=>$id),$deposit_data);
-				$this->users->changeUserBalance($user_id,$amount,IN,DEPOSIT);
+				// $this->users->changeUserBalance($user_id,$amount,IN,DEPOSIT);
 				# code...
 				break;
 			case 4: //二审失败

@@ -1,27 +1,42 @@
 <?php
 
 /**
- * 新支付可以参考模板  bomapay_demo.php
- * 支付基础类,其它类基于此类
- * 正常接入一个支付的话 需要以下流程
- * 1 初始化后台的一些数据(支付类型,商户号,银行列表,中间站地址,支付成功跳转页面,回调地址)
- * 2 生成博马支付订单
- * 3 生成支付链接
- * 4 支付方回调进行上分
- * @date 20160809
- * @author dick.l@infinitesys.my 
+ * 支付用基类  自动获取对应的 IP 商户秘钥 之类的
+ * 
  */
 class base_pay extends Base_Model{
 	
 	
-	public $detail = array();  //保存支付方式的一些常用信息
-	
+	public $secret_key;   //秘钥
+	public $merchant_id;  //商户id
+	public $merchant_name;//商户名称
+	public $whitelist;    //白名单
+	public $apiurl;       //api 请求地址
+	public $successurl;   //成功之后跳转的地址
+	public $noticeurl;    //成功之后异步通知的URL
+	public $payment_method_id;
 	public function __construct($method = false) {
 		parent::__construct ();
-		$this->_current_method = $method;
-		$this->setTableName ( "payment_group" );
 	}
 
+	/**
+	 * [init 初始化商户信息]
+	 * @param  [type] $payment_method_id [description]
+	 * @return [type]                    [description]
+	 */
+	public function init($payment_method_id){
+		$sql = "SELECT  *  FROM payment_method AS m INNER JOIN payment_group AS g ON m.payment_group_id = g.payment_group_id where m.payment_method_id = {$payment_method_id}";
+		$ret = $this->querySql($sql);
+		$ret = $ret['0'];
+		$this->payment_method_id = $payment_method_id;
+		$this->secret_key = $ret['secret_key'];
+		$this->merchant_id = $ret['company_id'];
+		$this->whitelist = $ret['white_list'];
+		$this->apiurl = $ret['api_url'];
+		$this->successurl = $ret['success_url'];
+		$this->noticeurl = $ret['notice_url'];
+		$this->merchant_name = $ret['merchant'];
+	}
 
 	/**
 	 * [createOrder 生成订单]
@@ -29,8 +44,22 @@ class base_pay extends Base_Model{
 	 * @param  [type] $bank_code [description]
 	 * @return [type]            [description]
 	 */
-	public function createOrder($amount,$bank_code = null){
+	public function createOrder($user_id,$amount){
 		
+		$orderNo = 	$this->getTradeNo($user_id);
+		$amount = $amount * 1000;
+		$data = array(
+				'user_id'=>$user_id,
+				'payment_method_id'=>$this->payment_method_id,
+				'amount'=>$amount,
+				'remark'=>$this->merchant_name.'存款',
+				'createtime'=>date('Y-m-d H:i:s'),
+				'status'=>1
+			);
+		$this->load->model('fund_deposit');
+		$this->fund_deposit->insert($data);
+		//这里开始进行资金操作
+		return $orderNo;
 	}
 
 
