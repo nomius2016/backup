@@ -64,6 +64,8 @@ class Fund_transfer_log extends Base_Model {
 		    $where['transfer_type_id'] = $params['transfer_type_id'];
 		}
 
+		if($params['start_date']) $where['dateline >='] = strtotime($params['start_date']);
+		if($params['end_date']) $where['dateline <='] = strtotime($params['end_date']);
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
 		$start = ($page - 1) * $pageSize; 
