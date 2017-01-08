@@ -38,6 +38,8 @@ class transfer extends Basecontroller {
     		        $ret = array('code' => -1018 );
     		    } else if ($p['from']==10000 && $p['amount']>$aUser['balance']) {
     		        $ret = array('code' => -1019 );
+    		    } else if ($p['from']==10000 && $p['amount']>$aUser['balance']) {
+    		        throw new Exception('转出和转入目标有错误',10201);
     		    } else {
     		        try {
     		            $this->db->trans_begin();
