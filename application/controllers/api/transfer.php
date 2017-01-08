@@ -3,6 +3,9 @@ class transfer extends Basecontroller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('users');
+		$this->load->model('transation');
+		$this->load->model('gaming_adapter');
 	}
 
 	/**
@@ -11,22 +14,60 @@ class transfer extends Basecontroller {
 	 * @return [type] [description]
 	 */
 	public function index(){
-		$ret = array('code'=>-1);
-		if(!$this->islogin){
-			$this->teamapi($ret);
+		if ($this->user_id>0) {
+		    $p = $this->getApiParams();
+		    
+		    if ($p['amount']>0) {
+    		    $p['amount'] = intval($p['amount']*1000);
+    		    
+    		    $transfer_type_id = 0;
+    		    if ($p['from']==10000) {
+    		        $transfer_type_id = $p['to'];
+    		        $p['io'] = 0;
+    		    } else {
+    		        $transfer_type_id = $p['from'];
+    		        $p['amount'] *= -1;
+    		        $p['io'] = 1;
+    		    }
+    		    // 取得用户的余额 //
+    		    $aUser = $this->users->getUserInfo($this->user_id);
+    		    
+    		    if ($p['from']!=10000 && $p['to']==10000) {
+    		        $ret = array('code' => -1015 );
+    		    } else if (!($transfer_type_id>=100 && $transfer_type_id<200)) {
+    		        $ret = array('code' => -1018 );
+    		    } else if ($p['from']==10000 && $p['amount']>$aUser['balance']) {
+    		        $ret = array('code' => -1019 );
+    		    } else {
+    		        try {
+    		            $this->db->trans_begin();
+    		            
+    		            ////////////////////////////////////////////////////////////////////////////////////////
+    		            // 形成交易码  //
+    		            $orderNo = $this->transation->getTradeNo($this->user_id, $transfer_type_id);
+    		            // 对中户中心钱包进行操作，写日志  , 这个方法里面已经回自己抛异常 //
+    		            $this->transation->make($this->user_id, $transfer_type_id, $p['amount'], 0, 0, $orderNo);
+    		            // 对游戏平台余额进行操作 //
+    		            $trans_ret = $this->gaming_adapter->transfer($this->user_id, abs($p['amount']), $transfer_type_id, $p['io'], $orderNo);
+    		            if ($trans_ret['status'] !== true) {
+    		                throw new Exception('invalid amount value',10200);
+    		            }
+    		            ////////////////////////////////////////////////////////////////////////////////////////
+    		            $this->db->trans_commit();
+		            } catch (Exception $e) {
+		                $this->db->trans_rollback();
+		                if ($e->getCode()>0) {
+		                    $ret = array('code' => -2, 'f_error' => $e->getMessage() );
+		                }
+		            }
+    		    }
+		    } else {
+		        $ret = array('code' => -1021 );
+		    }
+		} else {
+			$ret = array('code' =>-1 );
 		}
-
-		$this->load->model('users');
-		$userinfo = $this->users->getLoginInfo();
-		$params = $this->getApiParams();
-		$amount = sprintf("%.2f", $params['amount']);
-		$gaming_id = intval($params['gaming_id']);
-		$io  = $params['io'] == '0' ? 0 : 1;
-		$this->load->model('user_transfer_log');
-		$ret = $this->user_transfer_log->transfer($userinfo['user_id'],$amount,$gaming_id,$io);
 		$this->teamapi($ret);
 	}
-
-
 }
 
