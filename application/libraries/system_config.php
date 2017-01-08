@@ -28,7 +28,7 @@
 				$query = $this->CI->db->get($this->_table);
 				$row = $query->row();
 				if(!$row) return false;
-				$ttl = intval($this->row->ttl);
+				$ttl = intval($row->ttl);
 				$ttl = $ttl ? $ttl : 86400;
 				$this->CI->hredis->setex($key,$ttl,$row->content);
 				return $row->content;
