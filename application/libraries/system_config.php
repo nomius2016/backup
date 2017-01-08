@@ -28,7 +28,7 @@
 				$query = $this->CI->db->get($this->_table);
 				$row = $query->row();
 				if(!$row) return false;
-				$this->CI->hredis->setex($key,$row->ttl,$row->content);
+				$this->CI->hredis->setex($key,86400,$row->content);
 				return $row->content;
 			}else{
 				return $t;
