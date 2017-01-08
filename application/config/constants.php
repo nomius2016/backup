@@ -60,7 +60,18 @@ define('PTC',1);  //平台到中心钱包
 define('CTP',0); //中心钱包到平台
 
 //定义平台ID
+define('AG_GAMING_ID',100);
 define('SB_GAMING_ID',101);
+define('PT_GAMING_ID',102);
+define('EA_GAMING_ID',103);
+define('BBIN_GAMING_ID',104);
+define('HG_GAMING_ID',105);
+define('OPUS_GAMING_ID',106);
+define('GD_GAMING_ID',108);
+// define('EA_GAMING_ID',108);
+define('EA_GAMING_ID',109);
+define('CROW_GAMING_ID',110);
+define('MG_GAMING_ID',111);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
