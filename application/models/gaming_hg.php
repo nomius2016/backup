@@ -11,7 +11,7 @@ class gaming_hg extends base_gaming{
 	}
 
 	/*获取登录连接*/
-	public function getUrl($userid){}
+	public function getUrl($userid,$params = array()){}
 
 	/*获取平台余额*/
 	public function getBalance($userid){}
@@ -20,12 +20,12 @@ class gaming_hg extends base_gaming{
 	public function createAccount($userid){}
 
 	/*中心钱包转账到平台*/
-	public function ctp($userid,$amount){
+	public function ctp($userid,$amount,$orderNo){
 		return array('code'=>1);
 	}
 
 	/*平台转账到中心钱包*/
-	public function ptc($userid,$amount){
+	public function ptc($userid,$amount,$orderNo){
 		return array('code'=>1);
 	}
 	/*获取投注记录*/

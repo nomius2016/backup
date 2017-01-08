@@ -89,9 +89,9 @@ class gaming_sb extends base_gaming{
 		$data['serialNo'] = $orderNo;
 		$ret = $this->send_request("api/SportMember/{$data['userId']}/TransferFund",$data);
 		if($ret['status'] == 'success'){
-			return array('code'=>-2);
-		}else{
 			return array('code'=>1);
+		}else{
+			return array('code'=>-1);
 		}
 
 	}
