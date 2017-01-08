@@ -103,7 +103,7 @@ class BaseController extends CI_Controller {
 		$response = array();
 		$response['Success'] = $data['code'] >0 ? true : false; 
 		$response['Code']    = isset($data['code']) ? $data['code'] : 'undefined';
-		$response['Message'] = $this->getMessageByCode($data['code']);
+		$response['Message'] = isset($data['f_error']) ? $data['f_error'] : $this->getMessageByCode($data['code']);
 		if(isset($data['result'])){
 			if(is_array($data['result'])){
 			 	$response['Result'] = $data['result'];

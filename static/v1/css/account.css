@@ -396,19 +396,11 @@
 }
 
 .vw-account .mc-bottom {
-    background: #fff;
-    border-radius: 0 0 3px 3px;
-    padding: 11px 24px
+    padding: 0 10px;
 }
 
 .vw-account .mc-bottom .icon-user {
     background: 0 0
-}
-
-.vw-name-fixed .icon-user {
-    position: absolute;
-	bottom:10px;
-	right:10px;
 }
 
 .vw-account .mc-bottom .icon-user span {
@@ -419,37 +411,37 @@
     border-radius: 32px;
     margin-right: 10px;
     text-align: center;
-    background: url(../images/icon2.png) no-repeat #fff;
+    background: url(/static/v1/images/icon2.png) no-repeat #fff;
     font-size: 28px;
     color: #c9c9c9
 }
 
-.vw-name-fixed .icon-user span.icon_mobile {
+.vw-account .mc-bottom .icon-user span.icon_mobile {
     background-position: 10px 5px;
-    margin-left: -18px
 }
 
-.vw-name-fixed .icon-user span.icon_email {
+.vw-account .mc-bottom .icon-user span.icon_email {
     background-position: -26px 5px;
     margin-left: -10px
 }
 
-.vw-name-fixed .icon-user span.icon_sm {
+.vw-account .mc-bottom .icon-user span.icon_sm {
     background-position: -63px 5px;
     margin-left: -12px
 }
 
-.vw-name-fixed .icon-user span.icon_mobile.icon_gray {
+.vw-account .mc-bottom .icon-user span.icon_mobile.icon_gray {
     background-position: 10px -35px
 }
 
-.vw-name-fixed .icon-user span.icon_email.icon_gray {
+.vw-account .mc-bottom .icon-user span.icon_email.icon_gray {
     background-position: -26px -35px
 }
 
-.vw-name-fixed .icon-user span.icon_sm.icon_gray {
+.vw-account .mc-bottom .icon-user span.icon_sm.icon_gray {
     background-position: -63px -35px
 }
+
 
 .vw-btn1, .vw-btn2 {
     display: block;
@@ -457,7 +449,7 @@
     text-align: center
 }
 
-.vw-account .mc-bottom .info {
+.vw-account .mc-bottom .info p {
     line-height: 32px;
     color: #b0b0b0;
     font-size: 12px
@@ -483,13 +475,14 @@
 }
 
 .vw-account .vw-pad25, .vw-account .vw-pad25-fixed {
-    padding: 15px 3%
+    padding: 12px 3% 0;
 }
 
 .vw-account .platforms li {
     display: inline-block;
     width: 110px;
     padding-bottom: 25px;
+    padding-top: 3px;
 }
 
 .vw-money {

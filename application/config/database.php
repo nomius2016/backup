@@ -54,7 +54,11 @@ $db['default']['password'] = '123456';
 $db['default']['database'] = 'hdb';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
+<<<<<<< HEAD
 $db['default']['pconnect'] = false;
+=======
+$db['default']['pconnect'] = FALSE;
+>>>>>>> e66dcf4dc694ecfee1ee05f4bdcf6b1a342cd550
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
