@@ -1,4 +1,5 @@
 node_modules/
+application/config/database.php
 package.json
 gulpfile.js
 npm-debug.log
