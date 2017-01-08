@@ -138,4 +138,20 @@ class Transation extends CI_Model {
 	        }
 	    }
 	}
+	
+	
+	public function getTradeNo(int $account_id, int $gaming_id){
+		if ($gaming_id == SB_GAMING_ID) {
+			$orderNo = date('YmdHis').rand(10000,99999);
+		} else {
+			$dt = new DateTime('NOW');
+			$time8 = dechex($dt->format('U'));// 8bit
+			$user6 = sprintf("%08s", substr(dechex($account_id), 0,8)); // 8bit
+			$fs = explode('.', microtime(true));
+			$fsend = end($fs);
+			$haomiao4 =sprintf("%04d", $fsend);// 4bit
+			$orderNo = substr($user6.$time8.$haomiao4, 0, 20);
+		}
+		return $orderNo;
+	}
 }
