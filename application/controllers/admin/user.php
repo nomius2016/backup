@@ -26,18 +26,18 @@ class User extends Basecontroller {
 		    $v = array_merge($v,$restrict);
 		    $v['account_name'] = "<a href=\"/admin/user/info?user_id={$v['user_id']}\"  class=\"cof\">{$v['account_name']}</a>";
 		    $v['parent_name'] = $v['parent_id']>0 ? $this->users->getAccountName($v['parent_id']) : '无';
-		    $v['profit'] = sprintf("%.2f",($v['total_deposit']-$v['total_withdraw'])/1000);
-		    $v['total_deposit'] = sprintf("%.2f",$v['total_deposit']/1000);
-		    $v['total_withdraw'] = sprintf("%.2f",$v['total_withdraw']/1000);
-		    $v['total_bet'] = sprintf("%.2f",$v['total_bet']/1000);
-		    $v['balance'] = sprintf("%.2f",$v['balance']/1000);
-		    $v['frozon_balance'] = sprintf("%.2f",$v['frozon_balance']/1000);
-		    $v['ag_balance'] = sprintf("%.2f",$v['ag_balance']/1000);
-		    $v['sb_balance'] = sprintf("%.2f",$v['sb_balance']/1000);
-		    $v['pt_balance'] = sprintf("%.2f",$v['withdrawal_day_max']/1000);
-		    $v['withdrawal_day_max'] = sprintf("%.2f",$v['withdrawal_day_max']/1000);
-		    $v['withdrawal_min'] = sprintf("%.2f",$v['withdrawal_min']/1000);
-		    $v['withdrawal_max'] = sprintf("%.2f",$v['withdrawal_max']/1000);
+		    $v['profit'] = $this->f(($v['total_deposit']-$v['total_withdraw']));
+		    $v['total_deposit'] = $this->f($v['total_deposit']);
+		    $v['total_withdraw'] = $this->f($v['total_withdraw']);
+		    $v['total_bet'] = $this->f($v['total_bet']);
+		    $v['balance'] = $this->f($v['balance']);
+		    $v['frozon_balance'] = $this->f($v['frozon_balance']);
+		    $v['ag_balance'] = $this->f($v['ag_balance']);
+		    $v['sb_balance'] = $this->f($v['sb_balance']);
+		    $v['pt_balance'] = $this->f($v['withdrawal_day_max']);
+		    $v['withdrawal_day_max'] = $this->f($v['withdrawal_day_max']);
+		    $v['withdrawal_min'] = $this->f($v['withdrawal_min']);
+		    $v['withdrawal_max'] = $this->f($v['withdrawal_max']);
 		    $v['status_text'] = $v['status']==1 ? '正常' : '冻结';
 		    $ret['rows'][$k] = $v;
 		}
@@ -298,18 +298,18 @@ class User extends Basecontroller {
 	        $aUser['parent_path'] = implode(',', $_tmp);
 	    }
 	    $aUser['parent_id'] = $aUser['parent_id']>0 ? $this->users->getAccountName($aUser['parent_id']) : '无';
-	    $aUser['profit'] = sprintf("%.2f",($aUser['total_deposit']-$aUser['total_withdraw'])/1000);
-	    $aUser['total_deposit'] = sprintf("%.2f",$aUser['total_deposit']/1000);
-	    $aUser['total_withdraw'] = sprintf("%.2f",$aUser['total_withdraw']/1000);
-	    $aUser['total_bet'] = sprintf("%.2f",$aUser['total_bet']/1000);
-	    $aUser['balance'] = sprintf("%.2f",$aUser['balance']/1000);
-	    $aUser['balance_locked'] = sprintf("%.2f",$aUser['balance_locked']/1000);
-	    $aUser['balance-100'] = sprintf("%.2f",$aUser['bal'][100]/1000);
-	    $aUser['balance-101'] = sprintf("%.2f",$aUser['bal'][101]/1000);
-	    $aUser['balance-102'] = sprintf("%.2f",$aUser['bal'][102]/1000);
-	    $aUser['withdrawal_day_max'] = sprintf("%.2f",$aUser['withdrawal_day_max']/1000);
-	    $aUser['withdrawal_min'] = sprintf("%.2f",$aUser['withdrawal_min']/1000);
-	    $aUser['withdrawal_max'] = sprintf("%.2f",$aUser['withdrawal_max']/1000);
+	    $aUser['profit'] = $this->f(($aUser['total_deposit']-$aUser['total_withdraw']));
+	    $aUser['total_deposit'] = $this->f($aUser['total_deposit']);
+	    $aUser['total_withdraw'] = $this->f($aUser['total_withdraw']);
+	    $aUser['total_bet'] = $this->f($aUser['total_bet']);
+	    $aUser['balance'] = $this->f($aUser['balance']);
+	    $aUser['balance_locked'] = $this->f($aUser['balance_locked']);
+	    $aUser['balance-100'] = $this->f($aUser['bal'][100]);
+	    $aUser['balance-101'] = $this->f($aUser['bal'][101]);
+	    $aUser['balance-102'] = $this->f($aUser['bal'][102]);
+	    $aUser['withdrawal_day_max'] = $this->f($aUser['withdrawal_day_max']);
+	    $aUser['withdrawal_min'] = $this->f($aUser['withdrawal_min']);
+	    $aUser['withdrawal_max'] = $this->f($aUser['withdrawal_max']);
 	    $aAssign['user'] = $aUser;
 	    /*
     	try {

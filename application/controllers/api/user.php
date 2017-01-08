@@ -40,25 +40,24 @@ class User extends Basecontroller {
 		$this->load->model('users');
 		$this->load->model('user_bank_card');
 		
-		$userinfo = $this->users->getLoginInfo();
-		$current_info = $this->users->getUserInfo($userinfo['user_id']);
+		$aUser = $this->users->getUserInfo($this->user_id);
 		$profile  = $this->users->profile($this->user_id);
 		if ($profile['user_id']<1) {
 		    $this->users->create_profile($this->user_id);
 		}
-		if(!$current_info['fund_password']){
+		if(!$aUser['fund_password']){
 			$fund_password_setted = false;
 		}else{
 			$fund_password_setted = true;
 		}
 
 		$data = array(
-				'username'=>$userinfo['account_name'],
-				'last_login_time'=>$userinfo['last_login_time'],
-				'last_login_ip'=>$userinfo['last_login_ip'],
-				'total_balance'=>$this->f($userinfo['balance'] + $userinfo['balance_locked']), //总资金 = 中心 + 冻结
-				'balance_locked'      => $this->f($userinfo['balance_locked']),
-				'can_withdrawal'      => $this->f($userinfo['balance']), //中心
+				'username'            => $aUser['account_name'],
+				'last_login_time'     => $aUser['last_login_time'],
+				'last_login_ip'       => $aUser['last_login_ip'],
+				'total_balance'       => $this->f($aUser['balance'] + $aUser['balance_locked']), //总资金 = 中心 + 冻结
+				'balance_locked'      => $this->f($aUser['balance_locked']),
+				'can_withdrawal'      => $this->f($aUser['balance']), //中心
 				'email_checked'       => false,
 				'id_checked'          => false,
 				'phone_checked'       => false,
@@ -68,7 +67,7 @@ class User extends Basecontroller {
 		        'birthday'            => $profile['birthday'],
 		        'email'               => $profile['email'],
 		        'phone'               => $profile['phone'],
-		        'register_time'       => $userinfo['register_time'],
+		        'register_time'       => $aUser['register_time'],
 		        'gender'              => $profile['sex'],
 		        'binded_card_count'   => intval($this->user_bank_card->bindedCardCount($this->user_id)),
 		        'security_question_id'=> $profile['security_question_id'],
@@ -154,9 +153,8 @@ class User extends Basecontroller {
 			$this->teamapi($ret);
 		}
 
-		$login_info = $this->users->getLoginInfo();
 		$this->load->model('users');
-		$user = $this->users->getUserInfo($login_info['user_id']);
+		$user = $this->users->getUserInfo($this->user_id);
 		if($user['fund_password'] === $fund_password){
 			$ret = array('code'=>1);
 		}else{
