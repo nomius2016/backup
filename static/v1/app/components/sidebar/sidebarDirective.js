@@ -195,12 +195,12 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
           if ($scope.from == $scope.to) {
             $(".errormsgBank").text($filter('translate')('sidebar@transfer_error_1')).show();
             $scope.transferValid = false;
-          } else if ($scope.from == '10000' || $scope.to == '10000') {
-            $scope.transferValid = true;
-            $(".errormsgBank").text("").hide();
-          } else {
+          } else if ($scope.from != '10000' && $scope.to != '10000') {
             $(".errormsgBank").text($filter('translate')('sidebar@transfer_error_2')).show();
             $scope.transferValid = false;
+          } else {
+            $(".errormsgBank").text("").hide();
+            $scope.transferValid = true;
           }
         }
       };
@@ -208,13 +208,13 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
         if (!$scope.inProcess && $scope.from && $scope.to && $scope.transferAmount && $scope.from != $scope.to) {
           $scope.inProcess = !0;
           var data = {
-            gaming_id: $scope.from == '10000' ? $scope.to : $scope.from,
-            io: $scope.from == '10000' ? 0 : 1,
+            from: $scope.from,
+            to: $scope.to,
             amount: parseInt($scope.transferAmount)
           };
           PlatformService.call("Transfer", data, function(e) {
             e.Success ? (n.showAlertMsg("popup_alert@title_dear_user", "popup_alert@title_success"), D()) : n.showAlertMsg("popup_alert@title_fail", e.Message), $scope.inProcess = !1, $scope.from = "", $scope.to = "", $scope.transferAmount = ""
-          })
+          });
         }
       };
       $scope.$on("sidebarWalletUpdate", function(e, t) {
