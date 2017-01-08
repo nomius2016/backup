@@ -32,7 +32,7 @@ class transfer extends Basecontroller {
     		    // 取得用户的余额 //
     		    $aUser = $this->users->getUserInfo($this->user_id);
     		    
-    		    if ($p['from']!=10000 && $p['to']==10000) {
+    		    if ($p['from']!=10000 && $p['to']!=10000) {
     		        $ret = array('code' => -1015 );
     		    } else if (!($transfer_type_id>=100 && $transfer_type_id<200)) {
     		        $ret = array('code' => -1018 );
