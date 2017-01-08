@@ -61,6 +61,10 @@ class fund_withdraw extends Base_Model{
 		if($params['user_id']) $where['user_id'] = $params['user_id'];
 		if($params['rej']) $where['status <'] = 0;
 		if($params['status']) $where['status'] = $params['status'];
+
+		if($params['start_date']) $where['createtime >='] = date('Y-m-d H:i:s',strtotime($params['start_date']));
+		if($params['end_date']) $where['createtime <='] = date('Y-m-d H:i:s',strtotime($params['end_date']));
+
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
 		$start = ($page - 1) * $pageSize; 
@@ -143,7 +147,7 @@ class fund_withdraw extends Base_Model{
 						'status'=>$status
 					);
 				$this->update(array('id'=>$id),$withdrawal_data);
-				$this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
+				// $this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
 				# code...
 				break;
 			case 3:
@@ -154,7 +158,7 @@ class fund_withdraw extends Base_Model{
 						'status'=>$status
 					);
 				$this->update(array('id'=>$id),$withdrawal_data);
-				$this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_SUCCESS);
+				// $this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_SUCCESS);
 				# code...
 				break;
 			case 4:
@@ -165,7 +169,7 @@ class fund_withdraw extends Base_Model{
 						'status'=>$status
 					);
 				$this->update(array('id'=>$id),$withdrawal_data);
-				$this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
+				// $this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
 				# code...
 				break;
 			
