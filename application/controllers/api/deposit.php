@@ -15,10 +15,18 @@ class Deposit extends Basecontroller {
 			$ret['code']   = -1;
 	        $this->teamapi($ret);
 		}
+		$min_deposit = $this->system_config->get('min_deposit');
+		$max_deposit = $this->system_config->get('max_deposit');
+		if($amount>$max_deposit || $amount < $min_deposit){
+			$ret['code'] = -1022;
+			$this->teamapi($ret);
+		}
+
 		$params = $this->getApiParams();
 		$payment_method_id = intval($params['pay_method_id']);
 		$amount = $params['amount'];
 		$amount = sprintf("%01.2f", $amount);
+
 
 		$this->load->model('pay_adapter');
 		$ret = $this->pay_adapter->deposit($payment_method_id,$this->user_id,$amount);

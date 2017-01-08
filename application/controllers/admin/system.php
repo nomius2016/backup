@@ -625,7 +625,7 @@ class System extends Basecontroller {
 	    $post = $this->input->post();
 	    $op = $post['oper'];
 	    switch ($op) {
-	        case 'add':  //添加一个组别
+	        case 'add':  //添加一个配置
 	            $data = array(
     	            'variable' => $post['variable'],
     	            'content'    => $post['content'],
@@ -641,9 +641,11 @@ class System extends Basecontroller {
         	            'label'    => $post['label']
     	            )
 	            );
+	            $this->system_config->del($post['variable']);
 	            break;
-	        case 'del':  //删除一个组
+	        case 'del':  //删除一个配置
 	            $status = $this->system_setting->delete(array('id' => $post['id']));
+	            $this->system_config->del($post['variable']);
 	            break;
 	    }
 	    exit(json_encode(array('status'=>true,'msg'=>'操作成功')));
