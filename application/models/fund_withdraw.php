@@ -128,7 +128,7 @@ class fund_withdraw extends Base_Model{
 		if($step == 2 && $status ==-3)  $scene = 4; //二审失败  改变状态 解冻金额 增加中心钱包金额
 		if(!$scene) return array('status'=>false,'msg'=>'参数不对!');
 		if(!$remark) return array('status'=>false,'msg'=>'请填写备注!');
-		$this->load->model('users');
+		$this->load->model('transation');
 		$this->load->model('admins');
 		$order = $this->selectById($id);
 		$user_id = $order['user_id'];
@@ -153,8 +153,9 @@ class fund_withdraw extends Base_Model{
 						'first_deal_time'=>date('Y-m-d H:i:s'),
 						'status'=>$status
 					);
+				// changeMoney($user_id,$type,$amount,$io,$remark=''){
 				$this->update(array('id'=>$id),$withdrawal_data);
-				// $this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
+				$this->transation->changeMoney($user_id,FUND_WITHDRAW_REFUSE,$amount,'',$remark);
 				# code...
 				break;
 			case 3:
@@ -165,7 +166,7 @@ class fund_withdraw extends Base_Model{
 						'status'=>$status
 					);
 				$this->update(array('id'=>$id),$withdrawal_data);
-				// $this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_SUCCESS);
+				$this->transation->changeMoney($user_id,FUND_WITHDRAW_SUCCESS,$amount,'',$remark);
 				# code...
 				break;
 			case 4:
@@ -176,7 +177,7 @@ class fund_withdraw extends Base_Model{
 						'status'=>$status
 					);
 				$this->update(array('id'=>$id),$withdrawal_data);
-				// $this->users->changeUserBalance($user_id,$amount,IN,WITHDRAWAL_REFUSE);
+				$this->transation->changeMoney($user_id,FUND_WITHDRAW_REFUSE,$amount,'',$remark);
 				# code...
 				break;
 			

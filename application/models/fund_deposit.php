@@ -97,7 +97,7 @@ class fund_deposit extends Base_Model{
 		if($step == 2 && $status ==-3)  $scene = 4; //二审失败  改变状态  
 		if(!$scene) return array('status'=>false,'msg'=>'参数不对!');
 		if(!$remark) return array('status'=>false,'msg'=>'请填写备注!');
-		$this->load->model('users');
+		$this->load->model('transation');
 		$this->load->model('admins');
 		$order = $this->selectById($id);
 		$user_id = $order['user_id'];
@@ -134,6 +134,7 @@ class fund_deposit extends Base_Model{
 					);
 				$this->update(array('id'=>$id),$deposit_data);
 				// $this->users->changeUserBalance($user_id,$amount,IN,DEPOSIT);
+				$this->transation->changeMoney($user_id,FUND_DEPOSIT_SUCCESS,$amount,'',$remark);
 				# code...
 				break;
 			case 4: //二审失败

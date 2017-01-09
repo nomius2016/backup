@@ -43,7 +43,7 @@ class Withdraw extends Basecontroller {
 	                $aField['user_card_id'] = $p['user_card_id'];
 	                $aField['amount']  = $p['amount'];
 	                $aField['remark']  = '用户申请提现';
-	                $aField['status']  = 0;
+	                $aField['status']  = 1;
 	                $aField['createtime'] = date('Y-m-d H:i:s');
 	                $this->db->set($aField)->insert('fund_withdraw');
 	                if ($this->db->insert_id()<1) {
