@@ -121,6 +121,14 @@ class Transation extends CI_Model {
 
 		$user_id = intval($user_id);
 		$amount  = intval($amount);
+		
+		if($user_id<=0){
+			throw new Exception('用户ID不符合规范',10001);
+		}
+
+		if($amount<=0){
+			throw new Exception('金额不符合规范',10002);
+		}
 		$this->load->model('users');
 		$this->load->model('fund_transfer_log');
 		$userinfo = $this->users->getUserInfo($user_id);
@@ -164,7 +172,7 @@ class Transation extends CI_Model {
 						$fund[] = array('transfer_type_id'=>$type,'amount'=>$amount,'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance']+$amount,'income'=>1);
 					}else{
 						$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id,'balance >='=>$amount),array('balance'=>"balance - $amount"));
-						$fund[] = array('transfer_type_id'=>100,'amount'=>$amount,'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance'] - $amount,'income'=>-1);
+						$fund[] = array('transfer_type_id'=>$type,'amount'=>$amount,'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance'] - $amount,'income'=>-1);
 					}
 					break;
 			}
@@ -192,6 +200,10 @@ class Transation extends CI_Model {
 	                $data[] = $aField;
 				}
 				$rows = $this->fund_transfer_log->insert_batch($data);
+
+				if(!$rows){
+					throw new Exception('插入资金明细表失败',10003);
+				}
 			}
 			$userinfo = $this->users->getUserInfo($user_id);
 			return array(
@@ -200,7 +212,7 @@ class Transation extends CI_Model {
 			    );
 
 		} catch (Exception $e) {
-			throw new Exception('操作失败',10004);
+			throw new Exception('操作失败',10005);
 		}
 
 	}
