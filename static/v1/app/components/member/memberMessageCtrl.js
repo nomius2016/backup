@@ -59,14 +59,11 @@ angular.module('ciApp').controller('memberMessageCtrl', ['$scope', '$stateParams
   $scope.getMessageList = function() {
     $scope.showMessageLoading = !0;
     MessageService.call("GetMessageList", {
-      intRecordCounts: $scope.pager.pageSize,
-      intPageNumber: $scope.pager.pageIndex,
-      strOrderField: "",
-      bitDesc: !0
+      type: 0
     }, function(e) {
-      if (e.Success && $scope.messages.length > 0) {
-        $scope.messages = e.Result.Table;
-        var t = e.Result.Table1[0].TotalCount;
+      if (e.Success) {
+        $scope.messages = e.Result.rows;
+        var t = e.Result.rows.length;
         $scope.pager.pageCount = Math.ceil(t / $scope.pager.pageSize);
       }
       appServices.scrollTop();

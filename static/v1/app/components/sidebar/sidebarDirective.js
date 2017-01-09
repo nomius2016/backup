@@ -104,7 +104,9 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
       }
 
       function _() {
-        a.call("GetMessageList", {}, function(e) {
+        a.call("GetMessageList", {
+          type: 0
+        }, function(e) {
           $scope.showMessageLoading = false;
           e.Success && ($scope.messages = e.Result.rows)
         })

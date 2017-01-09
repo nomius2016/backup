@@ -11,160 +11,53 @@
                 </div>
             </div>
         </div>
-        <!-- 查詢項目 -->
-        <div class="cl transaction_search">
-            <div class="tab-hd">
-                {{'member_trade@query_item' | translate}}
-                &nbsp;
-                &nbsp;
-                {{'member_trade@time_zone_desc' | translate}}
-            </div>
-            <div class="tab-bd">
-                <div class="thema-a col-3">
-                    <select class="ui-select" ng-model="platform" ng-options="item.code as item.name for item in platforms" required></select>
+    </div>
+    <!--提款 取款 账变历史页面-->
+    <div id="vw-ck" class="vw-part vw-ck">
+        <div class="cl">
+            <div class="col-12">
+                <div class="vw-hl-tab" style="margin-top: 0;">
+                    <ul class="mya_declassul">
+                        <li class="mya_depost tab_nav" ng-class="{'active':method === 'deposit'}" ng-click="clickTab('deposit')">
+                            <a>
+                                {{'member_trade@deposit_history_title' | translate}}
+                            </a>
+                        </li>
+                        <li class="mya_dedraw tab_nav" ng-class="{'active':method === 'withdraw'}" ng-click="clickTab('withdraw')">
+                            <a>
+                                {{'member_trade@withdraw_history_title' | translate}}
+                            </a>
+                        </li>
+                        <li class="mya_dedraw tab_nav" ng-class="{'active':method === 'fund'}" ng-click="clickTab('fund')">
+                            <a>
+                                {{'member_trade@fund_history_title' | translate}}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="vw-ui-input col-3">
-                    <!-- 查詢起始日 -->
-                    <input type="text" readonly="readonly" id="datepicker_start" />
-                </div>
-                <span class="fltlft middl-line">—</span>
-                <div class="vw-ui-input col-3">
-                    <!-- 查詢結束日 -->
-                    <input type="text" readonly="readonly" id="datepicker_end" />
-                </div>
-                <a class="btn-1 fltrt" ng-click="getTradeList()">
-                    {{'member_trade@query' | translate}}
-                </a>
             </div>
         </div>
-    </div>
-    <div>
-        <table width="100%" class="transaction_table">
-            <!--<thead ng-if="trades.length > 0">-->
-            <thead>
-                <!-- 主帳戶交易明細欄位 -->
-                <tr ng-if="currentPlatform === '10001'">
-                    <th>{{'member_trade@datetime' | translate}}</th>
-                    <th>{{'member_trade@deposit' | translate}}</th>
-                    <th>{{'member_trade@withdraw' | translate}}</th>
-                    <th>{{'member_trade@transfer' | translate}}</th>
-                    <th>{{'member_trade@bonus' | translate}}</th>
-                    <th>{{'member_trade@subtotal_v' | translate}}</th>
-                    <th>
-                        {{'member_trade@balance' | translate}}
-                        <h6 class="red">({{'member_trade@unBilling' | translate}})</h6>
-                    </th>
-                </tr>
-                <!-- 非主帳戶平台交易明細欄位 -->
-                <tr ng-if="currentPlatform !== '10001'">
-                    <th>{{'member_trade@datetime' | translate}}</th>
-                    <th ng-if="currentPlatform !== '60001' && currentPlatform !== '40002' && currentPlatform !== '62001' && currentPlatform !== '40005' && currentPlatform !== '40007'">
-                        {{'member_trade@transfer' | translate}}
-                    </th>
-                    <th>{{'member_trade@subtotal' | translate}}</th>
-                    <th>{{'member_trade@bonus' | translate}}</th>
-                    <th>
-                        {{'member_trade@turn_over' | translate}}
-
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 主帳戶交易明細 -->
-                <tr ng-repeat="item in trades" ng-if="currentPlatform === '10001'">
-                    <!-- 日期 -->
-                    <td>
-                        <span>{{item.YYYYMMDD}}</span>
-                    </td>
-                    <!-- 存款 -->
-                    <td>
-                        <a class="green" ng-if="item.DepositCounts > 0" ng-click="showPopup('deposit', item.YYYYMMDD)">
-                            <span>{{item.DepositAmount | number:2}}</span>
-                        </a>
-                        <span ng-if="item.DepositCounts <= 0">{{item.DepositAmount | number:2}}</span>
-                    </td>
-                    <!-- 提款 -->
-                    <td>
-                        <a class="green" ng-if="item.WithdrawalCounts > 0" ng-click="showPopup('withdraw', item.YYYYMMDD)">
-                            <span>{{item.WithdrawAmount | number:2}}</span>
-                        </a>
-                        <span ng-if="item.WithdrawalCounts <= 0">{{item.WithdrawAmount | number:2}}</span>
-                    </td>
-                    <!-- 轉帳 -->
-                    <td>
-                        <a ng-class="{'red':item.FundTransferAmount <= 0, 'green':item.FundTransferAmount > 0}" ng-if="item.FundTransferCounts > 0" ng-click="showPopup('transfer', item.YYYYMMDD)">
-                            <span>{{item.FundTransferAmount | number:2}}</span>
-                        </a>
-                        <span ng-if="item.FundTransferCounts <= 0">{{item.FundTransferAmount | number:2}}</span>
-                    </td>
-                    <!-- 紅利 -->
-                    <td>
-                        <a class="green" ng-if="item.TotalBonus > 0" ng-click="showPopup('bonus', item.YYYYMMDD)">
-                            <span>{{item.TotalBonus | number:2}}</span>
-                        </a>
-                        <span ng-if="item.TotalBonus <= 0">{{item.TotalBonus | number:2}}</span>
-                    </td>
-                    <!-- V錢包輸/贏 -->
-                    <td>
-                        <a ng-class="{'red':item.WinLossAmount <= 0, 'green':item.WinLossAmount > 0}" ng-if="item.BetCounts > 0" ng-click="showPopup('subtotal', item.YYYYMMDD)">
-                            <span>{{item.WinLossAmount | number:2}}</span>
-                        </a>
-                        <span ng-if="item.BetCounts <= 0">{{item.WinLossAmount | number:2}}</span>
-                    </td>
-                    <!-- 餘額 -->
-                    <td>
-                        <a class="green" ng-if="item.WithdrawalCounts > 0 || item.DepositCounts > 0 || item.FundTransferCounts > 0 || item.TotalBonus > 0" ng-click="showPopup('balance', item.YYYYMMDD)">
-                            <span style="vertical-align: top;">{{item.BalanceAmount | number:2}}</span>
-                        </a>
-                        <span ng-if="item.WithdrawalCounts === 0 && item.DepositCounts === 0 && item.FundTransferCounts === 0 && item.TotalBonus === 0">
-                            {{item.BalanceAmount | number:2}}
-                        </span>
-                        <a class="red" ng-if="item.NotYetWinLossAmount > 0" ng-click="showPopup('unsettle', item.YYYYMMDD)">
-                            <div class="clear mgbt10"></div>
-                            <span style="vertical-align: top;">({{item.NotYetWinLossAmount | number:2}})</span>
-                        </a>
-                        <div ng-if="item.NotYetWinLossAmount === 0" class="clear mgbt10"></div>
-                        <span ng-if="item.NotYetWinLossAmount === 0">
-                            ({{item.NotYetWinLossAmount | number:2}})
-                        </span>
-                    </td>
-                </tr>
-                <!-- 非主帳戶平台交易明細 -->
-                <tr ng-repeat="item in trades" ng-if="currentPlatform !== '10001'">
-                    <!-- 日期 -->
-                    <td>
-                        <span>{{item.YYYYMMDD}}</span>
-                    </td>
-                    <!-- 轉帳(單一錢包除外) -->
-                    <td ng-if="currentPlatform !== '60001' && currentPlatform !== '40002' && currentPlatform !== '62001' && currentPlatform !== '40005' && currentPlatform !== '40007' "
-                        ng-click="showPopup('transfer', item.YYYYMMDD)">
-                        <a ng-class="{'red':item.FundTransferAmount <= 0, 'green':item.FundTransferAmount > 0}" ng-if="item.FundTransferCounts > 0">
-                            <span>{{item.FundTransferAmount | number:2}}</span>
-                        </a>
-                        <span ng-if="item.FundTransferCounts <= 0">{{item.FundTransferAmount | number:2}}</span>
-                    </td>
-                    <!-- 輸/贏 -->
-                    <td>
-                        <a ng-class="{'red':item.WinLossAmount <= 0, 'green':item.WinLossAmount > 0}" ng-if="item.BetCounts > 0" ng-click="showPopup('subtotal', item.YYYYMMDD)">
-                            <span>{{item.WinLossAmount | number:2}}</span>
-                        </a>
-                        <span ng-if="item.BetCounts <= 0">{{item.WinLossAmount | number:2}}</span>
-                    </td>
-                    <!-- 紅利 -->
-                    <td>
-                        <a class="green" ng-if="item.BonusAmount > 0" ng-click="showPopup('bonus', item.YYYYMMDD)">
-                            <span>{{item.BonusAmount | number:2}}</span>
-                        </a>
-                        <span ng-if="item.BonusAmount <= 0">{{item.BonusAmount | number:2}}</span>
-                    </td>
-                    <!-- 流水 -->
-                    <td>
-                        <span>{{item.TurnoverAmount | number:2}}</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div pager page-count="pager.pageCount" page-index="pager.pageIndex" update="pager.turnPage(num)"></div>
+        <!-- 查詢項目 -->
+        <div class="cl transaction_search" style="border-top: 2px solid #b33234;">
+            <div class="tab-bd">
+              <span class="fltlft middl-line">{{'member_trade@datetime' | translate}}</span>
+              <div class="vw-ui-input col-3">
+                <!-- 查詢起始日 -->
+                <input type="text" readonly="readonly" id="datepicker_start" />
+              </div>
+              <span class="fltlft middl-line">—</span>
+              <div class="vw-ui-input col-3">
+                <!-- 查詢結束日 -->
+                <input type="text" readonly="readonly" id="datepicker_end" />
+              </div>
+              <a class="btn-1 fltlt" ng-click="getHistory()" style="margin-left: 20px; padding: 10px 20px;">
+                {{'member_trade@query' | translate}}
+              </a>
+            </div>
+        </div>
+        <div ui-view="deposit" ng-if="method === 'deposit'" class="col-12"></div>
+        <div ui-view="withdraw" ng-if="method === 'withdraw'" class="col-12"></div>
+        <div ui-view="fund" ng-if="method === 'fund'" class="col-12"></div>
     </div>
 
     <!-- 轉帳 -->

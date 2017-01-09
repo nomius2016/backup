@@ -1,483 +1,481 @@
-<div class="col-12">
-  <div class="vw-ck-cnt">
-    <div class="mya_depostcnt">
-      <div class="mya_depostitem tabCont tabA">
-        <div partial-loading show="showLoading" top="40%"></div>
-        <!--驗證頁-->
-        <div class="mya_cnt" ng-if="stateCheck">
-          <div class="mya_decheck" ng-class="{cursorPointer: !nameValid}">
-            <h4><i>1</i><span>{{'member_bank_deposit@please_validate_name' | translate}}</span></h4>
-            <div class="fltlft mya_decz">
-              <!-- 人民幣市場輸入限制 -->
-              <div class="vw-ui-input">
-                <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@first_name' | translate}}" style="width:274px;" ng-model="$parent.firstName" ng-pattern="/^([\u4d00-\ue863]+[\u002E\u3002\u00B7\u2022]?[\u4d00-\ue863]+|[a-zA-Z]{4,50})$/">
-              </div>
-              <a class="btn-1 btn-next mt25" callback="setRealName(firstName)" ng-class="{'btn-disable':!firstName}" btn-process>
-                  {{'member_bank_deposit@submit' | translate}}
-              </a>
+<div class="vw-ck-cnt">
+  <div class="mya_depostcnt">
+    <div class="mya_depostitem tabCont tabA">
+      <div partial-loading show="showLoading" top="40%"></div>
+      <!--驗證頁-->
+      <div class="mya_cnt" ng-if="stateCheck">
+        <div class="mya_decheck" ng-class="{cursorPointer: !nameValid}">
+          <h4><i>1</i><span>{{'member_bank_deposit@please_validate_name' | translate}}</span></h4>
+          <div class="fltlft mya_decz">
+            <!-- 人民幣市場輸入限制 -->
+            <div class="vw-ui-input">
+              <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@first_name' | translate}}" style="width:274px;" ng-model="$parent.firstName" ng-pattern="/^([\u4d00-\ue863]+[\u002E\u3002\u00B7\u2022]?[\u4d00-\ue863]+|[a-zA-Z]{4,50})$/">
             </div>
+            <a class="btn-1 btn-next mt25" callback="setRealName(firstName)" ng-class="{'btn-disable':!firstName}" btn-process>
+                {{'member_bank_deposit@submit' | translate}}
+            </a>
           </div>
         </div>
-        <!--流程頁-->
-        <div class="mya_dep1" ng-if="!stateCheck">
-          <!-- AsiaPay存款 -->
-          <div class="mya_deonsmall">
-            <div class="mya_deonline tabCont">
-              <!--資料頁-->
-              <div class="mya_cnt" ng-if="stateOrder">
-                <!--选择付款方式-->
-                <div class="mya_decheck">
-                  <h4>
-                      <i>1</i>
-                      {{'member_bank_deposit@select_bank' | translate}}
-                  </h4>
-                  <div class="mya_dechwrap mt20">
-                    <div class="mya_dechbank" ng-if="deposit.bankList['online']">
-                      <div class="mya_dechbankcy">
-                        <span>{{'member_bank_deposit@online_payment' | translate}}</span>
-                        <ul>
-                          <li ng-repeat="item in deposit.bankList['online']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
-                            <i></i><span>{{item.title}}</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="mya_dechbankcy" ng-if="deposit.bankList['transfer']">
-                        <span>{{'member_bank_deposit@transfer_payment' | translate}}</span>
-                        <ul>
-                          <li ng-repeat="item in deposit.bankList['transfer']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
-                            <i></i><span>{{item.title}}</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="mya_dechbankcy" ng-if="deposit.bankList['alipay']">
-                        <span>{{'member_bank_deposit@alipay_payment' | translate}}</span>
-                        <ul>
-                          <li ng-repeat="item in deposit.bankList['alipay']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
-                            <i></i><span>{{item.title}}</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="mya_dechbankcy" ng-if="deposit.bankList['wechat']">
-                        <span>{{'member_bank_deposit@wechat_payment' | translate}}</span>
-                        <ul>
-                          <li ng-repeat="item in deposit.bankList['wechat']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
-                            <i></i><span>{{item.title}}</span>
-                          </li>
-                        </ul>
-                      </div>
+      </div>
+      <!--流程頁-->
+      <div class="mya_dep1" ng-if="!stateCheck">
+        <!-- AsiaPay存款 -->
+        <div class="mya_deonsmall">
+          <div class="mya_deonline tabCont">
+            <!--資料頁-->
+            <div class="mya_cnt" ng-if="stateOrder">
+              <!--选择付款方式-->
+              <div class="mya_decheck">
+                <h4>
+                    <i>1</i>
+                    {{'member_bank_deposit@select_bank' | translate}}
+                </h4>
+                <div class="mya_dechwrap mt20">
+                  <div class="mya_dechbank" ng-if="deposit.bankList['online']">
+                    <div class="mya_dechbankcy">
+                      <span>{{'member_bank_deposit@online_payment' | translate}}</span>
+                      <ul>
+                        <li ng-repeat="item in deposit.bankList['online']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
+                          <i></i><span>{{item.title}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="mya_dechbankcy" ng-if="deposit.bankList['transfer']">
+                      <span>{{'member_bank_deposit@transfer_payment' | translate}}</span>
+                      <ul>
+                        <li ng-repeat="item in deposit.bankList['transfer']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
+                          <i></i><span>{{item.title}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="mya_dechbankcy" ng-if="deposit.bankList['alipay']">
+                      <span>{{'member_bank_deposit@alipay_payment' | translate}}</span>
+                      <ul>
+                        <li ng-repeat="item in deposit.bankList['alipay']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
+                          <i></i><span>{{item.title}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="mya_dechbankcy" ng-if="deposit.bankList['wechat']">
+                      <span>{{'member_bank_deposit@wechat_payment' | translate}}</span>
+                      <ul>
+                        <li ng-repeat="item in deposit.bankList['wechat']" ng-class="{'active': deposit.bankID === item.payment_method_id}" ng-click="deposit.changeBank(item)">
+                          <i></i><span>{{item.title}}</span>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <!--请输入存款金额-->
-                <div class="mya_decheck">
-                  <h4><i>2</i>{{'member_bank_deposit@input_amount' | translate}}</h4>
-                  <div class="fltlft mya_decz">
-                    <div class="vw-ui-input">
-                      <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@input_amount' | translate}}" style=" width:274px; " ng-model="deposit.amount " min="{{deposit.minValue}} " max="{{deposit.maxValue}} " step="1 "
-                                                   ng-pattern="/^\d+$/ " onkeyup="value=value.replace(/[^-0-9]/g, '') " />
-                    </div>
-                    <a class="btn-1 btn-next mt25 " callback="deposit.createOrder() " ng-class="{ 'btn-disable':!deposit.amount || desposit.amount <=0 } " btn-process>
-                        {{'member_bank_deposit@next' | translate}}
-                    </a>
+              <!--请输入存款金额-->
+              <div class="mya_decheck">
+                <h4><i>2</i>{{'member_bank_deposit@input_amount' | translate}}</h4>
+                <div class="fltlft mya_decz">
+                  <div class="vw-ui-input">
+                    <input type="text" class="mn-ipt" placeholder="{{'member_bank_deposit@input_amount' | translate}}" style=" width:274px; " ng-model="deposit.amount " min="{{deposit.minValue}} " max="{{deposit.maxValue}} " step="1 "
+                                                 ng-pattern="/^\d+$/ " onkeyup="value=value.replace(/[^-0-9]/g, '') " />
                   </div>
-                  <div class="fltlft mya_deczhint ">
-                      <table class="tp_depositTable ">
-                          <tbody>
-                              <tr>
-                                  <td>
-                                      {{'member_bank_deposit@single_limit' | translate}}
-                                      ：
-                                      <em>
-                                          {{deposit.minValue | currencyFix}} - {{deposit.maxValue | currencyFix}}
-                                      </em>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td>
-                                      {{'member_bank_deposit@daily_limit' | translate}}
-                                      ：
-                                      <em ng-if="deposit.method==='quick' ">
-                                          {{'member_bank_deposit@limit_by_your_bank' | translate}}
-                                      </em>
-                                      <em ng-if="deposit.method !=='quick' ">
-                                          {{'member_bank_deposit@no_limit' | translate}}
-                                      </em>
-                                  </td>
-                              </tr>
-                          </tbody>
-                      </table>
-                    </div>
-                    <div class="clears "></div>
-                  </div>
+                  <a class="btn-1 btn-next mt25 " callback="deposit.createOrder() " ng-class="{ 'btn-disable':!deposit.amount || desposit.amount <=0 } " btn-process>
+                      {{'member_bank_deposit@next' | translate}}
+                  </a>
                 </div>
-                <!--訂單頁-->
-                <div class="mya_cnt " ng-if="stateConfirm ">
-                    <div class="mya_success ">
-                        <!--訂單說明區塊-->
-                        <div class="mya_success_hd ">
-                            <div class="mya_sw " ng-switch on="deposit.method ">
-                                <!--在線支付訂單說明-->
-                                <p ng-switch-when="online ">
-                                    {{'member_bank_deposit@order_guide_online_part1' | translate}}
-                                    <br />
-                                    {{'member_bank_deposit@order_guide_online_part2' | translate}}
-                                </p>
-                                <!--快捷支付訂單說明-->
-                                <p ng-switch-when="quick ">
-                                    {{'member_bank_deposit@order_guide_quick_part1' | translate}}
-                                    <br />
-                                    {{'member_bank_deposit@order_guide_quick_part2' | translate}}
-                                </p>
-                                <!--支付寶訂單說明-->
-                                <p ng-switch-when="bao ">
-                                    {{'member_bank_deposit@order_guide_ali_part1' | translate}}
-                                    <br />
-                                    {{'member_bank_deposit@order_guide_ali_part2' | translate}}
-                                    <a ng-click="openLiveChat() ">
-                                        {{'member_bank_deposit@order_guide_ali_part3' | translate}}
-                                    </a>
-                                    {{'member_bank_deposit@order_guide_ali_part4' | translate}}
-                                </p>
-                                <!--微信支付訂單說明-->
-                                <p ng-switch-when="wechat ">
-                                    {{'member_bank_deposit@order_guide_wechat_part1' | translate}}
-                                    <br />
-                                    {{'member_bank_deposit@order_guide_wechat_part2' | translate}}
-                                    <a ng-click="openLiveChat() ">
-                                        {{'member_bank_deposit@order_guide_wechat_part3' | translate}}
-                                    </a>
-                                    {{'member_bank_deposit@order_guide_wechat_part4' | translate}}
-                                </p>
-                                <!--轉帳及銀行訂單說明-->
-                                <p ng-switch-default>
-                                    {{'member_bank_deposit@order_guide_bank_part1' | translate}}
-                                    <br />
-                                    {{'member_bank_deposit@order_guide_bank_part2' | translate}}
-                                    <a ng-click="openLiveChat() ">
-                                        {{'member_bank_deposit@order_guide_bank_part3' | translate}}
-                                    </a>
-                                    {{'member_bank_deposit@order_guide_bank_part4' | translate}}
-                                </p>
-                            </div>
-                        </div>
-                        <!--訂單內容區塊-->
-                        <div class="mya_success_bd ">
-                            <div class="mya_sw " ng-switch on="deposit.method ">
-                                <!--快捷支付訂單內容-->
-                                <div class="cl " ng-switch-when="quick ">
-                                    <div class="mya_table_detail alipay_table ">
-                                        <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
-                                            <tr>
-                                                <td class="col-1 ">
-                                                    {{'member_bank_deposit@order_serial' | translate}}
-                                                </td>
-                                                <td class="col-2 rltv " ng-bind="deposit.orderSerial "></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-1 ">
-                                                    {{'member_bank_deposit@deposit_amount' | translate}}
-                                                </td>
-                                                <td class="col-2 rltv ">
-                                                    <em ng-bind="deposit.amount | number:2 "></em>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2 " class="rltv ">
-                                                    <div class="mya_ysq " ng-if="deposit.orderValid ">
-                                                        <p>
-                                                            {{'member_bank_deposit@left_time_before_order_expied' | translate}}
-                                                        </p>
-                                                        <span class="mya_djs ">
-                                                            <i class="hours " ng-bind="orderValidTime.hh "></i>
-                                                            <b class="split ">:</b>
-                                                            <i class="minute " ng-bind="orderValidTime.mm "></i>
-                                                            <b class="split ">:</b>
-                                                            <i class="seconds " ng-bind="orderValidTime.ss "></i>
-                                                        </span>
-                                                    </div>
-                                                    <div class="mya_sx " ng-if="deposit.orderValid===false ">
-                                                        <p class="tip " ng-mouseover="hint_tip=true " ng-mouseleave="hint_tip=false ">
-                                                            {{'member_bank_deposit@pay_order_expired' | translate}}
-                                                        </p>
-                                                        <div class="hintMsg " ng-if="hint_tip ">
-                                                            <p>
-                                                                {{'member_bank_deposit@please_create_order_again' | translate}}
-                                                            </p>
-                                                            <span class="rtArrow "></span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!--在線支付訂單內容-->
-                                <div class="mya_order-table " ng-switch-when="online ">
-                                    <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
-                                        <tr>
-                                            <td class="col-1 ">
-                                                {{'member_bank_deposit@order_serial' | translate}}
-                                            </td>
-                                            <td class="col-2 " ng-bind="deposit.orderSerial "></td>
-                                            <td class="col-1 ">
-                                                {{'member_bank_deposit@deposit_amount' | translate}}
-                                            </td>
-                                            <td class="col-2 " ng-bind="deposit.amount | number:2 "></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <!--支付保訂單內容-->
-                                <div class="cl " ng-switch-when="bao ">
-                                    <div class="mya_table_detail alipay_table ">
-                                        <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
-                                            <tr>
-                                                <td class="col-1 ">
-                                                    {{'member_bank_deposit@order_serial' | translate}}
-                                                </td>
-                                                <td class="col-2 rltv " ng-bind="deposit.orderSerial "></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-1 ">
-                                                    {{'member_bank_deposit@deposit_amount' | translate}}
-                                                </td>
-                                                <td class="col-2 rltv ">
-                                                    <em ng-bind="deposit.amount | number:2 "></em>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2 " class="rltv ">
-                                                    <div class="mya_ysq " ng-if="deposit.orderValid ">
-                                                        <p>
-                                                            {{'member_bank_deposit@left_time_before_order_expied' | translate}}
-                                                        </p>
-                                                        <span class="mya_djs ">
-                                                            <i class="hours " ng-bind="orderValidTime.hh "></i>
-                                                            <b class="split ">:</b>
-                                                            <i class="minute " ng-bind="orderValidTime.mm "></i>
-                                                            <b class="split ">:</b>
-                                                            <i class="seconds " ng-bind="orderValidTime.ss "></i>
-                                                        </span>
-                                                    </div>
-                                                    <div class="mya_sx " ng-if="deposit.orderValid===false ">
-                                                        <p class="tip " ng-mouseover="hint_tip=true " ng-mouseleave="hint_tip=false ">
-                                                            {{'member_bank_deposit@pay_order_expired' | translate}}
-                                                        </p>
-                                                        <div class="hintMsg " ng-if="hint_tip ">
-                                                            <p>
-                                                                {{'member_bank_deposit@please_create_order_again' | translate}}
-                                                            </p>
-                                                            <span class="rtArrow "></span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-
-                                    </div>
-                                    <div class="mya_phone ">
-                                        <div class="p_code " ng-mouseover="barcode_over=true " ng-mouseleave="barcode_over=false ">
-                                            <div class="p_barcode ">
-                                                <div class="p_qrcode ">
-                                                    <qrcode data="{{deposit.ReturnURL}} " size="137 "></qrcode>
-                                                </div>
-                                                <p>
-                                                    {{'member_bank_deposit@qrcode_tip' | translate}}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="p_link cl ">
-                                            <a ui-sref="help({mainmenu: 'greenhand', menu: 'v2-Depositsop'}) " class="fltrt ">
-                                                {{'member_bank_deposit@ali_how_to_pay' | translate}}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--微信訂單內容-->
-                                <div class="cl " ng-switch-when="wechat ">
-                                    <div class="mya_table_detail alipay_table ">
-                                        <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
-                                            <tr>
-                                                <td class="col-1 ">
-                                                    {{'member_bank_deposit@order_serial' | translate}}
-                                                </td>
-                                                <td class="col-2 rltv " ng-bind="deposit.orderSerial "></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-1 ">
-                                                    {{'member_bank_deposit@deposit_amount' | translate}}
-                                                </td>
-                                                <td class="col-2 rltv ">
-                                                    <em ng-bind="deposit.amount | number:2 "></em>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2 " class="rltv ">
-                                                    <div class="mya_ysq " ng-if="deposit.orderValid ">
-                                                        <p>
-                                                            {{'member_bank_deposit@left_time_before_order_expied' | translate}}
-                                                        </p>
-                                                        <span class="mya_djs ">
-                                                            <i class="hours " ng-bind="orderValidTime.hh "></i>
-                                                            <b class="split ">:</b>
-                                                            <i class="minute " ng-bind="orderValidTime.mm "></i>
-                                                            <b class="split ">:</b>
-                                                            <i class="seconds " ng-bind="orderValidTime.ss "></i>
-                                                        </span>
-                                                    </div>
-                                                    <div class="mya_sx " ng-if="deposit.orderValid===false ">
-                                                        <p class="tip " ng-mouseover="hint_tip=true " ng-mouseleave="hint_tip=false ">
-                                                            {{'member_bank_deposit@pay_order_expired' | translate}}
-                                                        </p>
-                                                        <div class="hintMsg " ng-if="hint_tip ">
-                                                            <p>
-                                                                {{'member_bank_deposit@please_create_order_again' | translate}}
-                                                            </p>
-                                                            <span class="rtArrow "></span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-
-                                    </div>
-                                    <div class="mya_phone ">
-                                        <div class="p_code " ng-mouseover="barcode_over=true " ng-mouseleave="barcode_over=false ">
-                                            <div class="p_barcode ">
-                                                <div class="p_qrcode ">
-                                                    <qrcode data="{{deposit.ReturnURL}} " size="137 "></qrcode>
-                                                </div>
-                                                <p>
-                                                    {{'member_bank_deposit@qrcode_tip' | translate}}
-                                                </p>
-                                            </div>
-                                            <div class="p_barcode_intro " ng-class="{ 'p_barcode_intro_show':barcode_over} ">
-                                                <img src="/static/v1/images/phone4.png " alt=" " />
-                                            </div>
-                                        </div>
-                                        <div class="p_link cl ">
-                                            <a ui-sref="help({mainmenu: 'greenhand', menu: 'v2-Depositsop'}) " class="fltrt ">
-                                                {{'member_bank_deposit@ali_how_to_pay' | translate}}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--轉帳及銀行訂單說明-->
-                                <div class="mya_bank_table bank_online_table " ng-switch-default>
-                                    <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
-                                        <tr>
-                                            <td class="col-1 ">
-                                                {{'member_bank_deposit@order_serial' | translate}}
-                                            </td>
-                                            <td class="col-2 " ng-bind="deposit.orderSerial "></td>
-                                            <td class="col-1 ">
-                                                {{'member_bank_deposit@bank_account' | translate}}
-                                            </td>
-                                            <td class="col-2 ">
-                                                {{deposit.bankAccount}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-1 ">
-                                                {{'member_bank_deposit@bank_name' | translate}}
-                                            </td>
-                                            <td class="col-2 " ng-bind="deposit.bank "></td>
-                                            <td class="col-1 ">
-                                                {{'member_bank_deposit@card_owner_name' | translate}}
-                                            </td>
-                                            <td class="col-2 ">
-                                                {{deposit.cardOwnerName}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-1 ">
-                                                {{'member_bank_deposit@deposit_branch' | translate}}
-                                            </td>
-                                            <td class="col-2 ">
-                                                {{deposit.branchFullName}}
-                                            </td>
-                                            <td class="col-1 ">
-                                                {{'member_bank_deposit@deposit_amount' | translate}}
-                                            </td>
-                                            <td class="col-2 ">
-                                                <em ng-bind="deposit.amount | number:2 "></em>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4 " class="rltv ">
-                                                <div class="mya_ysq " ng-if="deposit.orderValid ">
-                                                    <p>
-                                                        {{'member_bank_deposit@left_time_before_order_expied' | translate}}
-                                                    </p>
-                                                    <span class="mya_djs ">
-                                                        <i class="hours " ng-bind="orderValidTime.hh "></i>
-                                                        <b class="split ">:</b>
-                                                        <i class="minute " ng-bind="orderValidTime.mm "></i>
-                                                        <b class="split ">:</b>
-                                                        <i class="seconds " ng-bind="orderValidTime.ss "></i>
-                                                    </span>
-                                                </div>
-                                                <div class="mya_sx " ng-if="deposit.orderValid===false ">
-                                                    <p class="tip " ng-mouseover="hint_tip=true " ng-mouseleave="hint_tip=false ">
-                                                        {{'member_bank_deposit@pay_order_expired' | translate}}
-                                                    </p>
-                                                    <div class="hintMsg " ng-if="hint_tip ">
-                                                        <p>
-                                                            {{'member_bank_deposit@please_create_order_again' | translate}}
-                                                        </p>
-                                                        <span class="rtArrow "></span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div style="margin-right:264px; ">
-                                    <a class="btn-2 " ng-click="deposit.cancelOrder() ">
-                                        {{'member_bank_deposit@cancel_order' | translate}}
-                                    </a>
-                                    <a class="btn-1 btn-next " ng-click="deposit.confirmOrder() " ng-if="deposit.orderValid ">
-                                        {{'member_bank_deposit@deposit_complete' | translate}}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--結果頁-->
-                <div class="mya_cnt " ng-if="stateResult ">
-                    <div class="mya_result ">
-                        <div class="mya_wrap yellowBg ">
-                            <div class="result_tit ">
-                                <i class="icon_yes "></i>
-                                {{'member_bank_deposit@submit_success' | translate}}
-                            </div>
-                            <div class="result_cnt ">
-                                <p>
-                                    {{'member_bank_deposit@order_result_info_part1' | translate}}
-                                    <br />
-                                    {{'member_bank_deposit@order_result_info_part2' | translate}}
+                <div class="fltlft mya_deczhint ">
+                    <table class="tp_depositTable ">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {{'member_bank_deposit@single_limit' | translate}}
+                                    ：
                                     <em>
-                                        {{leaveTime}} {{'member_bank_deposit@order_result_info_part3' | translate}}
+                                        {{deposit.minValue | currencyFix}} - {{deposit.maxValue | currencyFix}}
                                     </em>
-                                    {{'member_bank_deposit@order_result_info_part4' | translate}}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="mya_help ">
-                            <h5>
-                                {{'member_bank_deposit@order_result_help_part1' | translate}}
-                            </h5>
-                            <p>
-                                {{'member_bank_deposit@order_result_help_part2' | translate}}
-                                <a ng-click="openLiveChat() ">
-                                    {{'member_bank_deposit@order_result_help_part3' | translate}}
-                                </a>
-                                {{'member_bank_deposit@order_result_help_part4' | translate}}
-                            </p>
-                        </div>
-                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{'member_bank_deposit@daily_limit' | translate}}
+                                    ：
+                                    <em ng-if="deposit.method==='quick' ">
+                                        {{'member_bank_deposit@limit_by_your_bank' | translate}}
+                                    </em>
+                                    <em ng-if="deposit.method !=='quick' ">
+                                        {{'member_bank_deposit@no_limit' | translate}}
+                                    </em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                  <div class="clears "></div>
                 </div>
+              </div>
+              <!--訂單頁-->
+              <div class="mya_cnt " ng-if="stateConfirm ">
+                  <div class="mya_success ">
+                      <!--訂單說明區塊-->
+                      <div class="mya_success_hd ">
+                          <div class="mya_sw " ng-switch on="deposit.method ">
+                              <!--在線支付訂單說明-->
+                              <p ng-switch-when="online ">
+                                  {{'member_bank_deposit@order_guide_online_part1' | translate}}
+                                  <br />
+                                  {{'member_bank_deposit@order_guide_online_part2' | translate}}
+                              </p>
+                              <!--快捷支付訂單說明-->
+                              <p ng-switch-when="quick ">
+                                  {{'member_bank_deposit@order_guide_quick_part1' | translate}}
+                                  <br />
+                                  {{'member_bank_deposit@order_guide_quick_part2' | translate}}
+                              </p>
+                              <!--支付寶訂單說明-->
+                              <p ng-switch-when="bao ">
+                                  {{'member_bank_deposit@order_guide_ali_part1' | translate}}
+                                  <br />
+                                  {{'member_bank_deposit@order_guide_ali_part2' | translate}}
+                                  <a ng-click="openLiveChat() ">
+                                      {{'member_bank_deposit@order_guide_ali_part3' | translate}}
+                                  </a>
+                                  {{'member_bank_deposit@order_guide_ali_part4' | translate}}
+                              </p>
+                              <!--微信支付訂單說明-->
+                              <p ng-switch-when="wechat ">
+                                  {{'member_bank_deposit@order_guide_wechat_part1' | translate}}
+                                  <br />
+                                  {{'member_bank_deposit@order_guide_wechat_part2' | translate}}
+                                  <a ng-click="openLiveChat() ">
+                                      {{'member_bank_deposit@order_guide_wechat_part3' | translate}}
+                                  </a>
+                                  {{'member_bank_deposit@order_guide_wechat_part4' | translate}}
+                              </p>
+                              <!--轉帳及銀行訂單說明-->
+                              <p ng-switch-default>
+                                  {{'member_bank_deposit@order_guide_bank_part1' | translate}}
+                                  <br />
+                                  {{'member_bank_deposit@order_guide_bank_part2' | translate}}
+                                  <a ng-click="openLiveChat() ">
+                                      {{'member_bank_deposit@order_guide_bank_part3' | translate}}
+                                  </a>
+                                  {{'member_bank_deposit@order_guide_bank_part4' | translate}}
+                              </p>
+                          </div>
+                      </div>
+                      <!--訂單內容區塊-->
+                      <div class="mya_success_bd ">
+                          <div class="mya_sw " ng-switch on="deposit.method ">
+                              <!--快捷支付訂單內容-->
+                              <div class="cl " ng-switch-when="quick ">
+                                  <div class="mya_table_detail alipay_table ">
+                                      <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
+                                          <tr>
+                                              <td class="col-1 ">
+                                                  {{'member_bank_deposit@order_serial' | translate}}
+                                              </td>
+                                              <td class="col-2 rltv " ng-bind="deposit.orderSerial "></td>
+                                          </tr>
+                                          <tr>
+                                              <td class="col-1 ">
+                                                  {{'member_bank_deposit@deposit_amount' | translate}}
+                                              </td>
+                                              <td class="col-2 rltv ">
+                                                  <em ng-bind="deposit.amount | number:2 "></em>
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td colspan="2 " class="rltv ">
+                                                  <div class="mya_ysq " ng-if="deposit.orderValid ">
+                                                      <p>
+                                                          {{'member_bank_deposit@left_time_before_order_expied' | translate}}
+                                                      </p>
+                                                      <span class="mya_djs ">
+                                                          <i class="hours " ng-bind="orderValidTime.hh "></i>
+                                                          <b class="split ">:</b>
+                                                          <i class="minute " ng-bind="orderValidTime.mm "></i>
+                                                          <b class="split ">:</b>
+                                                          <i class="seconds " ng-bind="orderValidTime.ss "></i>
+                                                      </span>
+                                                  </div>
+                                                  <div class="mya_sx " ng-if="deposit.orderValid===false ">
+                                                      <p class="tip " ng-mouseover="hint_tip=true " ng-mouseleave="hint_tip=false ">
+                                                          {{'member_bank_deposit@pay_order_expired' | translate}}
+                                                      </p>
+                                                      <div class="hintMsg " ng-if="hint_tip ">
+                                                          <p>
+                                                              {{'member_bank_deposit@please_create_order_again' | translate}}
+                                                          </p>
+                                                          <span class="rtArrow "></span>
+                                                      </div>
+                                                  </div>
+                                              </td>
+                                          </tr>
+                                      </table>
+                                  </div>
+                              </div>
+                              <!--在線支付訂單內容-->
+                              <div class="mya_order-table " ng-switch-when="online ">
+                                  <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
+                                      <tr>
+                                          <td class="col-1 ">
+                                              {{'member_bank_deposit@order_serial' | translate}}
+                                          </td>
+                                          <td class="col-2 " ng-bind="deposit.orderSerial "></td>
+                                          <td class="col-1 ">
+                                              {{'member_bank_deposit@deposit_amount' | translate}}
+                                          </td>
+                                          <td class="col-2 " ng-bind="deposit.amount | number:2 "></td>
+                                      </tr>
+                                  </table>
+                              </div>
+                              <!--支付保訂單內容-->
+                              <div class="cl " ng-switch-when="bao ">
+                                  <div class="mya_table_detail alipay_table ">
+                                      <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
+                                          <tr>
+                                              <td class="col-1 ">
+                                                  {{'member_bank_deposit@order_serial' | translate}}
+                                              </td>
+                                              <td class="col-2 rltv " ng-bind="deposit.orderSerial "></td>
+                                          </tr>
+                                          <tr>
+                                              <td class="col-1 ">
+                                                  {{'member_bank_deposit@deposit_amount' | translate}}
+                                              </td>
+                                              <td class="col-2 rltv ">
+                                                  <em ng-bind="deposit.amount | number:2 "></em>
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td colspan="2 " class="rltv ">
+                                                  <div class="mya_ysq " ng-if="deposit.orderValid ">
+                                                      <p>
+                                                          {{'member_bank_deposit@left_time_before_order_expied' | translate}}
+                                                      </p>
+                                                      <span class="mya_djs ">
+                                                          <i class="hours " ng-bind="orderValidTime.hh "></i>
+                                                          <b class="split ">:</b>
+                                                          <i class="minute " ng-bind="orderValidTime.mm "></i>
+                                                          <b class="split ">:</b>
+                                                          <i class="seconds " ng-bind="orderValidTime.ss "></i>
+                                                      </span>
+                                                  </div>
+                                                  <div class="mya_sx " ng-if="deposit.orderValid===false ">
+                                                      <p class="tip " ng-mouseover="hint_tip=true " ng-mouseleave="hint_tip=false ">
+                                                          {{'member_bank_deposit@pay_order_expired' | translate}}
+                                                      </p>
+                                                      <div class="hintMsg " ng-if="hint_tip ">
+                                                          <p>
+                                                              {{'member_bank_deposit@please_create_order_again' | translate}}
+                                                          </p>
+                                                          <span class="rtArrow "></span>
+                                                      </div>
+                                                  </div>
+                                              </td>
+                                          </tr>
+                                      </table>
+
+                                  </div>
+                                  <div class="mya_phone ">
+                                      <div class="p_code " ng-mouseover="barcode_over=true " ng-mouseleave="barcode_over=false ">
+                                          <div class="p_barcode ">
+                                              <div class="p_qrcode ">
+                                                  <qrcode data="{{deposit.ReturnURL}} " size="137 "></qrcode>
+                                              </div>
+                                              <p>
+                                                  {{'member_bank_deposit@qrcode_tip' | translate}}
+                                              </p>
+                                          </div>
+                                      </div>
+                                      <div class="p_link cl ">
+                                          <a ui-sref="help({mainmenu: 'greenhand', menu: 'v2-Depositsop'}) " class="fltrt ">
+                                              {{'member_bank_deposit@ali_how_to_pay' | translate}}
+                                          </a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!--微信訂單內容-->
+                              <div class="cl " ng-switch-when="wechat ">
+                                  <div class="mya_table_detail alipay_table ">
+                                      <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
+                                          <tr>
+                                              <td class="col-1 ">
+                                                  {{'member_bank_deposit@order_serial' | translate}}
+                                              </td>
+                                              <td class="col-2 rltv " ng-bind="deposit.orderSerial "></td>
+                                          </tr>
+                                          <tr>
+                                              <td class="col-1 ">
+                                                  {{'member_bank_deposit@deposit_amount' | translate}}
+                                              </td>
+                                              <td class="col-2 rltv ">
+                                                  <em ng-bind="deposit.amount | number:2 "></em>
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td colspan="2 " class="rltv ">
+                                                  <div class="mya_ysq " ng-if="deposit.orderValid ">
+                                                      <p>
+                                                          {{'member_bank_deposit@left_time_before_order_expied' | translate}}
+                                                      </p>
+                                                      <span class="mya_djs ">
+                                                          <i class="hours " ng-bind="orderValidTime.hh "></i>
+                                                          <b class="split ">:</b>
+                                                          <i class="minute " ng-bind="orderValidTime.mm "></i>
+                                                          <b class="split ">:</b>
+                                                          <i class="seconds " ng-bind="orderValidTime.ss "></i>
+                                                      </span>
+                                                  </div>
+                                                  <div class="mya_sx " ng-if="deposit.orderValid===false ">
+                                                      <p class="tip " ng-mouseover="hint_tip=true " ng-mouseleave="hint_tip=false ">
+                                                          {{'member_bank_deposit@pay_order_expired' | translate}}
+                                                      </p>
+                                                      <div class="hintMsg " ng-if="hint_tip ">
+                                                          <p>
+                                                              {{'member_bank_deposit@please_create_order_again' | translate}}
+                                                          </p>
+                                                          <span class="rtArrow "></span>
+                                                      </div>
+                                                  </div>
+                                              </td>
+                                          </tr>
+                                      </table>
+
+                                  </div>
+                                  <div class="mya_phone ">
+                                      <div class="p_code " ng-mouseover="barcode_over=true " ng-mouseleave="barcode_over=false ">
+                                          <div class="p_barcode ">
+                                              <div class="p_qrcode ">
+                                                  <qrcode data="{{deposit.ReturnURL}} " size="137 "></qrcode>
+                                              </div>
+                                              <p>
+                                                  {{'member_bank_deposit@qrcode_tip' | translate}}
+                                              </p>
+                                          </div>
+                                          <div class="p_barcode_intro " ng-class="{ 'p_barcode_intro_show':barcode_over} ">
+                                              <img src="/static/v1/images/phone4.png " alt=" " />
+                                          </div>
+                                      </div>
+                                      <div class="p_link cl ">
+                                          <a ui-sref="help({mainmenu: 'greenhand', menu: 'v2-Depositsop'}) " class="fltrt ">
+                                              {{'member_bank_deposit@ali_how_to_pay' | translate}}
+                                          </a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!--轉帳及銀行訂單說明-->
+                              <div class="mya_bank_table bank_online_table " ng-switch-default>
+                                  <table width="100% " border="0 " cellspacing="0 " cellpadding="0 ">
+                                      <tr>
+                                          <td class="col-1 ">
+                                              {{'member_bank_deposit@order_serial' | translate}}
+                                          </td>
+                                          <td class="col-2 " ng-bind="deposit.orderSerial "></td>
+                                          <td class="col-1 ">
+                                              {{'member_bank_deposit@bank_account' | translate}}
+                                          </td>
+                                          <td class="col-2 ">
+                                              {{deposit.bankAccount}}
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td class="col-1 ">
+                                              {{'member_bank_deposit@bank_name' | translate}}
+                                          </td>
+                                          <td class="col-2 " ng-bind="deposit.bank "></td>
+                                          <td class="col-1 ">
+                                              {{'member_bank_deposit@card_owner_name' | translate}}
+                                          </td>
+                                          <td class="col-2 ">
+                                              {{deposit.cardOwnerName}}
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td class="col-1 ">
+                                              {{'member_bank_deposit@deposit_branch' | translate}}
+                                          </td>
+                                          <td class="col-2 ">
+                                              {{deposit.branchFullName}}
+                                          </td>
+                                          <td class="col-1 ">
+                                              {{'member_bank_deposit@deposit_amount' | translate}}
+                                          </td>
+                                          <td class="col-2 ">
+                                              <em ng-bind="deposit.amount | number:2 "></em>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td colspan="4 " class="rltv ">
+                                              <div class="mya_ysq " ng-if="deposit.orderValid ">
+                                                  <p>
+                                                      {{'member_bank_deposit@left_time_before_order_expied' | translate}}
+                                                  </p>
+                                                  <span class="mya_djs ">
+                                                      <i class="hours " ng-bind="orderValidTime.hh "></i>
+                                                      <b class="split ">:</b>
+                                                      <i class="minute " ng-bind="orderValidTime.mm "></i>
+                                                      <b class="split ">:</b>
+                                                      <i class="seconds " ng-bind="orderValidTime.ss "></i>
+                                                  </span>
+                                              </div>
+                                              <div class="mya_sx " ng-if="deposit.orderValid===false ">
+                                                  <p class="tip " ng-mouseover="hint_tip=true " ng-mouseleave="hint_tip=false ">
+                                                      {{'member_bank_deposit@pay_order_expired' | translate}}
+                                                  </p>
+                                                  <div class="hintMsg " ng-if="hint_tip ">
+                                                      <p>
+                                                          {{'member_bank_deposit@please_create_order_again' | translate}}
+                                                      </p>
+                                                      <span class="rtArrow "></span>
+                                                  </div>
+                                              </div>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </div>
+                              <div style="margin-right:264px; ">
+                                  <a class="btn-2 " ng-click="deposit.cancelOrder() ">
+                                      {{'member_bank_deposit@cancel_order' | translate}}
+                                  </a>
+                                  <a class="btn-1 btn-next " ng-click="deposit.confirmOrder() " ng-if="deposit.orderValid ">
+                                      {{'member_bank_deposit@deposit_complete' | translate}}
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!--結果頁-->
+              <div class="mya_cnt " ng-if="stateResult ">
+                  <div class="mya_result ">
+                      <div class="mya_wrap yellowBg ">
+                          <div class="result_tit ">
+                              <i class="icon_yes "></i>
+                              {{'member_bank_deposit@submit_success' | translate}}
+                          </div>
+                          <div class="result_cnt ">
+                              <p>
+                                  {{'member_bank_deposit@order_result_info_part1' | translate}}
+                                  <br />
+                                  {{'member_bank_deposit@order_result_info_part2' | translate}}
+                                  <em>
+                                      {{leaveTime}} {{'member_bank_deposit@order_result_info_part3' | translate}}
+                                  </em>
+                                  {{'member_bank_deposit@order_result_info_part4' | translate}}
+                              </p>
+                          </div>
+                      </div>
+                      <div class="mya_help ">
+                          <h5>
+                              {{'member_bank_deposit@order_result_help_part1' | translate}}
+                          </h5>
+                          <p>
+                              {{'member_bank_deposit@order_result_help_part2' | translate}}
+                              <a ng-click="openLiveChat() ">
+                                  {{'member_bank_deposit@order_result_help_part3' | translate}}
+                              </a>
+                              {{'member_bank_deposit@order_result_help_part4' | translate}}
+                          </p>
+                      </div>
+                  </div>
               </div>
             </div>
           </div>

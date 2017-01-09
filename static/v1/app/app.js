@@ -84,7 +84,23 @@ angular.module('ciApp', ['ui.router',
       }
     }).state('member.trade', {
       url: '/trade',
-      templateUrl: '/static/v1/app/components/member/member.trade.html'
+      params: {
+        method: 'deposit'
+      },
+      views:{
+        '': {
+          templateUrl: '/static/v1/app/components/member/member.trade.html'
+        },
+        'deposit@member.trade': {
+          templateUrl: '/static/v1/app/components/member/member.trade.deposit.html'
+        },
+        'withdraw@member.trade': {
+          templateUrl: '/static/v1/app/components/member/member.trade.withdraw.html'
+        },
+        'fund@member.trade': {
+          templateUrl: '/static/v1/app/components/member/member.trade.fund.html'
+        }
+      }
     }).state('member.message', {
       url: '/message',
       templateUrl: '/static/v1/app/components/member/member.message.html'

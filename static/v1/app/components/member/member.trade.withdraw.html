@@ -1,0 +1,47 @@
+<div class="vw-ck-cnt vw-p-bd" style="border: none;">
+  <div>
+    <table width="100%" class="transaction_table">
+      <thead>
+        <!-- 存款记录 -->
+        <tr>
+            <th>{{'member_trade@id' | translate}}</th>
+            <th>{{'member_trade@withdraw_bank' | translate}}</th>
+            <th>{{'member_trade@amount' | translate}}</th>
+            <th>{{'member_trade@remark' | translate}}</th>
+            <th>{{'member_trade@status' | translate}}</th>
+            <th>{{'member_trade@time' | translate}}</th>
+        </tr>
+      </thead>
+        <tbody>
+            <!-- 主帳戶交易明細 -->
+            <tr ng-repeat="item in withdrawList">
+                <!-- ID -->
+                <td>
+                    <span>{{item.id}}</span>
+                </td>
+                <!-- 提款银行 -->
+                <td>
+                    <span>{{item.bank_name}}</span>
+                </td>
+                <!-- 金额 -->
+                <td>
+                    <span>{{item.amount | number:2}}</span>
+                </td>
+                <!-- 备注 -->
+                <td>
+                    <span>{{item.remark}}</span>
+                </td>
+                <!-- 状态 -->
+                <td>
+                    <span>{{item.status}}</span>
+                </td>
+                <!-- 时间 -->
+                <td>
+                    <span>{{item.createtime}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div pager page-count="pager.pageCount" page-index="pager.pageIndex" update="pager.turnPage(num)"></div>
+  </div>
+</div>
