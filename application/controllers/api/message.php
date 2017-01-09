@@ -11,23 +11,28 @@ class Message extends Basecontroller {
 	    $ret = array();
 	    $ret['code'] = 1;
 	    
-	    $g =  $this->getApiParams();
-	    
-	    if (intval($g['type'])==0) {
-	        $params['user_id'] = $this->user_id;
+	    if ($this->user_id>0) {
+    	    $g =  $this->getApiParams();
+    	    
+    	    if (intval($g['type'])==0) {
+    	        $params['user_id'] = 0;
+    	    }
+    	    $params['user_id'] = $this->user_id;
+    	    if (isset($g['type'])) {
+    	        $params['type'] = $g['type'];
+    	    }
+    	    $aRS = $this->user_messages->getList($params);
+    	    $ret['result'] = $aRS;
 	    } else {
-	        $params['user_id'] = 0;
+	        $ret['code']   = -1;
 	    }
-	    
-	    $aRS = $this->user_messages->getList($params);
-	    $ret['result'] = $aRS;
 	    $this->teamapi($ret);
 	}
 	
 	public function detail() {
 	    $aRS = array();
 	    $ret = array();
-	    if ($this->user_id>0){
+	    if ($this->user_id>0) {
 	        $p = $this->getApiParams();
 	        $aMSG = $this->user_messages->detail(intval($p['id']));
 	        if ($aMSG['id']<1) {

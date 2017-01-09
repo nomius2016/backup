@@ -50,23 +50,26 @@ class user_messages extends Base_Model{
 	 */
 	public function getList($params){
 		$where = array();
-		if ($params['user_id']) {
-		    $where['user_id'] = $params['user_id'];
-		}
-		if ($params['title']) {
-		    $where['title'] = $params['title'];
-		}
-		if (isset($params['type'])) {
-		    $where['type'] = $params['type'];
-		}
-
+		
 		$page = $params['page'] ? $params['page'] : 1;
 		$pageSize =  $params['rows'] ? $params['rows'] : 20;
-		$start = ($page - 1) * $pageSize; 
-		
+		$start = ($page - 1) * $pageSize;
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
-
-		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		
+		if ($params['title']!="") {
+		    $where['title'] = $params['title'];
+		}
+		
+		if (isset($params['type'])) {
+    		if ($params['type']==1) {
+    		    $where['user_id'] = $params['user_id'];
+    		} else {
+    		    $where['user_id'] = 0;
+    		}
+    		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		} else {
+		    $list = $this->selectByWhereIn('user_id',array(0,$params['user_id']),'*',$limit,array('id','asc'));
+		}
 		$count = $this->count($where);
 
 		return array(
