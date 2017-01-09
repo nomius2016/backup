@@ -26,7 +26,7 @@ class fund_withdraw extends Base_Model{
 // 			array('createtime','创建时间',false),
 		    array('id','ID',false,false,40),
 		    array('account_name','账号',false,false,50),
-		    array('bank_code','提款银行',false,false,40),
+		    array('bank_name','提款银行',false,false,40),
 		    array('amount','金额',false,false,40),
 		    array('first_deal','初审',false,false,100),
 		    array('second_deal','复审',false,false,100),
@@ -85,6 +85,13 @@ class fund_withdraw extends Base_Model{
 			}
 		}
 
+		$this->load->model('user_bank_card');
+		//获取银行编码
+		foreach ($list as $key => &$value) {
+			$bankinfo = $this->user_bank_card->selectById($value['user_card_id']);
+			$value['bank_name'] = $bankinfo['bank_name'];
+			// print_r($bankinfo);exit;
+		}
 		$count = $this->count($where);
 
 		return array(
