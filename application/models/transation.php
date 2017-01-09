@@ -106,6 +106,109 @@ class Transation extends CI_Model {
 	        'balance_locked' => $aUser['balance_locked']
 	    );
 	}
+
+
+	/**
+	 * [changeMoney 更改用户资金]
+	 * @param  [type] $user_id [用户ID]
+	 * @param  [type] $amount  [金额 / 只能正数  此处金额 需要传入已经倍乘过以后的金额(*1000)]
+	 * @param  [type] $io      [资金进出  IN(中心钱包+) / OUT(中心钱包-) /INOUT(无变化) ]
+	 * @param  [type] $type    [类型]
+	 * @param  [type] $remark  [备注]
+	 * @return [type]          [description]
+	 */
+	public function changeMoney($user_id,$type,$amount,$io,$remark=''){
+
+		$user_id = intval($user_id);
+		$amount  = intval($amount);
+		$this->load->model('users');
+		$this->load->model('fund_transfer_log');
+		$userinfo = $this->users->getUserInfo($user_id);
+		$fund = array();
+
+		try {
+				switch ($type) {   //快捷变量适配区
+			
+				case FUND_DEPOSIT_SUCCESS:  //成功存款 -->增加balance
+					$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id),array('balance'=>"balance + $amount"));
+					$fund[] = array('transfer_type_id'=>1,'amount'=>$amount,'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance']+$amount,'income'=>1);
+					break;
+				
+				case FUND_WITHDRAW_APPLY:   //提款申请 --> 冻结金额 ,插入一条提款数据 一条解冻数据
+					$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id,'balance >='=>$amount),array('balance'=>"balance - $amount",'balance_locked'=>"balance_locked + $amount"));
+					$fund[] = array('transfer_type_id'=>2,'amount'=>$amount,'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance'],'income'=>0);
+					$fund[] = array('transfer_type_id'=>10,'amount'=>$amount*(-1),'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance']-$amount,'income'=>-1);
+					break;
+				case FUND_WITHDRAW_REFUSE:  //提款拒绝 --> 解冻金额 ,插入一条提款数据 一条解冻数据
+					$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id,'balance_locked >='=>$amount),array('balance'=>"balance + $amount",'balance_locked'=>"balance_locked - $amount"));
+					$fund[] = array('transfer_type_id'=>2,'amount'=>$amount*(-1),'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance'],'income'=>0);
+					$fund[] = array('transfer_type_id'=>10,'amount'=>$amount,'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance']+$amount,'income'=>1);
+					break;
+				case FUND_WITHDRAW_SUCCESS: //提款通过  -->解冻金额 
+					$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id,'balance_locked >='=>$amount),array('balance_locked'=>"balance_locked - $amount"));
+					break;
+				
+				case 100:   //AG转账
+				case 101:   //沙巴转账
+				case 102:   //PT转账
+				case 103:   //EA转账
+				case 104:   //BBIN转账
+				case 105:   //HG转账
+				case 106:   //OPUS转账
+				case 107:   //MG转账
+				case 108:   //GD转账
+				case 109:   //EG转账
+				case 110:   //皇冠体育转账
+					if($io == IN){
+						$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id),array('balance'=>"balance + $amount"));
+						$fund[] = array('transfer_type_id'=>$type,'amount'=>$amount,'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance']+$amount,'income'=>1);
+					}else{
+						$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id,'balance >='=>$amount),array('balance'=>"balance - $amount"));
+						$fund[] = array('transfer_type_id'=>100,'amount'=>$amount,'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance'] - $amount,'income'=>-1);
+					}
+					break;
+			}
+
+			if(!$affected_rows){
+				throw new Exception('更新用户表失败',10004);
+			}
+
+			//插入资金变动记录表
+			if($fund){
+				$data = array();
+				foreach ($fund as $key => $value) {
+					$aField = array();
+	                $aField['user_id']          = $user_id;
+	                $aField['parent_id']        = $userinfo['parent_id'];
+	                $aField['parent_path']      = $userinfo['parent_path'];
+	                $aField['transfer_type_id'] = $value['transfer_type_id'];
+	                $aField['income']           = $value['income'];
+	                $aField['before_balance']   = $value['before_balance'];
+	                $aField['amount']           = $value['amount'];
+	                $aField['after_balance']    = $value['after_balance'];
+	                $aField['remark']           = $remark;
+	                $aField['status']           = 1;
+	                $aField['dateline']         = time();
+	                $data[] = $aField;
+				}
+				$rows = $this->fund_transfer_log->insert_batch($data);
+			}
+			$userinfo = $this->users->getUserInfo($user_id);
+			return array(
+			        'balance' => $userinfo['balance'],
+			        'balance_locked' => $userinfo['balance_locked']
+			    );
+
+		} catch (Exception $e) {
+			throw new Exception('操作失败',10004);
+		}
+
+	}
+
+
+
+
+
 	
 	/**
 	 * @desc 根据类型判断是否为有效事务请求

@@ -38,9 +38,9 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
 //资金流进出
-define('IN',1);   //中心钱包增加钱  
-define('OUT',0); //中心钱包扣钱
-
+define('IN',1);    //中心钱包增加钱  
+define('OUT',0);   //中心钱包扣钱
+// define('INOUT',-1); //资金无变化  
 //资金流类型常量定义  1 红利 2存款 3转入中心钱包  6 提款 7 转入平台
 define('BONUS',1);   //红利
 define('DEPOSIT',2); //存款
@@ -50,6 +50,12 @@ define('WITHDRAWAL_APPLY',6);   //提款申请 (扣除中心钱包金额 增加�
 define('WITHDRAWAL_REFUSE',7);  //提款拒绝 (增加中心钱包金额 解冻金额) 
 define('WITHDRAWAL_SUCCESS',8); //提款成功  解冻金额
 // define('PTC',9);        //转入平台
+define('FUND_DEPOSIT_SUCCESS',1);  //
+define('FUND_WITHDRAW_APPLY' ,2);
+define('FUND_WITHDRAW_REFUSE',10000);
+define('FUND_WITHDRAW_SUCCESS',10001);
+
+
 
 //邮件发送地址  和 昵称
 define("EMAIL_FROM","hplus@admin.com");
@@ -67,11 +73,12 @@ define('EA_GAMING_ID',103);
 define('BBIN_GAMING_ID',104);
 define('HG_GAMING_ID',105);
 define('OPUS_GAMING_ID',106);
+define('MG_GAMING_ID',107);
 define('GD_GAMING_ID',108);
-// define('EA_GAMING_ID',108);
 define('EA_GAMING_ID',109);
 define('CROW_GAMING_ID',110);
-define('MG_GAMING_ID',111);
+
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
