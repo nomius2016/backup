@@ -17,18 +17,16 @@ class transfer extends Basecontroller {
 	    
 		if ($this->user_id>0) {
 		    $p = $this->getApiParams();
-            $real_amount = $p['amount'];
 		    if ($p['amount']>0) {
     		    $p['amount'] = intval($p['amount']*1000);
     		    
     		    $transfer_type_id = 0;
     		    if ($p['from']==10000) {
     		        $transfer_type_id = $p['to'];
-    		        $p['io'] = 0;
+    		        $p['io'] = OUT;
     		    } else {
     		        $transfer_type_id = $p['from'];
-    		        $p['amount'] *= -1;
-    		        $p['io'] = 1;
+    		        $p['io'] = IN;
     		    }
     		    // 取得用户的余额 //
     		    $aUser = $this->users->getUserInfo($this->user_id);
@@ -50,7 +48,7 @@ class transfer extends Basecontroller {
     		            $orderNo = $this->transation->getTradeNo($this->user_id, $transfer_type_id);
     		            // 对中户中心钱包进行操作，写日志  , 这个方法里面已经回自己抛异常 //
                         // $this->transation->make($this->user_id, $transfer_type_id, $p['amount'], 0, 0, $orderNo);
-    		            $this->transation->changeMoney($this->user_id, $transfer_type_id, $p['amount'], $io, $orderNo);
+    		            $this->transation->changeMoney($this->user_id, $transfer_type_id, $p['amount'], $p['io'], $orderNo);
     		            // 对游戏平台余额进行操作 //
     		            $trans_ret = $this->gaming_adapter->transfer($this->user_id, abs($p['amount']), $transfer_type_id, $p['io'], $orderNo);
     		            if ($trans_ret['code'] != 1) {

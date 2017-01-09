@@ -50,7 +50,7 @@ class Withdraw extends Basecontroller {
 	                    throw new Exception('failed to insert withdraw ',10002);
 	                }
     	             
-    	            $aStatus = $this->transation->make($this->user_id,2,$p['amount'],0,0,$aField['remark']);
+    	            $aStatus = $this->transation->changeMoney($this->user_id,FUND_WITHDRAW_APPLY,$p['amount'],'',$aField['remark']);
     	            // $aRS['balance'] = $this->f($aStatus['balance']);
     	            // $aRS['balance_locked'] = $this->f($aStatus['balance_locked']);
     	            //////////////////////////////
