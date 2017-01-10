@@ -49,4 +49,24 @@ class Message extends Basecontroller {
 	    $this->teamapi($ret);
 	}
 
+	/**
+	 * [del 删除站你信]
+	 * @return [type] [description]
+	 */
+	public function del(){
+		
+		$ret = array();
+		if(!$this->user_id){
+			$ret['code'] = -1;
+			$this->teamapi($ret);
+		}
+		
+		$this->load->model('user_messages');
+		$id = intval($this->getApiParams('id'));
+		$this->user_messages->delete(array('id'=>$id,'user_id'=>$this->user_id));
+		$row = $this->db->affected_rows();
+		$ret['code'] = $row ? 1 : -2;
+		$this->teamapi($ret);
+	}
+
 }

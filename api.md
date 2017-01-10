@@ -412,3 +412,10 @@
 
     URL: api/publicapi/get_system_config
     参数：无
+
+
+
+> * 26 删除站内信
+
+    URL: api/message/del
+    参数：id
