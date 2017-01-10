@@ -117,7 +117,7 @@ class Transation extends CI_Model {
 	 * @param  [type] $remark  [备注]
 	 * @return [type]          [description]
 	 */
-	public function changeMoney($user_id,$type,$amount,$io,$remark=''){
+	public function changeMoney($user_id,$type,$amount,$io,$remark='',$opuserid=0){
 
 		$user_id = intval($user_id);
 		$amount  = intval($amount);
@@ -155,7 +155,22 @@ class Transation extends CI_Model {
 				case FUND_WITHDRAW_SUCCESS: //提款通过  -->解冻金额 
 					$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id,'balance_locked >='=>$amount),array('balance_locked'=>"balance_locked - $amount"));
 					break;
-				
+				case FUND_FREEZE:  //冻结
+					if($io ===IN){   //解冻
+						$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id),array('balance'=>"balance + $amount",'balance_locked'=>"balance_locked - $amount"));
+						$fund[] = array('transfer_type_id'=>10,'amount'=>$amount,'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance']+$amount,'income'=>1);
+					}else{ //冻结
+						$affected_rows = $this->users->update_field_by_exp(array('user_id'=>$user_id,'balance >='=>$amount),array('balance'=>"balance - $amount",'balance_locked'=>"balance_locked + $amount"));
+						$fund[] = array('transfer_type_id'=>10,'amount'=>$amount*(-1),'before_balance'=>$userinfo['balance'],'after_balance'=>$userinfo['balance']-$amount,'income'=>-1);
+					}
+					
+					break;
+				case 5:    //派奖
+				case 6:     //返点
+				case 7:     //分红
+				case 8:     //佣金 
+				case 9:     //活动奖金
+				case 12:    //扣款
 				case 100:   //AG转账
 				case 101:   //沙巴转账
 				case 102:   //PT转账
@@ -196,6 +211,7 @@ class Transation extends CI_Model {
 	                $aField['after_balance']    = $value['after_balance'];
 	                $aField['remark']           = $remark;
 	                $aField['status']           = 1;
+	                $aField['op_user_id']       = $opuserid;
 	                $aField['dateline']         = time();
 	                $data[] = $aField;
 				}

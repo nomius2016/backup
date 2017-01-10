@@ -146,22 +146,24 @@ class User extends Basecontroller {
 	    $aRS['err_msg'] = '';
 	    try {
 	        $this->db->trans_begin();
-	        
 	        $iAdminID = $this->admins->getLoginAdminId();
 	        
 	        $p = $this->input->post();
+	        $p['amount'] = $p['amount'] * 1000;   //*1000
 	        if ($p['transfer_type_id']==1) {
 	            $aField = array();
 	            $aField['user_id'] = $p['user_id'];
 	            $aField['amount'] = $p['amount'];
 	            $aField['remark'] = $p['remark'];
-	            $aField['status'] = 2;
+	            $aField['status'] = 3;
 	            $aField['createtime'] = date('Y-m-d H:i:s');
 	            $this->db->set($aField)->insert('fund_deposit');
 	            if ($this->db->insert_id()<1) {
 	                throw new Exception('failed to insert deposit ',10002);
 	            }
+	            $aStatus = $this->transation->changeMoney($p['user_id'],FUND_DEPOSIT_SUCCESS,$p['amount'],'',$p['remark'],$iAdminID);
 	            $this->wlog("对 user id={$p['user_id']}进行充值手工操作，锁定amount={$p['amount']},{$p['remark']}");
+
 	        } else if ($p['transfer_type_id']==2) {
 	            $aField = array();
 	            $aField['user_id'] = $p['user_id'];
@@ -173,31 +175,39 @@ class User extends Basecontroller {
 	            if ($this->db->insert_id()<1) {
 	                throw new Exception('failed to insert withdraw ',10002);
 	            }
+	            $aStatus = $this->transation->changeMoney($p['user_id'],FUND_WITHDRAW_APPLY,$p['amount'],'',$p['remark'],$iAdminID);
 	            $this->wlog("对 user id={$p['user_id']}进行提现手工操作，锁定amount={$p['amount']},{$p['remark']}");
-	        } else if ($p['transfer_type_id']==3) {
+	        } else if ($p['transfer_type_id']==3) {  //投注
 	                
-            } else if ($p['transfer_type_id']==4) {
+            } else if ($p['transfer_type_id']==4) { // 追号
             } else if ($p['transfer_type_id']==5) {
+                $aStatus = $this->transation->changeMoney($p['user_id'],$p['transfer_type_id'],$p['amount'],IN,$p['remark'],$iAdminID);
                 $this->wlog("对 user id={$p['user_id']}进行手工派奖操作，派发金额amount={$p['amount']},{$p['remark']}");
             } else if ($p['transfer_type_id']==6) {
+                $aStatus = $this->transation->changeMoney($p['user_id'],$p['transfer_type_id'],$p['amount'],IN,$p['remark'],$iAdminID);
                 $this->wlog("对 user id={$p['user_id']}进行返点手工操作，增加返点amount={$p['amount']},{$p['remark']}");
             } else if ($p['transfer_type_id']==7) {
+                $aStatus = $this->transation->changeMoney($p['user_id'],$p['transfer_type_id'],$p['amount'],IN,$p['remark'],$iAdminID);
                 $this->wlog("对 user id={$p['user_id']}进行派发分红手工操作，派发金额amount={$p['amount']},{$p['remark']}");
             } else if ($p['transfer_type_id']==8) {
+                $aStatus = $this->transation->changeMoney($p['user_id'],$p['transfer_type_id'],$p['amount'],IN,$p['remark'],$iAdminID);
                 $this->wlog("对 user id={$p['user_id']}进行添加佣金手工操作，添加金额amount={$p['amount']},{$p['remark']}");
             } else if ($p['transfer_type_id']==9) {
+                $aStatus = $this->transation->changeMoney($p['user_id'],$p['transfer_type_id'],$p['amount'],IN,$p['remark'],$iAdminID);
                 $this->wlog("对 user id={$p['user_id']}进行活动奖金/励手工操作，派发金额amount={$p['amount']},{$p['remark']}");
             } else if ($p['transfer_type_id']==10) {    
-                if ($p['balance_lock_type_id']==2) {
-                    $p['amount'] *= -1;
-                }
+                
+                $io = $p['balance_lock_type_id']==2 ? IN : OUT;
+                $aStatus = $this->transation->changeMoney($p['user_id'],FUND_FREEZE,$p['amount'],$io,$p['remark'],$iAdminID);
+
                 $this->wlog("对 user id={$p['user_id']}锁定金额操作，锁定amount={$p['amount']},{$p['remark']}");
             } else if ($p['transfer_type_id']==11) {
             } else if ($p['transfer_type_id']==12) {
+                $aStatus = $this->transation->changeMoney($p['user_id'],$p['transfer_type_id'],$p['amount'],OUT,$p['remark'],$iAdminID);
                 $this->wlog("对 user id={$p['user_id']}进行扣款手工操作，操作金额amount={$p['amount']},{$p['remark']}");
             }
-	    
-	        $aStatus = $this->transation->make($p['user_id'],$p['transfer_type_id'],$p['amount']*1000,0,$iAdminID,$p['remark']);
+	    	
+	        // $aStatus = $this->transation->make($p['user_id'],$p['transfer_type_id'],$p['amount']*1000,0,$iAdminID,$p['remark']);
 	        $aRS['balance'] = $this->f($aStatus['balance']);
 	        $aRS['balance_locked'] = $this->f($aStatus['balance_locked']);
 	        //////////////////////////////
