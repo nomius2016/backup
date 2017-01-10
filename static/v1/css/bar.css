@@ -692,7 +692,7 @@ body {
 }
 
     .vw-bar-msg li {
-        padding: 15px 0;
+        padding: 8px 0;
         border-bottom: 1px solid #e5e5e5;
         cursor: pointer;
         line-height: 16px;
@@ -702,12 +702,13 @@ body {
     .vw-bar-msg h5 {
         color: #666;
         font-size: 12px;
-        margin-bottom: 7px;
+        margin-bottom: 5px;
+        font-weight: normal;
     }
 
-        .vw-bar-msg h5 span {
-            font-size: 14px;
-        }
+    .vw-bar-msg p {
+        font-size: 12px;
+    }
 
     .vw-bar-msg p a {
         color: #999;
@@ -716,20 +717,7 @@ body {
 
     .vw-bar-msg li.hot h5 {
         color: #c53e40;
-        /*padding-left: 14px;
-        position: relative;*/
     }
-
-/*.vw-bar-msg li.hot h5:before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 0;
-            width: 9px;
-            height: 9px;
-            border-radius: 9px;
-            background: #1deb00;
-        }*/
 
 .vw-bar-asset-wrap {
     padding: 0 18px;
@@ -1373,7 +1361,7 @@ body {
 
 .messageContent {
     max-height: 65px;
-    min-height: 65px;
+    /*min-height: 65px;*/
     overflow: hidden;
 }
 

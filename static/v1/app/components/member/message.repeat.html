@@ -1,0 +1,58 @@
+<li class="item-msg">
+    <!--<li class="item-msg" ng-class="{'active' : message.ReadStatus === '0'}">-->
+    <div class="main_panel cl">
+        <div class="msg-title">
+            <h3 class="fltlft" ng-bind="message.title"></h3>
+            <div class="fltrt" ng-bind="message.create_time | date: 'yyyy/MM/dd'"></div>
+        </div>
+        <p class="msg-content" ng-bind="message.content">
+        </p>
+        <!--訊息類型顯示-->
+        <div class="action-panel">
+            <a class="sc" ng-click="deleteMessage(message)">
+                {{'message_repeat@delete' | translate}}
+            </a>
+            <a class="zk" ng-if="message.Is_Bulletin === 0" ng-click="switchReply()" ng-class="{'active' : isExpand}">
+                {{'message_repeat@expand' | translate}}
+            </a>
+            <!--回覆則數顯示-->
+        </div>
+    </div>
+    <div class="zk-panel" ng-if="message.Is_Bulletin === 0 && isExpand">
+        <ul class="hf-list" ng-if="replys.length > 0">
+            <!--玩家留言-->
+            <li class="item-hf" ng-repeat-start="reply in replys" ng-if="!$first">
+                <div class="msg-title">
+                    <h3 class="fltlft hfr-kf">
+                        <span class="red">{{'message_repeat@me' | translate}}</span>
+                        <span>{{'message_repeat@reply' | translate}}</span>
+                        <span>{{'message_repeat@customer_service' | translate}}</span>
+                    </h3>
+                    <div class="fltrt" ng-bind="reply.CreateTime | date: 'yyyy/MM/dd'"></div>
+                </div>
+                <p class="msg-content" ng-bind="reply.ContentDetail"></p>
+            </li>
+            <!--客服留言-->
+            <li class="item-hf" ng-if="reply.ReplyMessage" ng-repeat-end>
+                <div class="msg-title">
+                    <h3 class="fltlft hfr-kf">
+                        <span class="red">{{'message_repeat@customer_service' | translate}}</span>
+                        <span>{{'message_repeat@reply' | translate}}</span>
+                        <span>{{'message_repeat@me' | translate}}</span>
+                    </h3>
+                    <div class="fltrt" ng-bind="reply.ProcessTime | date: 'yyyy/MM/dd'"></div>
+                </div>
+                <p class="msg-content" ng-bind="reply.ReplyMessage"></p>
+            </li>
+        </ul>
+        <div class="hf-box">
+            <div class="vw-ui-input">
+                <input type="text" ng-model="$parent.body" placeholder="{{'message_repeat@please_enter_the_reply_content' | translate}}" maxlength="300">
+            </div>
+            <a class="btn-1 sub-btn" ng-class="{'btn-disable':!$parent.body}" btn-process callback="reply()">
+                {{'message_repeat@submit' | translate}}
+            </a>
+        </div>
+    </div>
+
+</li>

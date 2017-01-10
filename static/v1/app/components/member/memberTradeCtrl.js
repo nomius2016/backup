@@ -12,6 +12,7 @@ angular.module('ciApp').controller('memberTradeCtrl', ['$scope', '$stateParams',
   $scope.clickTab = function(method) {
     $scope.method = method;
     appServices.scrollAnchor("#vw-ck");
+    $scope.getHistory();
   };
   $scope.enddate = appServices.getServerTime(),
   $scope.startdate = moment($scope.enddate).subtract(6, 'days').toDate();
@@ -47,7 +48,6 @@ angular.module('ciApp').controller('memberTradeCtrl', ['$scope', '$stateParams',
       start_date: $('#datepicker_start').val(),
       end_date: $('#datepicker_end').val()
     };
-    console.log($scope.method +'History')
     PlatformService.call($scope.method + 'History', data, function(res) {
       if (res.Success) {
         $scope[$scope.method + 'List'] =  res.Result.rows;
@@ -55,6 +55,7 @@ angular.module('ciApp').controller('memberTradeCtrl', ['$scope', '$stateParams',
       $scope.showLoading = false;
     });
   };
+  $scope.getHistory();
   $scope.showPopup = function(e, t) {
     $scope[e + 'Shown'] = true;
     $scope.queryDate = t;

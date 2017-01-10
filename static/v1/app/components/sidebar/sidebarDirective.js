@@ -36,9 +36,17 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
         I()
       }
 
-      function w() {
+      function getMessageList() {
         $scope.showMessageLoading = !0;
-        _()
+        a.call("GetMessageList", {
+          type: 0
+        }, function(res) {
+          $scope.showMessageLoading = false;
+          if(res.Success) {
+            $scope.messages = res.Result.rows;
+            console.log($scope.messages)
+          }
+        });
       }
 
       function P() {
@@ -103,14 +111,6 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
         })
       }
 
-      function _() {
-        a.call("GetMessageList", {
-          type: 0
-        }, function(e) {
-          $scope.showMessageLoading = false;
-          e.Success && ($scope.messages = e.Result.rows)
-        })
-      }
       var B = ["sidebar@privilege", "sidebar@funds", "sidebar@bonus", "sidebar@message"];
       var $bar = $(".vw-bar");
       var $barTab = $(".vw-bar-tab");
@@ -171,7 +171,9 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
         $scope.selectTitle = B[e]
       };
       $scope.openMessagePage = function(e) {
-        $scope.popMessageReply = [], $scope.popMessage = $scope.messages[e], 0 === $scope.popMessage.Is_Bulletin ? a.call("GetMessageReplyList", {
+        $scope.popMessageReply = [];
+        $scope.popMessage = $scope.messages[e];
+        0 === $scope.popMessage.Is_Bulletin ? a.call("GetMessageReplyList", {
           intComplaintID: $scope.popMessage.SubjectID
         }, function(e) {
           e.Success && ($scope.popMessageReply = e.Result, $scope.showPopup = !0)
@@ -272,7 +274,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
               h();
               break;
             case "MessageBox":
-              w();
+              getMessageList();
               break;
           }
         }

@@ -313,7 +313,7 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  background: url('../images/"shadow_b1.png) no-repeat top center;
+  background: url('../images/shadow_b1.png') no-repeat top center;
   z-index: 10;
   margin-bottom: -13px;
   ')
@@ -322,7 +322,7 @@
   position: absolute;
   left: 0;
   top: -13px;
-  background: url('../images/"shadow_b1_1.png) no-repeat top center;
+  background: url('../images/shadow_b1_1.png') no-repeat top center;
   z-index: 10;
   ')
 }
@@ -415,12 +415,12 @@
 }
 .hf-list .msg-title .fltlft.hfr-me {
   padding: 4px 0 4px 33px;
-  background: url('../images/"hfr-icon.png) left top no-repeat;
+  background: url('../images/hfr-icon.png') left top no-repeat;
   ')
 }
 .hf-list .msg-title .fltlft.hfr-kf {
   padding: 5px 0 4px 33px;
-  background: url('../images/"hfr-icon.png) left bottom no-repeat;
+  background: url('../images/hfr-icon.png') left bottom no-repeat;
   ')
 }
 .diy-confirm {
@@ -456,7 +456,7 @@
 .diy-confirm .diy-confirm-hd .close {
   width: 24px;
   height: 42px;
-  background: url('../images/"close-diy.png) center center no-repeat;
+  background: url('../images/close-diy.png') center center no-repeat;
   ')
 }
 .diy-confirm .diy-confirm-bd {
@@ -509,7 +509,7 @@
   display: inline-block;
   width: 32px;
   height: 32px;
-  background: url('../images/"fx.png) 0 0 no-repeat;
+  background: url('../images/fx.png') 0 0 no-repeat;
   ') #fff
 }
 .invite-panel .vw-p-bd .fx-btn a.wx {

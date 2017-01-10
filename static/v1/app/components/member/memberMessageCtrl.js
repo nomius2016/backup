@@ -4,26 +4,7 @@ angular.module('ciApp').controller('memberMessageCtrl', ['$scope', '$stateParams
     delete $scope.body;
     delete $scope.type;
     $scope.messages = [];
-    $scope.types = [];
-    $scope.getMessageTypeList();
     $scope.getMessageList()
-  };
-  $scope.getMessageTypeList = function() {
-    $scope.showMessageLoading = !0;
-    MessageService.call("GetMessageTypeList", {
-      intParentID: 0,
-      intThesaurusID: 1,
-      strLanguageCode: Container.getLang(),
-      intPageNumber: 0,
-      intRecordCounts: 999,
-      strOrderField: "CreateTime",
-      intDesc: 0
-    }, function(e) {
-      if (e.Success) {
-        $scope.types = e.Result;
-      }
-      $scope.showMessageLoading = !1;
-    });
   };
   $scope.createMessage = function() {
     var data = {};
@@ -57,17 +38,17 @@ angular.module('ciApp').controller('memberMessageCtrl', ['$scope', '$stateParams
     }
   };
   $scope.getMessageList = function() {
-    $scope.showMessageLoading = !0;
+    $scope.showMessageLoading = true;
     MessageService.call("GetMessageList", {
       type: 0
-    }, function(e) {
-      if (e.Success) {
-        $scope.messages = e.Result.rows;
-        var t = e.Result.rows.length;
+    }, function(res) {
+      if (res.Success) {
+        $scope.messages = res.Result.rows;
+        var t = res.Result.rows.length;
         $scope.pager.pageCount = Math.ceil(t / $scope.pager.pageSize);
       }
       appServices.scrollTop();
-      $scope.showMessageLoading = !1;
+      $scope.showMessageLoading = false;
     });
   };
   $scope.deleteMessage = function(e) {
@@ -85,5 +66,5 @@ angular.module('ciApp').controller('memberMessageCtrl', ['$scope', '$stateParams
       }
     });
   };
-  $scope.init()
+  $scope.init();
 }]);
