@@ -198,15 +198,15 @@
         <div class="o_item thema-b" style="width:800px;">
             <div class="o_cnt">
                 <div class="o_hd msg-title">
-                    <h3 class="fltlft">{{ popMessage.Subject }}</h3>
-                    <div class="fltrt" style="padding-right: 55px; padding-top: 12px; color: white">{{ popMessage.CreateTime | date: 'yyyy/MM/dd' }}</div>
+                    <h3 class="fltlft">{{ popMessage.title }}</h3>
+                    <div class="fltrt" style="padding-right: 55px; padding-top: 12px; color: white">{{ popMessage.create_time | date: 'yyyy/MM/dd' }}</div>
                 </div>
                 <div class="o_bd">
                     <div class="sm_table">
-                        <div class="s_tbl_top" style="width:760px;padding-top:20px;padding-bottom:0px;max-height:600px;overflow:auto;">
+                        <div class="s_tbl_top" style="width:760px;padding:20px;min-height:300px;max-height:600px;overflow:auto;">
                             <div class="message-list-panel">
                                 <div class="message-list">
-                                    <p class="msg-content">{{ popMessage.ContentDetail }}</p>
+                                    <p class="msg-content">{{ popMessage.content }}</p>
                                     <div class="zk-panel" ng-if="popMessage.Is_Bulletin === 0">
                                         <ul class="hf-list" style="max-height: none; padding-top: 20px; padding-bottom: 10px;" ng-if="popMessageReply.length > 0">
                                             <!--玩家留言-->

@@ -38,9 +38,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
 
       function getMessageList() {
         $scope.showMessageLoading = !0;
-        a.call("GetMessageList", {
-          type: 0
-        }, function(res) {
+        a.call("GetMessageList", {}, function(res) {
           $scope.showMessageLoading = false;
           if(res.Success) {
             $scope.messages = res.Result.rows;
@@ -171,6 +169,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
         $scope.selectTitle = B[e]
       };
       $scope.openMessagePage = function(e) {
+        // return false;
         $scope.popMessageReply = [];
         $scope.popMessage = $scope.messages[e];
         0 === $scope.popMessage.Is_Bulletin ? a.call("GetMessageReplyList", {

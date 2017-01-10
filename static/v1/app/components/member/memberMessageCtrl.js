@@ -39,9 +39,7 @@ angular.module('ciApp').controller('memberMessageCtrl', ['$scope', '$stateParams
   };
   $scope.getMessageList = function() {
     $scope.showMessageLoading = true;
-    MessageService.call("GetMessageList", {
-      type: 0
-    }, function(res) {
+    MessageService.call("GetMessageList", {}, function(res) {
       if (res.Success) {
         $scope.messages = res.Result.rows;
         var t = res.Result.rows.length;

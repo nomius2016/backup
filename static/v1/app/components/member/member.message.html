@@ -11,28 +11,6 @@
                 </div>
             </div>
         </div>
-        <div class="cl message-panel">
-            <div class="tab-hd ui-input">
-                <div class="thema-a col-4">
-                    <select class="ui-select" ng-model="type" ng-options="item.ThesaurusTypeID as item.ThesaurusName for item in types" required>
-                        <option value="" disabled>
-                            {{'member_message@please_select_the_suggest_type' | translate}}
-                        </option>
-                    </select>
-                </div>
-                <input class="col-6" type="text" placeholder="{{'member_message@please_enter_the_suggest_title' | translate}}" ng-model="subject" maxlength="50" />
-            </div>
-            <span class="red-warning red" ng-if="!type && subject">
-                {{'member_message@please_select_the_suggest_type' | translate}}
-            </span>
-            <div class="tab-bd">
-                <textarea cols="30" rows="10" class="ui-input" placeholder="{{'member_message@please_enter_the_suggest_content' | translate}}" ng-model="body" maxlength="300"></textarea>
-                <a class="btn-1" ng-class="{'btn-disable': !type || !subject || !body}" btn-process callback="createMessage()">
-                    {{'member_message@submit' | translate}}
-                </a>
-
-            </div>
-        </div>
     </div>
     <div class="vw-part  message-list-panel">
         <ul class="message-list">
