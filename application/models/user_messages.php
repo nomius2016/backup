@@ -70,6 +70,11 @@ class user_messages extends Base_Model{
 		} else {
 		    $list = $this->selectByWhereIn('user_id',array(0,$params['user_id']),'*',$limit,array('id','asc'));
 		}
+
+		foreach ($list as $key => &$value) {
+			$value['type'] = $value['user_id'] == 0 ? 1 : 0;
+		}
+
 		$count = $this->count($where);
 
 		return array(
