@@ -51,14 +51,14 @@ class transfer extends Basecontroller {
     		            $this->transation->changeMoney($this->user_id, $transfer_type_id, $p['amount'], $p['io'], $orderNo);
     		            // 对游戏平台余额进行操作 //
     		            $trans_ret = $this->gaming_adapter->transfer($this->user_id, abs($p['amount']/1000), $transfer_type_id, $p['io'], $orderNo);
-                        $p_balance = $this->gaming_adapter->getGameBanlance($this->user_id,$transfer_type_id);
+                        $this->gaming_adapter->getGameBanlance($this->user_id,$transfer_type_id);
     		            if (!$trans_ret['status']) {
     		                throw new Exception('第三平台操作失败',10200);
     		            }
     		            ////////////////////////////////////////////////////////////////////////////////////////
     		            
     		            $this->db->trans_commit();
-    		            $ret = array('code' => 1,'result'=>array(array('gaming_id'=>$transfer_type_id,'balance'=>$p_balance['balance'])) );
+    		            $ret = array('code' => 1);
 		            } catch (Exception $e) {
 		                $this->db->trans_rollback();
 		                if ($e->getCode()>0) {
