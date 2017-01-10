@@ -217,6 +217,7 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
           };
           PlatformService.call("Transfer", data, function(e) {
             e.Success ? (n.showAlertMsg("popup_alert@title_dear_user", "popup_alert@title_success"), D()) : n.showAlertMsg("popup_alert@title_fail", e.Message), $scope.inProcess = !1, $scope.from = "", $scope.to = "", $scope.transferAmount = ""
+            I();  //转账成功之后刷新余额
           });
         }
       };

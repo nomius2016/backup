@@ -54,6 +54,7 @@ define('FUND_DEPOSIT_SUCCESS',1);  //
 define('FUND_WITHDRAW_APPLY' ,2);
 define('FUND_WITHDRAW_REFUSE',10000);
 define('FUND_WITHDRAW_SUCCESS',10001);
+define('FUND_FREEZE',10002);  //冻结
 
 
 
