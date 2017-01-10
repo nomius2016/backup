@@ -277,8 +277,17 @@
   z-index: 9;
   background-color: #fff
 }
+.message-list-panel .message-list .msg-type {
+  background: #a41c1d;
+  float: left;
+  color: #fff;
+  padding: 4px 8px 5px;
+  margin-right: 5px;
+  border-radius: 10px;
+  font-size: 12px;
+}
 .message-list-panel .message-list .main_panel {
-  padding: 40px 22px;
+  padding: 30px 20px;
   position: relative
 }
 .message-list-panel .message-list .hf-box {

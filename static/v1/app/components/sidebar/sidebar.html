@@ -207,6 +207,11 @@
                             <div class="message-list-panel">
                                 <div class="message-list">
                                     <p class="msg-content">{{ popMessage.content }}</p>
+                                    <div class="action-panel" style="position: relative; display: block;">
+                                        <a class="sc fltrt" ng-if="popMessage.type === 0" ng-click="deleteMessage(popMessage)">
+                                            {{'message_repeat@delete' | translate}}
+                                        </a>
+                                    </div>
                                     <div class="zk-panel" ng-if="popMessage.Is_Bulletin === 0">
                                         <ul class="hf-list" style="max-height: none; padding-top: 20px; padding-bottom: 10px;" ng-if="popMessageReply.length > 0">
                                             <!--玩家留言-->

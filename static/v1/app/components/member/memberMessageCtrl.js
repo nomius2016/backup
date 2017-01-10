@@ -49,16 +49,11 @@ angular.module('ciApp').controller('memberMessageCtrl', ['$scope', '$stateParams
       $scope.showMessageLoading = false;
     });
   };
-  $scope.deleteMessage = function(e) {
-    var t = {};
-    t.intIDType = 1;
-    t.intRelatedID = e.SubjectID;
-    t.chrTrashStatus = "1";
-    t.strMemo = "";
-    t.bitIsBulletin = 1 === e.Is_Bulletin;
-    t.strCreator = Container.getUserName();
-    $scope.showMessageLoading = !0;
-    MessageService.call("DeleteMessage", t, function(e) {
+  $scope.deleteMessage = function(message) {
+    $scope.showMessageLoading = true;
+    MessageService.call("DeleteMessage", {
+      id: message.id
+    }, function(e) {
       if (e.Success) {
         $scope.getMessageList();
       }

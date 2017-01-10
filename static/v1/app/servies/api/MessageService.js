@@ -6,7 +6,7 @@ angular.module('requesterModule').factory('MessageService', ['ZeusService', func
     GetMessageList: 'Get',
     GetMessageReplyList: 'Complaint_ReplyList_Get',
     GetMessageTypeList: 'Thesaurus_GetByLanguageCode',
-    DeleteMessage: 'Message_TrashStatus_Update',
+    DeleteMessage: 'Del',
     ContactUs_Create: 'ContactUs_Create'
   };
   return {

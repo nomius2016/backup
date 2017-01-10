@@ -886,6 +886,8 @@
     "member_vip@vip_bonus": "骑士救援金",
     "member_vip@withdraw_bonus": "存款优惠",
     "message_repeat@customer_service": "客服",
+    "message_repeat@type_system": "系统消息",
+    "message_repeat@type_personal": "个人消息",
     "message_repeat@delete": "删除",
     "message_repeat@expand": "展开",
     "message_repeat@me": "我",

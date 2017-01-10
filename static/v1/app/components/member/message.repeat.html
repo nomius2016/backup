@@ -2,6 +2,8 @@
     <!--<li class="item-msg" ng-class="{'active' : message.ReadStatus === '0'}">-->
     <div class="main_panel cl">
         <div class="msg-title">
+            <span class="msg-type" ng-if="message.type === 1">{{'message_repeat@type_system' | translate}}</span>
+            <span class="msg-type" ng-if="message.type === 0">{{'message_repeat@type_personal' | translate}}</span>
             <h3 class="fltlft" ng-bind="message.title"></h3>
             <div class="fltrt" ng-bind="message.create_time | date: 'yyyy/MM/dd'"></div>
         </div>
@@ -9,12 +11,12 @@
         </p>
         <!--訊息類型顯示-->
         <div class="action-panel">
-            <a class="sc" ng-click="deleteMessage(message)">
+            <a class="sc" ng-if="message.type === 0" ng-click="deleteMessage(message)">
                 {{'message_repeat@delete' | translate}}
             </a>
-            <a class="zk" ng-if="message.Is_Bulletin === 0" ng-click="switchReply()" ng-class="{'active' : isExpand}">
+            <!-- <a class="zk" ng-click="switchReply()" ng-class="{'active' : isExpand}">
                 {{'message_repeat@expand' | translate}}
-            </a>
+            </a> -->
             <!--回覆則數顯示-->
         </div>
     </div>

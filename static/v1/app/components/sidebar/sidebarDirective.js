@@ -42,7 +42,6 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
           $scope.showMessageLoading = false;
           if(res.Success) {
             $scope.messages = res.Result.rows;
-            console.log($scope.messages)
           }
         });
       }
@@ -177,6 +176,18 @@ angular.module("ciApp").directive("sidebar", ["$state", "Container", "MessageSer
         }, function(e) {
           e.Success && ($scope.popMessageReply = e.Result, $scope.showPopup = !0)
         }) : $scope.showPopup = !0
+      };
+      $scope.deleteMessage = function(message) {
+        $scope.showMessageLoading = true;
+        a.call("DeleteMessage", {
+          id: message.id
+        }, function(e) {
+          if (e.Success) {
+            $scope.showPopup = false;
+            getMessageList();
+            $scope.showMessageLoading = true;
+          }
+        });
       };
       $scope.reply = function() {
         $scope.popMessage.replyContent && a.call("CreateMessageReply", {
