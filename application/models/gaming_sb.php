@@ -51,7 +51,7 @@ class gaming_sb extends base_gaming{
 		if($ret['status'] == 'success'){
 			return array('status'=>true,'balance'=>$ret['data']['balance']);
 		}else{
-			return array('status'=>false,'url'=>'获取链接失败');
+			return array('status'=>false,'url'=>'获取余额失败');
 		}
 
 	}
@@ -106,9 +106,9 @@ class gaming_sb extends base_gaming{
 		$data['serialNo'] = $orderNo;
 		$ret = $this->send_request("api/SportMember/{$data['userId']}/TransferFund",$data);
 		if($ret['status'] == 'success'){
-			return array('code'=>-2);
-		}else{
 			return array('code'=>1);
+		}else{
+			return array('code'=>-1);
 		}
 	}
 	/*获取投注记录*/
