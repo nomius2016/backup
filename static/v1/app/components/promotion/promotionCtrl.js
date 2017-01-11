@@ -1,5 +1,5 @@
 angular.module('ciApp')
-  .controller('promotionCtrl', ['$scope', '$location', '$anchorScroll', '$compile', '$state', 'Container', 'appServices', function($scope, $location, $anchorScroll, $compile, $state, Container, appServices) {
+  .controller('promotionCtrl', ['$scope', '$location', '$anchorScroll', '$compile', '$state', 'Container', 'appServices','PromotionService',function($scope, $location, $anchorScroll, $compile, $state, Container, appServices,PromotionService) {
     function toggleActive() {
       $('.pmt_info_ct').outerHeight();
       $('.pmt_info_ct').css('overflow', 'hidden').css('height', '324px');
@@ -36,7 +36,6 @@ angular.module('ciApp')
         }
       });
     }
-    
     function togglePage() {
       if (Container.getRelease()) {
         toggleActive();
@@ -80,9 +79,41 @@ angular.module('ciApp')
       });
     }
 
-    var authStatus = Container.getAuthStatus() === true ? 'after' : 'before';
+    //获取优惠活动
+    PromotionService.call("getpromotions", {}, function(res) {
+          $scope.promotions = [];    
+          //1 存提款 2体育 3娱乐场 4电子游戏 5 彩票
+          for (var i = res.Result.length - 1; i >= 0; i--){
+              var temp = res.Result[i];
+              switch(temp.type){
+                case '1':
+                  temp.c_name = 'DWMoney';
+                  break;
+                case '2':
+                  temp.c_name = 'Sports';
+                  break;
+                case '3':
+                  temp.c_name = 'Casino';
+                  break;
+                case '4':
+                  temp.c_name = 'Games';
+                  break;
+                case '5':
+                  temp.c_name = 'NumberGames';
+                  break;
+              }
+              console.log(temp);
+              $scope.promotions[i] = temp;
+              console.log($scope.promotions);
+          };
+
+    });
+
+
+
+    // var authStatus = Container.getAuthStatus() === true ? 'after' : 'before';
     $scope.showPop = false;
-    $scope.templateUrl = appServices.getTemplatePath(Container.getLang(), 'promotion', authStatus);
+    $scope.templateUrl = appServices.getTemplatePath(Container.getLang(), 'promotion', 'before');
     $scope.promotionRuleUrl = appServices.getTemplatePath(Container.getLang(), 'promotion', 'rules');
     $scope.loadTemplateComplete = function() {
       togglePage();
@@ -91,3 +122,4 @@ angular.module('ciApp')
       $scope.showPop = true;
     };
   }]);
+
