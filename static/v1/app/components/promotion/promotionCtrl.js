@@ -102,9 +102,7 @@ angular.module('ciApp')
                   temp.c_name = 'NumberGames';
                   break;
               }
-              console.log(temp);
               $scope.promotions[i] = temp;
-              console.log($scope.promotions);
           };
 
     });
