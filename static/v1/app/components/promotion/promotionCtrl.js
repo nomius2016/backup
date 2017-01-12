@@ -21,39 +21,34 @@ angular.module('ciApp')
       });
     }
 
-    function floatRight() {
-      var e = 1;
-      $('.pmt').removeClass('pmt_rt');
-      $('.cols10').removeClass('fltrt');
-      $('.pmt').each(function() {
-        if ($(this).is(':visible')) {
-          if (e % 2 === 0) {
-            $(this).addClass('pmt_rt');
-          } else {
-            $(this).find('.cols10').addClass('fltrt');
-          }
-          e++;
-        }
-      });
-    }
+    
     function togglePage() {
       if (Container.getRelease()) {
         toggleActive();
-        floatRight();
+        
         $('#li_All').bind('click', function() {
+          $scope.promotions = $scope.promotiondata;
           $('.pmt').show();
           document.body.scrollTop = 0;
           $('.pmtmenu').removeClass('active');
           $(this).addClass('active');
-          floatRight();
+          
         });
         $('#li_DWMoney, #li_Sports, #li_Casino, #li_Games, #li_NumberGames').bind('click', function() {
           $('.pmt').hide();
+          $scope.promotions = [];
+          for (var i = $scope.promotiondata.length - 1; i >= 0; i--) {
+            // console.log()
+            if($scope.promotiondata[i].c_name == $(this).data('type')){
+                $scope.promotions.push($scope.promotiondata[i]);
+            }
+          };
+
           $('.' + $(this).data('type')).show();
           document.body.scrollTop = 0;
           $('.pmtmenu').removeClass('active');
           $(this).addClass('active');
-          floatRight();
+
         });
         $('.Register').bind('click', function() {
           appServices.needRegister();
@@ -102,13 +97,13 @@ angular.module('ciApp')
                   temp.c_name = 'NumberGames';
                   break;
               }
-              $scope.promotions[i] = temp;
+              $scope.promotiondata[i] = temp;
           };
-
+          $scope.promotions = $scope.promotiondata;
     });
 
 
-
+    $scope.promotiondata = [];
     // var authStatus = Container.getAuthStatus() === true ? 'after' : 'before';
     $scope.showPop = false;
     $scope.templateUrl = appServices.getTemplatePath(Container.getLang(), 'promotion', 'before');
@@ -119,5 +114,9 @@ angular.module('ciApp')
     $scope.openRule = function() {
       $scope.showPop = true;
     };
-  }]);
 
+    $scope.showall = function(obj){
+        console.log(obj.$index);
+    //   // console.log(obj.innnerHTML);
+    }
+  }]);

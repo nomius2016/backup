@@ -1,21 +1,22 @@
-<div  ng-repeat="promotion in promotions" class="pmt {{promotion.c_name}}">
+<div  ng-repeat="promotion in promotions" class="pmt {{promotion.c_name}}" ng-class="{true:'pmt_rt'}[$odd]">
   <div class="pmt-tag-img ptag{{promotion.type}}">&nbsp;</div>
   <div class="pmt_tm fmb">
     <h4>2016.11.16</h4>
   </div>
-  <div class="cols10 last fltrt">
+  <div class="cols10 last" ng-class="{false:'fltrt'}[$odd]">
     <div class="pmt_info">
       <h3 class="red mgbt10">{{promotion.main_title}}</h3>
       <h5 class="mgbt10">{{promotion.main_title_desc}}</h5>
       <div class="horizonLine mgbt10">&nbsp;</div>
-      <div class="pmt_info_ct" render content="promotion.rule"></div>
+      <div class="pmt_info_ct" render content="promotion.rule" style="overflow: hidden;height: 324px"></div>
+      
       <div class="clear">&nbsp;</div>
-      <div class="opnBtn"><a class="btn4">更多详细信息</a></div>
+      <div class="opnBtn"><a class="btn4" ng-click="showall(this)">更多详细信息</a></div>
     </div>
     <div class="clear">&nbsp;</div>
     <div class="pmt_gbns"><img src="{{promotion.img}}" />
       <div class="ct">
-        <p class="nb fmb">{{promotion.amount}}<span>元</span></p>
+        <p class="nb fmb" style="line-height:100px">{{promotion.amount}}<span>元</span></p>
         <h4>{{promotion.amount_desc}}</h4>
         <div class="clear">&nbsp;</div>
         <div><a class="btn5 Register" style="border-radius: 20px;"><span>注册参加</span></a></div>
