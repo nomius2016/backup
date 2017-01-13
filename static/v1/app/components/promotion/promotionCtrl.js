@@ -1,30 +1,9 @@
 angular.module('ciApp')
   .controller('promotionCtrl', ['$scope', '$location', '$anchorScroll', '$compile', '$state', 'Container', 'appServices','PromotionService',function($scope, $location, $anchorScroll, $compile, $state, Container, appServices,PromotionService) {
-    function toggleActive() {
-      $('.pmt_info_ct').outerHeight();
-      $('.pmt_info_ct').css('overflow', 'hidden').css('height', '324px');
-      $('.opnBtn a.btn4').click(function() {
-        var cont = $(this).parent().parent().children('.pmt_info_ct').css('height', '100%');
-        var height = cont.outerHeight();
-        if ($(this).parent().parent().children('.pmt_info_ct').hasClass('active')) {
-          $(this).parent().parent().children('.pmt_info_ct').animate({
-            height: '324px'
-          }).removeClass('active');
-          $(this).find('.icon_cls').removeClass('icon_opn');
-        } else {
-          $(this).parent().parent().children('.pmt_info_ct').css('height', '324px');
-          $(this).parent().parent().children('.pmt_info_ct').animate({
-            height: height
-          }).addClass('active');
-          $(this).find('.icon_cls').addClass('icon_opn');
-        }
-      });
-    }
-
     
     function togglePage() {
       if (Container.getRelease()) {
-        toggleActive();
+        
         
         $('#li_All').bind('click', function() {
           $scope.promotions = $scope.promotiondata;
@@ -115,8 +94,25 @@ angular.module('ciApp')
       $scope.showPop = true;
     };
 
-    $scope.showall = function(obj){
-        console.log(obj.$index);
-    //   // console.log(obj.innnerHTML);
+    //查看更多详情
+    $scope.showall = function(index){
+        
+      var current_obj =  $('#promotion_a_'+index);
+      var current_obj_parent = current_obj.parent().parent();
+      
+      var cont = current_obj_parent.children('.pmt_info_ct').css('height', '100%');
+      var height = cont.outerHeight();
+        if (current_obj_parent.children('.pmt_info_ct').hasClass('active')) {
+          current_obj_parent.children('.pmt_info_ct').animate({
+            height: '324px'
+          }).removeClass('active');
+          current_obj.find('.icon_cls').removeClass('icon_opn');
+        }else {
+          current_obj_parent.children('.pmt_info_ct').css('height', '324px');
+          current_obj_parent.children('.pmt_info_ct').animate({
+            height: height
+          }).addClass('active');
+          current_obj.find('.icon_cls').addClass('icon_opn');
+        }
     }
   }]);

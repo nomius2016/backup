@@ -7,7 +7,6 @@ angular.module('ciApp')
       },
       link: function($scope, element, arrt) {
           element.html($scope.content);
-          // $('.pmt_info_ct').css('overflow', 'hidden').css('height', '324px');
       }
     }
   }]);
