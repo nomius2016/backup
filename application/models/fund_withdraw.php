@@ -71,7 +71,7 @@ class fund_withdraw extends Base_Model{
 		
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
-		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		$list = $this->selectByWhere($where,'*',$limit,array('id','desc'));
 		
 		if($params['status'] == 1){
 			foreach ($list as $key => &$value) {

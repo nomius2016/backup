@@ -58,7 +58,7 @@ class fund_bonus_log extends Base_Model{
 		
 		$limit = isset($params['export']) ? array() : array($start,$pageSize);
 
-		$list = $this->selectByWhere($where,'*',$limit,array('id','asc'));
+		$list = $this->selectByWhere($where,'*',$limit,array('id','desc'));
 		$count = $this->count($where);
 
 		return array(
